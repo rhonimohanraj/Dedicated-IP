@@ -78,15 +78,24 @@ jobs:
         run: |
           echo "$gcp_application_credentials" > ./terraform/apps/wireguard/gcp_credentials.json
 
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: 'latest'
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/create_server"
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/apps/wireguard
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/apps/wireguard
 
       - name: Save Terraform Outputs
@@ -140,10 +149,14 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/setup_domain"
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/cloudflare
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/cloudflare
 
   check_server:

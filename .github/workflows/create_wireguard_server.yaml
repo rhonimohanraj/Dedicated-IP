@@ -34,10 +34,11 @@ on:
         required: true
         type: choice
         options:
-          - cx22
-          - cx32
-          - cx42
-          - cx52
+          - cpx11
+          - cpx21
+          - cx31
+          - cx41
+          - cx51
       server_location:
         description: "Server Location"
         required: true

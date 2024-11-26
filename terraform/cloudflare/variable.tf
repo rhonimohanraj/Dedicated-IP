@@ -4,7 +4,7 @@ variable "cloudflare_api_token" {
 }
 
 variable "zone_id" {
-  description = "dedicatedip.org zone id"
+  description = "Zone Id"
   type        = string
 }
 

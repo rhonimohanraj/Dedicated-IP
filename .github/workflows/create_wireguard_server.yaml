@@ -1,0 +1,89 @@
+name: Create WireGuard Server
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: choice
+        options:
+          - Development
+          - Production
+      server_name:
+        description: "Server Name"
+        required: true
+        type: string
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+      admin_panel_username:
+        description: "Admin Panel Username"
+        required: true
+        type: string
+        default: "admin"
+      admin_panel_password:
+        description: "Admin Panel Password"
+        required: true
+        type: string
+      server_type:
+        description: "Server Type"
+        required: true
+        type: choice
+        options:
+          - CX22
+          - CX32
+          - CX42
+          - CX52
+      server_location:
+        description: "Server Location"
+        required: true
+        type: choice
+        options:
+          - fsn1
+          - nbg1
+          - hel1
+          - ash
+          - hil
+          - sin
+
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
+      TF_VAR_server_name: ${{ inputs.server_name }}
+      TF_VAR_domain_name: ${{ inputs.domain_prefix }}${{ secrets.DOMAIN }}
+      TF_VAR_ssl_email: "info@${{ secrets.DOMAIN }}"
+      TF_VAR_admin_panel_username: ${{ inputs.admin_panel_username }}
+      TF_VAR_admin_panel_password: ${{ inputs.admin_panel_password }}
+      TF_VAR_server_type: ${{ inputs.server_type }}
+      TF_VAR_server_location: ${{ inputs.server_location }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+      - name: Save Terraform Outputs
+        id: save_outputs
+        run: |
+          terraform output -json > output.json
+
+      - name: Upload Outputs
+        uses: actions/upload-artifact@v3
+        with:
+          name: terraform-output
+          path: output.json
+  

@@ -6,6 +6,7 @@ terraform {
 
     }
   }
+  backend "gcs" {}
 }
 
 provider "cloudflare" {

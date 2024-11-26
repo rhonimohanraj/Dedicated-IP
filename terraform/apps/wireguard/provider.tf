@@ -5,6 +5,7 @@ terraform {
       version = "~> 1.45"
     }
   }
+  backend "gcs" {}
 }
 
 provider "hcloud" {

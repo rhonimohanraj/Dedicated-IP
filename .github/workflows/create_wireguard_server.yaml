@@ -129,3 +129,31 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
         working-directory: terraform/cloudflare
+
+  check_server:
+    name: Check server up and running
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: set_domain
+    steps:
+      - name: Check Server Status
+        id: check_status
+        run: |
+          domain_url="https://${{ inputs.domain_prefix }}.${{ secrets.DOMAIN }}/login"
+          echo "Checking domain: $domain_url"
+          max_attempts=20  # 5 minutes (20 attempts every 15 seconds)
+          attempt=1
+          
+          while [ $attempt -le $max_attempts ]; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url")
+            echo "Attempt $attempt: HTTP Status $status"
+            if [ "$status" -eq 200 ]; then
+              echo "Server returned HTTP 200!"
+              exit 0
+            fi
+            attempt=$((attempt + 1))
+            sleep 15
+          done
+
+          echo "ERROR: Server did not return HTTP 200 within 5 minutes"
+          exit 1

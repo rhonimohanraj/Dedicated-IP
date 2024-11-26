@@ -102,6 +102,8 @@ jobs:
         id: save_outputs
         run: |
           terraform output -json > output.json
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/apps/wireguard
 
       - name: Upload Outputs
@@ -130,6 +132,11 @@ jobs:
           gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         run: |
           echo "$gcp_application_credentials" > ./terraform/cloudflare/gcp_credentials.json
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: 'latest'
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     templateUrl: './productoverview.component.html',
+    standalone: false
 })
 export class ProductOverviewComponent implements OnInit {
     

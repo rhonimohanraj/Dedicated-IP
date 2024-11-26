@@ -6,7 +6,8 @@ import { KanbanService } from './service/kanban.service';
 
 @Component({
     templateUrl: './kanban.app.component.html',
-    styleUrls: ['./kanban.app.component.scss']
+    styleUrls: ['./kanban.app.component.scss'],
+    standalone: false
 })
 export class KanbanAppComponent implements OnInit, OnDestroy {
 

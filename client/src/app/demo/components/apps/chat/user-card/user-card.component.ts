@@ -5,7 +5,8 @@ import { ChatService } from '../service/chat.service';
 
 @Component({
     selector: 'app-user-card',
-    templateUrl: './user-card.component.html'
+    templateUrl: './user-card.component.html',
+    standalone: false
 })
 export class UserCardComponent implements OnInit {
 

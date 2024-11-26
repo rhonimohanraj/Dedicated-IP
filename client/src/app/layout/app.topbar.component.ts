@@ -4,7 +4,8 @@ import { AppSidebarComponent } from './app.sidebar.component';
 
 @Component({
     selector: 'app-topbar',
-    templateUrl: './app.topbar.component.html'
+    templateUrl: './app.topbar.component.html',
+    standalone: false
 })
 export class AppTopbarComponent {
 

@@ -22,7 +22,8 @@ interface Image {
 
 @Component({
     templateUrl: './newproduct.component.html',
-    styleUrls: ['./newproduct.component.scss']
+    styleUrls: ['./newproduct.component.scss'],
+    standalone: false
 })
 export class NewProductComponent {
 

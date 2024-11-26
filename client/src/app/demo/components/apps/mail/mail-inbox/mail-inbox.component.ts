@@ -7,6 +7,7 @@ import { MailService } from 'src/app/demo/components/apps/mail/service/mail.serv
 @Component({
     selector: 'app-mail-inbox',
     templateUrl: './mail-inbox.component.html',
+    standalone: false
 })
 export class MailInboxComponent implements OnDestroy {
     mails: Mail[] = [];

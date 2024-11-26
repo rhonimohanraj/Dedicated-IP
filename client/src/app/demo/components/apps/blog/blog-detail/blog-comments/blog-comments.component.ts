@@ -3,7 +3,8 @@ import { Comment } from 'src/app/demo/api/blog';
 
 @Component({
     selector: 'app-blog-comments',
-    templateUrl: './blog-comments.component.html'
+    templateUrl: './blog-comments.component.html',
+    standalone: false
 })
 export class BlogCommentsComponent {
 

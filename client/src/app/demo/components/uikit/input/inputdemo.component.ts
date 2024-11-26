@@ -4,6 +4,7 @@ import { CountryService } from 'src/app/demo/service/country.service';
 
 @Component({
     templateUrl: './inputdemo.component.html',
+    standalone: false
 })
 export class InputDemoComponent implements OnInit {
     countries: any[] = [];

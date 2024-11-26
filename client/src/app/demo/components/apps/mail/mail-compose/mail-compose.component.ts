@@ -6,7 +6,8 @@ import { Mail } from 'src/app/demo/api/mail';
 import { MailService } from '../service/mail.service';
 
 @Component({
-    templateUrl: './mail-compose.component.html'
+    templateUrl: './mail-compose.component.html',
+    standalone: false
 })
 export class MailComposeComponent {
 

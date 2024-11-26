@@ -4,7 +4,8 @@ import { Mail } from 'src/app/demo/api/mail';
 import { MailService } from 'src/app/demo/components/apps/mail/service/mail.service';
 
 @Component({
-    templateUrl: './mail-sent.component.html'
+    templateUrl: './mail-sent.component.html',
+    standalone: false
 })
 export class MailSentComponent {
 

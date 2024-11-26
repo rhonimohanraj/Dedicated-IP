@@ -9,7 +9,8 @@ import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
     templateUrl: './file.app.component.html',
-    styleUrls: ['./file.app.component.scss']
+    styleUrls: ['./file.app.component.scss'],
+    standalone: false
 })
 export class FileAppComponent implements OnInit {
 

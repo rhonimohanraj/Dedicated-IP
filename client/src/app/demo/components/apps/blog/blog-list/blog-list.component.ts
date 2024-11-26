@@ -4,6 +4,7 @@ import { Blog } from 'src/app/demo/api/blog';
 
 @Component({
     templateUrl: './blog-list.component.html',
+    standalone: false
 })
 export class BlogListComponent {
     sortOptions: SelectItem[] = [

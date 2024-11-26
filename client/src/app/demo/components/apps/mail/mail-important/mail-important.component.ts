@@ -6,6 +6,7 @@ import { MailService } from 'src/app/demo/components/apps/mail/service/mail.serv
 @Component({
     selector: 'app-mail-important',
     templateUrl: './mail-important.component.html',
+    standalone: false
 })
 export class MailImportantComponent implements OnDestroy {
     importantMails: Mail[] = [];

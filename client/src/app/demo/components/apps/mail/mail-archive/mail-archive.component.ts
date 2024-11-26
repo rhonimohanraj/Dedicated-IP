@@ -6,6 +6,7 @@ import { MailService } from 'src/app/demo/components/apps/mail/service/mail.serv
 @Component({
     selector: 'app-mail-archive',
     templateUrl: './mail-archive.component.html',
+    standalone: false
 })
 export class MailArchiveComponent implements OnDestroy {
     archivedMails: Mail[] = [];

@@ -6,6 +6,7 @@ import { ProductService } from 'src/app/demo/service/product.service';
 
 @Component({
     templateUrl: './listdemo.component.html',
+    standalone: false
 })
 export class ListDemoComponent implements OnInit {
     products: Product[] = [];

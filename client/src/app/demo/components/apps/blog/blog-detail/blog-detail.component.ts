@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Comment } from 'src/app/demo/api/blog';
 
 @Component({
-    templateUrl: './blog-detail.component.html'
+    templateUrl: './blog-detail.component.html',
+    standalone: false
 })
 export class BlogDetailComponent {
 

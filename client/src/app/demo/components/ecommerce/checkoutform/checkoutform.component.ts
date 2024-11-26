@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './checkoutform.component.html',
+    standalone: false
 })
 export class CheckoutFormComponent {
 

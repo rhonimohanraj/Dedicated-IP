@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: './productlist.component.html'
+    templateUrl: './productlist.component.html',
+    standalone: false
 })
 export class ProductListComponent {
 

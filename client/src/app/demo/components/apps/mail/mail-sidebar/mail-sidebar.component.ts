@@ -7,7 +7,8 @@ import { filter, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-mail-sidebar',
-    templateUrl: './mail-sidebar.component.html'
+    templateUrl: './mail-sidebar.component.html',
+    standalone: false
 })
 export class MailSidebarComponent implements OnDestroy {
 

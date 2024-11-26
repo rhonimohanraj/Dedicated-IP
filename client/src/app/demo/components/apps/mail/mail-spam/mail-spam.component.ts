@@ -6,6 +6,7 @@ import { MailService } from 'src/app/demo/components/apps/mail/service/mail.serv
 @Component({
     selector: 'app-mail-spam',
     templateUrl: './mail-spam.component.html',
+    standalone: false
 })
 export class MailSpamComponent implements OnDestroy {
     spamMails: Mail[] = [];

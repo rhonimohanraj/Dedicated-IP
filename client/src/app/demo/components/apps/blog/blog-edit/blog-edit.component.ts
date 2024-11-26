@@ -3,7 +3,8 @@ import { File } from 'src/app/demo/api/file';
 
 @Component({
     templateUrl: './blog-edit.component.html',
-    styleUrls: ['./blog-edit.component.scss']
+    styleUrls: ['./blog-edit.component.scss'],
+    standalone: false
 })
 export class BlogEditComponent {
 

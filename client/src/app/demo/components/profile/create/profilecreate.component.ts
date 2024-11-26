@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    templateUrl: './profilecreate.component.html'
+    templateUrl: './profilecreate.component.html',
+    standalone: false
 })
 export class ProfileCreateComponent implements OnInit { 
 

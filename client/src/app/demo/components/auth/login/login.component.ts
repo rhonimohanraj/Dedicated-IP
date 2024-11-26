@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
-	templateUrl: './login.component.html'
+    templateUrl: './login.component.html',
+    standalone: false
 })
 export class LoginComponent {
 

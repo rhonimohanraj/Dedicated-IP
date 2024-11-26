@@ -4,7 +4,8 @@ import { TaskService } from './service/task.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-    templateUrl: './tasklist.app.component.html'
+    templateUrl: './tasklist.app.component.html',
+    standalone: false
 })
 export class TaskListAppComponent implements OnDestroy {
 

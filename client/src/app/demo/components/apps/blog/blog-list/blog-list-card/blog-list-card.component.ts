@@ -5,6 +5,7 @@ import { Blog } from 'src/app/demo/api/blog';
 @Component({
     selector: 'app-blog-list-card',
     templateUrl: './blog-list-card.component.html',
+    standalone: false
 })
 export class BlogListCardComponent {
     @Input() blog!: Blog;

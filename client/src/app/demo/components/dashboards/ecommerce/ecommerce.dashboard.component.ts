@@ -10,6 +10,7 @@ import { CustomerService } from 'src/app/demo/service/customer.service';
 
 @Component({
     templateUrl: './ecommerce.dashboard.component.html',
+    standalone: false
 })
 export class EcommerceDashboardComponent implements OnInit, OnDestroy {
     visitorChart: any;

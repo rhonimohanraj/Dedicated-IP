@@ -4,7 +4,8 @@ import { ChatService } from '../service/chat.service';
 
 @Component({
     selector: 'app-chat-sidebar',
-    templateUrl: './chat-sidebar.component.html'
+    templateUrl: './chat-sidebar.component.html',
+    standalone: false
 })
 export class ChatSidebarComponent implements OnInit {
 

@@ -97,6 +97,7 @@ jobs:
     name: Set Domain
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
+    needs: create_server
     env:
       TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_TOKEN }}
       TF_VAR_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}

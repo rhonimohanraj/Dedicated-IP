@@ -59,20 +59,6 @@ jobs:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/apps/wireguard
 
-      - name: Save Terraform Outputs
-        id: save_outputs
-        run: |
-          terraform output -json > output.json
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
-        working-directory: terraform/apps/wireguard
-
-      - name: Upload Outputs
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-output
-          path: terraform/apps/wireguard/output.json
-
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
         env:
@@ -88,6 +74,7 @@ jobs:
       TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_TOKEN }}
       TF_VAR_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
       TF_VAR_record_name: ${{ inputs.domain_prefix }}
+      TF_VAR_record_value: '127.0.0.1'
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
     steps:
       - name: Checkout Code
@@ -107,19 +94,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
-      - name: Download Terraform Outputs
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform-output
-          path: ./outputs
-
-      - name: Extract Server IP
-        id: extract_server_ip
-        run: |
-          server_ip=$(jq -r '.server_ip.value' ./outputs/output.json)
-          echo "Extracted Server IP: $server_ip"
-          echo "TF_VAR_record_value=$server_ip" >> $GITHUB_ENV
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/domain"

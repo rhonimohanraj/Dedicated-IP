@@ -1,4 +1,5 @@
 name: Create WireGuard Server
+run-name: Create WireGuard Server - ${{ inputs.server_name }}
 
 on:
   workflow_dispatch:

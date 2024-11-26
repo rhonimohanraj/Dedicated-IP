@@ -1,3 +1,3 @@
 output "server_ip" {
-  value = hcloud_server.wireguard_server.ipv4_address
+  value = hcloud_server.server.ipv4_address
 }

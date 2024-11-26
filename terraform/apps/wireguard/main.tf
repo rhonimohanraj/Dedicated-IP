@@ -12,5 +12,6 @@ resource "hcloud_server" "server" {
     ssl_email            = var.ssl_email
     admin_panel_username = var.admin_panel_username
     admin_panel_password = var.admin_panel_password
+    wireguard_ui_version = var.wireguard_ui_version
   })
 }

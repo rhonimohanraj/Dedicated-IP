@@ -1,0 +1,120 @@
+name: Destroy WireGuard Server
+run-name: Destroy WireGuard Server - ${{ inputs.server_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: choice
+        options:
+          - Development
+          - Production
+      server_name:
+        description: "Server Name"
+        required: true
+        type: string
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+
+
+jobs:
+  destroy_server:
+    name: Destroy WireGuard Server - ${{ inputs.server_name }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
+      TF_VAR_server_name: ${{ inputs.domain_prefix }}
+      TF_VAR_domain_name: "${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}"
+      TF_VAR_ssl_email: "info@${{ vars.DOMAIN }}"
+      TF_VAR_ssh_key_name: ${{inputs.environment}}
+      TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 'Prepare Workspace'
+        shell: bash
+        env:
+          gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        run: |
+          echo "$gcp_application_credentials" > ./terraform/apps/wireguard/gcp_credentials.json
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: 'latest'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/destroy_server"
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        working-directory: terraform/apps/wireguard
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        working-directory: terraform/apps/wireguard
+
+  destroy_domain:
+    name: Destroy Domain
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: destroy_server
+    env:
+      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_TOKEN }}
+      TF_VAR_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      TF_VAR_record_name: ${{ inputs.domain_prefix }}
+      TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 'Prepare Workspace'
+        shell: bash
+        env:
+          gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        run: |
+          echo "$gcp_application_credentials" > ./terraform/cloudflare/gcp_credentials.json
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: 'latest'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Download Terraform Outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform-output
+          path: ./outputs
+
+      - name: Extract Server IP
+        id: extract_server_ip
+        run: |
+          server_ip=$(jq -r '.server_ip.value' ./outputs/output.json)
+          echo "Extracted Server IP: $server_ip"
+          echo "TF_VAR_record_value=$server_ip" >> $GITHUB_ENV
+
+      - name: Terraform Init
+        run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/setup_domain"
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        working-directory: terraform/cloudflare
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        working-directory: terraform/cloudflare

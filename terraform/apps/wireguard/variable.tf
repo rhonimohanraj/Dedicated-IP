@@ -3,12 +3,6 @@ variable "hcloud_token" {
   type        = string
 }
 
-variable "ssh_public_key_file" {
-  description = "Path to your SSH public key file"
-  type        = string
-  default     = "~/.ssh/id_rsa.pub"
-}
-
 variable "server_name" {
   description = "Name of the Hetzner server"
   type        = string
@@ -20,7 +14,43 @@ variable "domain_name" {
   type        = string
 }
 
-variable "email" {
+variable "ssl_email" {
   description = "Email for generate https certificate"
   type        = string
+}
+
+variable "admin_panel_username" {
+  description = "Admin panel username"
+  type        = string
+  default     = "admin"
+}
+
+variable "admin_panel_password" {
+  description = "Admin panel password"
+  type        = string
+  default     = "nimda"
+}
+
+variable "server_type" {
+  description = "Hetzner server type"
+  type        = string
+  default     = "cx22"
+}
+
+variable "server_location" {
+  description = "Hetzner server location"
+  type        = string
+  default     = "nbg1"
+}
+
+variable "ssh_key_name" {
+  description = "SSH key name"
+  type        = string
+  default     = "production"
+}
+
+variable "wireguard_ui_version" {
+  description = "WireGuard UI version"
+  type        = string
+  default     = "0.6.2"
 }

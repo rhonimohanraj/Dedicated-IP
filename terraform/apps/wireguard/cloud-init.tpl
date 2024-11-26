@@ -58,7 +58,7 @@ write_files:
     permissions: '0644'
     content: |
       {
-        email ${email}
+        email ${ssl_email}
       }
       ${domain_name} {
           reverse_proxy localhost:5000
@@ -124,7 +124,7 @@ write_files:
           #BASE_PATH=/wireguard
 
           # The addresses where wireguard-ui should bind on.
-          #BIND_ADDRESS=0.0.0.0:80
+          #BIND_ADDRESS=0.0.0.0:5000
 
           # Used to encrypt the session cookies. Should be a random key, 32 characters long.
           SESSION_SECRET=$session_secret
@@ -186,24 +186,23 @@ write_files:
 runcmd:
   - #!/bin/bash
   - set -e
-  - export HOME=/root
   - apt update
   - apt upgrade -y
   - # Generate wireguard-ui session secret (16 bytes, 32 characters)
   - session_secret=$(openssl rand -hex 16)
   - sed -i "s/\$session_secret/$session_secret/g" /usr/local/bin/wireguard-ui/.env
   - # Set the admin username and password
-  - username="admin"
+  - username="${admin_panel_username}"
   - sed -i "s/\$admin_username/$username/g" /usr/local/bin/wireguard-ui/.env
   - # Hash password and encode it again with base64 to be compatible with the format wireguard-ui requires
   - apt-get install whois -y
-  - password="no-admin"
+  - password="${admin_panel_password}"
   - password_hash=$(mkpasswd --method=bcrypt "$password" | tr -d '\n' | openssl base64 -A | sed 's/\//\\\//g')
   - sed -i "s/\$admin_password_hash/$password_hash/g" /usr/local/bin/wireguard-ui/.env
   - # Set the domain name
   - sed -i "s/\$domain/${domain_name}/g" /usr/local/bin/wireguard-ui/.env
   - # Download the given version of wireguard-ui
-  - wget "https://github.com/ngoduykhanh/wireguard-ui/releases/download/v0.6.2/wireguard-ui-v0.6.2-linux-amd64.tar.gz" -O /tmp/wireguard-ui.tar.gz
+  - wget "https://github.com/ngoduykhanh/wireguard-ui/releases/download/v${wireguard_ui_version}/wireguard-ui-v${wireguard_ui_version}-linux-amd64.tar.gz" -O /tmp/wireguard-ui.tar.gz
   - # Unpack wireguard-ui
   - tar --skip-old-files -C /usr/local/bin/wireguard-ui -xzf /tmp/wireguard-ui.tar.gz wireguard-ui
   - # Create the data directory

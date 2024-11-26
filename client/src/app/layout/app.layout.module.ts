@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
@@ -23,8 +23,7 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarModule } from 'primeng/calendar';
 
-@NgModule({
-    declarations: [
+@NgModule({ declarations: [
         AppLayoutComponent,
         AppBreadcrumbComponent,
         AppSidebarComponent,
@@ -32,11 +31,8 @@ import { CalendarModule } from 'primeng/calendar';
         AppProfileSidebarComponent,
         AppMenuComponent,
         AppMenuitemComponent
-    ],
-    imports: [
-        BrowserModule,
+    ], imports: [BrowserModule,
         FormsModule,
-        HttpClientModule,
         BrowserAnimationsModule,
         InputTextModule,
         SidebarModule,
@@ -49,8 +45,5 @@ import { CalendarModule } from 'primeng/calendar';
         RouterModule,
         AppConfigModule,
         StyleClassModule,
-        CalendarModule,
-        
-    ]
-})
+        CalendarModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppLayoutModule { }

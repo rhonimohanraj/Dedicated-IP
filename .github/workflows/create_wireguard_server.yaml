@@ -52,12 +52,13 @@ on:
 
 
 jobs:
-  terraform:
+  create_server:
+    name: Create WireGuard Server - ${{ inputs.server_name }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
       TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
-      TF_VAR_server_name: ${{ inputs.server_name }}
+      TF_VAR_server_name: ${{ inputs.domain_prefix }}
       TF_VAR_domain_name: ${{ inputs.domain_prefix }}${{ secrets.DOMAIN }}
       TF_VAR_ssl_email: "info@${{ secrets.DOMAIN }}"
       TF_VAR_ssh_key_name: ${{inputs.environment}}

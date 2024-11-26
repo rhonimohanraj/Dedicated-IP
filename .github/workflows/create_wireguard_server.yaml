@@ -141,7 +141,7 @@ jobs:
         run: |
           domain_url="https://${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}/login"
           echo "Checking domain: $domain_url"
-          max_attempts=20  # 5 minutes (20 attempts every 15 seconds)
+          max_attempts=40  # 10 minutes (40 attempts every 15 seconds)
           attempt=1
           
           while [ $attempt -le $max_attempts ]; do
@@ -155,10 +155,10 @@ jobs:
               exit 0
             fi
 
-            echo "HTTP status: $http_status (not 200). Retrying in 30 seconds..."
+            echo "HTTP status: $http_status (not 200). Retrying in 15 seconds..."
             attempt=$((attempt + 1))
-            sleep 30
+            sleep 15
           done
 
-          echo "ERROR: Domain did not return HTTP 200 within 5 minutes."
+          echo "ERROR: Domain did not return HTTP 200 within 10 minutes."
           exit 1

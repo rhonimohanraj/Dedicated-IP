@@ -145,15 +145,20 @@ jobs:
           attempt=1
           
           while [ $attempt -le $max_attempts ]; do
-            http_status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url")
-            echo "Attempt $attempt: HTTP Status $http_status"
+            echo "Attempt $attempt: Checking domain status..."
+
+            # Attempt to get the HTTP status code
+            http_status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url" || echo "000")
+
             if [ "$http_status" -eq 200 ]; then
-              echo "Server returned HTTP 200!"
+              echo "Domain is reachable with HTTP 200 status!"
               exit 0
             fi
+
+            echo "HTTP status: $http_status (not 200). Retrying in 30 seconds..."
             attempt=$((attempt + 1))
-            sleep 15
+            sleep 30
           done
 
-          echo "ERROR: Server did not return HTTP 200 within 5 minutes"
+          echo "ERROR: Domain did not return HTTP 200 within 5 minutes."
           exit 1

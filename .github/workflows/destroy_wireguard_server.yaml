@@ -29,6 +29,7 @@ jobs:
       TF_VAR_ssl_email: "info@${{ vars.DOMAIN }}"
       TF_VAR_ssh_key_name: ${{inputs.environment}}
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -40,24 +41,15 @@ jobs:
         run: |
           echo "$gcp_application_credentials" > ./terraform/apps/wireguard/gcp_credentials.json
 
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          version: 'latest'
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/server"
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/apps/wireguard
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/apps/wireguard
 
   destroy_domain:
@@ -71,6 +63,7 @@ jobs:
       TF_VAR_record_name: ${{ inputs.domain_prefix }}
       TF_VAR_record_value: '127.0.0.1'
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -81,11 +74,6 @@ jobs:
           gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         run: |
           echo "$gcp_application_credentials" > ./terraform/cloudflare/gcp_credentials.json
-
-      - name: Set up Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          version: 'latest'
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3

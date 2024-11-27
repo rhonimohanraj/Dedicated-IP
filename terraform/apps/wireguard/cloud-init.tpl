@@ -79,7 +79,7 @@ write_files:
           WGUI_ENDPOINT_ADDRESS=$domain
 
           # The default endpoint port used in the global settings.
-          WGUI_ENDPOINT_PORT=51822
+          WGUI_SERVER_LISTEN_PORT=51822
 
           # The default endpoint save config used in the global settings.
           WGUI_ENDPOINT_SAVE_CONFIG=1

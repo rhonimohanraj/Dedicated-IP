@@ -78,15 +78,25 @@ write_files:
           # The default endpoint address used in the global settings.
           WGUI_ENDPOINT_ADDRESS=$domain
 
+          # The default endpoint port used in the global settings.
+          WGUI_ENDPOINT_PORT=51822
+
+          # The default endpoint save config used in the global settings.
+          WGUI_ENDPOINT_SAVE_CONFIG=1
+
+          WGUI_SERVER_POST_UP_SCRIPT=/usr/local/bin/wireguard-ui/postup.sh
+          WGUI_SERVER_POST_DOWN_SCRIPT=/usr/local/bin/wireguard-ui/postdown.sh
+
+
   - path: /usr/local/bin/wireguard-ui/postup.sh
-    permissions: '0644'
+    permissions: '0755'
     content: |
       #!/usr/bin/bash
       ufw route allow in on wg0 out on eth0
       iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
 
-  - path: /usr/local/bin/wireguard-ui/postup.sh
-    permissions: '0644'
+  - path: /usr/local/bin/wireguard-ui/postdown.sh
+    permissions: '0755'
     content: |
       #!/usr/bin/bash
       ufw route delete allow in on wg0 out on eth0
@@ -113,6 +123,7 @@ runcmd:
   - sed -i "s/\$domain/${domain_name}/g" /usr/local/bin/wireguard-ui/.env
   - # End prepare workspace
   - # install wireguard
+  - apt install iptables -y
   - apt install wireguard -y
   - # Download the given version of wireguard-ui
   - wget "https://github.com/ngoduykhanh/wireguard-ui/releases/download/v${wireguard_ui_version}/wireguard-ui-v${wireguard_ui_version}-linux-amd64.tar.gz" -O /tmp/wireguard-ui.tar.gz
@@ -127,20 +138,20 @@ runcmd:
   - apt update
   - apt-get install -y caddy -o Dpkg::Options::="--force-confold"
   - # Start wireguard-ui and caddy
-  - systemctl enable wireguard-ui.service caddy.service &> /dev/null
-  - systemctl start wireguard-ui.service caddy.service &> /dev/null
+  - systemctl enable wireguard-ui.service caddy.service
+  - systemctl start wireguard-ui.service caddy.service
   - until [ -f /etc/wireguard/wg0.conf ]
   - do
   -   sleep 0.1
   - done
   - sleep 0.1
   - # Start wireguard and watch for config changes
-  - systemctl enable wg-quick@wg0.service &> /dev/null
-  - systemctl start wg-quick@wg0.service &> /dev/null
-  - systemctl enable wg-watcher.path &> /dev/null
-  - systemctl enable wg-watcher.service &> /dev/null
-  - systemctl start wg-watcher.path &> /dev/null
-  - systemctl start wg-watcher.service &> /dev/null
+  - systemctl enable wg-quick@wg0.service
+  - systemctl start wg-quick@wg0.service
+  - systemctl enable wg-watcher.path
+  - systemctl enable wg-watcher.service
+  - systemctl start wg-watcher.path
+  - systemctl start wg-watcher.service
   - # Enable the firewall
   - sudo ufw allow OpenSSH
   - sudo ufw allow 80 comment "allow HTTP"
@@ -152,4 +163,5 @@ runcmd:
   - # Enable IP forwarding
   - sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf
   - sed -i '/net.ipv6.conf.all.forwarding=1/s/^#//g' /etc/sysctl.conf
-  - sysctl -p &> /dev/null
+  - sysctl -p
+  - reboot

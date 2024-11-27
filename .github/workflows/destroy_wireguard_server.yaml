@@ -1,5 +1,5 @@
 name: Destroy WireGuard Server
-run-name: Destroy WireGuard Server - ${{ inputs.server_name }}
+run-name: Destroy WireGuard Server - ${{ inputs.domain_prefix }}
 
 on:
   workflow_dispatch:
@@ -12,19 +12,14 @@ on:
         options:
           - Development
           - Production
-      server_name:
-        description: "Server Name"
-        required: true
-        type: string
       domain_prefix:
         description: "Domain Prefix"
         required: true
         type: string
 
-
 jobs:
   destroy_server:
-    name: Destroy WireGuard Server - ${{ inputs.server_name }}
+    name: Destroy WireGuard Server
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:

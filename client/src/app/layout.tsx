@@ -3,7 +3,6 @@ import 'src/global.css';
 // ----------------------------------------------------------------------
 
 import type { Viewport } from 'next';
-
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
 import { CONFIG } from 'src/config-global';
@@ -13,10 +12,13 @@ import { ThemeProvider } from 'src/theme/theme-provider';
 
 import { ProgressBar } from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
-import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
+import { defaultSettings, SettingsProvider } from 'src/components/settings';
 
 import { AuthProvider } from 'src/auth/context/firebase';
-import AppCheck from "../libs/firebase/components/app-check";
+import React from "react";
+import AppCheck from '../libs/firebase/components/app-check';
+import QueryClientInjector from "../libs/query-client-injector";
+
 
 // ----------------------------------------------------------------------
 
@@ -40,27 +42,29 @@ type Props = {
 };
 
 export default async function RootLayout({ children }: Props) {
+
   return (
     <html lang="en" suppressHydrationWarning>
-    <body>
-    <InitColorSchemeScript
-      defaultMode={schemeConfig.defaultMode}
-      modeStorageKey={schemeConfig.modeStorageKey}
-    />
-    <AppCheck />
+      <body>
+        <QueryClientInjector>
+          <InitColorSchemeScript
+            defaultMode={schemeConfig.defaultMode}
+            modeStorageKey={schemeConfig.modeStorageKey}
+          />
+          <AppCheck />
 
-    <AuthProvider>
-      <SettingsProvider settings={defaultSettings}>
-        <ThemeProvider>
-          <MotionLazy>
-            <ProgressBar/>
-            <SettingsDrawer/>
-            {children}
-          </MotionLazy>
-        </ThemeProvider>
-      </SettingsProvider>
-    </AuthProvider>
-    </body>
+          <AuthProvider>
+            <SettingsProvider settings={defaultSettings}>
+              <ThemeProvider>
+                <MotionLazy>
+                  <ProgressBar />
+                  {children}
+                </MotionLazy>
+              </ThemeProvider>
+            </SettingsProvider>
+          </AuthProvider>
+        </QueryClientInjector>
+      </body>
     </html>
   );
 }

@@ -16,6 +16,7 @@ import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, defaultSettings, SettingsProvider } from 'src/components/settings';
 
 import { AuthProvider } from 'src/auth/context/firebase';
+import AppCheck from "../libs/firebase/components/app-check";
 
 // ----------------------------------------------------------------------
 
@@ -46,6 +47,7 @@ export default async function RootLayout({ children }: Props) {
       defaultMode={schemeConfig.defaultMode}
       modeStorageKey={schemeConfig.modeStorageKey}
     />
+    <AppCheck />
 
     <AuthProvider>
       <SettingsProvider settings={defaultSettings}>

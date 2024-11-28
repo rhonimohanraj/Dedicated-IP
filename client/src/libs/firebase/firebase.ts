@@ -15,11 +15,6 @@ const isFirebase = true;
 
 export const firebaseApp = isFirebase ? initializeApp(CONFIG.firebase) : ({} as FirebaseApp);
 
-export const APP_CHECK = initializeAppCheck(firebaseApp,{
-  provider: new ReCaptchaEnterpriseProvider(CONFIG.firebase.appCheckSiteKey),
-  isTokenAutoRefreshEnabled: true,
-})
-
 export const AUTH = isFirebase ? getAuth(firebaseApp) : ({} as AuthType);
 
 export const FIRESTORE = isFirebase ? getFirestore(firebaseApp) : ({} as FirestoreType);

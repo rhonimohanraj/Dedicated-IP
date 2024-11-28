@@ -92,7 +92,7 @@ write_files:
           TELEGRAM_ALLOW_CONF_REQUEST=${telegram_allow_conf_request}
 
           # SMTP settings
-          SMTP_HOSTNAME=${smtp_host}
+          SMTP_HOSTNAME=${smtp_hostname}
           SMTP_PORT=${smtp_port}
           SMTP_USERNAME=${smtp_username}
           SMTP_PASSWORD=${smtp_password}

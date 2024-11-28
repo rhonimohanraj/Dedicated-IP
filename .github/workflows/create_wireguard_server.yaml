@@ -63,6 +63,14 @@ jobs:
       TF_VAR_server_type: ${{ inputs.server_type }}
       TF_VAR_server_location: ${{ inputs.server_location }}
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      TF_VAR_telegram_token: ${{ secrets.TELEGRAM_TOKEN }}
+      TF_VAR_telegram_allow_conf_request: ${{ vars.TELEGRAM_ALLOW_CONF_REQUEST }}
+      TF_VAR_smtp_hostname: ${{ secrets.SMTP_HOSTNAME }}
+      TF_VAR_smtp_port: ${{ secrets.SMTP_PORT }}
+      TF_VAR_smtp_username: ${{ secrets.SMTP_USERNAME }}
+      TF_VAR_smtp_password: ${{ secrets.SMTP_PASSWORD }}
+      TF_VAR_email_from_address: ${{ secrets.EMAIL_FROM_ADDRESS }}
+      TF_VAR_email_from_name: ${{ secrets.EMAIL_FROM_NAME }}
       GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
     steps:
       - name: Checkout Code

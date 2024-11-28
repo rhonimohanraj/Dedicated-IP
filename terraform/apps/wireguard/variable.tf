@@ -57,7 +57,7 @@ variable "wireguard_ui_version" {
 
 variable "gcp_region" {
   description = "The region to deploy resources in"
-  default = "europe-west4"
+  default     = "europe-west4"
 }
 
 variable "gcp_project_id" {
@@ -66,5 +66,38 @@ variable "gcp_project_id" {
 
 variable "gcp_credentials_path" {
   description = "The path to your Google Cloud service account credentials JSON file"
-  default = "./gcp_credentials.json"
+  default     = "./gcp_credentials.json"
+}
+
+variable "telegram_token" {
+  description = "value of the telegram token"
+}
+
+variable "telegram_allow_conf_request" {
+  description = "value of the telegram allow conf request"
+  default     = "false"
+}
+
+variable "smtp_hostname" {
+  description = "value of the SMTP_HOSTNAME"
+}
+
+variable "smtp_port" {
+  description = "value of the SMTP_PORT"
+}
+
+variable "smtp_username" {
+  description = "value of the EMAIL_USERNAME"
+}
+
+variable "smtp_password" {
+  description = "value of the EMAIL_PASSWORD"
+}
+
+variable "email_from_address" {
+  description = "value of the EMAIL_FROM_ADDRESS"
+}
+
+variable "email_from_name" {
+  description = "value of the EMAIL_FROM_NAME"
 }

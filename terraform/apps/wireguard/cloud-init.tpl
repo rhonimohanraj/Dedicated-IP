@@ -87,6 +87,19 @@ write_files:
           WGUI_SERVER_POST_UP_SCRIPT=/usr/local/bin/wireguard-ui/postup.sh
           WGUI_SERVER_POST_DOWN_SCRIPT=/usr/local/bin/wireguard-ui/postdown.sh
 
+          # Telegram bot settings
+          TELEGRAM_TOKEN=${telegram_token}
+          TELEGRAM_ALLOW_CONF_REQUEST=${telegram_allow_conf_request}
+
+          # SMTP settings
+          SMTP_HOSTNAME=${smtp_host}
+          SMTP_PORT=${smtp_port}
+          SMTP_USERNAME=${smtp_username}
+          SMTP_PASSWORD=${smtp_password}
+          SMTP_PORT=${smtp_port}
+          EMAIL_FROM_ADDRESS=${email_from_address}
+          EMAIL_FROM_NAME=${email_from_name}
+
 
   - path: /usr/local/bin/wireguard-ui/postup.sh
     permissions: '0755'

@@ -23,7 +23,14 @@ import { Form, Field } from 'src/components/hook-form';
 
 import { useAuthContext } from '../../hooks';
 import { FormHead } from '../../components/form-head';
-import { signInWithPassword } from '../../context/jwt';
+import { FormDivider } from '../../components/form-divider';
+import { FormSocials } from '../../components/form-socials';
+import {
+  signInWithGoogle,
+  signInWithGithub,
+  signInWithTwitter,
+  signInWithPassword,
+} from '../../context/firebase';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +49,7 @@ export const SignInSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export function JwtSignInView() {
+export function FirebaseSignInView() {
   const router = useRouter();
 
   const { checkUserSession } = useAuthContext();
@@ -52,8 +59,8 @@ export function JwtSignInView() {
   const password = useBoolean();
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: '@demo1',
+    email: '',
+    password: '',
   };
 
   const methods = useForm<SignInSchemaType>({
@@ -78,6 +85,30 @@ export function JwtSignInView() {
     }
   });
 
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSignInWithGithub = async () => {
+    try {
+      await signInWithGithub();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSignInWithTwitter = async () => {
+    try {
+      await signInWithTwitter();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const renderForm = (
     <Box gap={3} display="flex" flexDirection="column">
       <Field.Text name="email" label="Email address" InputLabelProps={{ shrink: true }} />
@@ -85,7 +116,7 @@ export function JwtSignInView() {
       <Box gap={1.5} display="flex" flexDirection="column">
         <Link
           component={RouterLink}
-          href="#"
+          href={paths.auth.resetPassword}
           variant="body2"
           color="inherit"
           sx={{ alignSelf: 'flex-end' }}
@@ -132,19 +163,13 @@ export function JwtSignInView() {
         description={
           <>
             {`Don’t have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signUp} variant="subtitle2">
+            <Link component={RouterLink} href={paths.auth.signUp} variant="subtitle2">
               Get started
             </Link>
           </>
         }
         sx={{ textAlign: { xs: 'center', md: 'left' } }}
       />
-
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Use <strong>{defaultValues.email}</strong>
-        {' with password '}
-        <strong>{defaultValues.password}</strong>
-      </Alert>
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>
@@ -155,6 +180,14 @@ export function JwtSignInView() {
       <Form methods={methods} onSubmit={onSubmit}>
         {renderForm}
       </Form>
+
+      <FormDivider />
+
+      <FormSocials
+        signInWithGoogle={handleSignInWithGoogle}
+        singInWithGithub={handleSignInWithGithub}
+        signInWithTwitter={handleSignInWithTwitter}
+      />
     </>
   );
 }

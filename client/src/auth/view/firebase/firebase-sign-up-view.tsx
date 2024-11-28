@@ -21,10 +21,16 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import { Iconify } from 'src/components/iconify';
 import { Form, Field } from 'src/components/hook-form';
 
-import { signUp } from '../../context/jwt';
-import { useAuthContext } from '../../hooks';
 import { FormHead } from '../../components/form-head';
+import { FormDivider } from '../../components/form-divider';
+import { FormSocials } from '../../components/form-socials';
 import { SignUpTerms } from '../../components/sign-up-terms';
+import {
+  signUp,
+  signInWithGithub,
+  signInWithGoogle,
+  signInWithTwitter,
+} from '../../context/firebase';
 
 // ----------------------------------------------------------------------
 
@@ -45,20 +51,18 @@ export const SignUpSchema = zod.object({
 
 // ----------------------------------------------------------------------
 
-export function JwtSignUpView() {
-  const { checkUserSession } = useAuthContext();
+export function FirebaseSignUpView() {
+  const [errorMsg, setErrorMsg] = useState('');
 
   const router = useRouter();
 
   const password = useBoolean();
 
-  const [errorMsg, setErrorMsg] = useState('');
-
   const defaultValues = {
-    firstName: 'Hello',
-    lastName: 'Friend',
-    email: 'hello@gmail.com',
-    password: '@demo1',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
   };
 
   const methods = useForm<SignUpSchemaType>({
@@ -79,14 +83,41 @@ export function JwtSignUpView() {
         firstName: data.firstName,
         lastName: data.lastName,
       });
-      await checkUserSession?.();
 
-      router.refresh();
+      const searchParams = new URLSearchParams({ email: data.email }).toString();
+
+      const href = `${paths.auth.verify}?${searchParams}`;
+
+      router.push(href);
     } catch (error) {
       console.error(error);
       setErrorMsg(typeof error === 'string' ? error : error.message);
     }
   });
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSignInWithGithub = async () => {
+    try {
+      await signInWithGithub();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSignInWithTwitter = async () => {
+    try {
+      await signInWithTwitter();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const renderForm = (
     <Box gap={3} display="flex" flexDirection="column">
@@ -135,7 +166,7 @@ export function JwtSignUpView() {
         description={
           <>
             {`Already have an account? `}
-            <Link component={RouterLink} href={paths.auth.jwt.signIn} variant="subtitle2">
+            <Link component={RouterLink} href={paths.auth.signIn} variant="subtitle2">
               Get started
             </Link>
           </>
@@ -154,6 +185,14 @@ export function JwtSignUpView() {
       </Form>
 
       <SignUpTerms />
+
+      <FormDivider />
+
+      <FormSocials
+        signInWithGoogle={handleSignInWithGoogle}
+        singInWithGithub={handleSignInWithGithub}
+        signInWithTwitter={handleSignInWithTwitter}
+      />
     </>
   );
 }

@@ -10,10 +10,6 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
-  if (CONFIG.auth.skip) {
-    return <DashboardLayout>{children}</DashboardLayout>;
-  }
-
   return (
     <AuthGuard>
       <DashboardLayout>{children}</DashboardLayout>

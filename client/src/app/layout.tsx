@@ -41,24 +41,24 @@ type Props = {
 export default async function RootLayout({ children }: Props) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
-        <InitColorSchemeScript
-          defaultMode={schemeConfig.defaultMode}
-          modeStorageKey={schemeConfig.modeStorageKey}
-        />
+    <body>
+    <InitColorSchemeScript
+      defaultMode={schemeConfig.defaultMode}
+      modeStorageKey={schemeConfig.modeStorageKey}
+    />
 
-        <AuthProvider>
-          <SettingsProvider settings={defaultSettings}>
-            <ThemeProvider>
-              <MotionLazy>
-                <ProgressBar />
-                <SettingsDrawer />
-                {children}
-              </MotionLazy>
-            </ThemeProvider>
-          </SettingsProvider>
-        </AuthProvider>
-      </body>
+    <AuthProvider>
+      <SettingsProvider settings={defaultSettings}>
+        <ThemeProvider>
+          <MotionLazy>
+            <ProgressBar/>
+            <SettingsDrawer/>
+            {children}
+          </MotionLazy>
+        </ThemeProvider>
+      </SettingsProvider>
+    </AuthProvider>
+    </body>
     </html>
   );
 }

@@ -21,6 +21,7 @@ export type ConfigValue = {
     storageBucket: string;
     measurementId: string;
     messagingSenderId: string;
+    appCheckSiteKey: string;
   };
 };
 
@@ -43,5 +44,6 @@ export const CONFIG: ConfigValue = {
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? '',
     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID ?? '',
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? '',
+    appCheckSiteKey: process.env.NEXT_PUBLIC_FIREBASE_APPCHECK_SITEKEY ?? '',
   },
 };

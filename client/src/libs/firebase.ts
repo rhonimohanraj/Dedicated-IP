@@ -5,6 +5,7 @@ import type { Firestore as FirestoreType } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check";
 
 import { CONFIG } from 'src/config-global';
 
@@ -13,6 +14,11 @@ import { CONFIG } from 'src/config-global';
 const isFirebase = true;
 
 export const firebaseApp = isFirebase ? initializeApp(CONFIG.firebase) : ({} as FirebaseApp);
+
+export const APP_CHECK = initializeAppCheck(firebaseApp,{
+  provider: new ReCaptchaEnterpriseProvider(CONFIG.firebase.appCheckSiteKey),
+  isTokenAutoRefreshEnabled: true,
+})
 
 export const AUTH = isFirebase ? getAuth(firebaseApp) : ({} as AuthType);
 

@@ -1,11 +1,16 @@
-import { CONFIG } from 'src/config-global';
+'use client';
 
 import { BlankView } from 'src/sections/blank/view';
+import {useProducts} from "../../hooks/use-product";
 
 // ----------------------------------------------------------------------
 
-export const metadata = { title: `Dashboard - ${CONFIG.appName}` };
-
 export default function Page() {
+  const { isPending } = useProducts();
+
+  if(isPending) return (
+    <div>Loading...</div>
+  )
+
   return <BlankView title="Page one" />;
 }

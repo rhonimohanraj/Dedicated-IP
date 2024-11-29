@@ -5,9 +5,9 @@ import type { Firestore as FirestoreType } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "firebase/app-check";
 
 import { CONFIG } from 'src/config-global';
+import { getRemoteConfig, RemoteConfig } from "firebase/remote-config";
 
 // ----------------------------------------------------------------------
 
@@ -18,3 +18,5 @@ export const firebaseApp = isFirebase ? initializeApp(CONFIG.firebase) : ({} as 
 export const AUTH = isFirebase ? getAuth(firebaseApp) : ({} as AuthType);
 
 export const FIRESTORE = isFirebase ? getFirestore(firebaseApp) : ({} as FirestoreType);
+
+export const REMOTE_CONFIG = isFirebase ? getRemoteConfig(firebaseApp) : ({} as  RemoteConfig);

@@ -3,18 +3,25 @@ import { useQuery } from '@tanstack/react-query';
 import {fetchAndActivate, getValue} from '@firebase/remote-config';
 import { REMOTE_CONFIG } from '../libs/firebase/firebase';
 
-type Product = {
+export type ProductCatalog = {
+  Products: Array<Product>;
+}
+
+export type Product = {
   title: string;
   description: string;
   price: number;
   discount_price: number;
   server: number;
   country: string;
+  country_code: string;
   city: string;
   datacenter: string;
+  stripe_link: string;
+  features: string[];
 };
 
-const fetchProducts = async (): Promise<Array<Product>> => {
+const fetchProducts = async (): Promise<ProductCatalog> => {
   await fetchAndActivate(REMOTE_CONFIG)
   const val = getValue(REMOTE_CONFIG, 'Products').asString();
   return JSON.parse(val);

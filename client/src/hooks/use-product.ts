@@ -1,7 +1,10 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {fetchAndActivate, getValue} from '@firebase/remote-config';
-import { REMOTE_CONFIG } from '../libs/firebase/firebase';
+import {getRemoteConfig} from "firebase/remote-config";
+import {firebaseApp} from "../libs/firebase/firebase";
 
 export type ProductCatalog = {
   Products: Array<Product>;
@@ -22,6 +25,7 @@ export type Product = {
 };
 
 const fetchProducts = async (): Promise<ProductCatalog> => {
+  const REMOTE_CONFIG = getRemoteConfig(firebaseApp);
   await fetchAndActivate(REMOTE_CONFIG)
   const val = getValue(REMOTE_CONFIG, 'Products').asString();
   return JSON.parse(val);

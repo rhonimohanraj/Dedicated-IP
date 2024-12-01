@@ -16,7 +16,7 @@ export default function Page() {
       location: 'nuremberg',
       status: 'online',
     });
-  }, []);
+  }, [server]);
 
   return <BlankView title="Page two" />;
 }

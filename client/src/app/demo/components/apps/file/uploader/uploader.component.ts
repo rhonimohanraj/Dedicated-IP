@@ -9,7 +9,8 @@ interface Image {
 @Component({
     selector: 'app-file-uploader',
     templateUrl: './uploader.component.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class UploaderComponent {
 

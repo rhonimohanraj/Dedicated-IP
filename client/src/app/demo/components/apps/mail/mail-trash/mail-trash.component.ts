@@ -4,7 +4,8 @@ import { Mail } from 'src/app/demo/api/mail';
 import { MailService } from 'src/app/demo/components/apps/mail/service/mail.service';
 
 @Component({
-    templateUrl: './mail-trash.component.html'
+    templateUrl: './mail-trash.component.html',
+    standalone: false
 })
 export class MailTrashComponent implements OnDestroy {
 

@@ -7,7 +7,8 @@ import { MailService } from 'src/app/demo/components/apps/mail/service/mail.serv
 
 @Component({
     selector: 'app-mail-table',
-    templateUrl: './mail-table.component.html'
+    templateUrl: './mail-table.component.html',
+    standalone: false
 })
 export class MailTableComponent implements OnInit {
 

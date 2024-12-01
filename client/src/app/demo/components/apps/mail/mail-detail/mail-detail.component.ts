@@ -8,7 +8,8 @@ import { MailService } from '../service/mail.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
-    templateUrl: './mail-detail.component.html'
+    templateUrl: './mail-detail.component.html',
+    standalone: false
 })
 export class MailDetailComponent implements OnDestroy {
 

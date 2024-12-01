@@ -9,6 +9,7 @@ import {
 @Component({
     selector: 'app-config',
     templateUrl: './app.config.component.html',
+    standalone: false
 })
 export class AppConfigComponent implements OnInit {
     @Input() minimal: boolean = false;

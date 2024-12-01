@@ -5,7 +5,8 @@ import { Customer } from 'src/app/demo/api/customer';
 import { CustomerService } from 'src/app/demo/service/customer.service';
 
 @Component({
-    templateUrl: './profilelist.component.html'
+    templateUrl: './profilelist.component.html',
+    standalone: false
 })
 export class ProfileListComponent implements OnInit {
 

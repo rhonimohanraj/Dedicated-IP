@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
-    templateUrl: './forgotpassword.component.html'
+    templateUrl: './forgotpassword.component.html',
+    standalone: false
 })
 export class ForgotPasswordComponent { 
 

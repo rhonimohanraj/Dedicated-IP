@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-    templateUrl: './orderhistory.component.html'
+    templateUrl: './orderhistory.component.html',
+    standalone: false
 })
 export class OrderHistoryComponent {
 

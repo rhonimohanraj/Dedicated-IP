@@ -3,7 +3,8 @@ import { LayoutService } from './service/app.layout.service';
 
 @Component({
     selector: 'app-profilemenu',
-    templateUrl: './app.profilesidebar.component.html'
+    templateUrl: './app.profilesidebar.component.html',
+    standalone: false
 })
 export class AppProfileSidebarComponent {
     date: Date= new Date();

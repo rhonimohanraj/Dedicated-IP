@@ -7,7 +7,8 @@ import { TaskService } from '../service/task.service';
 @Component({
     selector: 'app-task-list',
     templateUrl: './task-list.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TaskListComponent implements OnInit {
 

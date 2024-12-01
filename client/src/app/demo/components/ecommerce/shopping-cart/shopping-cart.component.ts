@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 
 @Component({
-    templateUrl: './shopping-cart.component.html'
+    templateUrl: './shopping-cart.component.html',
+    standalone: false
 })
 export class ShoppingCartComponent {
 

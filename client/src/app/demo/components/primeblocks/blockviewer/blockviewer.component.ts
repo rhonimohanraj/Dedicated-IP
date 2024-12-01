@@ -7,8 +7,8 @@ enum BlockView {
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
-	selector: 'block-viewer',
-	template: `
+    selector: 'block-viewer',
+    template: `
     <div class="block-section">
         <div class="block-header">
             <span class="block-title">
@@ -35,8 +35,9 @@ enum BlockView {
         </div>
     </div>
   `,
-	styleUrls: ['./blockviewer.component.scss'],
-	encapsulation: ViewEncapsulation.None
+    styleUrls: ['./blockviewer.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class BlockViewerComponent {
 

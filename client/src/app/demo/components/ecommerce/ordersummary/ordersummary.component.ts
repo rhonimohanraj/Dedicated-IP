@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './ordersummary.component.html',
+    standalone: false
 })
 export class OrderSummaryComponent {
 

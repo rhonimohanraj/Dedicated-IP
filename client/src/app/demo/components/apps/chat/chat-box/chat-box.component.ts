@@ -6,7 +6,8 @@ import { ChatService } from '../service/chat.service';
 @Component({
     selector: 'app-chat-box',
     templateUrl: './chat-box.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ChatBoxComponent implements OnInit {
 

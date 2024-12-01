@@ -9,7 +9,8 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-create-task',
     templateUrl: './create-task.component.html',
-    providers: [MessageService]
+    providers: [MessageService],
+    standalone: false
 })
 export class CreateTaskComponent implements OnInit, OnDestroy {
 

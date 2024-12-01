@@ -6,6 +6,7 @@ import { MailService } from '../service/mail.service';
 @Component({
     selector: 'app-mail-reply',
     templateUrl: './mail-reply.component.html',
+    standalone: false
 })
 export class MailReplyComponent {
 

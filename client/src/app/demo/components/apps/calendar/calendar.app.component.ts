@@ -7,7 +7,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 
 @Component({
     templateUrl: './calendar.app.component.html',
-    styleUrls: ['./calendar.app.component.scss']
+    styleUrls: ['./calendar.app.component.scss'],
+    standalone: false
 })
 export class CalendarAppComponent implements OnInit {
 

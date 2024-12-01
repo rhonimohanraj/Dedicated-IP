@@ -8,7 +8,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 @Component({
     selector: 'app-kanban-list',
     templateUrl: './kanban-list.component.html',
-    styleUrls: ['./kanban-list.component.scss']
+    styleUrls: ['./kanban-list.component.scss'],
+    standalone: false
 })
 export class KanbanListComponent implements OnInit {
 

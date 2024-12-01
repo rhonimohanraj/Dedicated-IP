@@ -10,7 +10,8 @@ import { KanbanService } from '../service/kanban.service';
 @Component({
     selector: 'app-kanban-sidebar',
     templateUrl: './kanban-sidebar.component.html',
-    styleUrls: ['./kanban-sidebar.component.scss']
+    styleUrls: ['./kanban-sidebar.component.scss'],
+    standalone: false
 })
 export class KanbanSidebarComponent implements OnDestroy {
 

@@ -6,6 +6,7 @@ import { MailService } from 'src/app/demo/components/apps/mail/service/mail.serv
 @Component({
     selector: 'app-mail-starred',
     templateUrl: './mail-starred.component.html',
+    standalone: false
 })
 export class MailStarredComponent implements OnDestroy {
     starredMails: Mail[] = [];

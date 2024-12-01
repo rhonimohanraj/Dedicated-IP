@@ -6,7 +6,8 @@ import { Table } from 'primeng/table';
 
 @Component({
     templateUrl: './crud.component.html',
-    providers: [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
+    standalone: false
 })
 export class CrudComponent implements OnInit {
 

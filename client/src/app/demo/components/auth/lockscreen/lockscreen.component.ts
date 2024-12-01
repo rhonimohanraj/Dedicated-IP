@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 
 @Component({
-    templateUrl: './lockscreen.component.html'
+    templateUrl: './lockscreen.component.html',
+    standalone: false
 })
 export class LockScreenComponent { 
 

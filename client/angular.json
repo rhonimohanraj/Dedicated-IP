@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "atlantis-ng": {
+        "dedicated-ip": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -18,7 +18,7 @@
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": {
-                          "base": "dist/atlantis-ng"
+                          "base": "dist"
                         },
                         "index": "src/index.html",
                         "polyfills": [
@@ -65,10 +65,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "atlantis-ng:build:production"
+                            "buildTarget": "dedicated-ip:build:production"
                         },
                         "development": {
-                            "buildTarget": "atlantis-ng:build:development"
+                            "buildTarget": "dedicated-ip:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "atlantis-ng:build"
+                        "buildTarget": "dedicated-ip:build"
                     }
                 },
                 "test": {

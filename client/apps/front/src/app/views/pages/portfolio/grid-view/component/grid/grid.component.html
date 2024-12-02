@@ -1,0 +1,88 @@
+<section
+  class="container d-md-flex align-items-center justify-content-between pb-3"
+>
+  <h1 class="text-nowrap mb-md-4 pe-md-5">Portfolio Grid</h1>
+  <nav class="overflow-auto">
+    <ul class="nav nav-tabs-alt flex-nowrap border-0">
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link text-nowrap active"
+          >All Works</a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link text-nowrap">Web Design</a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link text-nowrap"
+          >Graphic Design</a
+        >
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link text-nowrap">Branding</a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link text-nowrap">UI / UX</a>
+      </li>
+      <li class="nav-item">
+        <a href="javascript:void(0)" class="nav-link text-nowrap"
+          >Motion Design</a
+        >
+      </li>
+    </ul>
+  </nav>
+</section>
+
+<section class="container pb-5 mb-2 mb-md-4 mb-lg-5">
+  <div class="row pb-lg-3">
+    @for (item of gridViewData; track $index) {
+      @if (item.odd) {
+        <div class="col-md-5 mb-2">
+          <div class="card card-portfolio">
+            <div class="card-img">
+              <img [src]="item.image" alt="Image" />
+            </div>
+            <div class="card-body">
+              <h2 class="h4 mb-2">
+                <a
+                  routerLink="/portfolio/single-project"
+                  class="stretched-link"
+                  >{{ item.title }}</a
+                >
+              </h2>
+              <div class="card-portfolio-meta">
+                <span class="text-muted">{{ item.meta?.text }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="col-md-7 mb-2">
+          <div class="card card-portfolio">
+            <div class="card-img">
+              <img [src]="item.image" alt="Image" />
+            </div>
+            <div class="card-body">
+              <h2 class="h4 mb-2">
+                <a
+                  routerLink="/portfolio/single-project"
+                  class="stretched-link"
+                  >{{ item.title }}</a
+                >
+              </h2>
+              <div class="card-portfolio-meta pb-1">
+                <span class="text-muted">{{ item.meta?.text }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <nav aria-label="Page navigation example">
+    <ngb-pagination class="pagination" [collectionSize]="40" [page]="page">
+      <ng-template ngbPaginationPrevious></ng-template>
+      <ng-template ngbPaginationNext>></ng-template>
+    </ngb-pagination>
+  </nav>
+</section>

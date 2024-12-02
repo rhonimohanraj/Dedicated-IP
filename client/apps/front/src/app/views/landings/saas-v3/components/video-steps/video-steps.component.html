@@ -1,0 +1,58 @@
+<section class="container">
+  <div
+    class="text-center pb-4 pb-md-0 mb-2 mb-md-5 mx-auto"
+    style="max-width: 530px"
+  >
+    <h2 class="h1">How Does It Work?</h2>
+    <p class="mb-0">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit volutpat mollis
+      egestas nam luctus facilisis ultrices
+    </p>
+  </div>
+
+  <div
+    class="steps steps-sm steps-horizontal-md steps-center pb-5 mb-md-2 mb-lg-3"
+  >
+    @for (data of steps; track $index) {
+      <div class="step">
+        <div class="step-number">
+          <div class="step-number-inner">{{ $index + 1 }}</div>
+        </div>
+        <div class="step-body">
+          <h3 class="h4 mb-3">{{ data.title }}</h3>
+          <p class="mb-0">{{ data.description }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div
+    class="bg-secondary position-relative rounded-3 overflow-hidden px-4 px-sm-5"
+  >
+    <lightgallery
+      [settings]="settings"
+      class="position-absolute top-50 start-50 w-75 h-75 translate-middle d-flex align-items-center justify-content-center zindex-5"
+    >
+      <a
+        href="https://www.youtube.com/watch?v=wODsNtortYw"
+        class="btn btn-video btn-icon btn-xl bg-white stretched-link"
+        data-bs-toggle="video"
+        aria-label="Play video"
+      >
+        <i class="bx bx-play"></i>
+      </a>
+    </lightgallery>
+    <div class="pt-4 mt-sm-3 px-3 px-sm-5 mx-md-5">
+      <img
+        src="assets/img/landing/saas-3/video-cover.png"
+        width="786"
+        class="rellax d-block mx-auto mt-lg-4"
+        alt="Card"
+        appRellax
+        data-rellax-percentage="0.5"
+        data-rellax-speed="1.1"
+        data-disable-parallax-down="lg"
+      />
+    </div>
+  </div>
+</section>

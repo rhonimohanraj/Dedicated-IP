@@ -1,0 +1,14 @@
+<section class="container">
+  <h2 class="h1 text-center pb-4 pb-lg-5">Stay Organized &amp; Connected</h2>
+  <div class="row">
+    @for (data of featureList; track $index) {
+      <div class="col-lg-3 col-md-4 col-sm-6 text-center pb-md-2 mb-3 mb-lg-4">
+        <div class="d-inline-block bg-secondary rounded-circle p-3 mb-4">
+          <img src="{{ data.image }}" width="32" alt="Icon" />
+        </div>
+        <h3 class="h5 pb-1 mb-2">{{ data.title }}</h3>
+        <p class="fs-sm">{{ data.description }}</p>
+      </div>
+    }
+  </div>
+</section>

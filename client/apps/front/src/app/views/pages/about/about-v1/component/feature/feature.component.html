@@ -1,0 +1,31 @@
+<section class="container mt-3 mb-5 pt-lg-5" id="benefits">
+  <div class="swiper pt-3">
+    <swiper-container
+      class="swiper-wrapper pt-4"
+      [config]="swiperConfig"
+      init="false"
+    >
+      @for (item of benefitFeature; track $index) {
+        <swiper-slide class="swiper-slide border-end-lg px-2">
+          <div class="text-center">
+            <img
+              [src]="item.image"
+              width="48"
+              alt="Bulb icon"
+              class="d-block mb-4 mx-auto"
+            />
+            <h4 class="mb-2 pb-1">{{ item.title }}</h4>
+            <p class="mx-auto" style="max-width: 336px">
+              {{ item.description }}
+            </p>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="pagination"
+      class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4 d-lg-none"
+    ></div>
+  </div>
+</section>

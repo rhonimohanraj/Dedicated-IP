@@ -1,0 +1,56 @@
+<section class="bg-secondary pb-md-2 pb-lg-5">
+  <div
+    class="d-none d-lg-block"
+    style="margin-top: -60px; padding-top: 60px"
+  ></div>
+  <div class="container pb-4 pt-5">
+    <h2 class="h1 text-center text-md-start mb-lg-4 pt-1 pt-md-4">
+      Our Services
+    </h2>
+    <div class="row align-items-center pb-5 mb-lg-2">
+      <div class="col-md-8 text-center text-md-start">
+        <p class="fs-lg text-muted mb-md-0">
+          We are focused on helping brands grow through digital transformation
+          services. We bring real solutions to each client’s problems through a
+          deep understanding of their market, solution, and vision.
+        </p>
+      </div>
+      <div
+        class="col-md-4 d-flex justify-content-center justify-content-md-end"
+      >
+        <a routerLink="/services/v1" class="btn btn-outline-primary btn-lg"
+          >See all services</a
+        >
+      </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2">
+      @for (data of serviceList; track $index; let odd = $odd) {
+        <div class="col py-4 my-2 my-sm-3">
+          <a
+            routerLink="/services/single-v1"
+            class="card card-hover h-100 border-0 shadow-sm text-decoration-none pt-5 px-sm-3 px-md-0 px-lg-3 pb-sm-3 pb-md-0 pb-lg-3"
+            [ngClass]="odd ? 'ms-xl-2' : 'me-xl-2'"
+          >
+            <div class="card-body pt-3">
+              <div
+                class="d-inline-block bg-primary shadow-primary rounded-3 position-absolute top-0 translate-middle-y p-3"
+              >
+                <img
+                  [src]="data.image"
+                  class="d-block m-1"
+                  width="40"
+                  alt="Icon"
+                />
+              </div>
+              <h2 class="h4 d-inline-flex align-items-center">
+                {{ data.title }}
+                <i class="bx bx-right-arrow-circle text-primary fs-3 ms-2"></i>
+              </h2>
+              <p class="fs-sm text-body mb-0">{{ data.description }}</p>
+            </div>
+          </a>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,123 @@
+<section class="bg-secondary mb-5 py-lg-4 py-xl-5">
+  <div class="container pt-5">
+    <div class="row align-items-center gy-5 pt-2 pt-sm-3 pt-md-4">
+      <div class="col-lg-5 text-lg-start text-center">
+        <h2 class="h1 mb-4 pb-lg-2">
+          Company built by a global team of innovators
+        </h2>
+        <p class="mb-4 pb-1 pb-sm-2 pb-lg-3">
+          In blandit luctus proin mauris a commodo, dolor diam tempus, aenean
+          magna fusce eu. Id porttitor aliquam eget aliquet sagittis eu aut diam
+          ut phasellus sed convallis iaculis neque ultricies convallis sed enim
+        </p>
+        <a routerLink="/contacts/v2" class="btn btn-primary">Contact us</a>
+      </div>
+      <div class="col-lg-6 offset-lg-1">
+        <div class="row row-cols-sm-2 row-cols-1 g-4 align-items-center">
+          <div class="col">
+            <div class="card border-0">
+              <div class="card-body m-xl-3 m-1 text-center">
+                <a href="javascript:void(0)" class="d-inline-block mb-4 pb-2">
+                  <img
+                    src="assets/img/about/clutch-logo-dark.svg"
+                    width="116"
+                    alt="Clutch"
+                    class="d-dark-mode-none d-block"
+                  />
+                  <img
+                    src="assets/img/about/clutch-logo-light.svg"
+                    width="116"
+                    alt="Clutch"
+                    class="d-dark-mode-block d-none"
+                  />
+                </a>
+                <h5 class="mb-3 fs-lg fw-normal lh-1">
+                  <span class="h1 d-block w-100 mb-0">100%</span>
+                  Positive Feedback
+                </h5>
+                <div class="mb-3 text-nowrap">
+                  <i class="bx bxs-star text-warning fs-sm me-1"></i>
+                  <i class="bx bxs-star text-warning fs-sm me-1"></i>
+                  <i class="bx bxs-star text-warning fs-sm me-1"></i>
+                  <i class="bx bxs-star text-warning fs-sm me-1"></i>
+                  <i class="bx bxs-star text-warning fs-sm me-1"></i>
+                </div>
+                <img
+                  src="assets/img/about/members-light.png"
+                  width="168"
+                  alt="Members"
+                  class="d-dark-mode-none d-block mx-auto"
+                />
+                <img
+                  src="assets/img/about/members-dark.png"
+                  width="168"
+                  alt="Members"
+                  class="d-dark-mode-block d-none mx-auto"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card border-0">
+              <div class="card-body m-xl-3 m-1 text-center">
+                <img
+                  src="assets/img/about/chat-light.svg"
+                  width="56"
+                  alt="Icon"
+                  class="d-dark-mode-none d-block mx-auto mb-4"
+                />
+                <img
+                  src="assets/img/about/chat-dark.svg"
+                  width="56"
+                  alt="Icon"
+                  class="d-dark-mode-block d-none mx-auto mb-4"
+                />
+                <h5 class="mb-3 fs-lg fw-normal lh-1">
+                  <span class="h1 d-block w-100 mb-0">24/7</span>
+                  Customer support
+                </h5>
+              </div>
+            </div>
+            <div class="card border-0 mt-4">
+              <div
+                class="card-body m-xl-3 m-1 bg-repeat-0 bg-position-top-end"
+                style="background-image: url(assets/img/about/graph.svg)"
+              >
+                <h5 class="mb-3 fs-lg fw-normal lh-1 mt-5">
+                  <span class="h1 d-block w-100 mb-0">+12k</span>
+                  new leads for clients
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper mx-n2 mt-lg-5 mt-sm-2 mt-md-4 pt-4">
+      <swiper-container
+        class="swiper-wrapper"
+        [config]="swiperConfig"
+        init="false"
+      >
+        @for (item of brandsList; track $index) {
+          <swiper-slide class="swiper-slide py-3">
+            <a
+              href="javascript:void(0)"
+              class="card card-body bg-none border-0 px-2 mx-2"
+            >
+              <img
+                [src]="item.image"
+                class="d-block mx-auto my-2"
+                width="154"
+                alt="Brand"
+              />
+            </a>
+          </swiper-slide>
+        }
+      </swiper-container>
+
+      <div class="swiper-pagination position-relative pt-2 mt-4"></div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+<section class="container py-2 py-sm-3 py-md-4 py-lg-5">
+  <div class="row py-5 my-md-2 my-lg-3">
+    <div class="col-lg-5 col-xl-4 mb-5 mb-lg-0">
+      <div class="text-center text-lg-start pe-lg-5 pe-xl-0">
+        <h2 class="h1 pb-3 pb-lg-5">
+          We need your <span class="text-primary">support!</span> Become a
+          backer on Kickstarter now and get some
+          <span class="text-primary">benefits</span>
+        </h2>
+        <a
+          href="javascript:void(0)"
+          class="btn btn-lg btn-primary w-100 w-sm-auto"
+        >
+          Back us on Kickstarter
+          <i class="bx bx-right-arrow-alt lead ms-2 me-n1"></i>
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-7 col-xl-6 offset-xl-2">
+      <div class="row row-cols-1 row-cols-sm-2 gy-5">
+        @for (data of benefitList; track $index) {
+          <div class="col pt-md-2">
+            <div class="text-center text-sm-start pe-sm-3 pe-xl-4">
+              <img
+                src="{{ data.image }}"
+                class="d-inline-block mb-4"
+                width="60"
+                alt="Icon"
+              />
+              <h3 class="h4 mb-2">{{ data.title }}</h3>
+              <p class="fs-lg mb-0">{{ data.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

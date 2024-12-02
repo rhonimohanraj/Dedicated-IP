@@ -1,0 +1,56 @@
+<section
+  id="features"
+  class="container pt-lg-2 pt-xl-3 pb-3 pb-xl-5 mt-n2 mt-sm-0 mb-2 mb-md-4 mb-lg-5"
+>
+  <div class="row pb-xl-3">
+    <div class="col-lg-5 d-none d-lg-block">
+      <div class="position-relative" style="max-width: 348px">
+        <img
+          src="assets/img/landing/app-showcase-1/features/phone.png"
+          alt="Phone"
+        />
+        <div
+          class="rellax position-absolute top-0"
+          data-rellax-vertical-scroll-axis="x"
+          [rellaxOptions]="{ horizontal: true, speed: 1.75 }"
+          appRellax
+          style="max-width: 348px; right: -2.75rem"
+        >
+          <img
+            src="assets/img/landing/app-showcase-1/features/card.png"
+            alt="Card"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <h2 class="h1 text-center text-md-start mb-4">App Features</h2>
+      <p class="fs-lg text-muted text-center text-md-start mb-4 mb-xl-5">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat
+        mollis egestas. Nam luctus facilisis ultrices. Pellentesque volutpat
+        ligula est. Mattis fermentum, at nec lacus.
+      </p>
+      <div class="row row-cols-1 row-cols-sm-2 pt-2 pt-sm-3 pt-xl-2">
+        @for (feature of allFeaturesData; track $index) {
+          <div class="col pb-2 pb-xl-0 mb-4 mb-xl-5">
+            <div
+              class="d-flex align-items-start"
+              [ngClass]="$index % 2 == 0 ? 'pe-xl-3' : 'ps-xl-3'"
+            >
+              <div
+                class="d-table bg-secondary rounded-3 flex-shrink-0 p-3 mb-3"
+              >
+                <img [src]="feature.icon_src" alt="Icon" />
+              </div>
+              <div class="ps-4 ps-sm-3 ps-md-4">
+                <h3 class="h5 pb-1 mb-2">{{ feature.title }}</h3>
+                <p class="mb-0">{{ feature.description }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

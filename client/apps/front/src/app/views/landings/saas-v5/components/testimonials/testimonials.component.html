@@ -1,0 +1,104 @@
+<section class="position-relative pt-2 pt-sm-0 pb-lg-4">
+  <div class="container pb-2">
+    <h2 class="h1 text-center">Trusted by leading companies</h2>
+    <p class="fs-lg text-center pb-4 pb-lg-5 mb-2 mb-sm-3 mb-xl-4">
+      Learn why top companies from around the globe choose us
+    </p>
+    <ngx-masonry
+      class="masonry-grid row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 g-sm-3 g-md-4"
+    >
+      @for (data of testimonialData; track $index) {
+        <div class="masonry-grid-item col" ngxMasonryItem>
+          <div class="card border-0 bg-secondary p-1 p-sm-0 p-md-2">
+            <img
+              [src]="data.image.light"
+              class="d-block d-dark-mode-none mx-auto"
+              width="165"
+              alt="Envato"
+            />
+            <img
+              [src]="data.image.dark"
+              class="d-none d-dark-mode-block mx-auto"
+              width="165"
+              alt="Envato"
+            />
+            <div class="card-body text-center pt-1">
+              <p class="pb-3 mb-3">{{ data.feedback }}</p>
+              @if (data.author.image) {
+                <img
+                  [src]="data.author.image"
+                  class="d-inline-block rounded-circle"
+                  width="80"
+                  alt="Avatar"
+                />
+              }
+              <div class="pt-2 mt-1">
+                <h3 class="fs-lg mb-1">{{ data.author.name }}</h3>
+                <p class="fs-sm text-muted mb-0">{{ data.author.position }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </ngx-masonry>
+  </div>
+
+  <div class="d-none d-md-block">
+    <span
+      class="position-absolute start-0 bottom-0 w-100 zindex-1 d-dark-mode-none"
+      style="
+        height: 390px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 0%,
+          #fff 50.14%
+        );
+      "
+    ></span>
+    <span
+      class="position-absolute start-0 bottom-0 w-100 zindex-2 d-none d-dark-mode-block"
+      style="
+        height: 375px;
+        background: linear-gradient(
+          180deg,
+          rgba(11, 15, 25, 0) 0%,
+          #0b0f19 50.14%
+        );
+      "
+    ></span>
+  </div>
+  <div class="d-md-none">
+    <span
+      class="position-absolute start-0 bottom-0 w-100 zindex-1 d-dark-mode-none"
+      style="
+        height: 300px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 0%,
+          #fff 50.14%
+        );
+      "
+    ></span>
+    <span
+      class="position-absolute start-0 bottom-0 w-100 zindex-2 d-none d-dark-mode-block"
+      style="
+        height: 290px;
+        background: linear-gradient(
+          180deg,
+          rgba(11, 15, 25, 0) 0%,
+          #0b0f19 50.14%
+        );
+      "
+    ></span>
+  </div>
+
+  <div
+    class="position-absolute start-0 bottom-0 w-100 d-flex justify-content-center zindex-2 pb-5 px-3 mb-3 mb-md-4 mb-lg-5"
+  >
+    <a
+      href="javascript:void(0)"
+      class="btn btn-outline-secondary rounded-pill mb-xxl-3"
+      >Read more reviews</a
+    >
+  </div>
+</section>

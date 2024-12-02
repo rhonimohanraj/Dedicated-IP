@@ -1,0 +1,69 @@
+<div class="ps-md-3 ps-lg-0 mt-md-2 pt-md-4 pb-md-2">
+  <h1 class="h2 pt-xl-1 mb-3 pb-2 pb-lg-3">Payment Details</h1>
+  <h2 class="h5 text-primary mb-4">Your saved payment methods</h2>
+
+  @for (data of paymentCardData; track $index) {
+    <div
+      class="card d-sm-flex flex-sm-row align-items-sm-center justify-content-between border-0 shadow-sm p-3 p-md-4 mb-4"
+    >
+      <div class="d-flex align-items-center pe-sm-3">
+        <img [src]="data.image" width="84" alt="Mastercard" />
+        <div class="ps-3 ps-sm-4">
+          <h6 class="mb-2">
+            **** **** **** {{ data.cardLastDigit }}
+            @if (data.isPrimary) {
+              <span class="badge bg-success ms-1">Primary</span>
+            }
+          </h6>
+          <div class="fs-sm">Expiration {{ data.validTill }}</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end pt-3 pt-sm-0">
+        <button
+          type="button"
+          class="btn btn-outline-secondary px-3 px-xl-4 me-3"
+        >
+          <i class="bx bx-edit fs-xl me-lg-1 me-xl-2"></i>
+          <span class="d-none d-lg-inline">Edit</span>
+        </button>
+        <button type="button" class="btn btn-outline-danger px-3 px-xl-4">
+          <i class="bx bx-trash-alt fs-xl me-lg-1 me-xl-2"></i>
+          <span class="d-none d-lg-inline">Delete</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  @for (data of paymentCryptoData; track $index) {
+    <div
+      class="card d-sm-flex flex-sm-row align-items-sm-center justify-content-between border-0 shadow-sm p-3 p-md-4 mb-4"
+    >
+      <div class="d-flex align-items-center pe-sm-3">
+        <img [src]="data.image" width="84" alt="Bitcoin" />
+        <div class="ps-3 ps-sm-4">
+          <h6 class="mb-2">{{ data.name }}</h6>
+          <div class="fs-sm">•••••••••• {{ data.lastSecretBit }}</div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end pt-3 pt-sm-0">
+        <button
+          type="button"
+          class="btn btn-outline-secondary px-3 px-xl-4 me-3"
+        >
+          <i class="bx bx-edit fs-xl me-lg-1 me-xl-2"></i>
+          <span class="d-none d-lg-inline">Edit</span>
+        </button>
+        <button type="button" class="btn btn-outline-danger px-3 px-xl-4">
+          <i class="bx bx-trash-alt fs-xl me-lg-1 me-xl-2"></i>
+          <span class="d-none d-lg-inline">Delete</span>
+        </button>
+      </div>
+    </div>
+  }
+  <div class="py-2">
+    <button type="button" class="btn btn-primary ps-4">
+      <i class="bx bx-plus fs-xl me-2"></i>
+      Add new payment method
+    </button>
+  </div>
+</div>

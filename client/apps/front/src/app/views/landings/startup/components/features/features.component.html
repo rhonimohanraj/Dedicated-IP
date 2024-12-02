@@ -1,0 +1,18 @@
+<section class="container pt-1 py-sm-2 py-md-4 py-lg-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4 py-5 mb-2 mb-sm-3">
+    @for (data of featureList; track $index) {
+      <div class="col pt-2 pt-md-0">
+        <div class="text-center px-xl-4">
+          <img
+            src="{{ data.image }}"
+            class="d-inline-block mb-4"
+            width="70"
+            alt="Icon"
+          />
+          <h3 class="h4 mb-2">{{ data.title }}</h3>
+          <p class="fs-lg mb-0">{{ data.description }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,79 @@
+<div
+  id="contactsList"
+  class="d-flex flex-column position-lg-relative h-100 bg-secondary shadow-none border-end"
+  data-bs-scroll="true"
+  data-bs-backdrop="false"
+  style="max-height: 712px"
+>
+  <div class="card-header w-100 border-0 p-4">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0">Messages</h1>
+      <button
+        type="button"
+        (click)="activeOffcanvas.dismiss('Cross click')"
+        class="btn btn-link nav-link bg-faded-primary-hover d-lg-none py-2 ps-2 pe-3 me-n3"
+        data-bs-dismiss="offcanvas"
+        data-bs-target="#contactsList"
+      >
+        <i class="bx bx-x fs-xl me-1"></i>
+        Close
+      </button>
+    </div>
+    <div class="position-relative">
+      <input
+        type="text"
+        [(ngModel)]="searchterm"
+        (keyup)="searchContact()"
+        class="form-control pe-5"
+        placeholder="Search"
+      />
+      <i
+        class="bx bx-search fs-xl text-nav position-absolute top-50 end-0 translate-middle-y me-3"
+      ></i>
+    </div>
+  </div>
+  <div class="card-body swiper scrollbar-hover overflow-hidden w-100 p-0">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of contactData; track $index) {
+        <swiper-slide class="swiper-slide h-auto">
+          <a
+            href="javascript:void(0);"
+            (click)="getDetail($index)"
+            class="d-flex align-items-start border-bottom text-decoration-none py-3 px-4"
+            [ngClass]="activeIndex == $index ? 'bg-light pe-none' : ''"
+          >
+            @if (activeIndex == $index) {
+              <div
+                class="position-absolute top-0 start-0 bg-primary w-2 h-100"
+              ></div>
+            }
+
+            <img
+              [src]="data.user.image"
+              class="rounded-circle"
+              width="40"
+              alt="Devon Lane"
+            />
+            <div class="w-100 ps-2 ms-1">
+              <div
+                class="d-flex align-items-center justify-content-between mb-1"
+              >
+                <h6 class="mb-0 me-2">{{ data.user.name }}</h6>
+                <span class="fs-xs text-muted">{{ data.lastSeen }}</span>
+              </div>
+              @if (data.isTyping) {
+                <p class="fs-sm text-body mb-0">Typing...</p>
+              }
+              <p class="fs-sm text-body mb-0">{{ data.lastMessage }}</p>
+            </div>
+          </a>
+        </swiper-slide>
+      }
+    </swiper-container>
+    <div class="swiper-scrollbar end-0"></div>
+  </div>
+</div>

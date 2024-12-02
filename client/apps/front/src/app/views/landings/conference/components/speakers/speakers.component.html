@@ -1,0 +1,58 @@
+<section id="speakers" class="container py-5 my-2 my-md-4 my-lg-5">
+  <div
+    class="d-md-flex align-items-center justify-content-between text-center text-md-start pt-md-1 pt-lg-3"
+  >
+    <h2 class="h1 mb-4 mb-md-0 me-md-3">World-Class Speakers</h2>
+    <a href="javascript:void(0)" class="btn btn-primary btn-lg">
+      Become a speaker
+      <i class="bx bx-right-arrow-alt fs-4 lh-1 ms-2 me-n1"></i>
+    </a>
+  </div>
+  <div
+    class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-2 mt-lg-4"
+  >
+    @for (data of speakerList; track $index) {
+      <div class="col">
+        <div class="card card-hover border-0 bg-transparent">
+          <div class="position-relative">
+            <img [src]="data.image" class="rounded-3" alt="Ralph Edwards" />
+            <div
+              class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3"
+            >
+              <span
+                class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-35 rounded-3"
+              ></span>
+              <div class="position-relative d-flex zindex-2">
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-secondary btn-facebook btn-sm bg-white me-2"
+                  aria-label="Facebook"
+                >
+                  <i class="bx bxl-facebook"></i>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-secondary btn-linkedin btn-sm bg-white me-2"
+                  aria-label="LinkedIn"
+                >
+                  <i class="bx bxl-linkedin"></i>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-secondary btn-twitter btn-sm bg-white"
+                  aria-label="Twitter"
+                >
+                  <i class="bx bxl-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body text-center p-3">
+            <h3 class="fs-lg fw-semibold pt-1 mb-2">{{ data.name }}</h3>
+            <p class="fs-sm mb-0">{{ data.position }}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

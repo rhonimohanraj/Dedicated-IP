@@ -1,0 +1,63 @@
+<div class="ps-md-3 ps-lg-0 mt-md-2 pt-md-4 pb-md-2">
+  <div
+    class="d-sm-flex align-items-center justify-content-between pt-xl-1 mb-3 pb-3"
+  >
+    <h1 class="h2 mb-sm-0">My Collections</h1>
+    <select class="form-select" style="max-width: 15rem">
+      <option value="Published">Published</option>
+      <option value="Category">Category</option>
+      <option value="Title AZ">Title AZ</option>
+      <option value="Title ZA">Title ZA</option>
+    </select>
+  </div>
+
+  @for (data of collectionData; track $index) {
+    <div class="card border-0 shadow-sm overflow-hidden mb-4">
+      <div class="row g-0">
+        <a
+          href="javascript:void(0)"
+          class="col-sm-4 bg-repeat-0 bg-position-center bg-size-cover"
+          [style.background-image]="'url(' + data.image + ')'"
+          [style.min-height]="'13rem'"
+          aria-label="Cover image"
+        ></a>
+        <div class="col-sm-8">
+          <div class="card-body">
+            <div class="fs-sm text-muted mb-1">{{ data.date }}</div>
+            <h2 class="h4 pb-1 mb-2">
+              <a href="javascript:void(0)">{{ data.title }}</a>
+            </h2>
+            <p class="mb-4 mb-lg-5">
+              @for (tag of data.tags; track $index) {
+                {{ tag }}
+                @if ($index < data.tags.length - 1) {
+                  /
+                }
+              }
+            </p>
+            <div class="d-flex">
+              <button
+                type="button"
+                class="btn btn-outline-primary px-3 px-lg-4 me-3"
+              >
+                <i class="bx bx-edit fs-xl me-xl-2"></i>
+                <span class="d-none d-xl-inline">Edit</span>
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary px-3 px-lg-4 me-3"
+              >
+                <i class="bx bx-power-off fs-xl me-xl-2"></i>
+                <span class="d-none d-xl-inline">Deactivate</span>
+              </button>
+              <button type="button" class="btn btn-outline-danger px-3 px-lg-4">
+                <i class="bx bx-trash-alt fs-xl me-xl-2"></i>
+                <span class="d-none d-xl-inline">Delete</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

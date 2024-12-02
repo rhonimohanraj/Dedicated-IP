@@ -1,0 +1,62 @@
+<header
+  #topbarHeader
+  [class]="'header navbar navbar-expand-lg navbar-sticky ' + headerClassName"
+>
+  <div class="container px-3">
+    <component-logo-box />
+
+    <app-menu class="d-none d-lg-flex" [theme]="theme" />
+
+    <component-theme-switcher [attr.data-bs-theme]="theme" />
+
+    <button
+      type="button"
+      class="navbar-toggler"
+      (click)="openMenu(menuOffcanvasContent)"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <ng-template
+      #menuOffcanvasContent
+      tabindex="-1"
+      aria-modal="true"
+      role="dialog"
+    >
+      <div class="navbar">
+        <div id="navbarNav" class="offcanvas offcanvas-end show">
+          <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button
+              type="button"
+              class="btn-close"
+              (click)="offcanvasService.dismiss()"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="offcanvas-body">
+            <app-menu />
+          </div>
+
+          <div class="offcanvas-header border-top">
+            <buy-now-button
+              buttonClassName="w-100"
+              iconClassName="fs-4 lh-1 me-1"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <buy-now-button
+      buttonClassName="btn-sm fs-sm rounded d-none d-lg-inline-flex"
+      iconClassName="fs-5 lh-1 me-1"
+    />
+  </div>
+</header>

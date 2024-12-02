@@ -1,0 +1,37 @@
+<section class="container py-5 mb-2 mb-md-4 mb-lg-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4 pt-2 pt-md-4 pb-lg-2">
+    @for (data of featureData; track $index) {
+      <div class="col">
+        <div
+          class="card flex-column flex-sm-row flex-md-column flex-xxl-row align-items-center card-hover border-primary h-100"
+        >
+          <img [src]="data.image" width="168" alt="Doctor icon" />
+          <div
+            class="card-body text-center text-sm-start text-md-center text-xxl-start pb-3 pb-sm-2 pb-md-3 pb-xxl-2"
+          >
+            <h3 class="h5 mb-2 mt-n4 mt-sm-0 mt-md-n4 mt-xxl-0">
+              {{ data.title }}
+            </h3>
+            @if (data.title == 'Emergency Service') {
+              <p
+                class="d-flex align-items-center text-nav fs-xl fw-medium mb-2"
+              >
+                <i class="bx bx-phone-call fs-4 text-muted me-1"></i>
+                {{ data.description }}
+              </p>
+            } @else {
+              <p class="fs-sm mb-1">{{ data.description }}</p>
+            }
+            <a
+              href="javascript:void(0)"
+              class="btn btn-link stretched-link px-0"
+            >
+              {{ data.linkLabel }}
+              <i class="bx bx-right-arrow-alt fs-xl ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,19 @@
+<div class="ps-md-3 mt-md-2 pt-md-4 pb-md-2">
+  <div
+    class="row g-0 border rounded-3 shadow-sm position-relative overflow-hidden"
+  >
+    <div class="col-lg-4">
+      <messages-contact-list
+        class="d-none d-lg-block"
+        (profileDetail)="receiveDataFromChild($event)"
+      />
+    </div>
+
+    <div class="col-lg-8" style="max-height: 712px">
+      <messages-chat
+        [contactDetail]="profileDetail"
+        (openOffCanvas)="toggleOffCanvas()"
+      />
+    </div>
+  </div>
+</div>

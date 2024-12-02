@@ -1,0 +1,72 @@
+<section class="bg-secondary py-5">
+  <div class="container py-2 py-md-4 py-lg-5">
+    <h2 class="h1 text-center pb-3 pb-lg-0 mb-4 mb-lg-3">
+      What Our Attendees Say
+    </h2>
+    <div class="position-relative px-sm-5 mx-auto" style="max-width: 976px">
+      <button
+        type="button"
+        id="prev"
+        class="btn btn-prev btn-icon btn-sm position-absolute top-50 translate-middle-y start-0 d-none d-sm-inline-flex mt-n4"
+        aria-label="Previous"
+      >
+        <i class="bx bx-chevron-left"></i>
+      </button>
+
+      <button
+        type="button"
+        id="next"
+        class="btn btn-next btn-icon btn-sm position-absolute top-50 translate-middle-y end-0 d-none d-sm-inline-flex mt-n4"
+        aria-label="Next"
+      >
+        <i class="bx bx-chevron-right"></i>
+      </button>
+
+      <div class="swiper swiper-nav-onhover pt-1 mx-md-2">
+        <swiper-container
+          [config]="swiperConfig"
+          init="false"
+          class="swiper-wrapper pt-4 pb-3"
+        >
+          @for (data of testimonialData; track $index) {
+            <swiper-slide class="swiper-slide h-auto px-2 pt-4">
+              <figure
+                class="card position-relative border-0 shadow-sm py-3 p-0 p-xxl-4 my-0"
+              >
+                <span
+                  class="btn btn-icon btn-primary btn-lg shadow-primary pe-none position-absolute top-0 start-0 translate-middle-y ms-4 ms-xxl-5"
+                >
+                  <i class="bx bxs-quote-left"></i>
+                </span>
+                <blockquote class="card-body mt-2 mb-2">
+                  <p class="fs-lg mb-0">{{ data.comment }}</p>
+                </blockquote>
+                <figcaption
+                  class="card-footer d-flex align-items-center border-0 pt-0 mt-n2 mt-lg-0"
+                >
+                  <img
+                    [src]="data.user.image"
+                    width="60"
+                    class="rounded-circle"
+                    alt="Annette Black"
+                  />
+                  <div class="ps-3">
+                    <h6 class="fw-semibold lh-base mb-0">
+                      {{ data.user.name }}
+                    </h6>
+                    <span class="fs-sm text-muted">{{ data.user.role }}</span>
+                  </div>
+                </figcaption>
+              </figure>
+            </swiper-slide>
+          }
+        </swiper-container>
+
+        <div
+          id="pagination"
+          class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,69 @@
+<div class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+  <h2 class="h1 mb-md-4 mb-3 pb-lg-3 pb-2 text-center">Latest From Our Blog</h2>
+
+  <div class="swiper mb-lg-5 mb-4 pb-lg-0 pb-md-2">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of blogList; track $index) {
+        <swiper-slide class="swiper-slide h-auto">
+          <article class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-4">
+                <a
+                  href="javascript:void(0)"
+                  class="badge fs-sm bg-secondary text-decoration-none"
+                  >{{ data.time }}</a
+                >
+              </div>
+              <h3 class="h4">
+                <a href="javascript:void(0)">{{ data.title }}</a>
+              </h3>
+              <p class="mb-4">{{ data.description }}</p>
+              <div class="d-flex align-items-center justify-content-between">
+                <a
+                  href="javascript:void(0)"
+                  class="d-flex align-items-center fw-bold text-dark text-decoration-none me-3"
+                >
+                  <img
+                    [src]="data.user.image"
+                    class="rounded-circle me-3"
+                    width="48"
+                    alt="Avatar"
+                  />
+                  {{ data.user.name }}
+                </a>
+                <div class="d-flex align-items-center text-muted">
+                  <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-like fs-lg me-1"></i>
+                    <span class="fs-sm">{{ data.liked }}</span>
+                  </div>
+                  <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-comment fs-lg me-1"></i>
+                    <span class="fs-sm">{{ data.commented }}</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bx bx-share-alt fs-lg me-1"></i>
+                    <span class="fs-sm">{{ data.shared }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="blogpagination"
+      class="swiper-pagination position-static mt-4 pt-lg-3 pt-2"
+    ></div>
+  </div>
+  <div class="mb-xl-3 text-center">
+    <a href="javascript:void(0)" class="btn btn-lg btn-outline-primary"
+      >More blog posts</a
+    >
+  </div>
+</div>

@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component } from '@angular/core'
+import { RouterOutlet } from '@angular/router'
+import { BackToTopComponent } from './components/back-to-top/back-to-top.component'
+import { PreloaderComponent } from './components/preloader/preloader.component'
+import { TitleService } from '@core/services/title.service'
 
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, BackToTopComponent, PreloaderComponent],
+  styles: `
+    :host(app-root) {
+      display: contents;
+    }
+  `,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'front';
+  constructor(private titleService: TitleService) {}
+  ngOnInit(): void {
+    this.titleService.init()
+  }
 }

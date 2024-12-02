@@ -1,0 +1,123 @@
+<section class="container mb-5 pt-2 pb-3 py-md-4 py-lg-5">
+  <h2 class="h1 pb-2 pb-lg-0 mb-4 mb-lg-5 text-center">
+    What They Say About Us
+  </h2>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm p-4 p-xxl-5 mb-4 me-xxl-4">
+        <div class="pb-4 mb-2">
+          <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none">
+            <i class="bx bxs-quote-left"></i>
+          </span>
+        </div>
+
+        <div class="swiper mx-0 mb-md-n2 mb-xxl-n3" #authorSwiper>
+          <div class="swiper-wrapper author-swiper">
+            @for (data of testimonialList; track $index) {
+              <div
+                class="swiper-slide h-auto"
+                [attr.data-swiper-tab]="'#' + data.id"
+              >
+                <figure
+                  class="card h-100 position-relative border-0 bg-transparent"
+                >
+                  <blockquote class="card-body p-0 mb-0">
+                    <p class="fs-lg mb-0">{{ data.comment }}</p>
+                  </blockquote>
+                  <figcaption
+                    class="card-footer border-0 d-sm-flex d-md-none w-100 pb-2"
+                  >
+                    <div
+                      class="d-flex align-items-center border-end-sm pe-sm-4 me-sm-2"
+                    >
+                      <img
+                        [src]="data.user.image"
+                        width="48"
+                        class="rounded-circle"
+                        alt="Ralph Edwards"
+                      />
+                      <div class="ps-3">
+                        <h5 class="fw-semibold lh-base mb-0">
+                          {{ data.user.name }}
+                        </h5>
+                        <span class="fs-sm text-muted">{{
+                          data.user.role
+                        }}</span>
+                      </div>
+                    </div>
+                    <img
+                      [src]="data.user.brand.image"
+                      width="160"
+                      class="d-block mt-2 ms-5 mt-sm-0 ms-sm-0"
+                      alt="Company logo"
+                    />
+                  </figcaption>
+                </figure>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <nav
+        id="swiper-pagination"
+        class="pagination d-flex justify-content-center justify-content-md-start"
+      >
+        <div class="page-item me-2">
+          <a
+            class="page-link page-prev btn-icon btn-sm"
+            href="javascript:void(0);"
+            aria-label="Previous"
+          >
+            <i class="bx bx-chevron-left"></i>
+          </a>
+        </div>
+        @for (page of pages; track $index) {
+          <li class="page-item swiper-pagination-bullet" tabindex="0">
+            <button
+              (click)="pageChange($index)"
+              class="page-link btn-icon btn-sm"
+              [ngClass]="{ 'active': swiperInstance?.activeIndex == $index }"
+            >
+              {{ page }}
+            </button>
+          </li>
+        }
+        <div class="page-item ms-2">
+          <a
+            class="page-link page-next btn-icon btn-sm"
+            href="javascript:void(0);"
+            aria-label="Next"
+          >
+            <i class="bx bx-chevron-right"></i>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="col-md-4 d-none d-md-block">
+      <div class="swiper-tabs">
+        @for (data of testimonialList; track $index) {
+          <div [id]="data.id" class="card bg-transparent border-0 swiper-tab">
+            <div
+              class="card-body p-0 rounded-3 bg-size-cover bg-repeat-0 bg-position-top-center"
+              [style.background-image]="'url(' + data.user.image + ')'"
+            ></div>
+            <div class="card-footer d-flex w-100 border-0 pb-0">
+              <img
+                [src]="data.user.brand.image"
+                width="160"
+                class="d-none d-xl-block"
+                alt="Company logo"
+              />
+              <div class="border-start-xl ps-xl-4 ms-xl-2">
+                <h5 class="fw-semibold lh-base mb-0">{{ data.user.name }}</h5>
+                <span class="fs-sm text-muted">{{ data.user.role }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

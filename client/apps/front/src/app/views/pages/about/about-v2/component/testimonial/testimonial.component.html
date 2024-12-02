@@ -1,0 +1,117 @@
+<section class="container pb-5 mb-2 mb-md-4 mb-xl-5">
+  <div class="row">
+    <div class="col-md-5 mb-4 mb-md-0">
+      <div class="card justify-content-center bg-dark h-100 p-4 p-lg-5">
+        <div class="p-2">
+          <h3 class="display-4 text-primary mb-1">200+</h3>
+          <h2 class="text-light pb-5 mb-2">Clients Already Served</h2>
+          <a
+            href="javascript:void(0)"
+            class="d-inline-flex align-items-center rounded-3 text-decoration-none py-3 px-4"
+            style="background-color: #3e4265"
+          >
+            <div class="pe-3">
+              <div class="fs-xs text-light text-uppercase opaciy-70 mb-2">
+                Reviewed on
+              </div>
+              <img
+                src="assets/img/about/clutch-logo.svg"
+                width="97"
+                alt="Clutch"
+              />
+            </div>
+            <div class="ps-1">
+              <div class="text-nowrap mb-2">
+                <i class="bx bxs-star text-warning me-1"></i>
+                <i class="bx bxs-star text-warning me-1"></i>
+                <i class="bx bxs-star text-warning me-1"></i>
+                <i class="bx bxs-star text-warning me-1"></i>
+                <i class="bx bxs-star text-warning me-1"></i>
+              </div>
+              <div class="text-light opacity-70">49 reviews</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="card border-0 shadow-sm p-4 p-xxl-5">
+        <div class="d-flex justify-content-between pb-4 mb-2">
+          <span class="btn btn-icon btn-primary btn-lg shadow-primary pe-none">
+            <i class="bx bxs-quote-left"></i>
+          </span>
+          <div class="d-flex">
+            <button
+              type="button"
+              id="prev"
+              class="btn btn-prev btn-icon btn-sm me-2"
+              aria-label="Previous"
+            >
+              <i class="bx bx-chevron-left"></i>
+            </button>
+            <button
+              type="button"
+              id="next"
+              class="btn btn-next btn-icon btn-sm ms-2"
+              aria-label="Next"
+            >
+              <i class="bx bx-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="swiper mx-0 mb-md-n2 mb-xxl-n3">
+          <swiper-container
+            init="false"
+            [config]="swiperConfig"
+            class="swiper-wrapper"
+          >
+            @for (item of testimonialList; track $index) {
+              <swiper-slide
+                class="swiper-slide h-auto"
+                data-swiper-tab="#author-1"
+              >
+                <figure
+                  class="card h-100 position-relative border-0 bg-transparent"
+                >
+                  <blockquote class="card-body p-0 mb-0">
+                    <p class="fs-lg mb-0">
+                      Dolor, a eget elementum, integer nulla volutpat, nunc,
+                      sit. Quam iaculis varius mauris magna sem. Egestas sed sed
+                      suscipit dolor faucibus dui imperdiet at eget. Tincidunt
+                      imperdiet quis hendrerit aliquam feugiat neque cras sed.
+                      Dictum quam integer volutpat tellus, faucibus platea.
+                      Pulvinar turpis proin faucibus at mauris. Sagittis gravida
+                      vitae porta enim.
+                    </p>
+                  </blockquote>
+                  <figcaption
+                    class="card-footer border-0 d-flex align-items-center w-100 pb-2"
+                  >
+                    <img
+                      src="assets/img/avatar/05.jpg"
+                      width="48"
+                      class="rounded-circle"
+                      alt="Ralph Edwards"
+                    />
+                    <div class="ps-3">
+                      <h5 class="fw-semibold lh-base mb-0">Ralph Edwards</h5>
+                      <span class="fs-sm text-muted"
+                        >Head of Marketing at Lorem Company</span
+                      >
+                    </div>
+                  </figcaption>
+                </figure>
+              </swiper-slide>
+            }
+          </swiper-container>
+
+          <div
+            id="pagination"
+            class="swiper-pagination position-relative pt-3 mt-4"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

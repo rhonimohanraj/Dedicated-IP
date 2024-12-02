@@ -1,0 +1,119 @@
+<footer class="footer bg-dark pt-5 pb-4" [attr.data-bs-theme]="'dark'">
+  <div class="container pt-1 pt-md-3 pt-lg-4 pt-xl-5">
+    <div class="row">
+      <div class="col-lg-5 col-xl-4 mb-4 mb-md-5 mb-lg-0">
+        <div class="d-flex align-items-center pb-3 mb-1">
+          <div class="navbar-brand text-dark p-0 pe-1 me-0">
+            <img src="assets/img/logo.svg" width="47" alt="Silicon" />
+            Silicon
+          </div>
+          <hr class="vr mt-2 mx-3" style="height: 26px" />
+          <div class="text-white fw-semibold ps-1">Banking made easy.</div>
+        </div>
+        <p class="text-body fs-sm pb-1 pb-md-2 pb-lg-3 mb-3">
+          With just a few taps, you can securely manage your finances from the
+          palm of your hand. Download our app today and take control of your
+          finances like never before!
+        </p>
+        <div
+          class="d-flex flex-column flex-sm-row flex-lg-column align-items-sm-center align-items-lg-start justify-content-between"
+        >
+          <div class="position-relative">
+            <select
+              class="form-select form-select-sm"
+              style="max-width: 180px; padding-left: 1.75rem"
+            >
+              <option value="" disabled>Choose country</option>
+              <option value="Australia">Australia</option>
+              <option value="Belgium">Belgium</option>
+              <option value="Canada">Canada</option>
+              <option value="Denmark">Denmark</option>
+              <option value="USA" selected>United States</option>
+            </select>
+            <i
+              class="bx bx-map position-absolute top-50 start-0 translate-middle-y text-body ms-2"
+            ></i>
+          </div>
+          <div class="d-flex pt-4 pt-sm-0 pt-lg-4 mt-lg-3">
+            @for (item of socialLinks; track $index) {
+              <a
+                href="javascript:void(0);"
+                class="btn btn-icon btn-secondary btn-{{ item.icon }} rounded-circle me-3"
+                aria-label="Facebook"
+              >
+                <i class="bx {{ item.icon }}"></i>
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 offset-xl-1">
+        <div id="footer-links" class="row">
+          @for (item of itamsList; track $index) {
+            <div class="col-md-4">
+              <h6 class="fs-lg mb-1 mb-md-3">
+                <span class="d-none d-md-block">{{ item.title }}</span>
+                <a
+                  class="d-block text-dark dropdown-toggle d-md-none py-2"
+                  data-bs-toggle="collapse"
+                  (click)="toggleMenu(item)"
+                  >{{ item.title }}</a
+                >
+              </h6>
+              <div
+                id="tools"
+                [(ngbCollapse)]="item.isCollapsed"
+                #collapse="ngbCollapse"
+                class="collapse d-md-block"
+                data-bs-parent="#footer-links"
+              >
+                <ul class="nav flex-column">
+                  @for (childitem of item.children; track $index) {
+                    <li class="nav-item mb-1">
+                      <a
+                        href="javascript:void(0)"
+                        class="nav-link fs-sm fw-medium px-0 py-1"
+                        >{{ childitem.title }}</a
+                      >
+                    </li>
+                  }
+                </ul>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    <div
+      class="d-md-flex align-items-center justify-content-between pt-sm-2 pt-md-4 pt-lg-5 pb-2 mt-4"
+    >
+      <ul class="nav order-md-2 ms-n3 ms-md-0 mb-3 mb-md-0">
+        <li class="nav-item">
+          <a href="javascript:void(0)" class="nav-link fs-sm fw-medium"
+            >Terms and conditions</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="javascript:void(0)" class="nav-link fs-sm fw-medium"
+            >Privacy policy</a
+          >
+        </li>
+        <li class="nav-item">
+          <a href="javascript:void(0)" class="nav-link fs-sm fw-medium"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <p class="nav d-block fs-sm mb-0 order-md-1">
+        <span class="text-body">&copy; All rights reserved. Made by </span>
+        <a
+          class="nav-link d-inline-block p-0"
+          href="{{ creditsBy.website }}"
+          target="_blank"
+          rel="noopener"
+          >{{ creditsBy.name }}</a
+        >
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,55 @@
+<section class="bg-secondary py-5">
+  <div class="container my-2 py-md-2 py-lg-5">
+    <div class="row">
+      <div
+        class="col-xl-4 col-md-5 text-center text-md-start pb-2 pb-md-0 mb-4 mb-md-0"
+      >
+        <h2 class="pb-3 mb-1 mb-lg-2">
+          Any questions? <br class="d-none d-md-inline" />Check out the FAQs
+        </h2>
+        <p class="fs-lg pb-3 mb-2 mb-lg-3">
+          Still have unanswered questions and need to get in touch?
+        </p>
+        <a routerLink="/contacts/v2" class="btn btn-primary">Contact support</a>
+      </div>
+      <div class="col-md-7 offset-xl-1">
+        <div class="accordion" id="faq" ngbAccordion [closeOthers]="true">
+          @for (item of pricingFaq; track $index) {
+            <div
+              class="accordion-item border-0 rounded-3 shadow-sm mb-3"
+              [collapsed]="false"
+              ngbAccordionItem=""
+            >
+              <h2 class="accordion-header" id="q1-heading" ngbAccordionHeader>
+                <button
+                  class="accordion-button shadow-none rounded-3"
+                  ngbAccordionButton
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#q1"
+                  aria-expanded="true"
+                  aria-controls="q1"
+                >
+                  {{ item.question }}
+                </button>
+              </h2>
+              <div
+                id="q1"
+                class="accordion-collapse collapse show"
+                ngbAccordionCollapse
+                aria-labelledby="q1-heading"
+                data-bs-parent="#faq"
+              >
+                <div class="accordion-body fs-sm pt-0" ngbAccordionBody>
+                  @for (data of item.answers; track $index) {
+                    <p>{{ data }}</p>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+<section class="container mb-5 pt-md-4">
+  <div
+    class="d-flex flex-sm-row flex-column align-items-center justify-content-between mb-4 pb-1 pb-md-3"
+  >
+    <h2 class="h1 mb-sm-0">Related Podcasts</h2>
+    <a
+      routerLink="/blog/grid-sidebar"
+      class="btn btn-lg btn-outline-primary ms-4"
+    >
+      All podcasts
+      <i class="bx bx-right-arrow-alt ms-1 me-n1 lh-1 lead"></i>
+    </a>
+  </div>
+
+  <div class="swiper">
+    <swiper-container
+      class="swiper-wrapper"
+      [config]="swiperConfig"
+      init="false"
+    >
+      @for (item of podcastList; track $index) {
+        <swiper-slide class="swiper-slide h-auto pb-3">
+          <article>
+            <div class="d-block position-relative rounded-3 mb-3">
+              <a
+                href="javascript:void(0)"
+                class="btn btn-icon btn-light bg-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+                data-bs-toggle="tooltip"
+                placement="left"
+                ngbTooltip="Listen later"
+                aria-label="Listen later"
+              >
+                <i class="bx bx-bookmark"></i>
+              </a>
+              <img
+                [src]="item.anchor?.image"
+                class="position-absolute top-0 start-0 rounded-circle zindex-2 mt-3 ms-3"
+                width="48"
+                alt="Avatar"
+              />
+              <span
+                class="badge bg-dark position-absolute bottom-0 end-0 zindex-2 mb-3 me-3"
+                >{{ item.time }}</span
+              >
+              <a
+                routerLink="blog/podcast"
+                class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-35 rounded-3"
+                aria-label="Listen podcast"
+              ></a>
+              <img [src]="item.cover" class="rounded-3" alt="Image" />
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <a
+                href="javascript:void(0)"
+                class="badge fs-sm text-nav bg-secondary text-decoration-none"
+                >{{ item.category }}</a
+              >
+              <span class="fs-sm text-muted border-start ps-3 ms-3">{{
+                item.airedOn
+              }}</span>
+            </div>
+            <h3 class="h5">
+              <a routerLink="/podcast">{{ item.title }}</a>
+            </h3>
+            <div class="d-flex align-items-center text-muted">
+              <div class="d-flex align-items-center me-3">
+                <i class="bx bx-like fs-lg me-1"></i>
+                <span class="fs-sm">{{ item.liked }}</span>
+              </div>
+              <div class="d-flex align-items-center me-3">
+                <i class="bx bx-comment fs-lg me-1"></i>
+                <span class="fs-sm">{{ item.commented }}</span>
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bx bx-share-alt fs-lg me-1"></i>
+                <span class="fs-sm">{{ item.shared }}</span>
+              </div>
+            </div>
+            <a routerLink="/podcast" class="btn btn-link px-0 mt-3">
+              <i class="bx bx-play-circle fs-lg me-2"></i>
+              Listen now
+            </a>
+          </article>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
+  </div>
+</section>

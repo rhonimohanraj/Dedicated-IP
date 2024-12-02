@@ -1,0 +1,112 @@
+<section
+  ngJarallax
+  class="jarallax bg-dark py-xxl-5"
+  data-jarallax
+  data-speed="0.4"
+  data-bs-theme="dark"
+>
+  <span
+    class="position-absolute top-0 start-0 w-100 h-100 bg-gradient-dark-translucent"
+  ></span>
+  <div
+    class="jarallax-img"
+    style="
+      background-image: url(assets/img/landing/software-agency-1/hero-bg.jpg);
+    "
+  ></div>
+  <div
+    class="position-relative text-center zindex-5 overflow-hidden pt-4 py-md-5"
+  >
+    <button
+      type="button"
+      id="hero-prev"
+      class="btn btn-prev btn-icon btn-xl bg-transparent shadow-none position-absolute top-50 start-0 translate-middle-y d-none d-md-inline-flex ms-n3 ms-lg-2"
+      aria-label="Previous"
+    >
+      <i class="bx bx-chevron-left fs-1"></i>
+    </button>
+    <button
+      type="button"
+      id="hero-next"
+      class="btn btn-next btn-icon btn-xl bg-transparent shadow-none position-absolute top-50 end-0 translate-middle-y d-none d-md-inline-flex me-n3 me-lg-2"
+      aria-label="Next"
+    >
+      <i class="bx bx-chevron-right fs-1"></i>
+    </button>
+
+    <div class="container text-center py-xl-5">
+      <div class="row justify-content-center pt-lg-5">
+        <div class="col-xl-8 col-lg-9 col-md-10 col-11">
+          <div class="swiper pt-5 pb-4 py-md-5">
+            <swiper-container
+              [config]="swiperConfig"
+              init="false"
+              class="swiper-wrapper"
+            >
+              @for (data of sliderList; track $index) {
+                <swiper-slide class="swiper-slide">
+                  <h2 class="display-2 from-start mb-lg-4">{{ data.title }}</h2>
+                  <div class="from-end">
+                    <p class="fs-xl text-light opacity-70 pb-2 mb-lg-5">
+                      {{ data.description }}
+                    </p>
+                  </div>
+                  <div class="scale-up delay-1">
+                    <a
+                      href="javascript:void(0)"
+                      class="btn btn-primary shadow-primary btn-lg"
+                      >{{ data.btnLabel }}</a
+                    >
+                  </div>
+                </swiper-slide>
+              }
+            </swiper-container>
+
+            <div
+              id="hero-pagination"
+              class="swiper-pagination position-relative d-md-none pt-2 mt-5"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="container d-flex flex-column flex-sm-row align-items-center justify-content-between position-relative zindex-5 pb-5"
+  >
+    <div class="d-flex mb-4 mb-sm-0">
+      <a
+        href="javascript:void(0)"
+        class="btn btn-icon btn-secondary btn-linkedin rounded-circle me-2"
+        aria-label="LinkedIn"
+      >
+        <i class="bx bxl-linkedin"></i>
+      </a>
+      <a
+        href="javascript:void(0)"
+        class="btn btn-icon btn-secondary btn-facebook rounded-circle me-2"
+        aria-label="Facebook"
+      >
+        <i class="bx bxl-facebook"></i>
+      </a>
+      <a
+        href="javascript:void(0)"
+        class="btn btn-icon btn-secondary btn-twitter rounded-circle me-2"
+        aria-label="Twitter"
+      >
+        <i class="bx bxl-twitter"></i>
+      </a>
+      <a
+        href="javascript:void(0)"
+        class="btn btn-icon btn-secondary btn-youtube rounded-circle me-2"
+        aria-label="YouTube"
+      >
+        <i class="bx bxl-youtube"></i>
+      </a>
+    </div>
+    <a href="javascript:void(0)" class="nav-link px-0">
+      Our case studies
+      <i class="bx bx-right-arrow-circle fs-4 ms-2"></i>
+    </a>
+  </div>
+</section>

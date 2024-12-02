@@ -1,0 +1,84 @@
+<section class="container pt-xl-2 pb-5 mb-md-3 mb-lg-5">
+  <div
+    class="d-md-flex align-items-center justify-content-between text-center text-md-start pb-1 pb-lg-0 mb-4 mb-lg-5"
+  >
+    <h2 class="h1 mb-md-0">Qualified Medical Specialists</h2>
+    <a href="javascript:void(0)" class="btn btn-outline-primary">
+      See all doctors
+      <i class="bx bx-right-arrow-alt fs-xl ms-2 me-n1"></i>
+    </a>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    @for (data of teamList; track $index) {
+      <div class="col">
+        <div class="card card-hover border-0 bg-transparent">
+          <div class="position-relative">
+            <img
+              [src]="data.image"
+              class="rounded-3"
+              alt="Dr. Ronald Richards"
+            />
+            <div
+              class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3"
+            >
+              <span
+                class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-35 rounded-3"
+              ></span>
+              <div class="position-relative d-flex zindex-2">
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-secondary btn-facebook btn-sm bg-white me-2"
+                  aria-label="Facebook"
+                >
+                  <i class="bx bxl-facebook"></i>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-secondary btn-linkedin btn-sm bg-white me-2"
+                  aria-label="LinkedIn"
+                >
+                  <i class="bx bxl-linkedin"></i>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-secondary btn-twitter btn-sm bg-white"
+                  aria-label="Twitter"
+                >
+                  <i class="bx bxl-twitter"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body text-center p-3">
+            <h3 class="fs-lg fw-semibold pt-1 mb-2">{{ data.name }}</h3>
+            <p class="fs-sm mb-2">{{ data.expertise }}</p>
+            <div class="d-flex align-items-center justify-content-center">
+              <div class="text-nowrap me-1">
+                <ng-template #t let-fill="fill">
+                  @if (fill > 0) {
+                    <i
+                      class="bx bxs-star text-warning fs-sm me-1"
+                      [style.width.%]="fill"
+                    ></i>
+                  } @else {
+                    <i class="bx bx-star text-muted fs-sm opacity-75 me-1"> </i>
+                  }
+                </ng-template>
+
+                <ngb-rating
+                  [(rate)]="data.rating"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                />
+              </div>
+              <span class="fs-xs text-muted"
+                >({{ data.totalReview }} reviews)</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

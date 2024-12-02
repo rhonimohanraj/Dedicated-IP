@@ -1,0 +1,60 @@
+<section class="container pb-5 mb-md-3 mb-lg-4 mb-xl-5">
+  <div class="row pb-3">
+    <div class="col-md-5 mb-4 mb-md-0">
+      <div class="card bg-dark h-100 p-lg-5">
+        <div class="card-body p-lg-2">
+          <h2 class="h1 text-light">Still Have Any Questions?</h2>
+          <p class="fs-xl text-light opacity-70 mb-0">Check out the FAQs.</p>
+        </div>
+        <div class="card-footer border-0 w-100 pt-0 p-4 p-lg-2">
+          <div class="h2 d-flex align-items-center text-light mb-4">
+            {{ selectedCurrency }}28.99<del
+              class="fs-xl fw-normal opacity-70 ms-2"
+              >49.99</del
+            >
+          </div>
+          <a
+            href="javascript:void(0)"
+            class="btn btn-primary btn-lg shadow-primary"
+            >Join the course</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="accordion" id="faq" ngbAccordion [closeOthers]="true">
+        @for (item of singleCoursefaqsData; track $index) {
+          <div
+            class="accordion-item border-0 rounded-3 shadow-sm mb-3"
+            ngbAccordionItem
+            [collapsed]="false"
+          >
+            <h3 class="accordion-header" ngbAccordionHeader>
+              <button
+                class="accordion-button shadow-none rounded-3"
+                ngbAccordionButton
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#q-1"
+                aria-expanded="true"
+                aria-controls="q-1"
+              >
+                {{ item.question }}
+              </button>
+            </h3>
+            <div
+              class="accordion-collapse collapse show"
+              id="q-1"
+              data-bs-parent="#faq"
+              ngbAccordionCollapse
+            >
+              <div class="accordion-body fs-sm pt-0" ngbAccordionBody>
+                <p>{{ item.answers }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

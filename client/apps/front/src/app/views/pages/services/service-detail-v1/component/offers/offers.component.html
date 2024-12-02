@@ -1,0 +1,32 @@
+<section class="overflow-hidden pt-md-2 pt-lg-3 pb-3 pb-md-4 pb-xl-5">
+  <div class="container">
+    <div
+      class="d-flex flex-column flex-md-row flex-md-nowrap align-items-start"
+    >
+      <div class="col-md-7 ps-0 pe-lg-4 mb-5 mb-md-0">
+        <div style="max-width: 660px">
+          <h2 class="h1 pb-3 mb-2 mb-md-3">What We Offer</h2>
+          <div class="row row-cols-1 row-cols-sm-2 gx-lg-5 g-4">
+            @for (item of offerFeatureData; track $index) {
+              <div class="col pt-1 pt-sm-2 pt-lg-3">
+                <i
+                  class="bx bx-{{
+                    item.icon
+                  }} d-block fs-2 text-primary mb-2 mb-sm-3"
+                ></i>
+                <h3 class="h5 pb-sm-1 mb-2">{{ item.title }}</h3>
+                <p class="mb-0">{{ item.description }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+      <img
+        src="assets/img/services/single/dashboard.png"
+        width="836"
+        class="ms-3 ms-sm-5 ms-xl-3"
+        alt="Dashboard"
+      />
+    </div>
+  </div>
+</section>

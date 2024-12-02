@@ -1,0 +1,44 @@
+<section class="container-fluid pt-lg-2 pb-5 mb-2 mb-md-4 mb-lg-5">
+  <h2 class="h1 text-center pb-md-1 mb-1 mb-sm-3">Our Leaders</h2>
+  <div class="swiper mx-0 mb-md-n2 mb-xxl-n3">
+    <swiper-container
+      class="swiper-wrapper"
+      [config]="swiperConfig"
+      init="false"
+    >
+      @for (item of leaderShip; track $index) {
+        <swiper-slide class="swiper-slide py-3">
+          <div
+            class="card card-body card-hover bg-light border-0 text-center mx-2"
+          >
+            <img
+              [src]="item.image"
+              class="d-block rounded-circle mx-auto mb-3"
+              width="162"
+              alt="Ralph Edwards"
+            />
+            <h5 class="fw-medium fs-lg mb-1">{{ item.name }}</h5>
+            <p class="fs-sm mb-3">{{ item.role }}</p>
+            <div class="d-flex justify-content-center">
+              @for (item of item.socialProfile.icons; track $index) {
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-outline-secondary btn-{{
+                    item
+                  }} btn-sm me-2"
+                  aria-label="Facebook"
+                >
+                  <i class="bx bxl-{{ item }}"></i>
+                </a>
+              }
+            </div>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+    <div
+      id="swiper-pagination"
+      class="swiper-pagination position-relative pt-3 mt-3"
+    ></div>
+  </div>
+</section>

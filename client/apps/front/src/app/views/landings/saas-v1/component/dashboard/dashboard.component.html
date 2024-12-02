@@ -1,0 +1,39 @@
+<section class="container pt-3 pt-md-4 pt-lg-5 pb-2 mt-lg-2 mt-xl-4">
+  <div class="row align-items-center">
+    <div
+      class="rellax col-md-7"
+      appRellax
+      data-rellax-percentage="0.5"
+      data-rellax-speed="-0.6"
+      data-disable-parallax-down="lg"
+    >
+      <img
+        src="assets/img/landing/saas-1/dashboard.png"
+        class="d-block mx-auto"
+        width="746"
+        alt="Image"
+      />
+    </div>
+    <div
+      class="rellax col-md-5 col-xl-4 offset-xl-1 d-flex d-sm-block flex-column"
+      appRellax
+      data-rellax-percentage="0.5"
+      data-rellax-speed="0.8"
+      data-disable-parallax-down="lg"
+    >
+      <h2 class="pb-3 pt-2 pt-md-0">Manage Your Work</h2>
+      <ul class="list-unstyled pb-2">
+        @for (data of workList; track $index) {
+          <li class="d-flex align-items-center pb-1 mb-2">
+            <i class="bx bx-check-circle text-primary fs-xl me-2"></i>
+            {{ data.title }}
+          </li>
+        }
+      </ul>
+      <a href="javascript:void(0)" class="btn btn-primary">
+        Learn more
+        <i class="bx bx-right-arrow-alt fs-xl ms-2"></i>
+      </a>
+    </div>
+  </div>
+</section>

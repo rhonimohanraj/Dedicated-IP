@@ -1,0 +1,25 @@
+<section class="container mb-lg-5 mb-4 pb-3">
+  <h2 class="h1 mb-lg-5 mb-4 pb-lg-0 pb-md-2 text-center">Our benefits</h2>
+
+  <div class="swiper mb-xl-3 text-sm-start text-center">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of benefitsList; track $index) {
+        <swiper-slide class="swiper-slide">
+          <div class="mx-sm-0 mx-auto" style="max-width: 19.125rem">
+            <h4 class="h5 mb-3">{{ data.title }}</h4>
+            <p class="mb-0">{{ data.description }}</p>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="benefitpagination"
+      class="swiper-pagination position-static mt-4 pt-lg-3 pt-2"
+    ></div>
+  </div>
+</section>

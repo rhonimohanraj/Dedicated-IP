@@ -1,0 +1,27 @@
+<section class="container border-bottom-lg pt-sm-2">
+  <div class="swiper mx-n2">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of brandList; track $index) {
+        <swiper-slide class="swiper-slide py-2">
+          <a href="javascript:void(0)" class="px-2 mx-2">
+            <img
+              src="{{ data.image }}"
+              class="d-block mx-auto my-2"
+              width="155"
+              alt="Brand"
+            />
+          </a>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="brandspagination"
+      class="swiper-pagination position-relative pt-3"
+    ></div>
+  </div>
+</section>

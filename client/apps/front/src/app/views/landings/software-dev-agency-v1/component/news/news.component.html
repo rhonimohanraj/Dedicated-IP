@@ -1,0 +1,79 @@
+<section class="bg-secondary border-bottom border-light py-5">
+  <div class="container py-md-3 py-lg-5">
+    <h2 class="h1 text-center pb-2">News &amp; Insights</h2>
+    <div class="position-relative mx-md-2 px-md-5">
+      <button
+        type="button"
+        id="news-prev"
+        class="btn btn-prev btn-icon btn-sm position-absolute top-50 start-0 translate-middle-y mt-n4 d-none d-md-inline-flex"
+        aria-label="Previous"
+      >
+        <i class="bx bx-chevron-left"></i>
+      </button>
+      <button
+        type="button"
+        id="news-next"
+        class="btn btn-next btn-icon btn-sm position-absolute top-50 end-0 translate-middle-y mt-n4 d-none d-md-inline-flex"
+        aria-label="Next"
+      >
+        <i class="bx bx-chevron-right"></i>
+      </button>
+
+      <div class="swiper swiper-nav-onhover mx-n2">
+        <swiper-container
+          [config]="swiperConfig"
+          init="false"
+          class="swiper-wrapper"
+        >
+          @for (data of newsList; track $index) {
+            <swiper-slide class="swiper-slide h-auto py-3">
+              <article
+                class="card p-md-3 p-2 border-0 shadow-sm card-hover-primary h-100 mx-2"
+              >
+                <div class="card-body pb-0">
+                  <div
+                    class="d-flex align-items-center justify-content-between mb-3"
+                  >
+                    <a
+                      href="javascript:void(0)"
+                      class="badge fs-sm text-nav bg-secondary text-decoration-none position-relative zindex-2"
+                      >{{ data.category }}</a
+                    >
+                    <span class="fs-sm text-muted">{{ data.time }}</span>
+                  </div>
+                  <h3 class="h4">
+                    <a routerLink="/blog/single-post" class="stretched-link">{{
+                      data.title
+                    }}</a>
+                  </h3>
+                  <p class="mb-0">{{ data.description }}</p>
+                </div>
+                <div
+                  class="card-footer d-flex align-items-center py-4 text-muted border-top-0"
+                >
+                  <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-like fs-lg me-1"></i>
+                    <span class="fs-sm">{{ data.liked }}</span>
+                  </div>
+                  <div class="d-flex align-items-center me-3">
+                    <i class="bx bx-comment fs-lg me-1"></i>
+                    <span class="fs-sm">{{ data.commented }}</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bx bx-share-alt fs-lg me-1"></i>
+                    <span class="fs-sm">{{ data.shared }}</span>
+                  </div>
+                </div>
+              </article>
+            </swiper-slide>
+          }
+        </swiper-container>
+
+        <div
+          id="news-pagination"
+          class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>

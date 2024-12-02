@@ -1,0 +1,195 @@
+<div class="bg-secondary mb-5 pt-5">
+  <section class="container mb-5 py-lg-5">
+    <h2 class="h1 mb-4 pb-3 text-center">Latest From Our Blog</h2>
+    <div class="row">
+      <div class="col-lg-5 col-12 mb-lg-0 mb-4">
+        <article class="card h-100 border-0 shadow-sm">
+          <div class="position-relative">
+            <a
+              routerLink="/blog/single-post"
+              class="position-absolute top-0 start-0 w-100 h-100"
+              aria-label="Read more"
+            ></a>
+            <a
+              href="javascript:void(0)"
+              class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+              data-bs-toggle="tooltip"
+              placement="left"
+              ngbTooltip="Read later"
+              aria-label="Read later"
+            >
+              <i class="bx bx-bookmark"></i>
+            </a>
+            <img [src]="blogList[0].cover" class="card-img-top" alt="Image" />
+          </div>
+          <div class="card-body pb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <a
+                href="javascript:void(0)"
+                class="badge fs-sm text-nav bg-secondary text-decoration-none"
+                >{{ blogList[0].category }}</a
+              >
+              <span class="fs-sm text-muted">{{ blogList[0].time }}</span>
+            </div>
+            <h3 class="h5 mb-0">
+              <a routerLink="/blog/single-post">{{ blogList[0].title }}</a>
+            </h3>
+          </div>
+          <div class="card-footer py-4">
+            <div
+              class="d-inline-flex align-items-center position-relative me-3"
+            >
+              <img
+                [src]="blogList[0].author.image"
+                class="rounded-circle me-3"
+                width="48"
+                alt="Avatar"
+              />
+              <div>
+                <a
+                  href="javascript:void(0)"
+                  class="nav-link p-0 fw-bold text-decoration-none stretched-link"
+                  >{{ blogList[0].author.name }}</a
+                >
+                <span class="fs-sm text-muted">{{
+                  blogList[0].author.expertise
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col">
+        @for (data of blogList.slice(1, blogList.length); track $index) {
+          <article
+            class="card border-0 shadow-sm overflow-hidden"
+            [ngClass]="{ 'mb-4': $index != blogList.length - 2 }"
+          >
+            <div class="row g-0">
+              <div
+                class="col-sm-5 position-relative bg-position-center bg-repeat-0 bg-size-cover"
+                [style.background-image]="'url(' + data.cover + ')'"
+                [style.min-height]="'15rem'"
+              >
+                <a
+                  routerLink="/blog/single-post"
+                  class="position-absolute top-0 start-0 w-100 h-100"
+                  aria-label="Read more"
+                ></a>
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+                  data-bs-toggle="tooltip"
+                  placement="left"
+                  ngbTooltip="Read later"
+                  aria-label="Read later"
+                >
+                  <i class="bx bx-bookmark"></i>
+                </a>
+              </div>
+              <div class="col-sm-7">
+                <div class="card-body">
+                  <div class="d-flex align-items-center mb-3">
+                    <a
+                      href="javascript:void(0)"
+                      class="badge fs-sm text-nav bg-secondary text-decoration-none"
+                      >{{ data.category }}</a
+                    >
+                    <span class="fs-sm text-muted border-start ps-3 ms-3">{{
+                      data.time
+                    }}</span>
+                  </div>
+                  <h3 class="h5">
+                    <a routerLink="/blog/single-post">{{ data.title }}</a>
+                  </h3>
+                  <hr class="my-4" />
+                  <div
+                    class="d-flex flex-sm-nowrap flex-wrap align-items-center justify-content-between"
+                  >
+                    <div
+                      class="d-flex align-items-center position-relative me-3"
+                    >
+                      <img
+                        [src]="data.author.image"
+                        class="rounded-circle me-3"
+                        width="48"
+                        alt="Avatar"
+                      />
+                      <div>
+                        <a
+                          href="javascript:void(0)"
+                          class="nav-link p-0 fw-bold text-decoration-none stretched-link"
+                          >{{ data.author.name }}</a
+                        >
+                        <span class="fs-sm text-muted">{{
+                          data.author.expertise
+                        }}</span>
+                      </div>
+                    </div>
+                    <div
+                      class="d-flex align-items-center mt-sm-0 mt-4 text-muted"
+                    >
+                      <div class="d-flex align-items-center me-3">
+                        <i class="bx bx-like fs-lg me-1"></i>
+                        <span class="fs-sm">{{ data.liked }}</span>
+                      </div>
+                      <div class="d-flex align-items-center me-3">
+                        <i class="bx bx-comment fs-lg me-1"></i>
+                        <span class="fs-sm">{{ data.commented }}</span>
+                      </div>
+                      <div class="d-flex align-items-center">
+                        <i class="bx bx-share-alt fs-lg me-1"></i>
+                        <span class="fs-sm">{{ data.shared }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <div class="col-12 mt-4 pt-lg-4 pt-3 text-center">
+        <a
+          routerLink="/blog/grid"
+          class="btn btn-lg btn-outline-primary w-sm-auto w-100"
+          >More blog posts</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="container pt-3 pb-4 pb-md-5"
+    style="
+      margin-top: -156px;
+      margin-bottom: 120px;
+      transform: translateY(156px);
+    "
+  >
+    <div class="card border-0 bg-gradient-primary">
+      <div
+        class="card-body p-md-5 p-4 bg-size-cover"
+        style="
+          background-image: url(assets/img/landing/digital-agency/contact-bg.png);
+        "
+      >
+        <div class="py-md-5 py-4 text-center">
+          <h3 class="h4 fw-normal text-light opacity-75">
+            Want to work with us? Let's talk
+          </h3>
+          <a href="mailto:email@example.com" class="display-6 text-light"
+            >email&#64;example.com</a
+          >
+          <div class="pt-md-5 pt-4 pb-md-2">
+            <a routerLink="/contacts/v1" class="btn btn-lg btn-light"
+              >Contact us</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

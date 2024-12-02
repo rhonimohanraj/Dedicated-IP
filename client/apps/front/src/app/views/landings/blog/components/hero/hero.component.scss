@@ -1,0 +1,13 @@
+@import "swiper/scss";
+@import "swiper/css/scrollbar";
+
+.swiper-scrollbar-drag {
+  transition-property: transform, height;
+  transition-duration: 0ms; /* Initial duration */
+}
+
+.scrollbar-adjusted {
+  transform: translate3d(0px, 55.0425px, 0px); /* Adjusted translate value */
+  height: 130.682px; /* Adjusted height value */
+  transition-duration: 200ms; /* Transition duration after adjustment */
+}

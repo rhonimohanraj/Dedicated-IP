@@ -1,0 +1,46 @@
+<section class="container py-5 my-md-2 my-lg-4 my-xl-5">
+  <div class="row justify-content-center pt-1 pb-1 mb-2 mb-md-3 mb-lg-4">
+    <div class="col-lg-8 col-md-9 text-center">
+      <h2 class="h1 mb-4">Integrate Top Work Tools</h2>
+      <p class="fs-lg text-muted mb-0">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin volutpat
+        mollis egestas. Nam luctus facilisis ultrices. Pellentesque volutpat
+        ligula est. Mattis fermentum, at nec lacus.
+      </p>
+    </div>
+  </div>
+  <div class="swiper swiper-nav-onhover mx-n2">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of integrationList; track $index) {
+        <swiper-slide class="swiper-slide py-3">
+          <a
+            href="javascript:void(0)"
+            class="card card-hover border-0 shadow-sm py-3 mx-2"
+          >
+            <div class="card-body">
+              <img
+                src="{{ data.image }}"
+                class="d-block mx-auto"
+                alt="Google"
+              />
+            </div>
+          </a>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="toolspagination"
+      class="swiper-pagination position-relative pt-3 mt-4"
+    ></div>
+  </div>
+  <div class="text-center pt-xl-4 my-3 mt-xl-n2">
+    <a href="javascript:void(0)" class="btn btn-primary mt-xl-3"
+      >View all integrations</a
+    >
+  </div>
+</section>

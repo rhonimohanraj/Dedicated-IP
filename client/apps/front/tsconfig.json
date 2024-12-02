@@ -7,7 +7,38 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@views/*": [
+        "./src/app/views/*"
+      ],
+      "@components/*": [
+        "./src/app/components/*"
+      ],
+      "@core/*": [
+        "./src/app/core/*"
+      ],
+      "@helpers/*": [
+        "./src/app/helpers/*"
+      ],
+      "@layouts/*": [
+        "./src/app/layouts/*"
+      ],
+      "@states/*": [
+        "./src/app/states/*"
+      ],
+      "@utils/*": [
+        "./src/app/utils/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ]
+    },
+    "lib": [
+      "es2021.String",
+      "dom"
+    ]
   },
   "files": [],
   "include": [],

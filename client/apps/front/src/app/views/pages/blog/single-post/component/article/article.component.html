@@ -1,0 +1,78 @@
+<section class="container mb-5 pt-md-4">
+  <div
+    class="d-flex flex-sm-row flex-column align-items-center justify-content-between mb-4 pb-1 pb-md-3"
+  >
+    <h2 class="h1 mb-sm-0">Related Articles</h2>
+    <a
+      routerLink="/blog/list-sidebar"
+      class="btn btn-lg btn-outline-primary ms-4"
+    >
+      All posts
+      <i class="bx bx-right-arrow-alt ms-1 me-n1 lh-1 lead"></i>
+    </a>
+  </div>
+
+  <div class="swiper mx-n2">
+    <swiper-container
+      class="swiper-wrapper"
+      [config]="swiperConfig"
+      init="false"
+    >
+      @for (item of sibglePostArticlesData; track $index) {
+        <swiper-slide class="swiper-slide h-auto pb-3">
+          <article class="card border-0 shadow-sm h-100 mx-2">
+            <div class="position-relative">
+              <a
+                href="{{ item.link?.name }}"
+                class="position-absolute top-0 start-0 w-100 h-100"
+                aria-label="Read more"
+              ></a>
+              <a
+                href="javascript:void(0)"
+                class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+                data-bs-toggle="tooltip"
+                placement="left"
+                ngbTooltip="Read later"
+                aria-label="Read later"
+              >
+                <i class="bx bx-bookmark"></i>
+              </a>
+              <img [src]="item.image" class="card-img-top" alt="Image" />
+            </div>
+            <div class="card-body pb-4">
+              <div
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <a
+                  href="javascript:void(0)"
+                  class="badge fs-sm text-nav bg-secondary text-decoration-none"
+                  >{{ item.category }}</a
+                >
+                <span class="fs-sm text-muted">{{ item.date }}</span>
+              </div>
+              <h3 class="h5 mb-0">
+                <a href="{{ item.link?.name }}">{{ item.title }}</a>
+              </h3>
+            </div>
+            <div class="card-footer py-4">
+              <a
+                href="javascript:void(0)"
+                class="d-flex align-items-center fw-bold text-dark text-decoration-none"
+              >
+                <img
+                  [src]="item.author.avatar"
+                  class="rounded-circle me-3"
+                  width="48"
+                  alt="Avatar"
+                />
+                {{ item.author.name }}
+              </a>
+            </div>
+          </article>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
+  </div>
+</section>

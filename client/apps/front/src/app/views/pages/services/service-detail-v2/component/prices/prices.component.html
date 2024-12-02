@@ -1,0 +1,30 @@
+<section class="container pt-4 pb-2 py-md-4 py-lg-5">
+  <div class="row pb-1">
+    <div class="col-md-5 col-xl-4 text-center text-md-start pb-4 mb-2">
+      <h2 class="h1 mb-lg-4">Our prices for best results</h2>
+      <p class="pb-4 mb-1 mb-lg-3">
+        Nisi augue at ridiculus ullamcorper ibendum nunc dignissim habitasse in
+        mollis orci. Elementum duis ultricies vehicula nullam tristique.
+      </p>
+      <a href="javascript:void(0)" class="btn btn-primary shadow-primary btn-lg"
+        >Make an appointment</a
+      >
+    </div>
+    <div class="col-md-7 offset-xl-1">
+      <div class="bg-secondary rounded-3 p-4">
+        @for (item of pricesPricingData; track $index;let last = $last) {
+          <div
+            class="d-flex justify-content-between align-items-center" [ngClass]="last?'mx-3':'border-bottom pb-4 mx-sm-3 mb-4'"
+          >
+            <span class="fs-xl fw-500">{{ item.title }}</span>
+            <span
+              >from<span class="h5 ms-2 mb-0"
+                >{{ selectedCurrency }}{{ item.price }}</span
+              ></span
+            >
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

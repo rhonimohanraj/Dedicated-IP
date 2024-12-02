@@ -1,0 +1,60 @@
+<section class="pb-5 mb-2 mb-md-4 mb-lg-5" style="padding-top: 80px">
+  <div class="bg-secondary pb-lg-4 pb-xl-5">
+    <div class="container pb-4 pb-md-5">
+      <div class="row">
+        <div class="col-xl-5 col-lg-6" style="margin-top: -80px">
+          <div class="swiper-tabs mx-auto" style="max-width: 526px">
+            @for (data of ctaData; track $index) {
+              <div [id]="data.id" class="swiper-tab">
+                <img [src]="data.image" class="rounded-3" alt="Image" />
+              </div>
+            }
+          </div>
+        </div>
+        <div class="col-xl-5 col-lg-6 offset-xl-1 pt-2 pt-md-4 pt-lg-5 mt-4">
+          <div
+            class="d-flex justify-content-center justify-content-lg-start pb-3 mb-3"
+          >
+            <button
+              type="button"
+              id="prev"
+              class="btn btn-prev btn-icon btn-sm me-2"
+              aria-label="Previous"
+            >
+              <i class="bx bx-chevron-left"></i>
+            </button>
+            <button
+              type="button"
+              id="next"
+              class="btn btn-next btn-icon btn-sm ms-2"
+              aria-label="Next"
+            >
+              <i class="bx bx-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="swiper mx-0 mb-md-n2 mb-xxl-n3" #ctaSwipers>
+            <div class="swiper-wrapper text-center text-lg-start">
+              @for (data of ctaData; track $index) {
+                <div
+                  class="swiper-slide pb-4"
+                  [attr.data-swiper-tab]="'#' + data.id"
+                >
+                  <h2 class="h1 mb-4" [innerHTML]="data.title"></h2>
+                  <p class="pb-2 pb-xl-0 mb-4 mb-xl-5">
+                    {{ data.description }}
+                  </p>
+                  <a
+                    href="javascript:void(0)"
+                    class="btn btn-success btn-lg shadow-success"
+                    >Learn more</a
+                  >
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

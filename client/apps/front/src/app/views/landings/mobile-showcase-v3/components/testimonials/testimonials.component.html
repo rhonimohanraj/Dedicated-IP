@@ -1,0 +1,68 @@
+<section class="bg-dark py-5" data-bs-theme="dark">
+  <div class="container pt-2 pb-3 py-sm-3 py-md-4 py-lg-5">
+    <div class="row align-items-center py-xl-3 my-xxl-3">
+      <div
+        class="col-md-4 col-lg-5 text-center text-md-start pb-3 pb-md-0 mb-4 mb-md-0"
+      >
+        <h2 class="h1 mb-4 mb-md-5">
+          What our clients say about
+          <span class="text-warning">their experience</span> with our
+          application
+        </h2>
+        <a href="javascript:void(0)" class="btn btn-outline-secondary"
+          >View all reviews</a
+        >
+      </div>
+      <div
+        class="col-md-8 col-lg-7 col-xl-6 offset-xl-1 d-flex flex-column align-items-end gap-4"
+      >
+        @for (data of clientList; track $index) {
+          <div
+            class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center"
+            [ngClass]="
+              $index % 2 == 0 ? 'ps-xl-5 ms-xxl-4' : 'pe-xl-5 me-xxl-4'
+            "
+          >
+            <div
+              class="position-relative bg-dark rounded-circle flex-shrink-0 zindex-1 p-2 ms-4 ms-sm-0 mb-n5 mb-sm-0 me-sm-n5"
+            >
+              <img
+                src="{{ data.user.image }}"
+                class="rounded-circle"
+                width="80"
+                alt="Avatar"
+              />
+            </div>
+            <div
+              class="card border-0 bg-secondary pt-5 pb-1 px-1 ps-sm-5 pe-sm-3 py-sm-3"
+            >
+              <div class="card-body">
+                <div class="fs-lg text-nowrap mb-3">
+                  <ng-template #t let-fill="fill">
+                    @if (fill > 0) {
+                      <i
+                        class="bx bxs-star text-warning me-1"
+                        [style.width.%]="fill"
+                      ></i>
+                    } @else {
+                      <i class="bx bx-star text-muted opacity-75 me-1"> </i>
+                    }
+                  </ng-template>
+
+                  <ngb-rating
+                    [(rate)]="data.rating"
+                    [starTemplate]="t"
+                    [readonly]="true"
+                    [max]="5"
+                  />
+                </div>
+                <p class="text-body fs-lg mb-3">{{ data.comment }}</p>
+                <h6 class="fs-lg mb-0">{{ data.user.name }}</h6>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

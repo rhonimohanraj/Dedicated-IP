@@ -1,0 +1,107 @@
+<section class="position-relative bg-secondary py-5">
+  <div class="container mt-3 pt-md-2 pt-lg-4 pb-2 pb-md-4 pb-lg-5">
+    <h2 class="h1 text-center pb-2 pb-md-0 mb-4 mb-md-5">How Does It Work?</h2>
+    <div class="position-relative mx-5">
+      <button
+        type="button"
+        id="prev-screen"
+        class="btn btn-prev btn-icon position-absolute top-50 start-0 ms-n5 translate-middle-y"
+        aria-label="Previous"
+      >
+        <i class="bx bx-chevron-left"></i>
+      </button>
+      <button
+        type="button"
+        id="next-screen"
+        class="btn btn-next btn-icon position-absolute top-50 end-0 me-n5 translate-middle-y"
+        aria-label="Next"
+      >
+        <i class="bx bx-chevron-right"></i>
+      </button>
+
+      <div
+        class="position-absolute top-0 start-50 translate-middle-x h-100 w-100 w-md-33 zindex-5"
+      >
+        <div
+          class="d-flex bg-repeat-0 bg-size-cover w-100 h-100 mx-auto"
+          style="
+            max-width: 328px;
+            background-image: url(assets/img/landing/app-showcase-1/screens/phone-frame.png);
+          "
+        ></div>
+      </div>
+
+      <div
+        class="position-absolute top-0 start-50 translate-middle-x h-100 w-100 w-md-33"
+      >
+        <div
+          class="d-flex bg-repeat-0 bg-size-cover w-100 h-100 mx-auto"
+          style="
+            max-width: 328px;
+            background-image: url(assets/img/landing/app-showcase-1/screens/phone-screen.png);
+          "
+        ></div>
+      </div>
+
+      <div class="swiper mobile-app-slider" #workingSwipers>
+        <div class="swiper-wrapper">
+          @for (item of worksData; track $index) {
+            <div class="swiper-slide" attr.data-swiper-tab="{{ item.id }}">
+              <img
+                [src]="item.src"
+                class="d-block mx-auto"
+                width="328"
+                alt="Screen"
+              />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center pt-4 mt-2 mt-md-3">
+      <div class="swiper-tabs col-xl-6 col-lg-7 col-md-8 text-center">
+        <div id="text-1" class="swiper-tab active">
+          <h3 class="h4 pb-1 mb-2">Step 1. Advanced budget management</h3>
+          <p class="mb-0">
+            Consequat ut cras nisl, enim purus in facilisi. Ipsum amet, lectus
+            malesuada risus sollicitudin accumsan. Id sem elit vel vel lectus
+            risus senectus.
+          </p>
+        </div>
+
+        <div id="text-2" class="swiper-tab">
+          <h3 class="h4 pb-1 mb-2">Step 2. Latest transaction history</h3>
+          <p class="mb-0">
+            Enim, et amet praesent pharetra. Mi non ante hendrerit amet sed.
+            Arcu sociis tristique quisque hac in consectetur condimentum.
+          </p>
+        </div>
+
+        <div id="text-3" class="swiper-tab">
+          <h3 class="h4 pb-1 mb-2">
+            Step 3. Transfers to people from your contact list
+          </h3>
+          <p class="mb-0">
+            Proin volutpat mollis egestas. Nam luctus facilisis ultrices.
+            Pellentesque volutpat ligula est. Mattis fermentum, at nec lacus.
+          </p>
+        </div>
+
+        <div id="text-4" class="swiper-tab">
+          <h3 class="h4 pb-1 mb-2">Step 4. Card-to-card transfers</h3>
+          <p class="mb-0">
+            A sed lorem felis, pulvinar pharetra. At tempus, vel sed faucibus
+            amet sit elementum sed erat. Id nunc blandit pharetra facilisis.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="swiper-progress"
+    class="swiper-pagination bottom-0"
+    style="top: auto"
+  ></div>
+</section>

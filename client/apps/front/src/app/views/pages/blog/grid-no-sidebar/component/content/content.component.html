@@ -1,0 +1,103 @@
+<div class="row align-items-end gy-3 mb-4 pb-lg-3 pb-1">
+  <div class="col-lg-5 col-md-4">
+    <h1 class="mb-2 mb-md-0">Blog Grid</h1>
+  </div>
+  <div class="col-lg-7 col-md-8">
+    <form class="row gy-2">
+      <div class="col-lg-5 col-sm-6">
+        <div class="d-flex align-items-center">
+          <div class="nav flex-nowrap me-sm-4 me-3">
+            <a
+              routerLink="/blog/list"
+              class="nav-link me-2 p-0"
+              aria-label="List view"
+            >
+              <i class="bx bx-list-ul fs-4"></i>
+            </a>
+            <a
+              routerLink="/blog/grid"
+              class="nav-link p-0 active"
+              aria-label="Grid view"
+            >
+              <i class="bx bx-grid-alt fs-4"></i>
+            </a>
+          </div>
+          <select class="form-select">
+            <option>All categories</option>
+            <option value="processes-and-tools">Processes &amp; Tools</option>
+            <option value="startups">Startups</option>
+            <option value="digital">Digital</option>
+            <option value="strategy">Strategy</option>
+            <option value="business">Business</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-7 col-sm-6">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control pe-5 rounded"
+            placeholder="Search the blog..."
+          />
+          <i
+            class="bx bx-search position-absolute top-50 end-0 translate-middle-y me-3 zindex-5 fs-lg"
+          ></i>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-sm-2 row-cols-1 gy-md-4 gy-2">
+  @for (item of gridNosidebarblogData; track $index) {
+    <div class="col pb-3">
+      <article class="card border-0 shadow-sm h-100">
+        <div class="position-relative">
+          <a
+            href="{{ item.link.name }}"
+            class="position-absolute top-0 start-0 w-100 h-100"
+            aria-label="Read more"
+          ></a>
+          <a
+            href="javascript:void(0)"
+            class="btn btn-icon btn-light bg-white border-white btn-sm rounded-circle position-absolute top-0 end-0 zindex-5 me-3 mt-3"
+            data-bs-toggle="tooltip"
+            placement="left"
+            ngbTooltip="Read later"
+            aria-label="Read later"
+          >
+            <i class="bx bx-bookmark"></i>
+          </a>
+          <img [src]="item.image" class="card-img-top" alt="Image" />
+        </div>
+        <div class="card-body pb-4">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <a
+              href="javascript:void(0)"
+              class="badge fs-sm text-nav bg-secondary text-decoration-none"
+              >{{ item.category }}</a
+            >
+            <span class="fs-sm text-muted">{{ item.date }}</span>
+          </div>
+          <h3 class="h5 mb-0">
+            <a href="{{ item.link.name }}">{{ item.title }}</a>
+          </h3>
+        </div>
+        <div class="card-footer py-4">
+          <a
+            href="javascript:void(0)"
+            class="d-flex align-items-center fw-bold text-dark text-decoration-none"
+          >
+            <img
+              [src]="item.author.avatar"
+              class="rounded-circle me-3"
+              width="48"
+              alt="Avatar"
+            />
+            {{ item.author.name }}
+          </a>
+        </div>
+      </article>
+    </div>
+  }
+</div>

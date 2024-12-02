@@ -1,0 +1,39 @@
+<section class="container py-5 mt-2 mt-md-4 mt-lg-5 mb-xl-2">
+  <h2 class="h1 text-center pt-2 pt-md-3 pb-4 mb-2 mb-lg-3">
+    Explore More Projects
+  </h2>
+  <div class="swiper">
+    <swiper-container
+      class="swiper-wrapper"
+      [config]="projectConfig"
+      init="false"
+    >
+      @for (item of singleProjectData; track $index) {
+        <swiper-slide class="swiper-slide h-auto">
+          <div class="card card-portfolio">
+            <div class="card-img">
+              <img [src]="item.image" alt="Image" />
+            </div>
+            <div class="card-body">
+              <h3 class="h4 mb-2">
+                <a
+                  routerLink="/portfolio/single-project"
+                  class="stretched-link"
+                  >{{ item.title }}</a
+                >
+              </h3>
+              <div class="card-portfolio-meta">
+                <span class="text-muted">{{ item.tags }}</span>
+              </div>
+            </div>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="pagination"
+      class="swiper-pagination position-relative pt-sm-2 mt-4"
+    ></div>
+  </div>
+</section>

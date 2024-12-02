@@ -1,0 +1,52 @@
+<section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+  <h2 class="h1 mb-lg-5 mb-4 pb-lg-0 pb-md-2 text-center">
+    Explore Our Featured Projects
+  </h2>
+
+  @for (data of projectList; track $index) {
+    <div class="row gy-4 mb-4 pb-md-3 pb-2">
+      <div
+        class="col-md-6 rellax"
+        appRellax
+        data-rellax-percentage="0.5"
+        data-rellax-speed="0.5"
+        data-disable-parallax-down="md"
+      >
+        <div class="bg-secondary rounded-3">
+          <img [src]="data.image" alt="Project image" />
+        </div>
+      </div>
+      <div
+        class="col-xl-4 col-lg-5 col-md-6 col-sm-8 offset-lg-1 d-flex rellax"
+        appRellax
+        data-rellax-percentage="0.5"
+        data-rellax-speed="-0.5"
+        data-disable-parallax-down="md"
+      >
+        <div class="align-self-center ps-lg-0 ps-md-4">
+          <h4 class="mb-lg-4 mb-3 fs-base fw-normal text-body">
+            {{ data.category }}
+          </h4>
+          <h3 class="h2 mb-lg-4 mb-3">{{ data.title }}</h3>
+          <p class="mb-lg-4 mb-3">{{ data.description }}</p>
+          <ul
+            class="mb-lg-4 mb-3 fs-sm text-muted list-inline"
+            style="max-width: 19.125rem"
+          >
+            @for (tag of data.tags; track $index) {
+              <li class="list-inline-item me-1">
+                {{ tag }}
+                @if ($index < data.tags.length - 1) {
+                  <span class="ms-1">/</span>
+                }
+              </li>
+            }
+          </ul>
+          <a href="javascript:void(0)" class="btn btn-lg btn-outline-primary"
+            >Read More</a
+          >
+        </div>
+      </div>
+    </div>
+  }
+</section>

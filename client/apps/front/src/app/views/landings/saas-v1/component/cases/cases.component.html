@@ -1,0 +1,61 @@
+<section class="container pt-5 pb-2 mt-3 mt-sm-4 mt-xl-5">
+  <h2 class="h1 text-center pb-3 pb-lg-4">One Tool — Endless Use Cases</h2>
+
+  <ul
+    ngbNav
+    #nav="ngbNav"
+    class="nav nav-tabs flex-nowrap justify-content-lg-center overflow-auto pb-2 mb-3 mb-lg-4"
+    role="tablist"
+  >
+    @for (data of useCaseList; track $index) {
+      <li ngbNavItem class="nav-item" role="presentation">
+        <button
+          ngbNavLink
+          class="nav-link text-nowrap"
+          id="project-management-tab"
+          data-bs-toggle="tab"
+          data-bs-target="#project-management"
+          type="button"
+          role="tab"
+          aria-controls="project-management"
+          aria-selected="true"
+        >
+          <i class="{{ data.icon }} fs-lg opacity-60 me-2"></i>
+          {{ data.title }}
+        </button>
+        <ng-template ngbNavContent>
+          <div
+            class="tab-pane fade show active"
+            id="project-management"
+            role="tabpanel"
+            aria-labelledby="project-management-tab"
+          >
+            <div
+              class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0"
+            >
+              <div
+                class="col-lg-4 col-md-5 offset-lg-1 text-center text-md-start"
+              >
+                <h3 class="mb-lg-4">{{ data.title }}</h3>
+                <p>{{ data.description }}</p>
+              </div>
+              <div class="col-lg-6 col-md-7 mt-md-4">
+                <img
+                  [src]="data.image"
+                  class="d-block my-lg-2 mx-auto me-md-0"
+                  [width]="data.imageWidth"
+                  alt="Image"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    }
+  </ul>
+
+  <div
+    [ngbNavOutlet]="nav"
+    class="tab-content bg-secondary rounded-3 py-4"
+  ></div>
+</section>

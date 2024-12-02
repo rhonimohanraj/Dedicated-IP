@@ -1,0 +1,35 @@
+<div class="container position-relative zindex-2 py-5 mt-xl-3 mt-xxl-0">
+  <div class="row g-4 py-2 py-sm-3 py-md-4 py-lg-5 mt-xxl-2">
+    @for (data of awardList; track $index) {
+      <div class="col-sm-6 col-md-4 d-flex justify-content-center">
+        <div class="d-flex align-items-center">
+          <img
+            src="assets/img/landing/app-showcase-3/palm-branch-left-light.svg"
+            class="light-mode-img"
+            alt="Palm branch"
+          />
+          <img
+            src="assets/img/landing/app-showcase-3/palm-branch-left-dark.svg"
+            class="dark-mode-img"
+            alt="Palm branch"
+          />
+          <div class="text-center">
+            <div class="fs-xl opacity-80 mb-1">{{ data.text }}</div>
+            <h3 class="h4 text-body text-uppercase mb-1">{{ data.content }}</h3>
+            <div class="fs-xl opacity-80">{{ data.year }}</div>
+          </div>
+          <img
+            src="assets/img/landing/app-showcase-3/palm-branch-right-light.svg"
+            class="light-mode-img"
+            alt="Palm branch"
+          />
+          <img
+            src="assets/img/landing/app-showcase-3/palm-branch-right-dark.svg"
+            class="dark-mode-img"
+            alt="Palm branch"
+          />
+        </div>
+      </div>
+    }
+  </div>
+</div>

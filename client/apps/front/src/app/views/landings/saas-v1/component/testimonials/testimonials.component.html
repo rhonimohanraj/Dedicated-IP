@@ -1,0 +1,93 @@
+<section class="bg-secondary py-5">
+  <div class="container py-2 py-md-3 py-lg-4 py-xl-5">
+    <div class="row row-cols-1 row-cols-md-2 gx-3 gx-lg-4">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <div class="card border-0 bg-dark h-100 p-xl-4">
+          <div class="card-body">
+            <h2 class="display-1 text-light">420k</h2>
+            <p class="lead fw-medium text-light">
+              <span class="opacity-70">users are taking advantage of our</span>
+              <span class="fw-bold">Task Manager Tool</span
+              ><span class="opacity-70"
+                >. It’s a new transparent and efficient way to organize all of
+                your daily tasks.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0 shadow-sm p-4 p-xxl-5">
+          <div class="d-flex justify-content-between pb-4 mb-2">
+            <span
+              class="btn btn-icon btn-primary btn-lg shadow-primary pe-none"
+            >
+              <i class="bx bxs-quote-left"></i>
+            </span>
+            <div class="d-flex">
+              <button
+                type="button"
+                id="testimonials-prev"
+                class="btn btn-prev btn-icon btn-sm me-2"
+                aria-label="Previous"
+              >
+                <i class="bx bx-chevron-left"></i>
+              </button>
+              <button
+                type="button"
+                id="testimonials-next"
+                class="btn btn-next btn-icon btn-sm ms-2"
+                aria-label="Next"
+              >
+                <i class="bx bx-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="swiper mx-0 mb-md-n2 mb-xxl-n3">
+            <swiper-container
+              [config]="swiperConfig"
+              init="false"
+              class="swiper-wrapper"
+            >
+              @for (data of clientList; track $index) {
+                <swiper-slide class="swiper-slide h-auto">
+                  <figure
+                    class="card h-100 position-relative border-0 bg-transparent"
+                  >
+                    <blockquote class="card-body p-0 mb-0">
+                      <p class="fs-lg mb-0">{{ data.comment }}</p>
+                    </blockquote>
+                    <figcaption
+                      class="card-footer border-0 d-flex align-items-center w-100 pb-2"
+                    >
+                      <img
+                        src="{{ data.user.image }}"
+                        width="60"
+                        class="rounded-circle"
+                        alt="Annette Black"
+                      />
+                      <div class="ps-3">
+                        <h6 class="fw-semibold lh-base mb-0">
+                          {{ data.user.name }}
+                        </h6>
+                        <span class="fs-sm text-muted">{{
+                          data.user.role
+                        }}</span>
+                      </div>
+                    </figcaption>
+                  </figure>
+                </swiper-slide>
+              }
+            </swiper-container>
+
+            <div
+              class="swiper-pagination position-relative mt-5"
+              id="swiper-pagination"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

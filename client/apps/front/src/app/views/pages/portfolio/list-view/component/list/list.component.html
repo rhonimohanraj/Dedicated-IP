@@ -1,0 +1,56 @@
+<section
+  class="container d-sm-flex align-items-center justify-content-between pb-4 mb-2 mb-lg-3"
+>
+  <h1 class="mb-sm-0 me-sm-3">Portfolio List</h1>
+  <select class="form-select" style="width: 240px">
+    <option value="All categories">All categories</option>
+    <option value="Web Design">Web Design</option>
+    <option value="Graphic Design">Graphic Design</option>
+    <option value="Branding">Branding</option>
+    <option value="UI / UX">UI / UX</option>
+    <option value="Motion Design">Motion Design</option>
+  </select>
+</section>
+
+<section class="container pb-2 pb-lg-3">
+  @for (item of listViewData; track $index; let odd = $odd) {
+    <div class="row pb-5 mb-md-4 mb-lg-5">
+      <div
+        class="rellax col-md-6 pb-1 mb-3 pb-md-0 mb-md-0"
+        [ngClass]="odd ? ' order-md-2' : ''"
+        appRellax
+        data-rellax-percentage="0.5"
+        data-rellax-speed="0.8"
+        data-disable-parallax-down="md"
+      >
+        <a href="{{ item.link?.name }}" [ngClass]="odd ? 'float-md-end' : ''">
+          <img [src]="item.image" class="rounded-3" width="600" alt="Image" />
+        </a>
+      </div>
+      <div
+        class="rellax col-md-6"
+        [ngClass]="odd ? '' : 'order-md-2 pb-1 mb-3 pb-md-0 mb-md-0'"
+        appRellax
+        data-rellax-percentage="0.5"
+        data-rellax-speed="-0.6"
+        data-disable-parallax-down="md"
+      >
+        <div [ngClass]="odd ? 'pe-md-4 me-md-2' : 'ps-md-4 ms-md-2'">
+          <div class="fs-sm text-muted mb-1">{{ item.date }}</div>
+          <h2 class="h3">{{ item.title }}</h2>
+          <a
+            href="javascript:void(0)"
+            class="d-table badge bg-faded-primary text-primary fs-sm mb-3"
+            >{{ item.category }}</a
+          >
+          <p class="d-md-none d-lg-block pb-3 mb-2 mb-md-3">
+            {{ item.description }}
+          </p>
+          <a href="{{ item.link?.name }}" class="btn btn-outline-primary"
+            >View more</a
+          >
+        </div>
+      </div>
+    </div>
+  }
+</section>

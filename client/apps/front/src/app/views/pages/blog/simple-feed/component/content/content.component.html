@@ -1,0 +1,76 @@
+<section class="container mt-4 pt-lg-2 pb-4">
+  <div class="row gy-4 align-items-end mb-2 pb-md-3">
+    <div class="col-lg-8 col-md-6">
+      <h1 class="mb-0">Blog Simple Feed</h1>
+    </div>
+    <div class="col-lg-4 col-md-6">
+      <form class="input-group">
+        <input
+          type="text"
+          placeholder="Search the blog..."
+          class="form-control form-control-lg rounded-3"
+        />
+        <button
+          type="submit"
+          class="btn btn-icon btn-lg btn-primary rounded-3 ms-3"
+          aria-label="Search"
+        >
+          <i class="bx bx-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="swiper swiper-nav-onhover mx-n2">
+    <swiper-container
+      class="swiper-wrapper"
+      init="false"
+      [config]="swiperConfig"
+    >
+      @for (item of feedBlogData; track $index) {
+        <swiper-slide class="swiper-slide h-auto py-3">
+          <article
+            class="card p-md-3 p-2 border-0 shadow-sm card-hover-primary h-100 mx-2"
+          >
+            <div class="card-body pb-0">
+              <div
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <a
+                  href="javascript:void(0)"
+                  class="badge fs-sm text-nav bg-secondary text-decoration-none position-relative zindex-2"
+                  >{{ item.category }}</a
+                >
+                <span class="fs-sm text-muted">{{ item.time }}</span>
+              </div>
+              <h3 class="h4">
+                <a href="{{ item.link?.name }}" class="stretched-link">{{
+                  item.title
+                }}</a>
+              </h3>
+              <p class="mb-0">{{ item.description }}</p>
+            </div>
+            <div
+              class="card-footer d-flex align-items-center py-4 text-muted border-top-0"
+            >
+              <div class="d-flex align-items-center me-3">
+                <i class="bx bx-like fs-lg me-1"></i>
+                <span class="fs-sm">{{ item.like }}</span>
+              </div>
+              <div class="d-flex align-items-center me-3">
+                <i class="bx bx-comment fs-lg me-1"></i>
+                <span class="fs-sm">{{ item.comment }}</span>
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="bx bx-share-alt fs-lg me-1"></i>
+                <span class="fs-sm">{{ item.share }}</span>
+              </div>
+            </div>
+          </article>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div class="swiper-pagination position-relative pt-2 pt-sm-3 mt-4"></div>
+  </div>
+</section>

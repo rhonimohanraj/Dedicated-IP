@@ -1,0 +1,79 @@
+<section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+  <div class="mb-xl-3">
+    <h2 class="h1 mb-md-5 mb-4 pb-xl-3 pb-lg-2 pb-md-0 pb-sm-2">
+      What Our Clients Say About Us
+    </h2>
+
+    <div class="row gy-4 gx-md-4 gx-3">
+      <div class="col-lg-4 col-sm-5 order-sm-1 order-2">
+        <ul
+          ngbNav
+          #nav="ngbNav"
+          class="nav nav-tabs flex-column"
+          role="tablist"
+        >
+          @for (data of clientData; track $index) {
+            <li ngbNavItem class="nav-item mb-3">
+              <a
+                ngbNavLink
+                class="nav-link flex-md-row flex-sm-column align-items-md-center align-items-sm-start align-items-center p-md-4 p-3 rounded-3 fw-normal"
+                data-bs-toggle="tab"
+                role="tab"
+              >
+                <img
+                  [src]="data.user.image"
+                  width="56"
+                  alt="Avatar"
+                  class="rounded-circle me-md-3 me-sm-0 me-3 mb-md-0 mb-sm-2"
+                />
+                <div>
+                  <span class="d-block mb-0 fs-lg fw-semibold">{{
+                    data.user.name
+                  }}</span>
+                  {{ data.user.role }}
+                </div>
+              </a>
+              <ng-template ngbNavContent>
+                <div
+                  class="tab-pane fade show active"
+                  id="testimonial-1"
+                  role="tabpanel"
+                >
+                  <h4 class="mb-3" style="max-width: 22.875rem">
+                    “{{ data.title }}”
+                  </h4>
+                  <div class="fs-sm text-nowrap">
+                    <ng-template #t let-fill="fill">
+                      @if (fill > 0) {
+                        <i
+                          class="bx bxs-star text-warning"
+                          [style.width.%]="fill"
+                        ></i>
+                      } @else {
+                        <i class="bx bx-star text-muted"> </i>
+                      }
+                    </ng-template>
+
+                    <ngb-rating
+                      [(rate)]="data.rating"
+                      [starTemplate]="t"
+                      [readonly]="true"
+                      [max]="5"
+                    />
+                  </div>
+                  <p class="mt-md-4 mt-3 pt-lg-3 pt-md-2 mb-0 fs-lg">
+                    {{ data.description }}
+                  </p>
+                </div>
+              </ng-template>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="col-sm-7 offset-lg-1 order-sm-2 order-1">
+        <div [ngbNavOutlet]="nav" class="tab-content ps-lg-0 ps-md-4"></div>
+      </div>
+    </div>
+  </div>
+</section>

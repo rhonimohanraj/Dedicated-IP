@@ -1,0 +1,61 @@
+<section class="container my-5 pt-xl-5 pt-lg-4 pt-md-3 pb-lg-5 pb-md-4 pb-3">
+  <h2 class="h1 mt-xl-3 mb-4 pb-3 text-center">Why Silicon App?</h2>
+
+  <ul
+    ngbNav
+    #nav="ngbNav"
+    class="nav nav-tabs flex-nowrap justify-content-sm-center overflow-auto mb-lg-4 mb-3 pb-md-3 pb-2 text-nowrap"
+    role="tablist"
+  >
+    @for (data of aboutList; track $index) {
+      <li ngbNavItem class="nav-item">
+        <a ngbNavLink class="nav-link" data-bs-toggle="tab" role="tab">
+          <i class="{{ data.icon }} opacity-60 me-2 fs-lg"></i>
+          {{ data.title }}
+        </a>
+        <ng-template ngbNavContent>
+          <div
+            class="tab-pane fade show active"
+            id="economic-analysis"
+            role="tabpanel"
+          >
+            <div
+              class="row align-items-center pt-3 pt-sm-4 pt-md-0 px-3 px-sm-4 px-lg-0"
+            >
+              <div
+                class="offset-lg-1 text-center text-md-start"
+                [ngClass]="
+                  $index == 1 ? 'col-lg-5 col-md-6' : 'col-lg-4 col-md-5'
+                "
+              >
+                <h3 class="h2 mb-lg-4 mb-3">{{ data.title }}</h3>
+                <div [innerHTML]="data.discription"></div>
+                <a href="javascript:void(0)" class="btn btn-primary"
+                  >Learn more</a
+                >
+              </div>
+              <div
+                class="mt-4 pt-md-0 pt-2"
+                [ngClass]="
+                  $index == 1 ? 'col-lg-5 col-md-6' : 'col-lg-6 col-md-7'
+                "
+              >
+                <img
+                  src="{{ data.image }}"
+                  class="d-block my-lg-2 mx-auto me-md-0"
+                  width="595"
+                  alt="Image"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    }
+  </ul>
+
+  <div
+    [ngbNavOutlet]="nav"
+    class="tab-content mb-xl-3 py-4 bg-secondary rounded-3"
+  ></div>
+</section>

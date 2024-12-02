@@ -1,0 +1,35 @@
+<section class="container pb-5 mb-2 mb-md-4 mb-lg-5">
+  <div class="bg-secondary rounded-3 py-5 px-3 px-md-0">
+    <div class="row justify-content-center mb-2 py-md-2 py-lg-4">
+      <div class="col-lg-10 col-md-11">
+        <h2 class="pb-3">Overpass by Numbers</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          @for (item of statsList; track $index) {
+            <div class="col">
+              <div class="card h-100 border-0 shadow-sm p-md-2 p-lg-4">
+                <div class="card-body d-flex align-items-center">
+                  <div
+                    class="bg-primary shadow-primary rounded-3 flex-shrink-0 p-3"
+                  >
+                    <img
+                      [src]="item.image"
+                      class="d-block m-1"
+                      width="40"
+                      alt="Icon"
+                    />
+                  </div>
+                  <div class="ps-4 ms-lg-3">
+                    <h3 class="display-5 mb-1">{{ item.number }}</h3>
+                    <p class="mb-0">
+                      <span class="fw-semibold">{{ item.content }}</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

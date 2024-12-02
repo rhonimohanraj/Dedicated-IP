@@ -1,0 +1,33 @@
+<section class="container mt-2 mb-lg-2 mb-xl-4 pt-3 pt-lg-5 pb-5">
+  <h2 class="text-center pb-md-2">
+    Trusted by Leading Universities &amp; Companies
+  </h2>
+  <div class="swiper mx-n2">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of brandsData; track $index) {
+        <swiper-slide class="swiper-slide py-3">
+          <a
+            href="javascript:void(0)"
+            class="card card-body card-hover px-2 mx-2"
+          >
+            <img
+              [src]="data.image"
+              class="d-block mx-auto my-2"
+              width="154"
+              alt="Brand"
+            />
+          </a>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="brandspagination"
+      class="swiper-pagination position-relative pt-2 mt-4"
+    ></div>
+  </div>
+</section>

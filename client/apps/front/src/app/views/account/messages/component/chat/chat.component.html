@@ -1,0 +1,177 @@
+<div class="card h-100 border-0 bg-transparent pb-3">
+  <div
+    class="navbar card-header d-flex align-items-center justify-content-between w-100 p-sm-4 p-3"
+  >
+    <div class="d-flex align-items-center pe-3">
+      <button
+        type="button"
+        class="navbar-toggler d-lg-none me-3"
+        (click)="emitOpenOffCanvas()"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#contactsList"
+        aria-controls="contactsList"
+        aria-label="Toggle contacts list"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <img
+        [src]="contactDetail.user.image"
+        class="rounded-circle"
+        width="40"
+        alt="Albert Flores"
+      />
+      <h6 class="mb-0 px-1 mx-2">{{ contactDetail.user.name }}</h6>
+      <div
+        class="bg-success rounded-circle"
+        style="width: 8px; height: 8px"
+      ></div>
+    </div>
+    <div class="d-flex">
+      <div ngbDropdown class="dropdown me-sm-2">
+        <button
+          ngbDropdownToggle
+          type="button"
+          class="btn btn-outline-primary px-2 px-sm-3 arrow-none"
+          data-bs-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i
+            class="bx bx-dots-horizontal-rounded fs-xl mx-1 mx-sm-0 me-xl-2"
+          ></i>
+          <span class="d-none d-xl-inline">More</span>
+        </button>
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end my-1">
+          <a href="javascript:void(0)" class="dropdown-item">View profile</a>
+          <a href="javascript:void(0)" class="dropdown-item"
+            >Disable notifications</a
+          >
+          <a href="javascript:void(0)" class="dropdown-item">Edit contact</a>
+          <a href="javascript:void(0)" class="dropdown-item">Delete contact</a>
+          <a href="javascript:void(0)" class="dropdown-item">Delete chat</a>
+          <a href="javascript:void(0)" class="dropdown-item">Clear history</a>
+          <a href="javascript:void(0)" class="dropdown-item">Block user</a>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-outline-danger d-none d-sm-inline-flex px-2 px-sm-3 ms-1"
+      >
+        <i class="bx bx-trash-alt fs-xl me-xl-2"></i>
+        <span class="d-none d-xl-inline">Clear chat</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="card-body position-relative swiper scrollbar-hover overflow-hidden w-100 pb-0"
+  >
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (profileDetail of chatData; track $index) {
+        <swiper-slide class="swiper-slide h-auto">
+          <div class="fs-sm text-muted text-center mb-3">
+            {{ profileDetail.date }}
+          </div>
+          @for (chat of profileDetail.chat; track $index) {
+            @if (chat.isSender == true) {
+              <div class="d-flex align-items-start justify-content-end mb-3">
+                <div class="pe-2 me-1" style="max-width: 348px">
+                  <div
+                    class="bg-primary text-light p-3 mb-1"
+                    style="
+                      border-top-left-radius: 0.5rem;
+                      border-bottom-right-radius: 0.5rem;
+                      border-bottom-left-radius: 0.5rem;
+                    "
+                  >
+                    {{ chat.message }}
+                  </div>
+                  <div
+                    class="d-flex justify-content-end align-items-center fs-sm text-muted"
+                  >
+                    {{ chat.time }}
+                    <i class="bx bx-check-double fs-xl text-primary ms-2"></i>
+                  </div>
+                </div>
+                <img
+                  [src]="chat.user.image"
+                  class="rounded-circle"
+                  width="40"
+                  alt="Albert Flores"
+                />
+              </div>
+            } @else {
+              <div class="d-flex align-items-start mb-3">
+                <img
+                  [src]="contactDetail.user.image"
+                  class="rounded-circle"
+                  width="40"
+                  alt="Albert Flores"
+                />
+                <div class="ps-2 ms-1" style="max-width: 348px">
+                  <div
+                    class="bg-secondary p-3 mb-1"
+                    style="
+                      border-top-right-radius: 0.5rem;
+                      border-bottom-right-radius: 0.5rem;
+                      border-bottom-left-radius: 0.5rem;
+                    "
+                  >
+                    {{ chat.message }}
+                  </div>
+                  <div class="fs-sm text-muted">{{ chat.time }}</div>
+                </div>
+              </div>
+            }
+          }
+        </swiper-slide>
+      }
+    </swiper-container>
+    <div id="swiper-scrollbar" class="swiper-scrollbar end-0"></div>
+  </div>
+
+  <div class="card-footer d-sm-flex w-100 border-0 pt-3 pb-3 px-4">
+    <div class="position-relative w-100 me-2 mb-3 mb-sm-0">
+      <input
+        type="text"
+        [(ngModel)]="message"
+        class="form-control form-control-lg"
+        style="padding-right: 85px"
+      />
+      <div
+        class="position-absolute top-50 end-0 translate-middle-y d-flex zindex-3 me-2"
+      >
+        <button
+          type="button"
+          class="btn btn-icon btn-sm btn-link nav-link bg-faded-primary-hover me-1"
+          aria-label="Attachment"
+        >
+          <i class="bx bx-paperclip fs-4"></i>
+        </button>
+        <button
+          type="button"
+          class="btn btn-icon btn-sm btn-link nav-link bg-faded-primary-hover"
+          aria-label="Emoji"
+        >
+          <i class="bx bx-smile fs-4"></i>
+        </button>
+      </div>
+    </div>
+    <button
+      type="button"
+      (click)="messageSave()"
+      class="btn btn-primary btn-icon btn-lg d-none d-sm-inline-flex ms-1"
+      aria-label="Send"
+    >
+      <i class="bx bx-send"></i>
+    </button>
+    <button type="button" class="btn btn-primary btn-lg w-100 d-sm-none">
+      <i class="bx bx-send fs-xl me-2"></i>
+      Send
+    </button>
+  </div>
+</div>

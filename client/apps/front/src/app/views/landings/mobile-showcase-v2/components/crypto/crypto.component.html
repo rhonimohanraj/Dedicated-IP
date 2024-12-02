@@ -1,0 +1,74 @@
+<section
+  class="bg-dark position-relative pt-5 pb-4 py-md-5"
+  data-bs-theme="dark"
+>
+  <div class="position-absolute top-0 start-0 w-100 h-100 bg-secondary"></div>
+  <div
+    class="container position-relative zindex-3 py-lg-4 pt-md-2 py-xl-5 mb-lg-4"
+  >
+    <div class="row justify-content-center text-center pb-4 mb-2">
+      <div class="col-xl-6 pt-2">
+        <h2 class="h1 mb-4">Buy crypto at true cost</h2>
+        <p class="text-body fs-lg mb-0">
+          Egestas ullamcorper posuere tortor eget netus elementum dui eu cras
+          eros accumsan, ullamcorper tortor gula dui in netus
+        </p>
+      </div>
+    </div>
+
+    <div class="d-sm-flex flex-wrap d-lg-table w-100">
+      @for (item of cryptoData; track $index) {
+        <div
+          class="d-lg-table-row w-sm-50 w-lg-100 pe-sm-3 pe-lg-0 mb-3 mb-lg-0"
+        >
+          <div class="d-lg-table-cell align-middle border-bottom py-3 py-lg-4">
+            <div class="d-flex align-items-center">
+              <img src="{{ item.image }}" width="32" alt="Bitcoin" />
+              <div class="ps-3">
+                <h3 class="h4 mb-0">
+                  {{ item.name
+                  }}<span class="d-inlin-block opacity-60 ps-2 ms-1">{{
+                    item.symbol
+                  }}</span>
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-lg-table-cell align-middle h4 border-bottom py-3 py-lg-4 mb-0"
+          >
+            {{ selectedCurrency }}{{ item.price }}
+          </div>
+          <div
+            class="d-lg-table-cell align-middle fs-lg border-bottom py-3 py-lg-4"
+            [ngClass]="
+              item.price_change.startsWith('-') ? 'text-danger' : 'text-success'
+            "
+          >
+            {{ item.price_change }}
+          </div>
+          <div
+            class="d-lg-table-cell align-middle fs-lg text-white border-bottom py-3 py-lg-4"
+          >
+            {{ selectedCurrency }}{{ item.market_cap }}
+          </div>
+          <div
+            class="d-lg-table-cell align-middle border-bottom-lg py-3 py-lg-4"
+          >
+            <img [src]="item.graph" width="108" alt="BTC graph" />
+          </div>
+          <div
+            class="d-lg-table-cell align-middle border-bottom-lg text-lg-end pt-2 pb-3 py-lg-4"
+          >
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary fs-sm w-100 w-lg-auto"
+            >
+              Trade
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

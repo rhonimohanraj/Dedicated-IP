@@ -1,0 +1,32 @@
+<section class="mb-5 pt-md-3 pt-lg-4 pt-xl-5">
+  <h2 class="h1 pt-lg-2 pt-xl-3 mb-5 text-center">User shots gallery</h2>
+  <div class="pb-2 pb-sm-3 pb-md-4">
+    <div class="swiper">
+      <swiper-container
+        [config]="swiperConfig"
+        init="false"
+        class="swiper-wrapper"
+      >
+        @for (data of imageList; track $index) {
+          <swiper-slide class="swiper-slide">
+            <img src="{{ data.image }}" alt="Gallery image" class="rounded-3" />
+          </swiper-slide>
+        }
+      </swiper-container>
+    </div>
+
+    <div class="swiper mt-md-4 mt-sm-3 mt-2" dir="rtl">
+      <swiper-container
+        [config]="swiperConfig"
+        init="false"
+        class="swiper-wrapper"
+      >
+        @for (data of reverseimageList; track $index) {
+          <swiper-slide class="swiper-slide">
+            <img src="{{ data.image }}" alt="Gallery image" class="rounded-3" />
+          </swiper-slide>
+        }
+      </swiper-container>
+    </div>
+  </div>
+</section>

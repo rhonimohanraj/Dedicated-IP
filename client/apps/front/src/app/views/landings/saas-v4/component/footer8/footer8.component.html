@@ -1,0 +1,126 @@
+<footer class="footer bg-dark py-5" data-bs-theme="dark">
+  <div class="container pt-2 pt-sm-4">
+    <div class="row">
+      <div class="col-md-6 col-lg-5 col-xl-4 pb-2 pb-sm-3 pb-md-0 mb-4 mb-md-0">
+        <div class="navbar-brand text-dark p-0 me-0 mb-3 mb-lg-4">
+          <img src="assets/img/logo.svg" width="47" alt="Silicon" />
+          Silicon
+        </div>
+        <p class="text-body mb-0">
+          Suscipit ipsum tincidunt pellentesque vitae. Porttitor pellentesque
+          enim consequat faucibus fermentum duis mollis facilisis pretium justo
+          velit pretium nec ut imperdiet volutpat commodo facilisis.
+        </p>
+      </div>
+      <div class="col-md-6 col-xxl-5 offset-lg-1 offset-xl-2 offset-xxl-3">
+        <div class="row row-cols-1 row-cols-sm-2">
+          <div class="col pb-2 pb-sm-0 mb-4 mb-sm-0">
+            <h3 class="h5 pb-1 pb-sm-2 pb-lg-3">Contact us</h3>
+            <ul class="nav flex-column mb-3">
+              <li>
+                <a
+                  href="tel:4065550120"
+                  class="nav-link fs-lg fw-normal px-0 py-1"
+                >
+                  <i class="bx bx-phone-call fs-4 me-2"></i>
+                  (406)&nbsp;555&#8209;0120
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:email@example.com"
+                  class="nav-link fs-lg fw-normal px-0 py-1"
+                >
+                  <i class="bx bx-envelope fs-4 me-2"></i>
+                  email&#64;example.com
+                </a>
+              </li>
+            </ul>
+            <div class="d-flex pt-2 pt-sm-3 pt-md-4">
+              @for (item of socialLink; track $index) {
+                <a
+                  href="javascript:void(0)"
+                  class="btn btn-icon btn-sm btn-secondary btn-{{
+                    item.icon
+                  }} rounded-circle me-3"
+                  aria-label="Facebook"
+                >
+                  <i class="bx {{ item.icon }}"></i>
+                </a>
+              }
+            </div>
+          </div>
+          <div class="col ps-sm-4 ps-md-5">
+            <h3 class="h5 pb-1 pb-sm-2 pb-lg-3">Country</h3>
+            <div class="nav dropdown" ngbDropdown>
+              <a
+                href="javascript:void(0);"
+                ngbDropdownToggle
+                class="nav-link dropdown-toggle fs-lg fw-normal px-0 py-1"
+                data-bs-toggle="dropdown"
+              >
+                <img
+                  src="assets/img/flags/en.png"
+                  class="me-2"
+                  width="20"
+                  alt="USA"
+                />
+                USA
+              </a>
+              <div class="dropdown-menu my-1" ngbDropdownMenu>
+                <a
+                  href="javascript:void(0);"
+                  class="dropdown-item fs-base pb-1"
+                >
+                  <img
+                    src="assets/img/flags/fr.png"
+                    class="me-2"
+                    width="20"
+                    alt="France"
+                  />
+                  France
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  class="dropdown-item fs-base pb-1"
+                >
+                  <img
+                    src="assets/img/flags/de.png"
+                    class="me-2"
+                    width="20"
+                    alt="Germany"
+                  />
+                  Germany
+                </a>
+                <a
+                  href="javascript:void(0);"
+                  class="dropdown-item fs-base pb-1"
+                >
+                  <img
+                    src="assets/img/flags/it.png"
+                    class="me-2"
+                    width="20"
+                    alt="Italy"
+                  />
+                  Italy
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="nav d-block fs-sm pt-5 mb-0">
+      <span class="text-light opacity-60"
+        >&copy; All rights reserved. Made by
+      </span>
+      <a
+        class="nav-link d-inline-block p-0"
+        href="{{ creditsBy.website }}"
+        target="_blank"
+        rel="noopener"
+        >{{ creditsBy.name }}</a
+      >
+    </p>
+  </div>
+</footer>

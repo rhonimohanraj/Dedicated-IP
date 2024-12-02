@@ -1,0 +1,15 @@
+<component-topbar
+  [headerClassName]="'bg-light shadow-sm shadow-dark-mode-none fixed-top'"
+/>
+<app-breadcrumb
+  [title]="'Blog Grid no Sidebar'"
+  [className]="'container mt-lg-4 pt-5'"
+  [listClass]="'pt-5'"
+/>
+
+<section class="container mt-4 mb-lg-5 pt-lg-2 pb-5">
+  <grid-no-sidebar-content />
+  <grid-no-sidebar-pagination />
+</section>
+<grid-no-sidebar-cta />
+<app-footer9 />

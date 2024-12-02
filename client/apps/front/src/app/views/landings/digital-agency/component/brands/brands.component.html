@@ -1,0 +1,54 @@
+<section class="container pb-4 pb-lg-5 mb-3">
+  <div
+    class="d-flex align-items-center justify-content-md-between justify-content-center mb-md-4 mb-3"
+  >
+    <h2 class="mb-0">Trusted by Awesome Clients</h2>
+
+    <div class="d-md-flex d-none ms-4">
+      <button
+        type="button"
+        id="prev-brand"
+        class="btn btn-prev btn-icon btn-sm me-2"
+        aria-label="Previous"
+      >
+        <i class="bx bx-chevron-left"></i>
+      </button>
+      <button
+        type="button"
+        id="next-brand"
+        class="btn btn-next btn-icon btn-sm ms-2"
+        aria-label="Next"
+      >
+        <i class="bx bx-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+  <div class="swiper mx-n2">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of brandList; track $index) {
+        <swiper-slide class="swiper-slide py-3">
+          <a
+            href="javascript:void(0)"
+            class="card card-body card-hover px-2 mx-2"
+          >
+            <img
+              [src]="data.image"
+              class="d-block mx-auto my-2"
+              width="154"
+              alt="Brand"
+            />
+          </a>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="logospagination"
+      class="swiper-pagination position-relative pt-3 mt-4 d-md-none d-flex"
+    ></div>
+  </div>
+</section>

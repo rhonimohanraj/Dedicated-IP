@@ -1,0 +1,83 @@
+<section class="container pt-md-1 pb-3">
+  <h2 class="h1 text-center pb-3 pb-lg-4">Our Dental Specialists</h2>
+  <div class="swiper">
+    <swiper-container
+      class="swiper-wrapper"
+      [config]="swiperConfig"
+      init="false"
+    >
+      @for (item of serviceMemberData; track $index) {
+        <slider-slide class="swiper-slide">
+          <div class="card card-hover border-0 bg-transparent">
+            <div class="position-relative">
+              <img
+                [src]="item.image"
+                class="rounded-3"
+                alt="Dr. Esther Howard"
+              />
+              <div
+                class="card-img-overlay d-flex flex-column align-items-center justify-content-center rounded-3"
+              >
+                <span
+                  class="position-absolute top-0 start-0 w-100 h-100 bg-primary opacity-35 rounded-3"
+                ></span>
+                <div class="position-relative d-flex zindex-2">
+                  <a
+                    href="javascript:void(0)"
+                    class="btn btn-icon btn-secondary btn-facebook btn-sm bg-white me-2"
+                    aria-label="Facebook"
+                  >
+                    <i class="bx bxl-facebook"></i>
+                  </a>
+                  <a
+                    href="javascript:void(0)"
+                    class="btn btn-icon btn-secondary btn-linkedin btn-sm bg-white me-2"
+                    aria-label="LinkedIn"
+                  >
+                    <i class="bx bxl-linkedin"></i>
+                  </a>
+                  <a
+                    href="javascript:void(0)"
+                    class="btn btn-icon btn-secondary btn-twitter btn-sm bg-white"
+                    aria-label="Twitter"
+                  >
+                    <i class="bx bxl-twitter"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body text-center p-3">
+              <h3 class="fs-lg fw-semibold pt-1 mb-2">Dr. {{ item.name }}</h3>
+              <p class="fs-sm mb-2">{{ item.expertise }}</p>
+              <div class="d-flex align-items-center justify-content-center">
+                <ng-template #t let-fill="fill">
+                  @if (fill > 0) {
+                    <i
+                      class="bx bxs-star text-warning fs-sm me-1"
+                      [style.width.%]="fill"
+                    ></i>
+                  } @else {
+                    <i class="bx bx-star text-muted fs-sm opacity-75"> </i>
+                  }
+                </ng-template>
+
+                <ngb-rating
+                  [(rate)]="item.rating"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                />
+
+                <span class="fs-xs text-muted"
+                  >({{ item.reviews }} reviews)</span
+                >
+              </div>
+            </div>
+          </div>
+        </slider-slide>
+      }
+    </swiper-container>
+
+    <div class="swiper-pagination pagination position-relative pt-4 mt-1"></div>
+  </div>
+</section>

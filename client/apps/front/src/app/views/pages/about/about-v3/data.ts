@@ -30,25 +30,25 @@ export type TestimonialType = {
   rating: number
 }
 
-const avatar24 = 'assets/img/team/24.jpg'
-const avatar25 = 'assets/img/team/25.jpg'
-const avatar26 = 'assets/img/team/26.jpg'
-const avatar27 = 'assets/img/team/27.jpg'
-const avatar28 = 'assets/img/team/28.jpg'
-const avatar29 = 'assets/img/team/29.jpg'
-const avatar30 = 'assets/img/team/30.jpg'
-const avatar31 = 'assets/img/team/31.jpg'
+const avatar24 = 'img/team/24.jpg'
+const avatar25 = 'img/team/25.jpg'
+const avatar26 = 'img/team/26.jpg'
+const avatar27 = 'img/team/27.jpg'
+const avatar28 = 'img/team/28.jpg'
+const avatar29 = 'img/team/29.jpg'
+const avatar30 = 'img/team/30.jpg'
+const avatar31 = 'img/team/31.jpg'
 
-const brand1SvgImg = 'assets/img/brands/01.svg'
-const brand2SvgImg = 'assets/img/brands/02.svg'
-const brand3SvgImg = 'assets/img/brands/03.svg'
-const brand4SvgImg = 'assets/img/brands/04.svg'
-const brand5SvgImg = 'assets/img/brands/05.svg'
-const brand6SvgImg = 'assets/img/brands/06.svg'
+const brand1SvgImg = 'img/brands/01.svg'
+const brand2SvgImg = 'img/brands/02.svg'
+const brand3SvgImg = 'img/brands/03.svg'
+const brand4SvgImg = 'img/brands/04.svg'
+const brand5SvgImg = 'img/brands/05.svg'
+const brand6SvgImg = 'img/brands/06.svg'
 
-const avatar3Img = 'assets/img/avatar/03.jpg'
-const avatar2Img = 'assets/img/avatar/02.jpg'
-const avatar10Img = 'assets/img/avatar/10.jpg'
+const avatar3Img = 'img/avatar/03.jpg'
+const avatar2Img = 'img/avatar/02.jpg'
+const avatar10Img = 'img/avatar/10.jpg'
 
 export const storyData: StoryType[] = [
   {

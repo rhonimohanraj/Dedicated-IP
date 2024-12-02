@@ -1,13 +1,13 @@
-const clutch = 'assets/img/landing/software-agency-2/awards/clutch.png'
-const goodFirms = 'assets/img/landing/software-agency-2/awards/good-firms.png'
+const clutch = 'img/landing/software-agency-2/awards/clutch.png'
+const goodFirms = 'img/landing/software-agency-2/awards/good-firms.png'
 const productHunt =
-  'assets/img/landing/software-agency-2/awards/product-hunt.png'
-const awwwards = 'assets/img/landing/software-agency-2/awards/awwwards.png'
-const caseStudy1 = 'assets/img/landing/software-agency-2/case-studies/01.jpg'
-const caseStudy2 = 'assets/img/landing/software-agency-2/case-studies/02.jpg'
-const avatar48 = 'assets/img/avatar/48.jpg'
-const avatar49 = 'assets/img/avatar/49.jpg'
-const avatar50 = 'assets/img/avatar/50.jpg'
+  'img/landing/software-agency-2/awards/product-hunt.png'
+const awwwards = 'img/landing/software-agency-2/awards/awwwards.png'
+const caseStudy1 = 'img/landing/software-agency-2/case-studies/01.jpg'
+const caseStudy2 = 'img/landing/software-agency-2/case-studies/02.jpg'
+const avatar48 = 'img/avatar/48.jpg'
+const avatar49 = 'img/avatar/49.jpg'
+const avatar50 = 'img/avatar/50.jpg'
 
 export type AwardType = {
   icon?: string

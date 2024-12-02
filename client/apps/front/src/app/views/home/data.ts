@@ -42,31 +42,31 @@ const iconImage = `<svg class="m-1" xmlns="http://www.w3.org/2000/svg" width="36
                     </svg>`
 
 const mobileApp1Img =
-  'assets/img/landing/intro/landings/mobile-app-showcase-v1.jpg'
+  'img/landing/intro/landings/mobile-app-showcase-v1.jpg'
 const mobileApp2Img =
-  'assets/img/landing/intro/landings/mobile-app-showcase-v2.jpg'
+  'img/landing/intro/landings/mobile-app-showcase-v2.jpg'
 const mobileApp3Img =
-  'assets/img/landing/intro/landings/mobile-app-showcase-v3.jpg'
+  'img/landing/intro/landings/mobile-app-showcase-v3.jpg'
 const productLandingImg =
-  'assets/img/landing/intro/landings/product-landing.jpg'
-const saas1Img = 'assets/img/landing/intro/landings/saas-v1.jpg'
-const saas2Img = 'assets/img/landing/intro/landings/saas-v2.jpg'
-const saas3Img = 'assets/img/landing/intro/landings/saas-v3.jpg'
-const saas4Img = 'assets/img/landing/intro/landings/saas-v4.jpg'
-const saas5Img = 'assets/img/landing/intro/landings/saas-v5.jpg'
-const startupImg = 'assets/img/landing/intro/landings/startup.jpg'
-const financialImg = 'assets/img/landing/intro/landings/financial.jpg'
-const onlineCourseImg = 'assets/img/landing/intro/landings/online-courses.jpg'
-const medicalImg = 'assets/img/landing/intro/landings/medical.jpg'
-const digitalAgencyImg = 'assets/img/landing/intro/landings/digital-agency.jpg'
+  'img/landing/intro/landings/product-landing.jpg'
+const saas1Img = 'img/landing/intro/landings/saas-v1.jpg'
+const saas2Img = 'img/landing/intro/landings/saas-v2.jpg'
+const saas3Img = 'img/landing/intro/landings/saas-v3.jpg'
+const saas4Img = 'img/landing/intro/landings/saas-v4.jpg'
+const saas5Img = 'img/landing/intro/landings/saas-v5.jpg'
+const startupImg = 'img/landing/intro/landings/startup.jpg'
+const financialImg = 'img/landing/intro/landings/financial.jpg'
+const onlineCourseImg = 'img/landing/intro/landings/online-courses.jpg'
+const medicalImg = 'img/landing/intro/landings/medical.jpg'
+const digitalAgencyImg = 'img/landing/intro/landings/digital-agency.jpg'
 const softwareAgency1Img =
-  'assets/img/landing/intro/landings/software-agency-v1.jpg'
+  'img/landing/intro/landings/software-agency-v1.jpg'
 const softwareAgency2Img =
-  'assets/img/landing/intro/landings/software-agency-v2.jpg'
+  'img/landing/intro/landings/software-agency-v2.jpg'
 const softwareAgency3Img =
-  'assets/img/landing/intro/landings/software-agency-v3.jpg'
-const conferenceImg = 'assets/img/landing/intro/landings/conference.jpg'
-const blogHomepageImg = 'assets/img/landing/intro/landings/blog-homepage.jpg'
+  'img/landing/intro/landings/software-agency-v3.jpg'
+const conferenceImg = 'img/landing/intro/landings/conference.jpg'
+const blogHomepageImg = 'img/landing/intro/landings/blog-homepage.jpg'
 
 export const demoLandingPagesData: DemoPageType[] = [
   {

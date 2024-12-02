@@ -1,8 +1,8 @@
-const industry1Img = 'assets/img/landing/software-agency-3/industries/01.jpg'
-const industry2Img = 'assets/img/landing/software-agency-3/industries/02.jpg'
-const industry3Img = 'assets/img/landing/software-agency-3/industries/03.jpg'
-const avatar9Img = 'assets/img/avatar/09.jpg'
-const avatar3Img = 'assets/img/avatar/03.jpg'
+const industry1Img = 'img/landing/software-agency-3/industries/01.jpg'
+const industry2Img = 'img/landing/software-agency-3/industries/02.jpg'
+const industry3Img = 'img/landing/software-agency-3/industries/03.jpg'
+const avatar9Img = 'img/avatar/09.jpg'
+const avatar3Img = 'img/avatar/03.jpg'
 
 import { currentYear } from '@states/constants'
 import type {
@@ -20,7 +20,7 @@ export const appData: appType[] = [
     title: 'Economic Analysis',
     discription:
       '<p class="mb-4 pb-lg-3">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>',
-    image: 'assets/img/landing/saas-4/about/01.png',
+    image: 'img/landing/saas-4/about/01.png',
   },
   {
     icon: 'bx bx-briefcase-alt-2',
@@ -33,7 +33,7 @@ export const appData: appType[] = [
     </span>
     <p class="w-100 mb-sm-0">Pulvinar urna condimentum amet tempor, ornare integer. Lorem odio</p>
   </div>`,
-    image: 'assets/img/landing/saas-4/about/02.png',
+    image: 'img/landing/saas-4/about/02.png',
   },
   {
     icon: 'bx bx-bar-chart-alt-2',
@@ -52,7 +52,7 @@ export const appData: appType[] = [
       Easiest way to track time spent on tasks
     </li>
   </ul>`,
-    image: 'assets/img/landing/saas-4/about/03.png',
+    image: 'img/landing/saas-4/about/03.png',
   },
 ]
 

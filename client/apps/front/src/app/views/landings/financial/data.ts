@@ -5,31 +5,31 @@
 
 import { currentYear } from '@states/constants'
 
-const industry1 = 'assets/img/landing/financial/industries/01.jpg'
-const industry2 = 'assets/img/landing/financial/industries/02.jpg'
-const industry3 = 'assets/img/landing/financial/industries/03.jpg'
+const industry1 = 'img/landing/financial/industries/01.jpg'
+const industry2 = 'img/landing/financial/industries/02.jpg'
+const industry3 = 'img/landing/financial/industries/03.jpg'
 
-const brand1SvgImg = 'assets/img/brands/01.svg'
-const brand2SvgImg = 'assets/img/brands/02.svg'
-const brand3SvgImg = 'assets/img/brands/03.svg'
-const brand4SvgImg = 'assets/img/brands/04.svg'
-const brand5SvgImg = 'assets/img/brands/05.svg'
-const brand6SvgImg = 'assets/img/brands/06.svg'
+const brand1SvgImg = 'img/brands/01.svg'
+const brand2SvgImg = 'img/brands/02.svg'
+const brand3SvgImg = 'img/brands/03.svg'
+const brand4SvgImg = 'img/brands/04.svg'
+const brand5SvgImg = 'img/brands/05.svg'
+const brand6SvgImg = 'img/brands/06.svg'
 
-const news1Img = 'assets/img/landing/financial/news/01.jpg'
-const news2Img = 'assets/img/landing/financial/news/02.jpg'
-const news3Img = 'assets/img/landing/financial/news/03.jpg'
-const news4Img = 'assets/img/landing/financial/news/04.jpg'
+const news1Img = 'img/landing/financial/news/01.jpg'
+const news2Img = 'img/landing/financial/news/02.jpg'
+const news3Img = 'img/landing/financial/news/03.jpg'
+const news4Img = 'img/landing/financial/news/04.jpg'
 
-const avatar2Img = 'assets/img/avatar/02.jpg'
-const avatar3Img = 'assets/img/avatar/03.jpg'
-const avatar4Img = 'assets/img/avatar/04.jpg'
-const avatar5Img = 'assets/img/avatar/05.jpg'
-const avatar6Img = 'assets/img/avatar/06.jpg'
-const avatar40Img = 'assets/img/avatar/40.jpg'
-const avatar41Img = 'assets/img/avatar/41.jpg'
+const avatar2Img = 'img/avatar/02.jpg'
+const avatar3Img = 'img/avatar/03.jpg'
+const avatar4Img = 'img/avatar/04.jpg'
+const avatar5Img = 'img/avatar/05.jpg'
+const avatar6Img = 'img/avatar/06.jpg'
+const avatar40Img = 'img/avatar/40.jpg'
+const avatar41Img = 'img/avatar/41.jpg'
 
-const avatar1Img = 'assets/img/avatar/01.jpg'
+const avatar1Img = 'img/avatar/01.jpg'
 
 export type FeatureType = {
   icon: string

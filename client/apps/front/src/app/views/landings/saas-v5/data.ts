@@ -1,48 +1,48 @@
 import { currency } from '@states/constants'
 
-const ecommerceImg = 'assets/img/landing/saas-5/categories/ecommerce.jpg'
+const ecommerceImg = 'img/landing/saas-5/categories/ecommerce.jpg'
 const transportationImg =
-  'assets/img/landing/saas-5/categories/transportation.jpg'
-const marketingImg = 'assets/img/landing/saas-5/categories/marketing.jpg'
-const roboticsImg = 'assets/img/landing/saas-5/categories/robotics.jpg'
-const programmingImg = 'assets/img/landing/saas-5/categories/programming.jpg'
+  'img/landing/saas-5/categories/transportation.jpg'
+const marketingImg = 'img/landing/saas-5/categories/marketing.jpg'
+const roboticsImg = 'img/landing/saas-5/categories/robotics.jpg'
+const programmingImg = 'img/landing/saas-5/categories/programming.jpg'
 const envatoLightImg =
-  'assets/img/landing/app-showcase-3/integrations/envato-color-light.svg'
+  'img/landing/app-showcase-3/integrations/envato-color-light.svg'
 const envatoDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/envato-color-dark.svg'
-const avatar54Img = 'assets/img/avatar/54.jpg'
+  'img/landing/app-showcase-3/integrations/envato-color-dark.svg'
+const avatar54Img = 'img/avatar/54.jpg'
 const firefoxLightImg =
-  'assets/img/landing/app-showcase-3/integrations/firefox-color-light.svg'
+  'img/landing/app-showcase-3/integrations/firefox-color-light.svg'
 const firefoxDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/firefox-color-dark.svg'
+  'img/landing/app-showcase-3/integrations/firefox-color-dark.svg'
 const magentoLightImg =
-  'assets/img/landing/app-showcase-3/integrations/magento-color-light.svg'
+  'img/landing/app-showcase-3/integrations/magento-color-light.svg'
 const magentoDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/magento-color-dark.svg'
-const avatar55Img = 'assets/img/avatar/55.jpg'
+  'img/landing/app-showcase-3/integrations/magento-color-dark.svg'
+const avatar55Img = 'img/avatar/55.jpg'
 const pingdomLightImg =
-  'assets/img/landing/app-showcase-3/integrations/pingdom-color-light.svg'
+  'img/landing/app-showcase-3/integrations/pingdom-color-light.svg'
 const pingdomDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/pingdom-color-dark.svg'
-const avatar56Img = 'assets/img/avatar/56.jpg'
+  'img/landing/app-showcase-3/integrations/pingdom-color-dark.svg'
+const avatar56Img = 'img/avatar/56.jpg'
 const woocommerceLightImg =
-  'assets/img/landing/app-showcase-3/integrations/woocommerce-color-light.svg'
+  'img/landing/app-showcase-3/integrations/woocommerce-color-light.svg'
 const woocommerceDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/woocommerce-color-dark.svg'
+  'img/landing/app-showcase-3/integrations/woocommerce-color-dark.svg'
 const shopifyLightImg =
-  'assets/img/landing/app-showcase-3/integrations/shopify-color-light.svg'
+  'img/landing/app-showcase-3/integrations/shopify-color-light.svg'
 const shopifyDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/shopify-color-dark.svg'
+  'img/landing/app-showcase-3/integrations/shopify-color-dark.svg'
 const laravelImg =
-  'assets/img/landing/app-showcase-3/integrations/laravel-color.svg'
+  'img/landing/app-showcase-3/integrations/laravel-color.svg'
 const viteLightImg =
-  'assets/img/landing/app-showcase-3/integrations/vite-color-light.svg'
+  'img/landing/app-showcase-3/integrations/vite-color-light.svg'
 const viteDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/vite-color-dark.svg'
+  'img/landing/app-showcase-3/integrations/vite-color-dark.svg'
 const angularLightImg =
-  'assets/img/landing/app-showcase-3/integrations/angular-color-light.svg'
+  'img/landing/app-showcase-3/integrations/angular-color-light.svg'
 const angularDarkImg =
-  'assets/img/landing/app-showcase-3/integrations/angular-color-dark.svg'
+  'img/landing/app-showcase-3/integrations/angular-color-dark.svg'
 
 export type categoriesType = {
   head: string

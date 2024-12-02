@@ -1,6 +1,6 @@
-const course1Img = 'assets/img/portfolio/courses/07.jpg'
-const course2Img = 'assets/img/portfolio/courses/01.jpg'
-const course3Img = 'assets/img/portfolio/courses/09.jpg'
+const course1Img = 'img/portfolio/courses/07.jpg'
+const course2Img = 'img/portfolio/courses/01.jpg'
+const course3Img = 'img/portfolio/courses/09.jpg'
 
 type LinkType = {
   name: string

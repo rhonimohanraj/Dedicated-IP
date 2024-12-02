@@ -6,54 +6,54 @@ import type {
   UserType,
 } from './type'
 
-const paymentImg = 'assets/img/landing/app-showcase-2/features/payments.svg'
-const cashBackImg = 'assets/img/landing/app-showcase-2/features/cashback.svg'
+const paymentImg = 'img/landing/app-showcase-2/features/payments.svg'
+const cashBackImg = 'img/landing/app-showcase-2/features/cashback.svg'
 const statisticsImg =
-  'assets/img/landing/app-showcase-2/features/statistics.svg'
-const securityImg = 'assets/img/landing/app-showcase-2/features/security.svg'
-const screen1Img = 'assets/img/landing/app-showcase-2/screens/01.png'
-const screen2Img = 'assets/img/landing/app-showcase-2/screens/02.png'
-const screen3Img = 'assets/img/landing/app-showcase-2/screens/03.png'
-const chatImg = 'assets/img/landing/app-showcase-2/icons/chat.svg'
-const faqsImg = 'assets/img/landing/app-showcase-2/icons/faq.svg'
-const emailImg = 'assets/img/landing/app-showcase-2/icons/email.svg'
+  'img/landing/app-showcase-2/features/statistics.svg'
+const securityImg = 'img/landing/app-showcase-2/features/security.svg'
+const screen1Img = 'img/landing/app-showcase-2/screens/01.png'
+const screen2Img = 'img/landing/app-showcase-2/screens/02.png'
+const screen3Img = 'img/landing/app-showcase-2/screens/03.png'
+const chatImg = 'img/landing/app-showcase-2/icons/chat.svg'
+const faqsImg = 'img/landing/app-showcase-2/icons/faq.svg'
+const emailImg = 'img/landing/app-showcase-2/icons/email.svg'
 
 export const cryptocurrencies: CryptoCurrencyType[] = [
   {
-    image: 'assets/img/landing/app-showcase-2/crypto/btc.png',
+    image: 'img/landing/app-showcase-2/crypto/btc.png',
     name: 'Bitcoin',
     symbol: 'BTC',
     price: '38,940.63',
     price_change: '+1.70%',
     market_cap: '736,124,602,670.97',
-    graph: 'assets/img/landing/app-showcase-2/crypto/graphs/btc.svg',
+    graph: 'img/landing/app-showcase-2/crypto/graphs/btc.svg',
   },
   {
-    image: 'assets/img/landing/app-showcase-2/crypto/usdt.png',
+    image: 'img/landing/app-showcase-2/crypto/usdt.png',
     name: 'Tether',
     symbol: 'USDT',
     price: '15.09',
     price_change: '-0.27%',
     market_cap: '14,735,584,883.68',
-    graph: 'assets/img/landing/app-showcase-2/crypto/graphs/usdt.svg',
+    graph: 'img/landing/app-showcase-2/crypto/graphs/usdt.svg',
   },
   {
-    image: 'assets/img/landing/app-showcase-2/crypto/eth.png',
+    image: 'img/landing/app-showcase-2/crypto/eth.png',
     name: 'Ethereum',
     symbol: 'ETH',
     price: '2,829.07',
     price_change: '+1.27%',
     market_cap: '337,863,906,048.53',
-    graph: 'assets/img/landing/app-showcase-2/crypto/graphs/eth.svg',
+    graph: 'img/landing/app-showcase-2/crypto/graphs/eth.svg',
   },
   {
-    image: 'assets/img/landing/app-showcase-2/crypto/dot.png',
+    image: 'img/landing/app-showcase-2/crypto/dot.png',
     name: 'Polkadot',
     symbol: 'DOT',
     price: '13.28',
     price_change: '-1.35%',
     market_cap: '26,143,724,006.81',
-    graph: 'assets/img/landing/app-showcase-2/crypto/graphs/dot.svg',
+    graph: 'img/landing/app-showcase-2/crypto/graphs/dot.svg',
   },
 ]
 

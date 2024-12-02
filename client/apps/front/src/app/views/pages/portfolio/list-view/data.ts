@@ -1,9 +1,9 @@
 import { currentYear } from '@states/constants'
 
-const list1 = 'assets/img/portfolio/list/01.jpg'
-const list2 = 'assets/img/portfolio/list/02.jpg'
-const list3 = 'assets/img/portfolio/list/03.jpg'
-const list4 = 'assets/img/portfolio/list/04.jpg'
+const list1 = 'img/portfolio/list/01.jpg'
+const list2 = 'img/portfolio/list/02.jpg'
+const list3 = 'img/portfolio/list/03.jpg'
+const list4 = 'img/portfolio/list/04.jpg'
 
 type LinkType = {
   name: string

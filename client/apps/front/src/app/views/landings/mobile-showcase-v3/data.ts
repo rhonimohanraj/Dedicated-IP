@@ -7,19 +7,19 @@ import type {
   UserType,
 } from './type'
 
-const paymentImg = 'assets/img/landing/app-showcase-3/features/payment.svg'
-const securityImg = 'assets/img/landing/app-showcase-3/features/security.svg'
+const paymentImg = 'img/landing/app-showcase-3/features/payment.svg'
+const securityImg = 'img/landing/app-showcase-3/features/security.svg'
 const statisticsImg =
-  'assets/img/landing/app-showcase-3/features/statistics.svg'
-const supportImg = 'assets/img/landing/app-showcase-3/features/support.svg'
-const avatar51Img = 'assets/img/avatar/51.jpg'
-const avatar52Img = 'assets/img/avatar/52.jpg'
-const avatar53Img = 'assets/img/avatar/53.jpg'
-const payment3Img = 'assets/img/landing/app-showcase-3/features/payment.svg'
-const usersImg = 'assets/img/landing/app-showcase-3/features/users.svg'
+  'img/landing/app-showcase-3/features/statistics.svg'
+const supportImg = 'img/landing/app-showcase-3/features/support.svg'
+const avatar51Img = 'img/avatar/51.jpg'
+const avatar52Img = 'img/avatar/52.jpg'
+const avatar53Img = 'img/avatar/53.jpg'
+const payment3Img = 'img/landing/app-showcase-3/features/payment.svg'
+const usersImg = 'img/landing/app-showcase-3/features/users.svg'
 const statistics3Img =
-  'assets/img/landing/app-showcase-3/features/statistics.svg'
-const cashbackImg = 'assets/img/landing/app-showcase-3/features/cashback.svg'
+  'img/landing/app-showcase-3/features/statistics.svg'
+const cashbackImg = 'img/landing/app-showcase-3/features/cashback.svg'
 
 export const featureData: FeatureType[] = [
   {

@@ -1,7 +1,7 @@
-const mastercard = 'assets/img/account/mastercard.svg'
-const visa = 'assets/img/account/visa.svg'
-const amex = 'assets/img/account/amex.svg'
-const bitcoin = 'assets/img/account/bitcoin.svg'
+const mastercard = 'img/account/mastercard.svg'
+const visa = 'img/account/visa.svg'
+const amex = 'img/account/amex.svg'
+const bitcoin = 'img/account/bitcoin.svg'
 
 export type PaymentCardType = {
   image: string

@@ -1,12 +1,12 @@
-const course1Img = 'assets/img/portfolio/courses/01.jpg'
-const course2Img = 'assets/img/portfolio/courses/02.jpg'
-const course3Img = 'assets/img/portfolio/courses/03.jpg'
-const course4Img = 'assets/img/portfolio/courses/04.jpg'
-const course5Img = 'assets/img/portfolio/courses/05.jpg'
-const course6Img = 'assets/img/portfolio/courses/06.jpg'
-const course7Img = 'assets/img/portfolio/courses/07.jpg'
-const course8Img = 'assets/img/portfolio/courses/08.jpg'
-const course9Img = 'assets/img/portfolio/courses/09.jpg'
+const course1Img = 'img/portfolio/courses/01.jpg'
+const course2Img = 'img/portfolio/courses/02.jpg'
+const course3Img = 'img/portfolio/courses/03.jpg'
+const course4Img = 'img/portfolio/courses/04.jpg'
+const course5Img = 'img/portfolio/courses/05.jpg'
+const course6Img = 'img/portfolio/courses/06.jpg'
+const course7Img = 'img/portfolio/courses/07.jpg'
+const course8Img = 'img/portfolio/courses/08.jpg'
+const course9Img = 'img/portfolio/courses/09.jpg'
 
 type LinkType = {
   name: string

@@ -73,7 +73,7 @@ export class ChatComponent {
       chat: [
         {
           user: {
-            image: 'assets/img/avatar/29.jpg',
+            image: 'img/avatar/29.jpg',
             name: '',
           },
           message: [this.message],

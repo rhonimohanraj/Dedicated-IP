@@ -21,17 +21,17 @@ export type PodcastType = {
   shared?: number
 }
 
-const podcast4 = 'assets/img/blog/podcasts/04.jpg'
-const podcast5 = 'assets/img/blog/podcasts/05.jpg'
-const podcast2 = 'assets/img/blog/podcasts/02.jpg'
-const podcast3 = 'assets/img/blog/podcasts/03.jpg'
+const podcast4 = 'img/blog/podcasts/04.jpg'
+const podcast5 = 'img/blog/podcasts/05.jpg'
+const podcast2 = 'img/blog/podcasts/02.jpg'
+const podcast3 = 'img/blog/podcasts/03.jpg'
 
-const avatar6Img = 'assets/img/avatar/06.jpg'
-const avatar1Img = 'assets/img/avatar/01.jpg'
-const avatar2Img = 'assets/img/avatar/02.jpg'
-const avatar3Img = 'assets/img/avatar/03.jpg'
-const avatar4Img = 'assets/img/avatar/04.jpg'
-const avatar5Img = 'assets/img/avatar/05.jpg'
+const avatar6Img = 'img/avatar/06.jpg'
+const avatar1Img = 'img/avatar/01.jpg'
+const avatar2Img = 'img/avatar/02.jpg'
+const avatar3Img = 'img/avatar/03.jpg'
+const avatar4Img = 'img/avatar/04.jpg'
+const avatar5Img = 'img/avatar/05.jpg'
 
 export const categories = [
   'Digital',

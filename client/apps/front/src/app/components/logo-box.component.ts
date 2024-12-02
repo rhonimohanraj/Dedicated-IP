@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router'
   imports: [RouterLink],
   template: `
     <a routerLink="/" class="navbar-brand pe-3">
-      <img src="assets/img/logo.svg" width="47" alt="Logo" />
+      <img src="img/logo.svg" width="47" alt="Logo" />
       Silicon
     </a>
   `,

@@ -1,6 +1,6 @@
-const relate1 = 'assets/img/portfolio/single/related01.jpg'
-const relate2 = 'assets/img/portfolio/single/related02.jpg'
-const relate3 = 'assets/img/portfolio/single/related03.jpg'
+const relate1 = 'img/portfolio/single/related01.jpg'
+const relate2 = 'img/portfolio/single/related02.jpg'
+const relate3 = 'img/portfolio/single/related03.jpg'
 
 type LinkType = {
   name: string

@@ -23,17 +23,17 @@ export type BlogType = {
   share: number
 }
 
-const avatar1 = 'assets/img/avatar/01.jpg'
-const avatar5 = 'assets/img/avatar/05.jpg'
-const avatar4 = 'assets/img/avatar/04.jpg'
-const avatar2 = 'assets/img/avatar/02.jpg'
+const avatar1 = 'img/avatar/01.jpg'
+const avatar5 = 'img/avatar/05.jpg'
+const avatar4 = 'img/avatar/04.jpg'
+const avatar2 = 'img/avatar/02.jpg'
 
-const blog1 = 'assets/img/blog/01.jpg'
-const blog6 = 'assets/img/blog/06.jpg'
-const blog5 = 'assets/img/blog/05.jpg'
-const blog9 = 'assets/img/blog/09.jpg'
-const blog3 = 'assets/img/blog/03.jpg'
-const blog2 = 'assets/img/blog/02.jpg'
+const blog1 = 'img/blog/01.jpg'
+const blog6 = 'img/blog/06.jpg'
+const blog5 = 'img/blog/05.jpg'
+const blog9 = 'img/blog/09.jpg'
+const blog3 = 'img/blog/03.jpg'
+const blog2 = 'img/blog/02.jpg'
 
 const authorData: AuthorType[] = [
   {

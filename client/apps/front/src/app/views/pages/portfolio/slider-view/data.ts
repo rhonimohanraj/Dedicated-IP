@@ -1,8 +1,8 @@
 import { currentYear } from '@states/constants'
 
-const slide1 = 'assets/img/portfolio/slider/01.jpg'
-const slide2 = 'assets/img/portfolio/slider/02.jpg'
-const slide3 = 'assets/img/portfolio/slider/03.jpg'
+const slide1 = 'img/portfolio/slider/01.jpg'
+const slide2 = 'img/portfolio/slider/02.jpg'
+const slide3 = 'img/portfolio/slider/03.jpg'
 
 type LinkType = {
   name: string

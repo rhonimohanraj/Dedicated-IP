@@ -1,9 +1,9 @@
-const brand1SvgImg = 'assets/img/brands/01.svg'
-const brand2SvgImg = 'assets/img/brands/02.svg'
-const brand3SvgImg = 'assets/img/brands/03.svg'
-const brand4SvgImg = 'assets/img/brands/04.svg'
-const brand5SvgImg = 'assets/img/brands/05.svg'
-const brand6SvgImg = 'assets/img/brands/06.svg'
+const brand1SvgImg = 'img/brands/01.svg'
+const brand2SvgImg = 'img/brands/02.svg'
+const brand3SvgImg = 'img/brands/03.svg'
+const brand4SvgImg = 'img/brands/04.svg'
+const brand5SvgImg = 'img/brands/05.svg'
+const brand6SvgImg = 'img/brands/06.svg'
 
 export type PriceType = {
   id: number

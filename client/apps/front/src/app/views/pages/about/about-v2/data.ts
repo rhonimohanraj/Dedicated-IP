@@ -31,29 +31,29 @@ export type LeaderType = {
   socialProfile: SocialProfileType
 }
 
-const headsetImg = 'assets/img/about/icons/headset-light.svg'
-const chatLightImg = 'assets/img/about/icons/chat-light.svg'
-const addGroupLightImg = 'assets/img/about/icons/add-group-light.svg'
-const locationLightImg = 'assets/img/about/icons/location-light.svg'
+const headsetImg = 'img/about/icons/headset-light.svg'
+const chatLightImg = 'img/about/icons/chat-light.svg'
+const addGroupLightImg = 'img/about/icons/add-group-light.svg'
+const locationLightImg = 'img/about/icons/location-light.svg'
 
-const brands1Img = 'assets/img/brands/01.svg'
-const brands2Img = 'assets/img/brands/02.svg'
-const brands3Img = 'assets/img/brands/03.svg'
-const brands4Img = 'assets/img/brands/04.svg'
-const brands5Img = 'assets/img/brands/05.svg'
-const brands6Img = 'assets/img/brands/06.svg'
+const brands1Img = 'img/brands/01.svg'
+const brands2Img = 'img/brands/02.svg'
+const brands3Img = 'img/brands/03.svg'
+const brands4Img = 'img/brands/04.svg'
+const brands5Img = 'img/brands/05.svg'
+const brands6Img = 'img/brands/06.svg'
 
-const avatar5Img = 'assets/img/avatar/05.jpg'
-const avatar6Img = 'assets/img/avatar/06.jpg'
-const avatar1Img = 'assets/img/avatar/01.jpg'
+const avatar5Img = 'img/avatar/05.jpg'
+const avatar6Img = 'img/avatar/06.jpg'
+const avatar1Img = 'img/avatar/01.jpg'
 
-const team9Img = 'assets/img/team/09.jpg'
-const team10Img = 'assets/img/team/10.jpg'
-const team11Img = 'assets/img/team/11.jpg'
-const team12Img = 'assets/img/team/12.jpg'
-const team13Img = 'assets/img/team/13.jpg'
-const team14Img = 'assets/img/team/14.jpg'
-const team15Img = 'assets/img/team/15.jpg'
+const team9Img = 'img/team/09.jpg'
+const team10Img = 'img/team/10.jpg'
+const team11Img = 'img/team/11.jpg'
+const team12Img = 'img/team/12.jpg'
+const team13Img = 'img/team/13.jpg'
+const team14Img = 'img/team/14.jpg'
+const team15Img = 'img/team/15.jpg'
 
 export const statsData: StatsType[] = [
   {

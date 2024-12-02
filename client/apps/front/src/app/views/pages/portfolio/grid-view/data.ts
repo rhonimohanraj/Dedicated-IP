@@ -8,12 +8,12 @@ type GridType = {
   }
 }
 
-const grid1 = 'assets/img/portfolio/grid/01.jpg'
-const grid2 = 'assets/img/portfolio/grid/02.jpg'
-const grid3 = 'assets/img/portfolio/grid/03.jpg'
-const grid4 = 'assets/img/portfolio/grid/04.jpg'
-const grid5 = 'assets/img/portfolio/grid/05.jpg'
-const grid6 = 'assets/img/portfolio/grid/06.jpg'
+const grid1 = 'img/portfolio/grid/01.jpg'
+const grid2 = 'img/portfolio/grid/02.jpg'
+const grid3 = 'img/portfolio/grid/03.jpg'
+const grid4 = 'img/portfolio/grid/04.jpg'
+const grid5 = 'img/portfolio/grid/05.jpg'
+const grid6 = 'img/portfolio/grid/06.jpg'
 
 const tags: string[] = [
   '3D Render',

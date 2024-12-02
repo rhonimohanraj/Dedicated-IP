@@ -1,17 +1,17 @@
 import { currentYear } from '@states/constants'
 
-const avatar19 = 'assets/img/avatar/19.jpg'
-const avatar20 = 'assets/img/avatar/20.jpg'
-const avatar21 = 'assets/img/avatar/21.jpg'
-const avatar22 = 'assets/img/avatar/22.jpg'
-const avatar23 = 'assets/img/avatar/23.jpg'
-const avatar24 = 'assets/img/avatar/24.jpg'
-const avatar25 = 'assets/img/avatar/25.jpg'
-const avatar26 = 'assets/img/avatar/26.jpg'
-const avatar27 = 'assets/img/avatar/27.jpg'
-const avatar28 = 'assets/img/avatar/28.jpg'
+const avatar19 = 'img/avatar/19.jpg'
+const avatar20 = 'img/avatar/20.jpg'
+const avatar21 = 'img/avatar/21.jpg'
+const avatar22 = 'img/avatar/22.jpg'
+const avatar23 = 'img/avatar/23.jpg'
+const avatar24 = 'img/avatar/24.jpg'
+const avatar25 = 'img/avatar/25.jpg'
+const avatar26 = 'img/avatar/26.jpg'
+const avatar27 = 'img/avatar/27.jpg'
+const avatar28 = 'img/avatar/28.jpg'
 
-const avatar29 = 'assets/img/avatar/29.jpg'
+const avatar29 = 'img/avatar/29.jpg'
 
 export type UserType = {
   image: string

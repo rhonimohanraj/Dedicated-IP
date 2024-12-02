@@ -1,24 +1,24 @@
-const icon1 = 'assets/img/landing/software-agency-3/icons/01.svg'
-const icon2 = 'assets/img/landing/software-agency-3/icons/02.svg'
-const icon3 = 'assets/img/landing/software-agency-3/icons/03.svg'
-const icon4 = 'assets/img/landing/software-agency-3/icons/04.svg'
+const icon1 = 'img/landing/software-agency-3/icons/01.svg'
+const icon2 = 'img/landing/software-agency-3/icons/02.svg'
+const icon3 = 'img/landing/software-agency-3/icons/03.svg'
+const icon4 = 'img/landing/software-agency-3/icons/04.svg'
 
-const industry1 = 'assets/img/landing/software-agency-3/industries/01.jpg'
-const industry2 = 'assets/img/landing/software-agency-3/industries/02.jpg'
-const industry3 = 'assets/img/landing/software-agency-3/industries/03.jpg'
+const industry1 = 'img/landing/software-agency-3/industries/01.jpg'
+const industry2 = 'img/landing/software-agency-3/industries/02.jpg'
+const industry3 = 'img/landing/software-agency-3/industries/03.jpg'
 
-const project1 = 'assets/img/landing/software-agency-3/projects/01.png'
-const project2 = 'assets/img/landing/software-agency-3/projects/02.png'
-const project3 = 'assets/img/landing/software-agency-3/projects/03.png'
+const project1 = 'img/landing/software-agency-3/projects/01.png'
+const project2 = 'img/landing/software-agency-3/projects/02.png'
+const project3 = 'img/landing/software-agency-3/projects/03.png'
 
-const brand1SvgImg = 'assets/img/brands/01.svg'
-const brand2SvgImg = 'assets/img/brands/02.svg'
-const brand3SvgImg = 'assets/img/brands/03.svg'
-const brand4SvgImg = 'assets/img/brands/04.svg'
+const brand1SvgImg = 'img/brands/01.svg'
+const brand2SvgImg = 'img/brands/02.svg'
+const brand3SvgImg = 'img/brands/03.svg'
+const brand4SvgImg = 'img/brands/04.svg'
 
-const blog5 = 'assets/img/blog/05.jpg'
-const blog7 = 'assets/img/blog/07.jpg'
-const blog8 = 'assets/img/blog/08.jpg'
+const blog5 = 'img/blog/05.jpg'
+const blog7 = 'img/blog/07.jpg'
+const blog8 = 'img/blog/08.jpg'
 
 export type SolutionType = {
   icon?: string

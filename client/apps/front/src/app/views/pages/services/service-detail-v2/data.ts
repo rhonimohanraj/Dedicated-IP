@@ -39,26 +39,26 @@ export type DentalServiceType = {
   description: string
 }
 
-const team17 = 'assets/img/team/17.jpg'
-const team18 = 'assets/img/team/18.jpg'
-const team19 = 'assets/img/team/19.jpg'
-const team21 = 'assets/img/team/21.jpg'
+const team17 = 'img/team/17.jpg'
+const team18 = 'img/team/18.jpg'
+const team19 = 'img/team/19.jpg'
+const team21 = 'img/team/21.jpg'
 
-const news1 = 'assets/img/landing/medical/news/01.jpg'
-const news2 = 'assets/img/landing/medical/news/02.jpg'
-const news3 = 'assets/img/landing/medical/news/03.jpg'
-const news4 = 'assets/img/landing/medical/news/04.jpg'
+const news1 = 'img/landing/medical/news/01.jpg'
+const news2 = 'img/landing/medical/news/02.jpg'
+const news3 = 'img/landing/medical/news/03.jpg'
+const news4 = 'img/landing/medical/news/04.jpg'
 
-const icons1 = 'assets/img/services/single/icons/01.svg'
-const icons2 = 'assets/img/services/single/icons/02.svg'
-const icons3 = 'assets/img/services/single/icons/03.svg'
-const icons4 = 'assets/img/services/single/icons/04.svg'
-const icons5 = 'assets/img/services/single/icons/05.svg'
-const icons6 = 'assets/img/services/single/icons/06.svg'
+const icons1 = 'img/services/single/icons/01.svg'
+const icons2 = 'img/services/single/icons/02.svg'
+const icons3 = 'img/services/single/icons/03.svg'
+const icons4 = 'img/services/single/icons/04.svg'
+const icons5 = 'img/services/single/icons/05.svg'
+const icons6 = 'img/services/single/icons/06.svg'
 
-const avatar36Img = 'assets/img/avatar/36.jpg'
-const avatar37Img = 'assets/img/avatar/37.jpg'
-const avatar38Img = 'assets/img/avatar/38.jpg'
+const avatar36Img = 'img/avatar/36.jpg'
+const avatar37Img = 'img/avatar/37.jpg'
+const avatar38Img = 'img/avatar/38.jpg'
 
 export const memberData: MemberType[] = [
   {

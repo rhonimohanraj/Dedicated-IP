@@ -1,9 +1,9 @@
 import { currentYear } from '@states/constants'
 
-const blog1 = 'assets/img/blog/01.jpg'
-const blog2 = 'assets/img/blog/02.jpg'
-const blog3 = 'assets/img/blog/03.jpg'
-const blog5 = 'assets/img/blog/05.jpg'
+const blog1 = 'img/blog/01.jpg'
+const blog2 = 'img/blog/02.jpg'
+const blog3 = 'img/blog/03.jpg'
+const blog5 = 'img/blog/05.jpg'
 
 export type BlogType = {
   id: number

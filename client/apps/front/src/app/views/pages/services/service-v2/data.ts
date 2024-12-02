@@ -24,31 +24,31 @@ export type FeatureType = {
   description: string
 }
 
-const service1 = 'assets/img/services/service01.jpg'
-const service2 = 'assets/img/services/service02.jpg'
-const service3 = 'assets/img/services/service03.jpg'
+const service1 = 'img/services/service01.jpg'
+const service2 = 'img/services/service02.jpg'
+const service3 = 'img/services/service03.jpg'
 
-const digital = 'assets/img/services/icons/digital.svg'
-const chart = 'assets/img/services/icons/chart.svg'
-const marketing = 'assets/img/services/icons/marketing.svg'
-const cyber = 'assets/img/services/icons/cybersecurity.svg'
+const digital = 'img/services/icons/digital.svg'
+const chart = 'img/services/icons/chart.svg'
+const marketing = 'img/services/icons/marketing.svg'
+const cyber = 'img/services/icons/cybersecurity.svg'
 
-const insurance = 'assets/img/services/icons/insurance.svg'
-const banking = 'assets/img/services/icons/banking.svg'
-const payment = 'assets/img/services/icons/payments.svg'
+const insurance = 'img/services/icons/insurance.svg'
+const banking = 'img/services/icons/banking.svg'
+const payment = 'img/services/icons/payments.svg'
 
-const assets = 'assets/img/services/icons/asset.svg'
-const operation = 'assets/img/services/icons/operations.svg'
-const finance = 'assets/img/services/icons/finance.svg'
-const audit = 'assets/img/services/icons/audit.svg'
+const assets = 'img/services/icons/asset.svg'
+const operation = 'img/services/icons/operations.svg'
+const finance = 'img/services/icons/finance.svg'
+const audit = 'img/services/icons/audit.svg'
 
-const education = 'assets/img/services/industries/education.jpg'
-const ecommerce = 'assets/img/services/industries/ecommerce.jpg'
-const sports = 'assets/img/services/industries/sports.jpg'
-const construction = 'assets/img/services/industries/construction.jpg'
-const medicine = 'assets/img/services/industries/medicine.jpg'
-const realEstate = 'assets/img/services/industries/real-estate.jpg'
-const wellness = 'assets/img/services/industries/wellness.jpg'
+const education = 'img/services/industries/education.jpg'
+const ecommerce = 'img/services/industries/ecommerce.jpg'
+const sports = 'img/services/industries/sports.jpg'
+const construction = 'img/services/industries/construction.jpg'
+const medicine = 'img/services/industries/medicine.jpg'
+const realEstate = 'img/services/industries/real-estate.jpg'
+const wellness = 'img/services/industries/wellness.jpg'
 
 export const servicesData: ServicesType[] = [
   {

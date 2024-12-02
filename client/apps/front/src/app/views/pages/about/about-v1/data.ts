@@ -39,25 +39,25 @@ export type SocialNetworkType = {
   socialId: string
 }
 
-const ideaImg = 'assets/img/landing/digital-agency/icons/idea.svg'
-const awardImg = 'assets/img/landing/digital-agency/icons/award.svg'
-const teamImg = 'assets/img/landing/digital-agency/icons/team.svg'
-const webbyImg = 'assets/img/landing/digital-agency/awards/webby.svg'
-const cssdaImg = 'assets/img/landing/digital-agency/awards/cssda.svg'
-const awwwardsImg = 'assets/img/landing/digital-agency/awards/awwwards.svg'
-const fwaImg = 'assets/img/landing/digital-agency/awards/fwa.svg'
-const avatar14Img = 'assets/img/avatar/14.jpg'
-const avatar13Img = 'assets/img/avatar/13.jpg'
-const avatar12Img = 'assets/img/avatar/12.jpg'
+const ideaImg = 'img/landing/digital-agency/icons/idea.svg'
+const awardImg = 'img/landing/digital-agency/icons/award.svg'
+const teamImg = 'img/landing/digital-agency/icons/team.svg'
+const webbyImg = 'img/landing/digital-agency/awards/webby.svg'
+const cssdaImg = 'img/landing/digital-agency/awards/cssda.svg'
+const awwwardsImg = 'img/landing/digital-agency/awards/awwwards.svg'
+const fwaImg = 'img/landing/digital-agency/awards/fwa.svg'
+const avatar14Img = 'img/avatar/14.jpg'
+const avatar13Img = 'img/avatar/13.jpg'
+const avatar12Img = 'img/avatar/12.jpg'
 
-const team1Img = 'assets/img/team/01.jpg'
-const team2Img = 'assets/img/team/02.jpg'
-const team3Img = 'assets/img/team/03.jpg'
-const team4Img = 'assets/img/team/04.jpg'
-const team5Img = 'assets/img/team/05.jpg'
-const team6Img = 'assets/img/team/06.jpg'
-const team7Img = 'assets/img/team/07.jpg'
-const team8Img = 'assets/img/team/08.jpg'
+const team1Img = 'img/team/01.jpg'
+const team2Img = 'img/team/02.jpg'
+const team3Img = 'img/team/03.jpg'
+const team4Img = 'img/team/04.jpg'
+const team5Img = 'img/team/05.jpg'
+const team6Img = 'img/team/06.jpg'
+const team7Img = 'img/team/07.jpg'
+const team8Img = 'img/team/08.jpg'
 
 export const benefitsData: BenefitType[] = [
   {

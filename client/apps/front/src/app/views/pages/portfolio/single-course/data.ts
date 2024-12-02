@@ -36,17 +36,17 @@ export type CourseType = {
   like: string
 }
 
-const avatar3 = 'assets/img/avatar/03.jpg'
-const avatar2 = 'assets/img/avatar/02.jpg'
-const avatar4 = 'assets/img/avatar/04.jpg'
-const avatar5 = 'assets/img/avatar/05.jpg'
-const avatar1 = 'assets/img/avatar/01.jpg'
-const avatar6 = 'assets/img/avatar/06.jpg'
-const avatar7 = 'assets/img/avatar/07.jpg'
+const avatar3 = 'img/avatar/03.jpg'
+const avatar2 = 'img/avatar/02.jpg'
+const avatar4 = 'img/avatar/04.jpg'
+const avatar5 = 'img/avatar/05.jpg'
+const avatar1 = 'img/avatar/01.jpg'
+const avatar6 = 'img/avatar/06.jpg'
+const avatar7 = 'img/avatar/07.jpg'
 
-const course2 = 'assets/img/portfolio/courses/02.jpg'
-const course3 = 'assets/img/portfolio/courses/03.jpg'
-const course9 = 'assets/img/portfolio/courses/09.jpg'
+const course2 = 'img/portfolio/courses/02.jpg'
+const course3 = 'img/portfolio/courses/03.jpg'
+const course9 = 'img/portfolio/courses/09.jpg'
 
 export const programDetailData: DetailType[] = [
   {

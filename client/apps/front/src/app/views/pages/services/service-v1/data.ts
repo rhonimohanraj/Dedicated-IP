@@ -34,25 +34,25 @@ export type FeatureType = {
   description?: string
 }
 
-const cms = 'assets/img/services/icons/cms.svg'
-const rocket = 'assets/img/services/icons/rocket.svg'
-const app = 'assets/img/services/icons/mobile-app.svg'
-const analytics = 'assets/img/services/icons/analytics.svg'
-const websearch = 'assets/img/services/icons/web-search.svg'
-const timer = 'assets/img/services/icons/timer.svg'
+const cms = 'img/services/icons/cms.svg'
+const rocket = 'img/services/icons/rocket.svg'
+const app = 'img/services/icons/mobile-app.svg'
+const analytics = 'img/services/icons/analytics.svg'
+const websearch = 'img/services/icons/web-search.svg'
+const timer = 'img/services/icons/timer.svg'
 
-const brand4 = 'assets/img/brands/04.svg'
-const brand2 = 'assets/img/brands/02.svg'
-const brand1 = 'assets/img/brands/01.svg'
+const brand4 = 'img/brands/04.svg'
+const brand2 = 'img/brands/02.svg'
+const brand1 = 'img/brands/01.svg'
 
-const testimonial1 = 'assets/img/testimonials/01.jpg'
-const testimonial2 = 'assets/img/testimonials/02.jpg'
-const testimonial3 = 'assets/img/testimonials/03.jpg'
+const testimonial1 = 'img/testimonials/01.jpg'
+const testimonial2 = 'img/testimonials/02.jpg'
+const testimonial3 = 'img/testimonials/03.jpg'
 
-const feature1 = 'assets/img/landing/software-agency-1/features/01.svg'
-const feature2 = 'assets/img/landing/software-agency-1/features/02.svg'
-const feature3 = 'assets/img/landing/software-agency-1/features/03.svg'
-const feature4 = 'assets/img/landing/software-agency-1/features/04.svg'
+const feature1 = 'img/landing/software-agency-1/features/01.svg'
+const feature2 = 'img/landing/software-agency-1/features/02.svg'
+const feature3 = 'img/landing/software-agency-1/features/03.svg'
+const feature4 = 'img/landing/software-agency-1/features/04.svg'
 
 export const serviceData: ServiceType[] = [
   {

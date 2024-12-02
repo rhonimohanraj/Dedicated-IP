@@ -1,26 +1,26 @@
-const chatImg = 'assets/img/landing/saas-1/features/chat.svg'
-const analyticsImg = 'assets/img/landing/saas-1/features/analytics.svg'
-const bellImg = 'assets/img/landing/saas-1/features/bell.svg'
-const tasksImg = 'assets/img/landing/saas-1/features/tasks.svg'
-const calendarImg = 'assets/img/landing/saas-1/features/calendar.svg'
-const addGroupImg = 'assets/img/landing/saas-1/features/add-group.svg'
-const headsetImg = 'assets/img/landing/saas-1/features/headset.svg'
-const shieldImg = 'assets/img/landing/saas-1/features/shield.svg'
-const googleImg = 'assets/img/brands/google.svg'
-const zoomImg = 'assets/img/brands/zoom.svg'
-const slackImg = 'assets/img/brands/slack.svg'
-const gmaillImg = 'assets/img/brands/gmail.svg'
-const trelloImg = 'assets/img/brands/trello.svg'
-const mailchimpImg = 'assets/img/brands/mailchimp.svg'
-const dropboxIMg = 'assets/img/brands/dropbox.svg'
-const evernoteImg = 'assets/img/brands/evernote.svg'
-const avatar14Img = 'assets/img/avatar/14.jpg'
-const avatar13Img = 'assets/img/avatar/13.jpg'
-const avatar11Img = 'assets/img/avatar/11.jpg'
-const useCase1Img = 'assets/img/landing/saas-1/use-cases/01.png'
-const useCase2Img = 'assets/img/landing/saas-1/use-cases/02.png'
-const useCase3Img = 'assets/img/landing/saas-1/use-cases/03.png'
-const useCase4Img = 'assets/img/landing/saas-1/use-cases/04.png'
+const chatImg = 'img/landing/saas-1/features/chat.svg'
+const analyticsImg = 'img/landing/saas-1/features/analytics.svg'
+const bellImg = 'img/landing/saas-1/features/bell.svg'
+const tasksImg = 'img/landing/saas-1/features/tasks.svg'
+const calendarImg = 'img/landing/saas-1/features/calendar.svg'
+const addGroupImg = 'img/landing/saas-1/features/add-group.svg'
+const headsetImg = 'img/landing/saas-1/features/headset.svg'
+const shieldImg = 'img/landing/saas-1/features/shield.svg'
+const googleImg = 'img/brands/google.svg'
+const zoomImg = 'img/brands/zoom.svg'
+const slackImg = 'img/brands/slack.svg'
+const gmaillImg = 'img/brands/gmail.svg'
+const trelloImg = 'img/brands/trello.svg'
+const mailchimpImg = 'img/brands/mailchimp.svg'
+const dropboxIMg = 'img/brands/dropbox.svg'
+const evernoteImg = 'img/brands/evernote.svg'
+const avatar14Img = 'img/avatar/14.jpg'
+const avatar13Img = 'img/avatar/13.jpg'
+const avatar11Img = 'img/avatar/11.jpg'
+const useCase1Img = 'img/landing/saas-1/use-cases/01.png'
+const useCase2Img = 'img/landing/saas-1/use-cases/02.png'
+const useCase3Img = 'img/landing/saas-1/use-cases/03.png'
+const useCase4Img = 'img/landing/saas-1/use-cases/04.png'
 
 import type {
   WorkType,
@@ -224,14 +224,14 @@ export const features: PricingFeatureType[] = [
 export const pricingPlan: PricingType[] = [
   {
     planName: 'Basic',
-    icon: 'assets/img/landing/saas-1/pricing/basic.png',
+    icon: 'img/landing/saas-1/pricing/basic.png',
     monthlyPrice: 6,
     yearlyPrice: 5.4,
     availableFeatures: [1, 2],
   },
   {
     planName: 'Standard',
-    icon: 'assets/img/landing/saas-1/pricing/standard.png',
+    icon: 'img/landing/saas-1/pricing/standard.png',
     monthlyPrice: 12.0,
     yearlyPrice: 10.8,
     availableFeatures: [1, 2, 3, 4],
@@ -239,7 +239,7 @@ export const pricingPlan: PricingType[] = [
   },
   {
     planName: 'Ultimate',
-    icon: 'assets/img/landing/saas-1/pricing/ultimate.png',
+    icon: 'img/landing/saas-1/pricing/ultimate.png',
     monthlyPrice: 18.0,
     yearlyPrice: 16.2,
     availableFeatures: [1, 2, 3, 4, 5],

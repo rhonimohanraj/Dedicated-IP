@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { Component, OnInit } from '@angular/core';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
-  standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    standalone: false
 })
-export class AppComponent {
-  title = 'dashbaord';
+export class AppComponent implements OnInit {
+
+    constructor(private primengConfig: PrimeNGConfig) { }
+
+    ngOnInit(): void {
+        this.primengConfig.ripple = true;
+    }
+
 }

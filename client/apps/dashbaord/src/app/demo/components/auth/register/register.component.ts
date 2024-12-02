@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import { LayoutService } from '../../../../layout/service/app.layout.service';
+
+@Component({
+    templateUrl: './register.component.html',
+    standalone: false
+})
+export class RegisterComponent {
+
+	confirmed: boolean = false;
+
+	constructor(public layoutService: LayoutService) {}
+
+	get dark(): boolean {
+		return this.layoutService.config().colorScheme !== 'light';
+	}
+
+}

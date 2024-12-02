@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { LayoutService } from '../../../../layout/service/app.layout.service';
 import { RouterLink } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { ChipsModule } from 'primeng/chips';
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, ButtonModule, ChipsModule],
   templateUrl: './forgotpassword.component.html',
 })
 export class ForgotPasswordComponent {

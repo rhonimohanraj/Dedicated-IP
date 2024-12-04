@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout/app.layout.module';
@@ -15,7 +15,6 @@ import { FirebaseModule } from '@dedicated-ip/service';
         FirebaseModule
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: APP_BASE_HREF, useValue: '/dashboard' }
     ],
     bootstrap: [AppComponent]

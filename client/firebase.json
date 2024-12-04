@@ -2,16 +2,12 @@
   "hosting": [
     {
       "target": "dashboard",
-      "public": "dist/apps/dashbaord",
+      "public": "dist/apps/dashboard",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
           "source": "/dashboard/**",
           "destination": "/index.html"
-        },
-        {
-          "source": "/functions/**",
-          "function": "api"
         }
       ]
     },
@@ -25,6 +21,12 @@
           "destination": "/index.html"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/functions/**",
+      "function": "api"
     }
   ]
 }

@@ -1,0 +1,30 @@
+{
+  "hosting": [
+    {
+      "target": "dashboard",
+      "public": "dist/apps/dashbaord",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "/dashboard/**",
+          "destination": "/index.html"
+        },
+        {
+          "source": "/functions/**",
+          "function": "api"
+        }
+      ]
+    },
+    {
+      "target": "front",
+      "public": "dist/apps/front",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

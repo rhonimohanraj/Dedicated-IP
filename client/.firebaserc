@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "dedicated-ip-production"
+  },
+  "targets": {
+    "dedicated-ip-production": {
+      "hosting": {
+        "front": [
+          "dedicated-ip-production"
+        ],
+        "dashboard": [
+          "dedicated-ip-production"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

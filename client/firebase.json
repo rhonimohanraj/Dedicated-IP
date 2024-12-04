@@ -1,17 +1,6 @@
 {
   "hosting": [
     {
-      "target": "dashboard",
-      "public": "dist/apps/dashboard/browser",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "/dashboard/**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "target": "front",
       "public": "dist/apps/front/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -19,9 +8,16 @@
         {
           "source": "/",
           "destination": "/index.html"
-        },
+        }
+      ]
+    },
+    {
+      "target": "dashboard",
+      "public": "dist/apps/dashboard/browser",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
         {
-          "source": "/front/**",
+          "source": "/dashboard/**",
           "destination": "/index.html"
         }
       ]

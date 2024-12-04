@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, computed, inject } from '@angular/core';
 import { TopbarComponent } from 'src/app/components/topbar/topbar.component'
 import { FeaturesComponent } from './component/features/features.component'
 import { LandingPagesComponent } from './component/landing-pages/landing-pages.component'
@@ -6,6 +6,8 @@ import { MoreFeatureComponent } from './component/more-feature/more-feature.comp
 import { Footer1Component } from './component/footer1/footer1.component'
 import Rellax from 'rellax'
 import { ScrollToModule, ScrollToService } from '@nicky-lenaers/ngx-scroll-to'
+import { RemoteConfigService } from '@dedicated-ip/service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ import { ScrollToModule, ScrollToService } from '@nicky-lenaers/ngx-scroll-to'
     LandingPagesComponent,
     MoreFeatureComponent,
     Footer1Component,
+    JsonPipe,
   ],
   templateUrl: './home.component.html',
   styles: `
@@ -27,7 +30,9 @@ import { ScrollToModule, ScrollToService } from '@nicky-lenaers/ngx-scroll-to'
   providers: [ScrollToService],
 })
 export class HomeComponent {
+  private remoteConfig = inject(RemoteConfigService);
+  protected products = this.remoteConfig.getProducts();
   ngOnInit(): void {
-    new Rellax('.rellax')
+    new Rellax('.rellax');
   }
 }

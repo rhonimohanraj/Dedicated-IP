@@ -3,4 +3,4 @@
  */
 
 export {FirebaseModule} from './lib/firebase/firebase.module';
-export {FirebaseComponent} from './lib/firebase/component/firebase.component';
+export {FirebaseComponent} from './lib/firebase/firebase.component';

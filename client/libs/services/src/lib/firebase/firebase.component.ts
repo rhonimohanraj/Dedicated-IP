@@ -6,7 +6,7 @@ import { Analytics, isSupported } from '@angular/fire/analytics';
   selector: 'firebase-component',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './firebase.component.html',
+  template: '',
 })
 export class FirebaseComponent implements OnInit {
   constructor(private injector: Injector) {}

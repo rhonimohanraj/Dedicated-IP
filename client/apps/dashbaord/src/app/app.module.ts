@@ -3,6 +3,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout/app.layout.module';
+import { FirebaseModule } from '@dedicated-ip/service';
 
 @NgModule({
     declarations: [
@@ -11,6 +12,7 @@ import { AppLayoutModule } from './layout/app.layout.module';
     imports: [
         AppRoutingModule,
         AppLayoutModule,
+        FirebaseModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

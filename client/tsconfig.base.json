@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@dedicated-ip/service":[
+        "./libs/services/src/public-api.ts"
+      ]
+    },
   },
   "exclude": ["node_modules", "tmp"]
 }

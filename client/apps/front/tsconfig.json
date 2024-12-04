@@ -34,6 +34,9 @@
       ],
       "@assets/*": [
         "./src/assets/*"
+      ],
+      "@dedicated-ip/service":[
+        "../../libs/services/src/public-api.ts"
       ]
     },
     "lib": [

@@ -1,13 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Analytics } from '@angular/fire/analytics';
+import { Analytics, isSupported } from '@angular/fire/analytics';
 
 @Component({
-  selector: 'lib-firebase',
+  selector: 'firebase-component',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './firebase.component.html',
 })
-export class FirebaseComponent {
-  private analytics = inject(Analytics);
+export class FirebaseComponent implements OnInit {
+  constructor(private injector: Injector) {}
+
+  async ngOnInit(): Promise<void> {
+    if(await isSupported()) {
+      this.injector.get(Analytics)
+    }
+  }
 }

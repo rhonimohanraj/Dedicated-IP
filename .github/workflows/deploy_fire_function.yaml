@@ -5,8 +5,6 @@ on:
 
 jobs:
   publish:
-    env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEDICATED_IP_PRODUCTION }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,5 +19,14 @@ jobs:
       - run: npm ci --legacy-peer-deps
         working-directory: functions
 
+      - name: 'Prepare Workspace'
+        shell: bash
+        env:
+          FIREBASE_SERVICE_ACCOUNT_DEDICATED_IP_PRODUCTION: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEDICATED_IP_PRODUCTION }}
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT_DEDICATED_IP_PRODUCTION" > ./gac.json
+
       - run: firebase deploy
+        env:
+            GOOGLE_APPLICATION_CREDENTIALS: './gac.json'
         working-directory: functions

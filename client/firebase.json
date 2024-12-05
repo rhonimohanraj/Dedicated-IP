@@ -11,14 +11,14 @@
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     },
     {
-      "site": "functions-dedicated-ip-production"
-    }
-  ],
-  "rewrites": [
-    {
       "site": "functions-dedicated-ip-production",
-      "source": "/**",
-      "function": "onHttpRequest"
+      "rewrites": [
+        {
+          "site": "functions-dedicated-ip-production",
+          "source": "/**",
+          "function": "onHttpRequest"
+        }
+      ]
     }
   ]
 }

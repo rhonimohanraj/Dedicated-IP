@@ -14,9 +14,7 @@ import { FirebaseModule } from '@dedicated-ip/service';
         AppLayoutModule,
         FirebaseModule
     ],
-    providers: [
-        { provide: APP_BASE_HREF, useValue: '/dashboard' }
-    ],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

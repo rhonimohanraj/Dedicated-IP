@@ -1,5 +1,5 @@
-name: Create WireGuard Server
-run-name: Create WireGuard Server - ${{ inputs.domain_prefix }}
+name: deploy WireGuard Server
+run-name: deploy WireGuard Server - ${{ inputs.domain_prefix }}
 
 on:
   workflow_dispatch:
@@ -48,8 +48,8 @@ on:
           - sin
 
 jobs:
-  create_server:
-    name: Create WireGuard Server
+  deploy_server:
+    name: deploy WireGuard Server
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:
@@ -110,7 +110,7 @@ jobs:
     name: Set Domain
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    needs: create_server
+    needs: deploy_server
     env:
       TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_TOKEN }}
       TF_VAR_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}

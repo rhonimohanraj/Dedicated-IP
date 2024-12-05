@@ -3,19 +3,31 @@
     {
       "site": "dashboard-dedicated-ip-production",
       "public": "dist/apps/dashboard/browser",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     },
     {
       "site": "dedicated-ip-production",
       "public": "dist/apps/front/browser",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
     },
     {
       "site": "functions-dedicated-ip-production",
       "rewrites": [
         {
           "site": "functions-dedicated-ip-production",
-          "source": "/**",
+          "source": "**",
           "function": "onHttpRequest"
         }
       ]

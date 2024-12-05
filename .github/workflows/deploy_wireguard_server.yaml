@@ -1,5 +1,5 @@
-name: deploy WireGuard Server
-run-name: deploy WireGuard Server - ${{ inputs.domain_prefix }}
+name: Deploy WireGuard Server
+run-name: Deploy WireGuard Server - ${{ inputs.domain_prefix }}
 
 on:
   workflow_dispatch:
@@ -49,7 +49,7 @@ on:
 
 jobs:
   deploy_server:
-    name: deploy WireGuard Server
+    name: Deploy WireGuard Server
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     env:

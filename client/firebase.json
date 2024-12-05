@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "front",
-      "public": "dist/apps/front/browser",
+      "public": "dist/apps/front",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
         {
@@ -18,7 +18,7 @@
       "rewrites": [
         {
           "source": "/dashboard/**",
-          "destination": "/index.html"
+          "destination": "/browser/index.html"
         }
       ]
     }

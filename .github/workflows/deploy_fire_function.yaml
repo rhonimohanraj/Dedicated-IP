@@ -6,7 +6,7 @@ on:
 jobs:
   publish:
     env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEDICATED_IP_PRODUCTION }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEDICATED_IP_PRODUCTION }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

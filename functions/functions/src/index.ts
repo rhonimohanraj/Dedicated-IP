@@ -3,12 +3,17 @@ import * as admin from "firebase-admin";
 import {auth} from "firebase-functions/v1";
 import {getFirestore} from "firebase-admin/firestore";
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
+import { onRequest } from "firebase-functions/https";
 
 admin.initializeApp();
 
-export const onUserCreate = auth.user().onCreate(async (user) => {
+export const onHttpRequest = onRequest(async (req, res) => {
+  res.send("Hello from Firebase!");
+});
+
+export const onUserRegister = auth.user().onCreate(async (user) => {
   logger.info(
-    `User created with uid ${user.uid} in auth system.`,
+    `User register with uid ${user.uid} in auth system.`,
     {structuredData: true}
   );
   await getFirestore().collection("users").add({
@@ -20,7 +25,7 @@ export const onUserCreate = auth.user().onCreate(async (user) => {
   return null;
 });
 
-export const onUserAdd = onDocumentCreated(
+export const onUserAddToUsersCollection = onDocumentCreated(
   "/users/{documentId}",
   async (event) => {
     const data = event.data?.data();

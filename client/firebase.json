@@ -9,13 +9,16 @@
       "site": "dedicated-ip-production",
       "public": "dist/apps/front/browser",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    },
+    {
+      "site": "functions-dedicated-ip-production"
     }
   ],
   "rewrites": [
     {
-      "site": "dedicated-ip-production",
-      "source": "/functions/**",
-      "function": "api"
+      "site": "functions-dedicated-ip-production",
+      "source": "/**",
+      "function": "onHttpRequest"
     }
   ]
 }

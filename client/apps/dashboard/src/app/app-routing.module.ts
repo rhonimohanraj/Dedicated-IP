@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'auth',
     data: { breadcrumb: 'Auth' },
     loadChildren: () =>
-      import('./demo/components/auth/auth.module').then((m) => m.AuthModule),
+      import('./pages/components/auth/auth.module').then((m) => m.AuthModule),
   },
   { path: '**', redirectTo: '/notfound' },
 ];

@@ -3,12 +3,18 @@ import { RouterOutlet } from '@angular/router'
 import { BackToTopComponent } from './components/back-to-top/back-to-top.component'
 import { PreloaderComponent } from './components/preloader/preloader.component'
 import { TitleService } from '@core/services/title.service'
-import { FirebaseComponent } from '@dedicated-ip/service';
+import { FirebaseComponent, TawkComponent } from '@dedicated-ip/service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BackToTopComponent, PreloaderComponent, FirebaseComponent],
+  imports: [
+    RouterOutlet,
+    BackToTopComponent,
+    PreloaderComponent,
+    FirebaseComponent,
+    TawkComponent,
+  ],
   styles: `
     :host(app-root) {
       display: contents;
@@ -19,6 +25,6 @@ import { FirebaseComponent } from '@dedicated-ip/service';
 export class AppComponent {
   constructor(private titleService: TitleService) {}
   ngOnInit(): void {
-    this.titleService.init()
+    this.titleService.init();
   }
 }

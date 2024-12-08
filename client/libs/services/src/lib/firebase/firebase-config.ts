@@ -6,5 +6,5 @@ export const FirebaseConfig = {
   messagingSenderId: "645631015789",
   appId: "1:645631015789:web:3a9e6a5bab1ff73a397864",
   measurementId: "G-LB9NXH31Q5",
-  recaptchaSiteKey: "6LcU34wqAAAAAPhHOHgorgBO37tHhuHUg1jmteYR"
+  recaptchaSiteKey: "6LcSyJUqAAAAACXR4RMEC1r22by7LFE1rx4CegF-"
 };

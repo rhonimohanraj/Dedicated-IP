@@ -6,12 +6,13 @@ import { FirebaseModule } from '@dedicated-ip/service';
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+      FirebaseModule
     ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        FirebaseModule
+
     ],
     providers: [],
     bootstrap: [AppComponent]

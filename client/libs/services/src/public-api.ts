@@ -2,6 +2,6 @@
  * Public API Surface of services
  */
 
-export {FirebaseModule} from './lib/firebase/firebase.module';
+export {FirebaseProvider} from './lib/firebase/firebase.provider';
 export {FirebaseComponent} from './lib/firebase/firebase.component';
 export {RemoteConfigService} from './lib/firebase/remote-config.service';

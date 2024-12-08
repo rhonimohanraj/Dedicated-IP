@@ -22,6 +22,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { FakeBackendProvider } from '@helpers/fake-backend'
 import { ErrorInterceptor } from '@helpers/error.interceptor'
 import { JwtInterceptor } from '@helpers/jwt.interceptor'
+import { FirebaseProvider } from '@dedicated-ip/service';
 
 // Scroll
 const scrollConfig: InMemoryScrollingOptions = {
@@ -34,6 +35,7 @@ const inMemoryScrollingFeature: InMemoryScrollingFeature =
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    FirebaseProvider,
     provideRouter(routes, inMemoryScrollingFeature),
     provideStore(rootReducer),
     provideEffects(AuthenticationEffects),

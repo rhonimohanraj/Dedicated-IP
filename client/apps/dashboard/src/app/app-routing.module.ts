@@ -1,21 +1,33 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
+import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 const routerOptions: ExtraOptions = {
-    anchorScrolling: 'enabled'
+  anchorScrolling: 'enabled',
 };
 
+const redirectUnauthorizedToLanding = () =>
+  redirectUnauthorizedTo(['auth', 'login']);
+
 const routes: Routes = [
-    {
-        path: '', component: AppLayoutComponent,
-    },
-    { path: 'auth', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },
-    { path: '**', redirectTo: '/notfound' }
+  {
+    path: '',
+    component: AppLayoutComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLanding },
+  },
+  {
+    path: 'auth',
+    data: { breadcrumb: 'Auth' },
+    loadChildren: () =>
+      import('./demo/components/auth/auth.module').then((m) => m.AuthModule),
+  },
+  { path: '**', redirectTo: '/notfound' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, routerOptions)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, routerOptions)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

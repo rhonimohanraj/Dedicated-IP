@@ -6,13 +6,13 @@ import { FirebaseComponent, FirebaseProvider, TawkComponent } from '@dedicated-i
 
 @NgModule({
   declarations: [AppComponent],
+  providers: [FirebaseProvider],
   imports: [
     AppRoutingModule,
     AppLayoutModule,
     FirebaseComponent,
     TawkComponent,
   ],
-  providers: [FirebaseProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

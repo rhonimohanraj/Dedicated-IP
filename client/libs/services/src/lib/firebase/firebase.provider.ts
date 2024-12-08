@@ -5,6 +5,7 @@ import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-confi
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { initializeAppCheck, provideAppCheck, ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
 export const FirebaseProvider = [
   provideFirebaseApp(() => initializeApp(FirebaseConfig)),
@@ -20,4 +21,5 @@ export const FirebaseProvider = [
   ),
   provideFirestore(() => getFirestore()),
   providePerformance(() => getPerformance()),
+  provideAuth(() => getAuth()),
 ];

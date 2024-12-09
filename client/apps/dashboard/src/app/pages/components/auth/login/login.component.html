@@ -23,7 +23,8 @@
                     <span class="p-input-icon-left">
                         <i class="pi pi-envelope"></i>
                       <div class="p-element p-inputtext p-component block mb-3">
-                        <input type="text" autocomplete="off" pInputText placeholder="Email" style="   max-width: 320px;
+                        <input type="text" autocomplete="off" formControlName="email" pInputText placeholder="Email"
+                               style="   max-width: 320px;
                     min-width: 270px;">
                       </div>
                     </span>
@@ -34,9 +35,23 @@
                     </span>
             <a href="#" class="flex text-color-secondary mb-4 text-sm">Forgot your password?</a>
           </div>
+
+          @if (formGroup.invalid && formGroup.dirty) {
+            @for (control of formGroup.controls | keyvalue; track $index) {
+              @if (control.value.invalid) {
+                @for (error of control.value.errors | keyvalue; track $index) {
+                  <div
+                    class="p-message p-message-error p-message-text p-component p-message-filled p-message-icon-only mb-4">
+                    <span class="p-message-text">{{ control.key }} is {{ error.key }}</span>
+                  </div>
+                }
+              }
+            }
+          }
+
           <div class="button-container">
-            <button type="button" pButton label="Login" [routerLink]="['/']" class="block" style="max-width: 320px;
-                margin-bottom: 32px;"></button>
+            <button (click)="onLoginWithEmailAndPassword()" type="button" pButton label="Login" [routerLink]="['/']"
+                    class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
             <span class="flex text-sm text-color-secondary">Don’t have an account?<a
               class="cursor-pointer ml-1">Sign-up here</a></span>
           </div>

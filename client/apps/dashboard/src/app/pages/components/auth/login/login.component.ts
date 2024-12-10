@@ -16,6 +16,8 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import firebase from 'firebase/compat';
+import FirebaseError = firebase.FirebaseError;
 
 @Component({
   imports: [
@@ -68,16 +70,19 @@ export class LoginComponent {
           this.email!.value,
           this.password!.value,
         );
+        console.log(result);
         if (result.user) {
           await this.router.navigate(['/']);
         }
       }
       catch (error: unknown) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login failed',
-          detail: (error as Error).toString(),
-        });
+        if((error as firebase.FirebaseError).code) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Login failed',
+              detail: (error as firebase.FirebaseError).message,
+            });
+          }
         }
     }
   }

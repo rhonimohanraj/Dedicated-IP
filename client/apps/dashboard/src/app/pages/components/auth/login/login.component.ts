@@ -18,6 +18,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import firebase from 'firebase/compat';
 import FirebaseError = firebase.FirebaseError;
+import { FirebaseService } from '@dedicated-ip/service';
 
 @Component({
   imports: [
@@ -40,6 +41,7 @@ export class LoginComponent {
   private readonly router = inject(Router);
   public readonly layoutService = inject(LayoutService);
   private readonly messageService = inject(MessageService);
+  private readonly FirebaseService = inject(FirebaseService);
 
   formGroup!: FormGroup;
 
@@ -65,25 +67,21 @@ export class LoginComponent {
   async onLoginWithEmailAndPassword(): Promise<void> {
     if (this.formGroup.valid) {
       try{
-        const result = await signInWithEmailAndPassword(
-          this.auth,
+        const user = await this.FirebaseService.signInWithEmailAndPassword(
           this.email!.value,
           this.password!.value,
         );
-        console.log(result);
-        if (result.user) {
+        if (user) {
           await this.router.navigate(['/']);
         }
       }
-      catch (error: unknown) {
-        if((error as firebase.FirebaseError).code) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Login failed',
-              detail: (error as firebase.FirebaseError).message,
-            });
-          }
-        }
+      catch (error: any) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Login failed',
+          detail: error.toString(),
+        });
     }
   }
+}
 }

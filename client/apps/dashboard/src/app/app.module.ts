@@ -11,7 +11,7 @@ import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
-  providers: [FirebaseProvider, importProvidersFrom(MessageService), importProvidersFrom(ToastModule)],
+  providers: [FirebaseProvider, MessageService, ToastModule],
   imports: [
     AppRoutingModule,
     AppLayoutModule,

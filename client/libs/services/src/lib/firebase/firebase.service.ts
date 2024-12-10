@@ -1,6 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import {
+  Auth,
+  confirmPasswordReset,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword, signInWithPopup, updatePassword,
+  verifyPasswordResetCode
+} from '@angular/fire/auth';
+import { GoogleAuthProvider } from '@angular/fire/auth';
 import firebase from 'firebase/compat';
+import FirebaseError = firebase.FirebaseError;
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +28,8 @@ export class FirebaseService {
       );
       return result.user;
     } catch (error: unknown) {
-      if ((error as firebase.FirebaseError).code) {
-        switch ((error as firebase.FirebaseError).code) {
+      if ((error as FirebaseError).code) {
+        switch ((error as FirebaseError).code) {
           case 'auth/user-not-found':
             throw Error('User not found');
           case 'auth/wrong-password':
@@ -32,5 +40,31 @@ export class FirebaseService {
       }
       throw Error('An error occurred');
     }
+  }
+
+  async signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+    return result.user;
+  }
+
+  async signOut() {
+    await this.auth.signOut();
+  }
+
+  async sendPasswordResetEmail(email: string) {
+    await sendPasswordResetEmail(this.auth, email);
+  }
+
+  async verifyPasswordResetCode(code: string) {
+    return verifyPasswordResetCode(this.auth, code);
+  }
+
+  async confirmPasswordReset(code: string, newPassword: string) {
+    await confirmPasswordReset(this.auth, code, newPassword);
+  }
+
+  async updatePassword(newPassword: string) {
+    await updatePassword(this.auth.currentUser!, newPassword);
   }
 }

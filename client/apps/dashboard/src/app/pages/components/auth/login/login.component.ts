@@ -1,4 +1,8 @@
-import { Component, importProvidersFrom, inject, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
 import { LayoutService } from '../../../../layout/service/app.layout.service';
 import { Router, RouterLink } from '@angular/router';
 import { ChipsModule } from 'primeng/chips';
@@ -12,12 +16,8 @@ import {
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
 import { KeyValuePipe } from '@angular/common';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { MessageService } from 'primeng/api';
-import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import firebase from 'firebase/compat';
-import FirebaseError = firebase.FirebaseError;
 import { FirebaseService } from '@dedicated-ip/service';
 
 @Component({
@@ -37,7 +37,6 @@ import { FirebaseService } from '@dedicated-ip/service';
   encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent {
-  private readonly auth = inject(Auth);
   private readonly router = inject(Router);
   public readonly layoutService = inject(LayoutService);
   private readonly messageService = inject(MessageService);
@@ -66,7 +65,7 @@ export class LoginComponent {
 
   async onLoginWithEmailAndPassword(): Promise<void> {
     if (this.formGroup.valid) {
-      try{
+      try {
         const user = await this.FirebaseService.signInWithEmailAndPassword(
           this.email!.value,
           this.password!.value,
@@ -74,14 +73,13 @@ export class LoginComponent {
         if (user) {
           await this.router.navigate(['/']);
         }
-      }
-      catch (error: any) {
+      } catch (error: any) {
         this.messageService.add({
           severity: 'error',
           summary: 'Login failed',
           detail: error.toString(),
         });
+      }
     }
   }
-}
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from '@dedicated-ip/service';
+import { asyncScheduler } from 'rxjs';
 
 @Component({
     templateUrl: './register.component.html',
@@ -55,7 +56,9 @@ export class RegisterComponent {
             summary: 'Register successful',
             detail: 'You have successfully Registered, Please verify your email address',
           });
-          await this.router.navigate(['/']);
+          asyncScheduler.schedule(async () => {
+            await this.router.navigate(['/']);
+          }, 4000);
         }
       } catch (error: any) {
         this.messageService.add({

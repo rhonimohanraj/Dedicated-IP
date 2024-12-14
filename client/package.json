@@ -26,6 +26,7 @@
     "@ngrx/store-devtools": "^18.1.1",
     "@nicky-lenaers/ngx-scroll-to": "^14.0.0",
     "@popperjs/core": "^2.11.8",
+    "@tanstack/angular-query-experimental": "^5.62.7",
     "bootstrap": "5.3.3",
     "boxicons": "^2.1.4",
     "chart.js": "^3.3.2",

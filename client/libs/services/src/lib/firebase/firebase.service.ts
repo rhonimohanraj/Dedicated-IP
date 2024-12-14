@@ -117,17 +117,4 @@ export class FirebaseService {
   async updatePassword(newPassword: string) {
     await updatePassword(this.auth.currentUser!, newPassword);
   }
-
-  async GetUser() {
-    const userDoc = doc(this.firestore, 'users', this.currentUser?.uid);
-    const userSnap = await getDoc(userDoc);
-
-    if (userSnap.exists()) {
-      return userSnap.data();
-    } else {
-      throw Error('User not found');
-    }
-  }
-
-
 }

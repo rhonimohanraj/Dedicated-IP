@@ -39,7 +39,7 @@
                     <p-password formControlName="password" pInputText class="block mb-3" placeholder="Password"
                                 [style.max-width]="'320px'" [style.min-width]="'270px'" />
                     </span>
-                    <a href="#" class="flex text-color-secondary mb-4 text-sm">Forgot your password?</a>
+                    <a href="#" [routerLink]="['/auth/forgotpassword']" class="flex text-color-secondary mb-4 text-sm">Forgot your password?</a>
                   </div>
 
                   @if (formGroup.invalid && formGroup.dirty) {

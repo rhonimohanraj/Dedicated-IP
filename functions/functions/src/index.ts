@@ -16,7 +16,7 @@ export const onUserRegister = auth.user().onCreate(async (user) => {
     `User register with uid ${user.uid} in auth system.`,
     {structuredData: true}
   );
-  await getFirestore().collection("users").add({
+  getFirestore().collection("users").doc(user.uid).create({
     uid: user.uid,
     email: user.email,
     displayName: user.displayName,

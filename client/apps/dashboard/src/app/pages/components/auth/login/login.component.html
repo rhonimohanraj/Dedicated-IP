@@ -65,7 +65,7 @@
                     <button (click)="onLoginWithEmailAndPassword()" type="button" pButton label="Sign In"
                             [routerLink]="['/']"
                             class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
-                    <span class="flex text-sm text-color-secondary">Don’t have an account?<a
+                    <span class="flex text-sm text-color-secondary">Don’t have an account?<a [routerLink]="['/auth/register']"
                       class="cursor-pointer ml-1">Sign-up here</a></span>
                   </div>
                 </form>

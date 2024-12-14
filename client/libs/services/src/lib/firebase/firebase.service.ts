@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
-  confirmPasswordReset,
+  confirmPasswordReset, createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword, signInWithPopup, updatePassword,
   verifyPasswordResetCode
@@ -22,6 +22,32 @@ export class FirebaseService {
   ) {
     try {
       const result = await signInWithEmailAndPassword(
+        this.auth,
+        email,
+        password,
+      );
+      return result.user;
+    } catch (error: unknown) {
+      if ((error as FirebaseError).code) {
+        switch ((error as FirebaseError).code) {
+          case 'auth/user-not-found':
+            throw Error('User not found');
+          case 'auth/wrong-password':
+            throw Error('Wrong password');
+          default:
+            throw Error('Invalid email or password');
+        }
+      }
+      throw Error('An error occurred');
+    }
+  }
+
+  async createUserWithEmailAndPassword(
+    email: string,
+    password: string,
+  ) {
+    try {
+      const result = await createUserWithEmailAndPassword(
         this.auth,
         email,
         password,

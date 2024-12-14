@@ -1,66 +1,119 @@
+<p-toast />
+<div
+  [class]="'login-body flex min-h-screen  '+(layoutService.config().colorScheme === 'light' ? 'layout-light':'layout-dark')">
+  <div class="login-image w-6 h-screen hidden md:block" style="max-width: 490px;">
+    <img
+      [src]="'layout/images/pages/login-'+ (layoutService.config().colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
+      alt="atlantis" class=" h-screen w-full">
+  </div>
+  <div class="login-panel w-full" style="background:var(--surface-ground)">
+    <div
+      class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
+      style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
 
-<div [class]="'login-body flex min-h-screen  '+(layoutService.config().colorScheme === 'light' ? 'layout-light':'layout-dark')"
->
-    <div class="login-image w-6 h-screen hidden md:block" style="max-width: 490px;">
-        <img [src]="'layout/images/pages/register-'+ (layoutService.config().colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
-             alt="atlantis" class=" h-screen w-full" >
-    </div>
-    <div class="w-full" style="background:var(--surface-ground)">
-        <div class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
-            style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
-            <div class="flex flex-column">
-                <div class="flex align-items-center mb-6 logo-container">
-                    <img [src]="'layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
-                         class="login-logo" style=" width: 45px;"/>
-                    <img [src]="'layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
-                         class="login-appname ml-3" style="width: 100px;"/>
-                </div>
-                <div class="form-container text-left" style="   max-width: 320px;
-                min-width: 270px;">
-                    <h4 class="m-0 mb-2">Register</h4>
-                    <span class="block text-600 font-medium mb-4">Let's get started</span>
+      <div class="col-12">
+        <div class="card">
+          <div class="grid">
+            <div class="col-5 flex align-items-center justify-content-center">
+              <div class="flex flex-column">
+                <form [formGroup]="formGroup">
+                  <div class="flex align-items-center mb-6 logo-container">
+                    <img
+                      [src]="'layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
+                      class="login-logo" style=" width: 45px;" />
+                    <img
+                      [src]="'layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
+                      class="login-appname ml-3" style="width: 100px;" />
+                  </div>
+                  <h4 class="m-0 mb-2">Register</h4>
+                  <span class="block text-600 font-medium mb-4">Let's get started</span>
+                  <div class="form-container">
                     <span class="p-input-icon-left">
-                        <i class="pi pi-user"></i>
-                        <input type="text" autocomplete="off" pInputText placeholder="username" class="block mb-3" style="   max-width: 320px;
-                        min-width: 270px;">
-                    </span>
-                     <span class="p-input-icon-left">
                         <i class="pi pi-envelope"></i>
-                        <input type="mail" autocomplete="off" pInputText placeholder="email" class="block mb-3" style="   max-width: 320px;
-                        min-width: 270px;">
+                      <div class="p-element p-inputtext p-component block mb-3">
+                        <input type="text" autocomplete="off" formControlName="email" pInputText placeholder="Email"
+                               style="   max-width: 320px;
+                    min-width: 270px;">
+                      </div>
                     </span>
                     <span class="p-input-icon-left">
                         <i class="pi pi-key"></i>
-                        <input type="password" autocomplete="off" pInputText placeholder="Password" class="block mb-3" style="   max-width: 320px;
-                        min-width: 270px;">
+                    <p-password formControlName="password" pInputText class="block mb-3" placeholder="Password"
+                                [style.max-width]="'320px'" [style.min-width]="'270px'" />
                     </span>
-                    <div class="mt-2 flex flex-wrap">
-                        <p-checkbox name="checkbox" value="val" [(ngModel)]="confirmed" styleClass="mr-2" [binary]="true"></p-checkbox>
-                        <label for="checkbox" class="text-900 font-medium mr-2">I have read the</label>
-                        <a class="text-600 cursor-pointer hover:text-primary cursor-pointer">Terms and Conditions</a>
+                    <div class="mt-2 flex flex-wrap mb-2">
+                      <p-checkbox name="checkbox" value="val" formControlName="confirmed" styleClass="mr-2" [binary]="true"></p-checkbox>
+                      <label for="checkbox" class="text-900 font-medium mr-2">I have read the</label>
+                      <a class="text-600 cursor-pointer hover:text-primary cursor-pointer">Terms and Conditions</a>
                     </div>
-                </div>
-                <div class="button-container mt-4 text-left "style="   max-width: 320px;
-                min-width: 270px;">
-                <div class="buttons flex align-items-center gap-3">
-                    <button type="button" pButton label="Cancel" [routerLink]="['/']" class="block p-button-danger p-button-outlined" style="max-width: 320px;
-                    margin-bottom: 32px;"></button>
-                    <button type="button" pButton label="Submit" [routerLink]="['/']" class="block" style="max-width: 320px;
-                    margin-bottom: 32px;"></button>
-                </div>
-                <span class="font-medium text-600">Already have an account? <a class="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">Login</a></span>
-                </div>
-            </div>
+                  </div>
 
-            <div class="login-footer flex align-items-center absolute" style="bottom: 75px;">
-                <div class="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
-                    <img src="layout/images/logo-gray.png" class="login-footer-logo" style="width: 22px;"/>
-                    <img src="layout/images/appname-gray.png" class="login-footer-appname ml-2" style="  width: 45px;"/>
-                </div>
-                <span class="text-sm text-color-secondary mr-3">Copyright 2025</span>
+                  @if (formGroup.invalid && formGroup.dirty) {
+                    @for (control of formGroup.controls | keyvalue; track $index) {
+                      @if (control.value.invalid) {
+                        @for (error of control.value.errors | keyvalue; track $index) {
+                          <div
+                            class="p-message p-message-error p-message-text p-component p-message-filled p-message-icon-only mb-4">
+                            @if (error.key === 'required') {
+                              <span class="p-message-text">{{ control.key }} is required</span>
+                            } @else if (error.key === control.key) {
+                              <span class="p-message-text">{{ control.key }} is invalid</span>
+                            } @else {
+                              <span class="p-message-text">{{ control.key }} is {{ error.key }}</span>
+                            }
+                          </div>
+                        }
+                      }
+                    }
+                  }
+
+                  <div class="button-container">
+                    <button (click)="onRegisterWithEmailAndPassword()" type="button" pButton label="Register"
+                            [routerLink]="['/auth/register']"
+                            class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
+                    <span class="font-medium text-600">Already have an account? <a [routerLink]="['/auth/login']" class="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">Login</a></span>
+                  </div>
+                </form>
+              </div>
             </div>
+            <div class="col-2">
+              <p-divider layout="vertical">
+                <b>OR</b>
+              </p-divider>
+            </div>
+            <div class="col-5 align-items-center justify-content-center">
+              <h5>
+                Register using
+              </h5>
+
+              <p-divider layout="horizontal"></p-divider>
+
+              <button (click)="onLoginWithGoogle()" [style.margin-bottom]="'20px'" [style.margin-top]="'25px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-google"
+                      iconPos="left" label="Google" pButton
+                      pRipple></button>
+              <div class="clearfix"></div>
+              <button (click)="onLoginWithFacebook()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-facebook" iconPos="left"
+                      label="Facebook" pButton pRipple></button>
+              <div class="clearfix"></div>
+              <button (click)="onLoginWithTwitter()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-twitter" iconPos="left"
+                      label="Twitter" pButton pRipple></button>
+              <div class="clearfix"></div>
+              <button (click)="onLoginWithGithub()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-github" iconPos="left"
+                      label="Github" pButton pRipple></button>
+            </div>
+          </div>
         </div>
 
+        <div class="login-footer flex align-items-center absolute" style="bottom: 75px;">
+          <div
+            class="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
+            <img src="layout/images/logo-gray.png" class="login-footer-logo" style="width: 22px;" />
+            <img src="layout/images/appname-gray.png" class="login-footer-appname ml-2"
+                 style="  width: 45px;" />
+          </div>
+          <span class="text-sm text-color-secondary mr-3">Copyright 2025</span>
+        </div>
+      </div>
 
     </div>
-</div>
+  </div>

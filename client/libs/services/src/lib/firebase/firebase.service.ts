@@ -1,13 +1,20 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
-  confirmPasswordReset, createUserWithEmailAndPassword,
+  confirmPasswordReset,
+  createUserWithEmailAndPassword,
+  FacebookAuthProvider,
+  GithubAuthProvider,
+  GoogleAuthProvider,
   sendPasswordResetEmail,
-  signInWithEmailAndPassword, signInWithPopup, updatePassword,
-  verifyPasswordResetCode
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  TwitterAuthProvider,
+  updatePassword,
+  verifyPasswordResetCode,
 } from '@angular/fire/auth';
-import { GoogleAuthProvider, TwitterAuthProvider, GithubAuthProvider, FacebookAuthProvider } from '@angular/fire/auth';
 import firebase from 'firebase/compat';
+import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 import FirebaseError = firebase.FirebaseError;
 
 @Injectable({
@@ -15,15 +22,13 @@ import FirebaseError = firebase.FirebaseError;
 })
 export class FirebaseService {
   private readonly auth = inject(Auth);
+  private readonly firestore = inject(Firestore);
 
   public get currentUser() {
     return this.auth.currentUser;
   }
 
-  async signInWithEmailAndPassword(
-    email: string,
-    password: string,
-  ) {
+  async signInWithEmailAndPassword(email: string, password: string) {
     try {
       const result = await signInWithEmailAndPassword(
         this.auth,
@@ -46,10 +51,7 @@ export class FirebaseService {
     }
   }
 
-  async createUserWithEmailAndPassword(
-    email: string,
-    password: string,
-  ) {
+  async createUserWithEmailAndPassword(email: string, password: string) {
     try {
       const result = await createUserWithEmailAndPassword(
         this.auth,
@@ -115,4 +117,17 @@ export class FirebaseService {
   async updatePassword(newPassword: string) {
     await updatePassword(this.auth.currentUser!, newPassword);
   }
+
+  async GetUser() {
+    const userDoc = doc(this.firestore, 'users', this.currentUser?.uid);
+    const userSnap = await getDoc(userDoc);
+
+    if (userSnap.exists()) {
+      return userSnap.data();
+    } else {
+      throw Error('User not found');
+    }
+  }
+
+
 }

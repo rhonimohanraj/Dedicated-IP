@@ -13,6 +13,8 @@ const redirectUnauthorizedToLanding = () =>
 const routes: Routes = [
   {
     path: '',
+    loadChildren: () =>
+      import('./pages/components/main/main.module').then((m) => m.MainModule),
     component: AppLayoutComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLanding },

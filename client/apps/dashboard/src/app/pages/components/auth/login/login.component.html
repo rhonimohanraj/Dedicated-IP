@@ -62,7 +62,7 @@
                   }
 
                   <div class="button-container">
-                    <button (click)="onLoginWithEmailAndPassword()" type="button" pButton label="Login"
+                    <button (click)="onLoginWithEmailAndPassword()" type="button" pButton label="Sign In"
                             [routerLink]="['/']"
                             class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
                     <span class="flex text-sm text-color-secondary">Don’t have an account?<a
@@ -83,13 +83,18 @@
 
               <p-divider layout="horizontal"></p-divider>
 
-              <button pButton pRipple label="Google" icon="pi pi-google" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" [style.margin-top]="'25px'" (click)="onLoginWithGoogle()"></button>
+              <button (click)="onLoginWithGoogle()" [style.margin-bottom]="'20px'" [style.margin-top]="'25px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-google"
+                      iconPos="left" label="Google" pButton
+                      pRipple></button>
               <div class="clearfix"></div>
-              <button pButton pRipple label="Facebook" icon="pi pi-facebook" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" (click)="onLoginWithFacebook()"></button>
+              <button (click)="onLoginWithFacebook()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-facebook" iconPos="left"
+                      label="Facebook" pButton pRipple></button>
               <div class="clearfix"></div>
-              <button pButton pRipple label="Twitter" icon="pi pi-twitter" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" (click)="onLoginWithTwitter()"></button>
+              <button (click)="onLoginWithTwitter()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-twitter" iconPos="left"
+                      label="Twitter" pButton pRipple></button>
               <div class="clearfix"></div>
-              <button pButton pRipple label="Github" icon="pi pi-github" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" (click)="onLoginWithGithub()"></button>
+              <button (click)="onLoginWithGithub()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-github" iconPos="left"
+                      label="Github" pButton pRipple></button>
           </div>
         </div>
       </div>

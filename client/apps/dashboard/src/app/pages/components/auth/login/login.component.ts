@@ -1,8 +1,4 @@
-import {
-  Component,
-  inject,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { LayoutService } from '../../../../layout/service/app.layout.service';
 import { Router, RouterLink } from '@angular/router';
 import { ChipsModule } from 'primeng/chips';
@@ -88,70 +84,62 @@ export class LoginComponent {
   }
 
   async onLoginWithGoogle(): Promise<void> {
-    if (this.formGroup.valid) {
-      try {
-        const user = await this.FirebaseService.signInWithGoogle();
-        if (user) {
-          await this.router.navigate(['/']);
-        }
-      } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login failed',
-          detail: error.toString(),
-        });
+    try {
+      const user = await this.FirebaseService.signInWithGoogle();
+      if (user) {
+        await this.router.navigate(['/']);
       }
+    } catch (error: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Login failed',
+        detail: error.toString(),
+      });
     }
   }
 
   async onLoginWithFacebook(): Promise<void> {
-    if (this.formGroup.valid) {
-      try {
-        const user = await this.FirebaseService.signInWithFacebook();
-        if (user) {
-          await this.router.navigate(['/']);
-        }
-      } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login failed',
-          detail: error.toString(),
-        });
+    try {
+      const user = await this.FirebaseService.signInWithFacebook();
+      if (user) {
+        await this.router.navigate(['/']);
       }
+    } catch (error: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Login failed',
+        detail: error.toString(),
+      });
     }
   }
 
   async onLoginWithTwitter(): Promise<void> {
-    if (this.formGroup.valid) {
-      try {
-        const user = await this.FirebaseService.signInWithTwitter();
-        if (user) {
-          await this.router.navigate(['/']);
-        }
-      } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login failed',
-          detail: error.toString(),
-        });
+    try {
+      const user = await this.FirebaseService.signInWithTwitter();
+      if (user) {
+        await this.router.navigate(['/']);
       }
+    } catch (error: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Login failed',
+        detail: error.toString(),
+      });
     }
   }
 
   async onLoginWithGithub(): Promise<void> {
-    if (this.formGroup.valid) {
-      try {
-        const user = await this.FirebaseService.signInWithGithub();
-        if (user) {
-          await this.router.navigate(['/']);
-        }
-      } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login failed',
-          detail: error.toString(),
-        });
+    try {
+      const user = await this.FirebaseService.signInWithGithub();
+      if (user) {
+        await this.router.navigate(['/']);
       }
+    } catch (error: any) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Login failed',
+        detail: error.toString(),
+      });
     }
   }
 }

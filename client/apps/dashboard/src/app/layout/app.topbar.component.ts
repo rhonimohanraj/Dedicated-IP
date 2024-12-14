@@ -4,6 +4,7 @@ import { AppSidebarComponent } from './app.sidebar.component';
 import { FirebaseService } from '@dedicated-ip/service';
 import { signOut } from '@angular/fire/auth';
 import { Router, RouterLink } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-topbar',
@@ -11,34 +12,25 @@ import { Router, RouterLink } from '@angular/router';
     standalone: false
 })
 export class AppTopbarComponent {
-
+    private readonly messageService = inject(MessageService);
     private readonly firebaseService = inject(FirebaseService);
     private readonly router = inject(Router);
     @ViewChild('menubutton') menuButton!: ElementRef;
     @ViewChild('searchinput') searchInput!: ElementRef;
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
-    searchActive: boolean = false;
     constructor(public layoutService: LayoutService,public el: ElementRef) { }
-    activateSearch() {
-        this.searchActive = true;
-        setTimeout(() => {
-            this.searchInput.nativeElement.focus();
-        }, 100);
-    }
 
-    deactivateSearch() {
-        this.searchActive = false;
-    }
     onMenuButtonClick() {
         this.layoutService.onMenuToggle();
     }
 
-    onConfigButtonClick() {
-        this.layoutService.showConfigSidebar();
-    }
-
-    onSidebarButtonClick() {
-        this.layoutService.showSidebar();
+    async onChangePassword(): Promise<void> {
+      await this.firebaseService.sendPasswordResetEmail(this.firebaseService.currentUser!.email!);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Email sent',
+        detail: 'Check your email for instructions',
+      });
     }
 
     async onLogout(): Promise<void> {

@@ -16,6 +16,10 @@ import FirebaseError = firebase.FirebaseError;
 export class FirebaseService {
   private readonly auth = inject(Auth);
 
+  public get currentUser() {
+    return this.auth.currentUser;
+  }
+
   async signInWithEmailAndPassword(
     email: string,
     password: string,

@@ -22,28 +22,36 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarModule } from 'primeng/calendar';
+import { ToastModule } from 'primeng/toast';
 
-@NgModule({ declarations: [
-        AppLayoutComponent,
-        AppBreadcrumbComponent,
-        AppSidebarComponent,
-        AppTopbarComponent,
-        AppProfileSidebarComponent,
-        AppMenuComponent,
-        AppMenuitemComponent
-    ], imports: [BrowserModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        InputTextModule,
-        SidebarModule,
-        BadgeModule,
-        RadioButtonModule,
-        InputSwitchModule,
-        ButtonModule,
-        TooltipModule,
-        RippleModule,
-        RouterModule,
-        AppConfigModule,
-        StyleClassModule,
-        CalendarModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
-export class AppLayoutModule { }
+@NgModule({
+  declarations: [
+    AppLayoutComponent,
+    AppBreadcrumbComponent,
+    AppSidebarComponent,
+    AppTopbarComponent,
+    AppProfileSidebarComponent,
+    AppMenuComponent,
+    AppMenuitemComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    InputTextModule,
+    SidebarModule,
+    BadgeModule,
+    RadioButtonModule,
+    InputSwitchModule,
+    ButtonModule,
+    TooltipModule,
+    RippleModule,
+    RouterModule,
+    AppConfigModule,
+    StyleClassModule,
+    CalendarModule,
+    ToastModule,
+  ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
+})
+export class AppLayoutModule {}

@@ -1,3 +1,4 @@
+<p-toast/>
 <div class="layout-topbar">
     <div class="topbar-start">
         <button #menubutton type="button" class="topbar-menubutton p-link p-trigger" (click)="onMenuButtonClick()">
@@ -23,15 +24,9 @@
 
                 <ul class="topbar-menu active-topbar-menu p-4 w-15rem z-5 ng-hidden border-round">
                     <li role="menuitem" class="m-0 mb-3">
-                        <a href="#" class="flex align-items-center hover:text-primary-500 transition-duration-200" pStyleClass="@grandparent" enterFromClass="ng-hidden" enterActiveClass="px-scalein" leaveToClass="ng-hidden" leaveActiveClass="px-fadeout">
-                            <i class="pi pi-fw pi-lock mr-2"></i>
-                            <span>Privacy</span>
-                        </a>
-                    </li>
-                    <li role="menuitem" class="m-0 mb-3">
-                        <a href="#" class="flex align-items-center hover:text-primary-500 transition-duration-200" pStyleClass="@grandparent" enterFromClass="ng-hidden" enterActiveClass="px-scalein" leaveToClass="ng-hidden" leaveActiveClass="px-fadeout">
-                            <i class="pi pi-fw pi-cog mr-2"></i>
-                            <span>Settings</span>
+                        <a href="#" (click)="onChangePassword()" class="flex align-items-center hover:text-primary-500 transition-duration-200" pStyleClass="@grandparent" enterFromClass="ng-hidden" enterActiveClass="px-scalein" leaveToClass="ng-hidden" leaveActiveClass="px-fadeout">
+                            <i class="pi pi-fw pi-key mr-2"></i>
+                            <span>Change Password</span>
                         </a>
                     </li>
                     <li role="menuitem" class="m-0">
@@ -41,6 +36,7 @@
                         </a>
                     </li>
                 </ul>
+
             </li>
         </ul>
     </div>

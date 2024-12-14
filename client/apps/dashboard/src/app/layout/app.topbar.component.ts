@@ -20,6 +20,10 @@ export class AppTopbarComponent {
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
     constructor(public layoutService: LayoutService,public el: ElementRef) { }
 
+    get photoURL(): string {
+      return this.firebaseService.currentUser?.photoURL ?? '';
+    }
+
     onMenuButtonClick() {
         this.layoutService.onMenuToggle();
     }

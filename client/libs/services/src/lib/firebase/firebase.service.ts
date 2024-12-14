@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword, signInWithPopup, updatePassword,
   verifyPasswordResetCode
 } from '@angular/fire/auth';
-import { GoogleAuthProvider } from '@angular/fire/auth';
+import { GoogleAuthProvider, TwitterAuthProvider, GithubAuthProvider, FacebookAuthProvider } from '@angular/fire/auth';
 import firebase from 'firebase/compat';
 import FirebaseError = firebase.FirebaseError;
 
@@ -44,6 +44,24 @@ export class FirebaseService {
 
   async signInWithGoogle() {
     const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+    return result.user;
+  }
+
+  async signInWithFacebook() {
+    const provider = new FacebookAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+    return result.user;
+  }
+
+  async signInWithGithub() {
+    const provider = new GithubAuthProvider();
+    const result = await signInWithPopup(this.auth, provider);
+    return result.user;
+  }
+
+  async signInWithTwitter() {
+    const provider = new TwitterAuthProvider();
     const result = await signInWithPopup(this.auth, provider);
     return result.user;
   }

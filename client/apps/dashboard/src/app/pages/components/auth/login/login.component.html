@@ -10,17 +10,22 @@
     <div
       class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
       style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
-      <div class="flex flex-column">
-        <form [formGroup]="formGroup">
-          <div class="flex align-items-center mb-6 logo-container">
-            <img
-              [src]="'layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
-              class="login-logo" style=" width: 45px;" />
-            <img
-              [src]="'layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
-              class="login-appname ml-3" style="width: 100px;" />
-          </div>
-          <div class="form-container">
+
+      <div class="col-12">
+        <div class="card">
+          <div class="grid">
+            <div class="col-5 flex align-items-center justify-content-center">
+              <div class="flex flex-column">
+                <form [formGroup]="formGroup">
+                  <div class="flex align-items-center mb-6 logo-container">
+                    <img
+                      [src]="'layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
+                      class="login-logo" style=" width: 45px;" />
+                    <img
+                      [src]="'layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
+                      class="login-appname ml-3" style="width: 100px;" />
+                  </div>
+                  <div class="form-container">
                     <span class="p-input-icon-left">
                         <i class="pi pi-envelope"></i>
                       <div class="p-element p-inputtext p-component block mb-3">
@@ -29,40 +34,64 @@
                     min-width: 270px;">
                       </div>
                     </span>
-            <span class="p-input-icon-left">
+                    <span class="p-input-icon-left">
                         <i class="pi pi-key"></i>
                     <p-password formControlName="password" pInputText class="block mb-3" placeholder="Password"
                                 [style.max-width]="'320px'" [style.min-width]="'270px'" />
                     </span>
-            <a href="#" class="flex text-color-secondary mb-4 text-sm">Forgot your password?</a>
-          </div>
-
-          @if (formGroup.invalid && formGroup.dirty) {
-            @for (control of formGroup.controls | keyvalue; track $index) {
-              @if (control.value.invalid) {
-                @for (error of control.value.errors | keyvalue; track $index) {
-                  <div
-                    class="p-message p-message-error p-message-text p-component p-message-filled p-message-icon-only mb-4">
-                    @if (error.key === 'required') {
-                      <span class="p-message-text">{{ control.key }} is required</span>
-                    } @else if (error.key === control.key) {
-                      <span class="p-message-text">{{ control.key }} is invalid</span>
-                    } @else {
-                      <span class="p-message-text">{{ control.key }} is {{ error.key }}</span>
-                    }
+                    <a href="#" class="flex text-color-secondary mb-4 text-sm">Forgot your password?</a>
                   </div>
-                }
-              }
-            }
-          }
 
-          <div class="button-container">
-            <button (click)="onLoginWithEmailAndPassword()" type="button" pButton label="Login" [routerLink]="['/']"
-                    class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
-            <span class="flex text-sm text-color-secondary">Don’t have an account?<a
-              class="cursor-pointer ml-1">Sign-up here</a></span>
+                  @if (formGroup.invalid && formGroup.dirty) {
+                    @for (control of formGroup.controls | keyvalue; track $index) {
+                      @if (control.value.invalid) {
+                        @for (error of control.value.errors | keyvalue; track $index) {
+                          <div
+                            class="p-message p-message-error p-message-text p-component p-message-filled p-message-icon-only mb-4">
+                            @if (error.key === 'required') {
+                              <span class="p-message-text">{{ control.key }} is required</span>
+                            } @else if (error.key === control.key) {
+                              <span class="p-message-text">{{ control.key }} is invalid</span>
+                            } @else {
+                              <span class="p-message-text">{{ control.key }} is {{ error.key }}</span>
+                            }
+                          </div>
+                        }
+                      }
+                    }
+                  }
+
+                  <div class="button-container">
+                    <button (click)="onLoginWithEmailAndPassword()" type="button" pButton label="Login"
+                            [routerLink]="['/']"
+                            class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
+                    <span class="flex text-sm text-color-secondary">Don’t have an account?<a
+                      class="cursor-pointer ml-1">Sign-up here</a></span>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-2">
+              <p-divider layout="vertical">
+                <b>OR</b>
+              </p-divider>
+            </div>
+            <div class="col-5 align-items-center justify-content-center">
+              <h5>
+                Sign In using
+              </h5>
+
+              <p-divider layout="horizontal"></p-divider>
+
+              <button pButton pRipple label="Google" icon="pi pi-google" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" [style.margin-top]="'25px'" (click)="onLoginWithGoogle()"></button>
+              <div class="clearfix"></div>
+              <button pButton pRipple label="Facebook" icon="pi pi-facebook" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" (click)="onLoginWithFacebook()"></button>
+              <div class="clearfix"></div>
+              <button pButton pRipple label="Twitter" icon="pi pi-twitter" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" (click)="onLoginWithTwitter()"></button>
+              <div class="clearfix"></div>
+              <button pButton pRipple label="Github" icon="pi pi-github" iconPos="left" [style.max-width]="'200px'" [style.margin-bottom]="'20px'" (click)="onLoginWithGithub()"></button>
           </div>
-        </form>
+        </div>
       </div>
 
       <div class="login-footer flex align-items-center absolute" style="bottom: 75px;">

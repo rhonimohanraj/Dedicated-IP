@@ -15,7 +15,6 @@ import { AppLayoutComponent } from './app.layout.component';
 import { AppBreadcrumbComponent } from './app.breadcrumb.component';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AppTopbarComponent } from './app.topbar.component';
-import { AppProfileSidebarComponent } from './app.profilesidebar.component';
 import { AppMenuComponent } from './app.menu.component';
 import { AppMenuitemComponent } from './app.menuitem.component';
 import { RouterModule } from '@angular/router';
@@ -30,7 +29,6 @@ import { ToastModule } from 'primeng/toast';
     AppBreadcrumbComponent,
     AppSidebarComponent,
     AppTopbarComponent,
-    AppProfileSidebarComponent,
     AppMenuComponent,
     AppMenuitemComponent,
   ],

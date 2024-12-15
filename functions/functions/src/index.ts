@@ -5,6 +5,7 @@ import {getFirestore} from "firebase-admin/firestore";
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
 import {HttpsError, onCall, onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
+import {generateName, getRandomInt} from "./helper";
 
 admin.initializeApp();
 
@@ -20,15 +21,33 @@ export const onStripeWebhook = onRequest(async (req, res) => {
   switch (event.type) {
   case "checkout.session.completed": {
     const eventData = event.data.object;
-    if(eventData.mode === "subscription" && eventData.payment_status === "paid") {
-
+    if (
+      eventData.mode === "subscription" &&
+      eventData.payment_status === "paid"
+    ) {
+      const firestore = getFirestore();
+      const uid = eventData.metadata?.uid;
+      if (!uid) {
+        throw new Error("UID is undefined in event metadata.");
+      }
+      const userDoc = firestore.collection("users").doc(uid);
+      const serverCollection = userDoc.collection("servers");
+      await serverCollection.add({
+        name: generateName() + "-" + getRandomInt(1, 1000),
+        username: "admin",
+        password: `
+        ${getRandomInt(1, 1000)}
+        -not-secure-
+        ${getRandomInt(1, 1000)}`,
+        status: "pending",
+        createdAt: admin.firestore.Timestamp.now(),
+      });
     }
     break;
   }
   default:
     console.log(`Unhandled event type ${event.type}`);
   }
-
 
   res.status(200).send("OK");
 });

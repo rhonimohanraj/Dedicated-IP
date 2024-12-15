@@ -4,7 +4,6 @@ import { auth } from "firebase-functions/v1";
 import { getFirestore } from "firebase-admin/firestore";
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { HttpsError, onCall, onRequest } from "firebase-functions/https";
-import Stripe from 'stripe';
 
 admin.initializeApp();
 
@@ -91,7 +90,7 @@ export const onUserAddToUsersCollection = onDocumentCreated(
   }
 );
 
-async function createStripeClient() : Promise<Stripe> {
+async function createStripeClient() {
 
   const template = await admin.remoteConfig().getServerTemplate();
   const parameters = template.toJSON().parameters;

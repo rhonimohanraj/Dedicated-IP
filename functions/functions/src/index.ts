@@ -1,10 +1,10 @@
-import { logger } from "firebase-functions";
+import {logger} from "firebase-functions";
 import * as admin from "firebase-admin";
-import { auth } from "firebase-functions/v1";
-import { getFirestore } from "firebase-admin/firestore";
-import { onDocumentCreated } from "firebase-functions/v2/firestore";
-import { HttpsError, onCall, onRequest } from "firebase-functions/https";
-import Stripe from 'stripe';
+import {auth} from "firebase-functions/v1";
+import {getFirestore} from "firebase-admin/firestore";
+import {onDocumentCreated} from "firebase-functions/v2/firestore";
+import {HttpsError, onCall, onRequest} from "firebase-functions/https";
+import Stripe from "stripe";
 
 admin.initializeApp();
 
@@ -17,7 +17,7 @@ export const onHttpRequest = onRequest(async (req, res) => {
 });
 
 export const onStripeWebhook = onRequest(async (req, res) => {
-    res.status(200).send("OK");
+  res.status(200).send("OK");
 });
 
 export const onCreatePaymentLink = onCall(async (request) => {
@@ -28,7 +28,9 @@ export const onCreatePaymentLink = onCall(async (request) => {
     );
   }
 
-  const user = await getFirestore().collection("users").doc(request.auth.uid).get();
+  const firestore = getFirestore();
+  const userDoc = firestore.collection("users").doc(request.auth.uid);
+  const user = await userDoc.get();
 
   if (!user.exists) {
     throw new HttpsError("not-found", "User not found.");
@@ -91,12 +93,11 @@ export const onUserAddToUsersCollection = onDocumentCreated(
       },
     });
 
-    return event.data?.ref.set({ stripeUid: customer.id }, { merge: true });
+    return event.data?.ref.set({stripeUid: customer.id}, {merge: true});
   }
 );
 
-async function createStripeClient() : Promise<Stripe> {
-
+async function createStripeClient(): Promise<Stripe> {
   const template = await admin.remoteConfig().getServerTemplate();
   const parameters = template.toJSON().parameters;
 

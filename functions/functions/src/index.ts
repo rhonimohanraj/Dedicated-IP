@@ -50,5 +50,5 @@ export const onUserAddToUsersCollection = onDocumentCreated(
       },
     });
 
-    return event.data?.ref.set({stripe_uid: customer.id}, {merge: true});
+    return event.data?.ref.set({stripeUid: customer.id}, {merge: true});
   });

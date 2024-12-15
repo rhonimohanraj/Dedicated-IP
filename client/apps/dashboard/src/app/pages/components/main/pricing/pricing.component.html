@@ -1,3 +1,4 @@
+<p-toast />
 <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
   <div class="text-900 font-bold text-6xl mb-4 text-center">Plans</div>
   <div class="grid">
@@ -29,7 +30,7 @@
               }
             </ul>
             <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
-            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto"></button>
+            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto" (click)="createPaymentLink(product.stripe_price_id)"></button>
           </div>
         </div>
       </div>

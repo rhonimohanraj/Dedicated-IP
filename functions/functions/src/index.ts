@@ -8,12 +8,12 @@ import { HttpsError, onCall, onRequest } from "firebase-functions/https";
 admin.initializeApp();
 
 export const onHttpRequest = onCall(
-  async (req) => {
-    if (!req.auth) {
+  async (request) => {
+    if (!request.auth) {
       throw new HttpsError("failed-precondition", "The function must be " +
               "called while authenticated.");
     }
-    switch (req.data.requestType) {
+    switch (request.data.requestType) {
       case "paymentLink": {
         return "Payment link created";
       }

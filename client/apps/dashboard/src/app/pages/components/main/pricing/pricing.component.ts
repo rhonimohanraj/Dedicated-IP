@@ -4,13 +4,15 @@ import {RippleModule} from "primeng/ripple";
 import {ButtonModule} from "primeng/button";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
+import {UpperCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-pricing',
   imports: [
     RippleModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    UpperCasePipe
   ],
   templateUrl: './pricing.component.html',
   styleUrl: './pricing.component.css'

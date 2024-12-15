@@ -1,4 +1,4 @@
-import { importProvidersFrom, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout/app.layout.module';
@@ -8,10 +8,12 @@ import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { environment } from '../environments/environment';
+import { provideTanStackQuery, QueryClient, withDevtools } from '@tanstack/angular-query-experimental';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  providers: [FirebaseProvider, MessageService, ToastModule],
+  providers: [provideHttpClient(), provideTanStackQuery(new QueryClient(), withDevtools()), FirebaseProvider, MessageService, ToastModule],
   imports: [
     AppRoutingModule,
     AppLayoutModule,

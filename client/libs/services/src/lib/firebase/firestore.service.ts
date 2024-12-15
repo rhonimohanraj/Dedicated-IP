@@ -3,6 +3,7 @@ import {
   Auth,
 } from '@angular/fire/auth';
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
+import { queryOptions } from '@tanstack/angular-query-experimental'
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,8 @@ export class FirestoreService {
   public get currentUser() {
     return this.auth.currentUser;
   }
-  async GetUser() {
+
+  private async GetUser() {
     const userDoc = doc(this.firestore, 'users', this.currentUser?.uid ?? '');
     const userSnap = await getDoc(userDoc);
 
@@ -25,5 +27,10 @@ export class FirestoreService {
     }
   }
 
-
+  GetUserQuery() {
+    return queryOptions({
+      queryKey: ['user'],
+      queryFn: () => this.GetUser()
+    });
+  }
 }

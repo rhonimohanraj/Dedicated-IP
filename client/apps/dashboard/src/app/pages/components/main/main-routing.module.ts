@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
         loadComponent: () =>
           import('./servers/servers.component').then((m) => m.ServersComponent),
       },
-      { path: '**', redirectTo: '/servers' },
+      { path: '**', redirectTo: '/d/servers' },
     ]),
   ],
   exports: [RouterModule],

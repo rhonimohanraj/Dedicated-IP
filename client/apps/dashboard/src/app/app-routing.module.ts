@@ -12,7 +12,7 @@ const redirectUnauthorizedToLanding = () =>
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'd',
     loadChildren: () =>
       import('./pages/components/main/main.module').then((m) => m.MainModule),
     component: AppLayoutComponent,
@@ -25,7 +25,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/components/auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: '**', redirectTo: '/notfound' },
+  { path: '**', redirectTo: '/d' },
 ];
 
 @NgModule({

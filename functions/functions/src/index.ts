@@ -3,19 +3,23 @@ import * as admin from "firebase-admin";
 import {auth} from "firebase-functions/v1";
 import {getFirestore} from "firebase-admin/firestore";
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
-import { onRequest } from "firebase-functions/https";
+import { HttpsError, onCall, onRequest } from "firebase-functions/https";
 
 admin.initializeApp();
 
-export const onHttpRequest = onRequest(
+export const onHttpRequest = onCall(
   // { cors: ["d.dedicated-ip.net"] },
-  async (req, res) => {
-    switch (req.body.requestType) {
+  async (req) => {
+    if (!req.auth) {
+      throw new HttpsError("failed-precondition", "The function must be " +
+              "called while authenticated.");
+    }
+    switch (req.data.requestType) {
       case "paymentLink": {
-        res.status(200).send("Payment link created");
+        return "Payment link created";
       }
       default: {
-        res.status(400).send("Invalid request type");
+       return "Invalid request type";
     }
   }
 });

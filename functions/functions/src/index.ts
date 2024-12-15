@@ -10,13 +10,26 @@ admin.initializeApp();
 
 export const onHttpRequest = onRequest(async (req, res) => {
   switch (req.body.requestType) {
-    default: {
-      res.status(400).send("Invalid request type");
-    }
+  default:
+    res.status(400).send("Invalid request type");
   }
 });
 
 export const onStripeWebhook = onRequest(async (req, res) => {
+  const event: Stripe.Event = req.body;
+  switch (event.type) {
+  case "checkout.session.completed": {
+    const eventData = event.data.object;
+    if(eventData.mode === "subscription" && eventData.payment_status === "paid") {
+
+    }
+    break;
+  }
+  default:
+    console.log(`Unhandled event type ${event.type}`);
+  }
+
+
   res.status(200).send("OK");
 });
 

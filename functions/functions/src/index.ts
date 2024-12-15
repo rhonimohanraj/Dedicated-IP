@@ -3,7 +3,7 @@ import * as admin from "firebase-admin";
 import { auth } from "firebase-functions/v1";
 import { getFirestore } from "firebase-admin/firestore";
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
-import { HttpsError, onCall, onRequest } from "firebase-functions/https";
+import { HttpsError, onCall } from "firebase-functions/https";
 
 admin.initializeApp();
 

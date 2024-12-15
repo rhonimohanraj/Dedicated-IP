@@ -16,6 +16,10 @@ export const onHttpRequest = onRequest(async (req, res) => {
   }
 });
 
+export const onStripeWebhook = onRequest(async (req, res) => {
+    res.status(200).send("OK");
+});
+
 export const onCreatePaymentLink = onCall(async (request) => {
   if (!request.auth) {
     throw new HttpsError(

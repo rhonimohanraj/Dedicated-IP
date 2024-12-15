@@ -6,6 +6,7 @@ import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { initializeAppCheck, provideAppCheck, ReCaptchaEnterpriseProvider } from '@angular/fire/app-check';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
 
 export const FirebaseProvider = [
   provideFirebaseApp(() => initializeApp(FirebaseConfig)),
@@ -22,4 +23,5 @@ export const FirebaseProvider = [
   provideFirestore(() => getFirestore()),
   providePerformance(() => getPerformance()),
   provideAuth(() => getAuth()),
+  provideFunctions(() => getFunctions()),
 ];

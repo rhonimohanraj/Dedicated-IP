@@ -8,7 +8,6 @@ import { HttpsError, onCall, onRequest } from "firebase-functions/https";
 admin.initializeApp();
 
 export const onHttpRequest = onCall(
-  // { cors: ["d.dedicated-ip.net"] },
   async (req) => {
     if (!req.auth) {
       throw new HttpsError("failed-precondition", "The function must be " +

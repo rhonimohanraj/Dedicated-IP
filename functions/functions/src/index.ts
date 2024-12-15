@@ -35,10 +35,9 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       await serverCollection.add({
         name: generateName() + "-" + getRandomInt(1, 1000),
         username: "admin",
-        password: `
-        ${getRandomInt(1, 1000)}
-        -not-secure-
-        ${getRandomInt(1, 1000)}`,
+        password: `${getRandomInt(1, 1000)}` +
+        "-not-secure-" +
+        `${getRandomInt(1, 1000)}`,
         status: "pending",
         createdAt: admin.firestore.Timestamp.now(),
       });

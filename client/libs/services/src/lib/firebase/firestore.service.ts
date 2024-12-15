@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   Auth,
 } from '@angular/fire/auth';
-import { doc, Firestore, getDoc } from '@angular/fire/firestore';
+import {collection, doc, Firestore, getDoc, getDocs} from '@angular/fire/firestore';
 import { queryOptions } from '@tanstack/angular-query-experimental'
 
 export interface User {
@@ -11,6 +11,15 @@ export interface User {
   stripeUid: string;
   photoURL: string;
   email: string;
+}
+
+export interface Server {
+  id: string;
+  name: string;
+  username: string;
+  password: string;
+  status: 'pending' | 'active' | 'inactive' | 'deleted';
+  createdAt: Date;
 }
 
 @Injectable({
@@ -35,10 +44,29 @@ export class FirestoreService {
     }
   }
 
+  private async GetServers(): Promise<Server[]> {
+    const serverCollection = collection(this.firestore, 'users', this.currentUser?.uid ?? '', 'servers');
+    const serverSnap = await getDocs(serverCollection);
+
+    const servers: Server[] = [];
+    serverSnap.forEach((serverDoc) => {
+      servers.push({ id: serverDoc.id, ...serverDoc.data() } as Server);
+    });
+
+    return servers;
+  }
+
   GetUserQuery() {
     return queryOptions({
       queryKey: ['user'],
       queryFn: () => this.GetUser()
+    });
+  }
+
+  GetServerQuery() {
+    return queryOptions({
+      queryKey: ['server'],
+      queryFn: () => this.GetServers()
     });
   }
 }

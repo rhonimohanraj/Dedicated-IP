@@ -7,8 +7,17 @@ import { onRequest } from "firebase-functions/https";
 
 admin.initializeApp();
 
-export const onHttpRequest = onRequest(async (req, res) => {
-  res.send("Hello from Firebase!");
+export const onHttpRequest = onRequest(
+  // { cors: ["d.dedicated-ip.net"] },
+  async (req, res) => {
+    switch (req.body.requestType) {
+      case "paymentLink": {
+        res.status(200).send("Payment link created");
+      }
+      default: {
+        res.status(400).send("Invalid request type");
+    }
+  }
 });
 
 export const onUserRegister = auth.user().onCreate(async (user) => {

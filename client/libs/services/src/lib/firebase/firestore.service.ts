@@ -15,7 +15,7 @@ export class FirestoreService {
     return this.auth.currentUser;
   }
   async GetUser() {
-    const userDoc = doc(this.firestore, 'users', this.currentUser?.uid);
+    const userDoc = doc(this.firestore, 'users', this.currentUser?.uid ?? '');
     const userSnap = await getDoc(userDoc);
 
     if (userSnap.exists()) {

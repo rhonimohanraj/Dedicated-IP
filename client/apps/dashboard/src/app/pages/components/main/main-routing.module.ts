@@ -9,6 +9,11 @@ import { RouterModule } from '@angular/router';
         loadComponent: () =>
           import('./servers/servers.component').then((m) => m.ServersComponent),
       },
+      {
+        path: 'pricing',
+        loadComponent: () =>
+          import('./pricing/pricing.component').then((m) => m.PricingComponent),
+      },
       { path: '**', redirectTo: '/d/servers' },
     ]),
   ],

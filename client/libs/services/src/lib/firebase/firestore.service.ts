@@ -5,6 +5,14 @@ import {
 import { doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { queryOptions } from '@tanstack/angular-query-experimental'
 
+export interface User {
+  displayName: string;
+  uid: string;
+  stripeUid: string;
+  photoURL: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -16,12 +24,12 @@ export class FirestoreService {
     return this.auth.currentUser;
   }
 
-  private async GetUser() {
+  private async GetUser(): Promise<User> {
     const userDoc = doc(this.firestore, 'users', this.currentUser?.uid ?? '');
     const userSnap = await getDoc(userDoc);
 
     if (userSnap.exists()) {
-      return userSnap.data();
+      return userSnap.data() as User;
     } else {
       throw Error('User not found');
     }

@@ -30,7 +30,7 @@
               }
             </ul>
             <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
-            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto" (click)="createPaymentLink(product.stripe_price_id)"></button>
+            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto" (click)="createPaymentLink(product.stripe_price_id); button.disabled=true;" #button></button>
           </div>
         </div>
       </div>

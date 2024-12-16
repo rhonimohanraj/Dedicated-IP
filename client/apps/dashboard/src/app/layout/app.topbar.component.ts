@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
-import { FirebaseService } from '@dedicated-ip/service';
+import {FirebaseService, FunctionService} from '@dedicated-ip/service';
 import { signOut } from '@angular/fire/auth';
 import { Router, RouterLink } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -14,6 +14,7 @@ import { MessageService } from 'primeng/api';
 export class AppTopbarComponent {
     private readonly messageService = inject(MessageService);
     private readonly firebaseService = inject(FirebaseService);
+    private readonly functionService = inject(FunctionService);
     private readonly router = inject(Router);
     @ViewChild('menubutton') menuButton!: ElementRef;
     @ViewChild('searchinput') searchInput!: ElementRef;
@@ -35,6 +36,11 @@ export class AppTopbarComponent {
         summary: 'Email sent',
         detail: 'Check your email for instructions',
       });
+    }
+
+    async onBillingPortal(): Promise<void> {
+      const result = await this.functionService.createBillingPortal();
+      window.open(result.data, '_blank');
     }
 
     async onLogout(): Promise<void> {

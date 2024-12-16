@@ -4,6 +4,8 @@ import {
 } from '@angular/fire/auth';
 import {collection, doc, Firestore, getDoc, getDocs} from '@angular/fire/firestore';
 import { queryOptions } from '@tanstack/angular-query-experimental'
+import firebase from "firebase/compat";
+import Timestamp = firebase.firestore.Timestamp;
 
 export interface User {
   displayName: string;
@@ -19,6 +21,9 @@ export interface Server {
   username: string;
   password: string;
   status: 'pending' | 'active' | 'inactive' | 'deleted';
+  domain: string;
+  location: string;
+  countryCode: string;
   createdAt: Date;
 }
 
@@ -50,7 +55,10 @@ export class FirestoreService {
 
     const servers: Server[] = [];
     serverSnap.forEach((serverDoc) => {
-      servers.push({ id: serverDoc.id, ...serverDoc.data() } as Server);
+      const server = { id: serverDoc.id, ...serverDoc.data() } as Server;
+      server.domain = 'https://' + server.name + '.dedicated-ip.cloud';
+      server.createdAt = (server.createdAt as unknown as Timestamp).toDate();
+      servers.push(server);
     });
 
     return servers;

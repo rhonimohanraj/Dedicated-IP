@@ -92,6 +92,36 @@ export const onCreatePaymentLink = onCall(async (request) => {
   return session.url;
 });
 
+export const onCreateBillingPortal = onCall(async (request) => {
+  if (!request.auth) {
+    throw new HttpsError(
+      "failed-precondition",
+      "The function must be " + "called while authenticated."
+    );
+  }
+
+  const firestore = getFirestore();
+  const userDoc = firestore.collection("users").doc(request.auth.uid);
+  const user = await userDoc.get();
+
+  if (!user.exists) {
+    throw new HttpsError("not-found", "User not found.");
+  }
+
+  if (!user.data()?.stripeUid) {
+    throw new HttpsError("failed-precondition", "User has no stripe account.");
+  }
+
+  const stripe = await createStripeClient();
+
+  const session = await stripe.billingPortal.sessions.create({
+    customer: user.data()?.stripeUid,
+    return_url: "https://d.dedicated-ip.net/d/servers",
+  });
+
+  return session.url;
+});
+
 export const onUserRegister = auth.user().onCreate(async (user) => {
   logger.info(`User register with uid ${user.uid} in auth system.`, {
     structuredData: true,

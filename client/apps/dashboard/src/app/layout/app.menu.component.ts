@@ -33,12 +33,7 @@ export class AppMenuComponent {
             label: 'Create Server',
             icon: 'pi pi-fw pi-sliders-v',
             routerLink: ['/d/pricing']
-          },
-          {
-            label: 'Pricing',
-            icon: 'pi pi-fw pi-dollar',
-            routerLink: ['/d/pricing']
-          },
+          }
         ]
       },
 

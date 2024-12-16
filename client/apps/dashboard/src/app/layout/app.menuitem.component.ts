@@ -172,7 +172,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
             // reset
             overlay.style.top = '';
             overlay.style.left = '';
-      
+
             if (this.layoutService.isHorizontal()) {
                 const width = left + oWidth + scrollbarWidth;
                 overlay.style.left = vWidth < width ? `${left - (width - vWidth)}px` : `${left}px`;
@@ -252,7 +252,7 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
         return this.layoutService.isSlimPlus();
     }
 
-    @HostBinding('class.active-menuitem') 
+    @HostBinding('class.active-menuitem')
     get activeClass() {
         return this.active && !this.root;
     }

@@ -39,6 +39,12 @@ export class AppMenuComponent {
             label: 'Billing Portal',
             icon: 'pi pi-fw pi-money-bill',
             command: () => this.onBillingPortal()
+          },
+          {
+            label: 'Knowledge Sharing',
+            icon: 'pi pi-fw pi-question-circle',
+            url: "https://k.dedicated-ip.net/",
+            target: '_blank'
           }
         ]
       },

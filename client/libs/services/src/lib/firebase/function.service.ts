@@ -23,4 +23,9 @@ export class FunctionService {
     const createPaymentLink = httpsCallable(this.function, 'onCreatePaymentLink');
     return await createPaymentLink({ priceId }) as HttpsCallableResult<string>;
   }
+
+  createBillingPortal = async (): Promise<HttpsCallableResult<string>> => {
+    const createBillingPortal = httpsCallable(this.function, 'onCreateBillingPortal');
+    return await createBillingPortal() as HttpsCallableResult<string>;
+  }
 }

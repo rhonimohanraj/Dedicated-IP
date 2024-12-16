@@ -1,7 +1,7 @@
 import {computed, inject, OnInit} from '@angular/core';
 import { Component } from '@angular/core';
 import {injectQuery, injectQueryClient, QueryObserver} from "@tanstack/angular-query-experimental";
-import {FirestoreService} from "@dedicated-ip/service";
+import {FirestoreService, FunctionService} from "@dedicated-ip/service";
 import {Server} from "../../../../../libs/services/src/lib/firebase/firestore.service";
 
 @Component({
@@ -11,6 +11,7 @@ import {Server} from "../../../../../libs/services/src/lib/firebase/firestore.se
 })
 export class AppMenuComponent {
   private readonly firestore = inject(FirestoreService);
+  private readonly functionService = inject(FunctionService);
   private readonly queryClient = injectQueryClient();
 
     rawModel: any[] = [
@@ -33,6 +34,11 @@ export class AppMenuComponent {
             label: 'Create Server',
             icon: 'pi pi-fw pi-sliders-v',
             routerLink: ['/d/pricing']
+          },
+          {
+            label: 'Billing Portal',
+            icon: 'pi pi-fw pi-money-bill',
+            command: () => this.onBillingPortal()
           }
         ]
       },
@@ -66,6 +72,11 @@ export class AppMenuComponent {
           });
           unsubscribe();
         }
-      })
+      });
+  }
+
+  async onBillingPortal(): Promise<void> {
+    const result = await this.functionService.createBillingPortal();
+    window.open(result.data, '_blank');
   }
 }

@@ -158,6 +158,13 @@ export const onUserAddToUsersCollection = onDocumentCreated(
   }
 );
 
+/**
+ * Creates and returns a Stripe client instance using the API key
+ * stored in Firebase Remote Config.
+ *
+ * @return {Promise<Stripe>} A promise that resolves to a Stripe client
+ *     instance.
+ */
 async function createStripeClient(): Promise<Stripe> {
   const template = await admin.remoteConfig().getServerTemplate();
   const parameters = template.toJSON().parameters;

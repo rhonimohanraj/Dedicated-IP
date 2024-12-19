@@ -25,8 +25,6 @@
                       [src]="'layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
                       class="login-appname ml-3" style="width: 100px;" />
                   </div>
-                  <h4 class="m-0 mb-2">Register</h4>
-                  <span class="block text-600 font-medium mb-4">Let's get started</span>
                   <div class="form-container">
                     <span class="p-input-icon-left">
                         <i class="pi pi-envelope"></i>
@@ -65,7 +63,7 @@
                     }
                   }
 
-                  <div class="button-container">
+                  <div class="button-container" style="text-align: start">
                     <button (click)="onRegisterWithEmailAndPassword()" type="button" pButton label="Register"
                             [routerLink]="['/auth/register']"
                             class="block" style="max-width: 320px; margin-bottom: 32px;"></button>

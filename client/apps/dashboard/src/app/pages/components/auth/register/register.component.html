@@ -11,7 +11,7 @@
       class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
       style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
 
-      <div>
+      <div class="md:col-12">
         <div class="card">
           <div class="grid">
             <div class="col-12 md:col-5 flex align-items-center justify-content-center">
@@ -30,10 +30,8 @@
                   <div class="form-container">
                     <span class="p-input-icon-left">
                         <i class="pi pi-envelope"></i>
-                      <div class="p-element p-inputtext p-component block mb-3">
-                        <input type="text" autocomplete="off" formControlName="email" pInputText placeholder="Email"
-                               style="   max-width: 320px;
-                    min-width: 100%;">
+                      <div class="p-element p-inputtext p-component block mb-3" style="max-width: 320px; min-width: 270px;">
+                        <input type="text" autocomplete="off" formControlName="email" pInputText placeholder="Email">
                       </div>
                     </span>
                     <span class="p-input-icon-left">

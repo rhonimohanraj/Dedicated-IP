@@ -9,13 +9,9 @@ import { asyncScheduler } from 'rxjs';
 @Component({
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css'],
-    encapsulation: ViewEncapsulation.None,
     standalone: false
 })
 export class RegisterComponent {
-
-  public confirmed = false;
-
   private readonly router = inject(Router);
   public readonly layoutService = inject(LayoutService);
   private readonly messageService = inject(MessageService);

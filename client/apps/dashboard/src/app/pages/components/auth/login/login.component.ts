@@ -34,7 +34,6 @@ import { RippleModule } from 'primeng/ripple';
   providers: [MessageService],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent {
   private readonly router = inject(Router);

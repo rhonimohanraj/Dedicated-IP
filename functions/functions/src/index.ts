@@ -55,6 +55,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
 
 export const onCreatePaymentLink = onCall({
   enforceAppCheck: true,
+  consumeAppCheckToken: true,
 }, async (request) => {
   if (!request.auth) {
     throw new HttpsError(
@@ -98,6 +99,7 @@ export const onCreatePaymentLink = onCall({
 
 export const onCreateBillingPortal = onCall({
   enforceAppCheck: true,
+  consumeAppCheckToken: true,
 }, async (request) => {
   if (!request.auth) {
     throw new HttpsError(

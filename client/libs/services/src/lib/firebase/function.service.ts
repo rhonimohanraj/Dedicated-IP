@@ -20,12 +20,14 @@ export class FunctionService {
   }
 
   createPaymentLink = async (priceId: string): Promise<HttpsCallableResult<string>> => {
-    const createPaymentLink = httpsCallable(this.function, 'onCreatePaymentLink');
+    const createPaymentLink = httpsCallable(this.function, 'onCreatePaymentLink',
+      { limitedUseAppCheckTokens: true });
     return await createPaymentLink({ priceId }) as HttpsCallableResult<string>;
   }
 
   createBillingPortal = async (): Promise<HttpsCallableResult<string>> => {
-    const createBillingPortal = httpsCallable(this.function, 'onCreateBillingPortal');
+    const createBillingPortal = httpsCallable(this.function, 'onCreateBillingPortal',
+      { limitedUseAppCheckTokens: true });
     return await createBillingPortal() as HttpsCallableResult<string>;
   }
 }

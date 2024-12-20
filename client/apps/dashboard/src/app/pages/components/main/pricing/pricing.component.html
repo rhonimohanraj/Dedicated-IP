@@ -8,7 +8,7 @@
           <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
             <div class="text-900 font-medium text-xl mb-2">
               <img
-                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/{{product.country_code | uppercase}}.svg"
+                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/{{product.location.countryCode | uppercase}}.svg"
                 class="w-2 h-2 mr-2"
               />
               {{ product.title }}
@@ -18,10 +18,10 @@
             <div class="flex align-items-center">
               <span class="font-bold text-2xl text-900">
                 $
-                @if (product.discount_price !== product.price){
+                @if (product.discountPrice !== product.price){
                   <span class="text-500 line-through">{{product.price}}</span>
                 }
-                {{product.discount_price}} </span>
+                {{product.discountPrice}} </span>
               <span class="ml-2 font-medium text-600">per month</span>
             </div>
             <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
@@ -34,7 +34,7 @@
               }
             </ul>
             <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto" />
-            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto" (click)="createPaymentLink(product.stripe_price_id); button.disabled=true;" #button></button>
+            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto" (click)="createPaymentLink(product.stripePriceId); button.disabled=true;" #button></button>
           </div>
         </div>
       </div>

@@ -1,17 +1,19 @@
 export interface ProductDto {
-  Products: Product[]
+  products: Product[]
 }
 
 export interface Product {
   title: string
   price: number
-  discount_price: number
+  discountPrice: number
   description: string
   server: number
-  country: string
-  country_code: string
-  city: string
-  datacenter: string
-  stripe_price_id: string
+  location:{
+    country: string
+    countryCode: string
+    city: string
+    datacenter: string
+  },
+  stripePriceId: string
   features: string[]
 }

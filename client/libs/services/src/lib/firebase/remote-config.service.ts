@@ -46,7 +46,7 @@ export class RemoteConfigService {
         const productDto = JSON.parse(
           getString(getRemoteConfig(), 'Products'),
         ) as ProductDto;
-        return productDto.Products;
+        return productDto.products;
       }
       return [];
     });

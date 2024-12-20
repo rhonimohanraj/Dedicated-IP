@@ -53,7 +53,9 @@ export const onStripeWebhook = onRequest(async (req, res) => {
   res.status(200).send("OK");
 });
 
-export const onCreatePaymentLink = onCall(async (request) => {
+export const onCreatePaymentLink = onCall({
+  enforceAppCheck: true,
+}, async (request) => {
   if (!request.auth) {
     throw new HttpsError(
       "failed-precondition",
@@ -94,7 +96,9 @@ export const onCreatePaymentLink = onCall(async (request) => {
   return session.url;
 });
 
-export const onCreateBillingPortal = onCall(async (request) => {
+export const onCreateBillingPortal = onCall({
+  enforceAppCheck: true,
+}, async (request) => {
   if (!request.auth) {
     throw new HttpsError(
       "failed-precondition",

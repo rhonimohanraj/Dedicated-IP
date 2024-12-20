@@ -33,6 +33,8 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       const userDoc = firestore.collection("users").doc(uid);
       const serverCollection = userDoc.collection("servers");
       await serverCollection.add({
+        countryCode: "de",
+        location: "Nuremberg, Germany",
         name: generateName() + "-" + getRandomInt(1, 1000),
         username: "admin",
         password: `${getRandomInt(1, 1000)}` +

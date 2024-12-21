@@ -250,6 +250,20 @@ async function getRemoteServerConfigValue(key: string): Promise<string> {
 }
 
 /**
+ * Retrieves the value of a specified key from Firebase Remote Config.
+ *
+ * @param {string} key - The key for the desired Remote Config value.
+ * @return {Promise<string>} A promise resolving to the
+ * value of the specified key.
+ */
+async function getRemoteConfigValue(key: string): Promise<string> {
+  const template = await admin.remoteConfig().getTemplate();
+  const parameters = template.parameters;
+
+  return (parameters[key].defaultValue as any).value;
+}
+
+/**
  * Triggers a GitHub Action workflow using the GitHub API.
  *
  * @param {string} workflowName - The name of the workflow

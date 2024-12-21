@@ -174,13 +174,24 @@ export const onUserAddToUsersCollection = onDocumentCreated(
  *     instance.
  */
 async function createStripeClient(): Promise<Stripe> {
-  const template = await admin.remoteConfig().getServerTemplate();
-  const parameters = template.toJSON().parameters;
-
-  const stripeKey = (parameters["Stripe_Key"].defaultValue as any).value;
+  const stripeKey = getRemoteConfigValue("Stripe_Key");
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const stripe = require("stripe")(stripeKey);
 
   return stripe;
+}
+
+/**
+ * Retrieves the value of a specified key from Firebase Remote Config.
+ *
+ * @param {string} key - The key for the desired Remote Config value.
+ * @return {Promise<string>} A promise resolving to the
+ * value of the specified key.
+ */
+async function getRemoteConfigValue(key: string): Promise<string> {
+  const template = await admin.remoteConfig().getTemplate();
+  const parameters = template.parameters;
+
+  return (parameters[key].defaultValue as any).value;
 }

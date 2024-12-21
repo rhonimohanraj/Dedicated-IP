@@ -6,6 +6,7 @@ import {onDocumentCreated} from "firebase-functions/v2/firestore";
 import {HttpsError, onCall, onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
 import {generateName, getRandomInt} from "./helper";
+import {ProductDto} from "./DTO/product.dto";
 
 admin.initializeApp();
 
@@ -30,13 +31,23 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       if (!uid) {
         throw new Error("UID is undefined in event metadata.");
       }
+      const products = JSON.parse(await getRemoteConfigValue("Products")) as ProductDto;
+
+      const filteredProducts = products.products.filter((product) => product.stripePriceId === eventData.metadata?.priceId);
+
+      if (filteredProducts.length === 0) {
+        throw new Error("Product not found.");
+      }
+
+      const product = filteredProducts[0];
+
       const userDoc = firestore.collection("users").doc(uid);
       const serverCollection = userDoc.collection("servers");
       await serverCollection.add({
-        countryCode: "de",
-        location: "Nuremberg, Germany",
-        server: 11,
-        datacenter: "nbg1",
+        countryCode: product.location.countryCode,
+        location: `${product.location.city}, ${product.location.country}`,
+        server: product.server,
+        datacenter: product.location.datacenter,
         name: generateName() + "-" + getRandomInt(1, 1000),
         username: "admin",
         password: `${getRandomInt(1, 1000)}` +
@@ -91,9 +102,10 @@ export const onCreatePaymentLink = onCall({
     customer: user.data()?.stripeUid,
     metadata: {
       uid: request.auth.uid,
+      priceId: request.data.priceId,
     },
-    success_url: "https://d.dedicated-ip.net/d/servers",
-    cancel_url: "https://d.dedicated-ip.net/d/servers",
+    success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
+    cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
   });
 
   return session.url;

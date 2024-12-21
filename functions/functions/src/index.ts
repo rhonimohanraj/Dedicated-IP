@@ -5,7 +5,7 @@ import {getFirestore} from "firebase-admin/firestore";
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
 import {HttpsError, onCall, onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
-import {Octokit} from "octokit";
+import {Octokit} from "@octokit/rest";
 import {generateName, getRandomInt} from "./helper";
 
 admin.initializeApp();
@@ -267,16 +267,17 @@ async function runGithubActionUsingAPI(
   title: string
 ) {
   const octokit = await createGithubOctokit();
+
   const response = await octokit.rest.actions.createWorkflowDispatch({
     owner: "AshkanYarmoradi",
     repo: "Dedicated-IP",
-    workflow_file_id: workflowName,
+    workflow_id: workflowName,
     ref: "main",
     inputs: inputs,
   });
 
   if (response.status !== 204) {
-    throw new Error(`Failed to trigger GitHub action: ${response.statusText}`);
+    throw new Error(`Failed to trigger GitHub action: ${response.status}`);
   }
 
   let maxRetries = 5;
@@ -293,7 +294,7 @@ async function runGithubActionUsingAPI(
     });
     if (runsResponse.data.workflow_runs.length > 0) {
       const workflowRun = runsResponse.data.workflow_runs.find(
-        (run: { name?: string }) => run.name?.includes(title)
+        (run) => run.name?.includes(title)
       );
       if (workflowRun) {
         runId = workflowRun.id;
@@ -331,7 +332,7 @@ async function isGithubActionFinishedSuccessfully(
 
     if (response.status !== 200) {
       throw new Error(
-        `Failed to get GitHub action status: ${response.statusText}`
+        `Failed to get GitHub action status: ${response.status}`
       );
     }
 

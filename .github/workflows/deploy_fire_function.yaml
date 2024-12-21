@@ -16,6 +16,9 @@ jobs:
       - run: npm ci --legacy-peer-deps
         working-directory: functions
 
+      - run: npm ci --legacy-peer-deps
+        working-directory: functions/functions
+
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:

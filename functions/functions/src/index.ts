@@ -195,3 +195,38 @@ async function getRemoteConfigValue(key: string): Promise<string> {
 
   return (parameters[key].defaultValue as any).value;
 }
+
+/**
+ * Triggers a GitHub Action workflow using the GitHub API.
+ *
+ * @param {string} workflowName - The name of the workflow
+ * to be triggered.
+ * @param {any} body - The JSON payload to be sent
+ * with the request.
+ * @return {Promise<void>} A promise that resolves
+ * when the API request is complete.
+ */
+async function runGithubActionUsingAPI(
+  workflowName: "deploy_wireguard_server" | "destroy_wireguard_server",
+  body: any
+) {
+  const response = await fetch(
+    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}.yml/dispatches`,
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${await getRemoteConfigValue("GitHub_Key")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({...{
+        ref: "main",
+      }, ...body}),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to trigger GitHub action: ${response.statusText}`);
+  }
+}
+

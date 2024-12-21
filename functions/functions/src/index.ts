@@ -241,14 +241,13 @@ async function createStripeClient(): Promise<Stripe> {
  * @return {Promise<Octokit>} A promise that resolves to an
  * authenticated Octokit instance.
  */
-async function createGithubOctokit(): Promise<any> {
-
+async function createGsithubOctokit(): Promise<any> {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const octaKit = require("@octokit/rest")({
+  const octokit = new Octokit({
     auth: await getRemoteServerConfigValue("GitHub_Key"),
   });
 
-  return octaKit;
+  return octokit;
 }
 
 /**
@@ -295,17 +294,25 @@ async function runGithubActionUsingAPI(
   inputs: any,
   title: string
 ) {
-  const octokit = await createGithubOctokit();
+  const response = await fetch(
+    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}.yaml/dispatches`,
+    {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${
+          await getRemoteServerConfigValue("GitHub_Key")
+        }`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({...{
+        ref: "main",
+      }, ...inputs}),
+    }
+  );
 
-  const response = await octokit.rest.actions.createWorkflowDispatch({
-    owner: "AshkanYarmoradi",
-    repo: "Dedicated-IP",
-    workflow_id: workflowName,
-    ref: "main",
-    inputs: inputs,
-  });
 
-  if (response.status !== 204) {
+  if (!response.ok) {
     throw new Error(`Failed to trigger GitHub action: ${response.status}`);
   }
 
@@ -314,22 +321,29 @@ async function runGithubActionUsingAPI(
 
   do {
     await new Promise((resolve) => setTimeout(resolve, 5000));
-    const runsResponse = await octokit.rest.actions.listWorkflowRuns({
-      owner: "AshkanYarmoradi",
-      repo: "Dedicated-IP",
-      workflow_id: workflowName,
-      branch: "main",
-      per_page: 100,
+
+    const response = await fetch(`https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}/runs?branch=main&per_page=100`, {
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${
+          await getRemoteServerConfigValue("GitHub_Key")
+        }`,
+      },
     });
-    if (runsResponse.data.workflow_runs.length > 0) {
-      const workflowRun = runsResponse.data.workflow_runs.find(
-        (run: { name?: string; id: number }) => run.name?.includes(title)
-      );
-      if (workflowRun) {
-        runId = workflowRun.id;
-      }
+
+    if (!response.ok) {
+      throw new Error(`Failed to retrieve workflow runs: ${response.status}`);
     }
-  } while (!runId && maxRetries--);
+
+    const runsData = await response.json();
+    const workflowRun = runsData.workflow_runs.find(
+      (run: { name?: string; id: number }) => run.name?.includes(title)
+    );
+
+    if (workflowRun) {
+      runId = workflowRun.id;
+    }
+  } while (runId !== -1 && maxRetries--);
 
   if (runId < 0) {
     throw new Error(`Failed to find GitHub action: ${title}`);
@@ -349,29 +363,28 @@ async function runGithubActionUsingAPI(
 async function isGithubActionFinishedSuccessfully(
   runId: number
 ): Promise<boolean> {
-  const octokit = await createGithubOctokit();
   let result = false;
-  for (let i = 0; i < 8; i++) {
+  let maxRetries = 8;
+
+  do {
     await new Promise((resolve) => setTimeout(resolve, 10000));
-    const response = await octokit.rest.actions.getWorkflowRun({
-      owner: "AshkanYarmoradi",
-      repo: "Dedicated-IP",
-      run_id: runId,
+
+    const response = await fetch(`https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/runs/${runId}`, {
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${
+          await getRemoteServerConfigValue("GitHub_Key")
+        }`,
+      },
     });
 
-    if (response.status !== 200) {
-      throw new Error(
-        `Failed to get GitHub action status: ${response.status}`
-      );
+    if (!response.ok) {
+      throw new Error(`Failed to get workflow run status: ${response.status}`);
     }
 
-    result = response.data.status === "completed" &&
-      response.data.conclusion === "success";
-
-    if (result) {
-      break;
-    }
-  }
+    const runData = await response.json();
+    result = runData.status === "completed" && runData.conclusion === "success";
+  } while (!result && maxRetries--);
 
   return result;
 }

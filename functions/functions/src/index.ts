@@ -214,7 +214,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
  *     instance.
  */
 async function createStripeClient(): Promise<Stripe> {
-  const stripeKey = getRemoteConfigValue("Stripe_Key");
+  const stripeKey = await getRemoteConfigValue("Stripe_Key");
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const stripe = require("stripe")(stripeKey);

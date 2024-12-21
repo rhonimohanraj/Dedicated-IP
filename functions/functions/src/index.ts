@@ -35,6 +35,8 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       await serverCollection.add({
         countryCode: "de",
         location: "Nuremberg, Germany",
+        server: 11,
+        datacenter: "nbg1",
         name: generateName() + "-" + getRandomInt(1, 1000),
         username: "admin",
         password: `${getRandomInt(1, 1000)}` +

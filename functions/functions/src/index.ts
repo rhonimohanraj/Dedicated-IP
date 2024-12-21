@@ -169,7 +169,10 @@ export const onUserAddToUsersCollection = onDocumentCreated(
 );
 
 export const onServerAddedToServersCollection = onDocumentCreated(
-  "/users/{userId}/servers/{documentId}",
+  {
+    timeoutSeconds: 600,
+    document: "/users/{userId}/servers/{documentId}",
+  },
   async (event) => {
     const data = event.data?.data();
 

@@ -166,6 +166,41 @@ export const onUserAddToUsersCollection = onDocumentCreated(
   }
 );
 
+export const onServerAddedToServersCollection = onDocumentCreated(
+  "/users/{userId}/servers/{documentId}",
+  async (event) => {
+    const data = event.data?.data();
+
+    if (!data || data.status !== "pending") {
+      return null;
+    }
+
+    const runId = await runGithubActionUsingAPI("deploy_wireguard_server", {
+      inputs: {
+        environment: "Production",
+        domain_prefix: data.name,
+        admin_panel_username: data.username,
+        admin_panel_password: data.password,
+        server_type: `cpx${data.server}`,
+        server_location: data.datacenter,
+      },
+    });
+
+    if (!runId) {
+      return event.data?.ref.set({status: "Failed"}, {merge: true});
+    }
+
+    for (let i = 0; i < 8; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+      if (await isGithubActionFinishedSuccessfully(runId)) {
+        return event.data?.ref.set({status: "Active"}, {merge: true});
+      }
+    }
+
+    return event.data?.ref.set({status: "Failed"}, {merge: true});
+  }
+);
+
 /**
  * Creates and returns a Stripe client instance using the API key
  * stored in Firebase Remote Config.
@@ -203,8 +238,8 @@ async function getRemoteConfigValue(key: string): Promise<string> {
  * to be triggered.
  * @param {any} body - The JSON payload to be sent
  * with the request.
- * @return {Promise<void>} A promise that resolves
- * when the API request is complete.
+ * @return {Promise<string>} A promise resolving to the ID of the
+ * triggered GitHub Action run.
  */
 async function runGithubActionUsingAPI(
   workflowName: "deploy_wireguard_server" | "destroy_wireguard_server",
@@ -228,5 +263,39 @@ async function runGithubActionUsingAPI(
   if (!response.ok) {
     throw new Error(`Failed to trigger GitHub action: ${response.statusText}`);
   }
+
+  const data = await response.json();
+  return data.id;
 }
 
+/**
+ * Checks whether a GitHub Action run has finished
+ * successfully by querying the GitHub Actions API.
+ *
+ * @param {number} runId - The ID of the GitHub Action run to check.
+ * @return {Promise<boolean>} A promise resolving to true
+ * if the action finished successfully, false otherwise.
+ */
+async function isGithubActionFinishedSuccessfully(
+  runId: number
+): Promise<boolean> {
+  const response = await fetch(
+    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/runs/${runId}`,
+    {
+      method: "GET",
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": `token ${await getRemoteConfigValue("GitHub_Key")}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to get GitHub action status: ${response.statusText}`
+    );
+  }
+
+  const data = await response.json();
+  return data.status === "completed" && data.conclusion === "success";
+}

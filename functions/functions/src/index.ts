@@ -256,7 +256,9 @@ async function runGithubActionUsingAPI(
       method: "POST",
       headers: {
         "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${await getRemoteServerConfigValue("GitHub_Key")}`,
+        "Authorization": `token ${
+          await getRemoteServerConfigValue("GitHub_Key")
+        }`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({...{
@@ -290,7 +292,9 @@ async function isGithubActionFinishedSuccessfully(
       method: "GET",
       headers: {
         "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${await getRemoteServerConfigValue("GitHub_Key")}`,
+        "Authorization": `token ${
+          await getRemoteServerConfigValue("GitHub_Key")
+        }`,
       },
     }
   );

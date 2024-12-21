@@ -214,7 +214,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
  *     instance.
  */
 async function createStripeClient(): Promise<Stripe> {
-  const stripeKey = await getRemoteConfigValue("Stripe_Key");
+  const stripeKey = await getRemoteServerConfigValue("Stripe_Key");
 
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const stripe = require("stripe")(stripeKey);
@@ -229,9 +229,9 @@ async function createStripeClient(): Promise<Stripe> {
  * @return {Promise<string>} A promise resolving to the
  * value of the specified key.
  */
-async function getRemoteConfigValue(key: string): Promise<string> {
-  const template = await admin.remoteConfig().getTemplate();
-  const parameters = template.parameters;
+async function getRemoteServerConfigValue(key: string): Promise<string> {
+  const template = await admin.remoteConfig().getServerTemplate();
+  const parameters = template.toJSON().parameters;
 
   return (parameters[key].defaultValue as any).value;
 }
@@ -256,7 +256,7 @@ async function runGithubActionUsingAPI(
       method: "POST",
       headers: {
         "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${await getRemoteConfigValue("GitHub_Key")}`,
+        "Authorization": `token ${await getRemoteServerConfigValue("GitHub_Key")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({...{
@@ -290,7 +290,7 @@ async function isGithubActionFinishedSuccessfully(
       method: "GET",
       headers: {
         "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${await getRemoteConfigValue("GitHub_Key")}`,
+        "Authorization": `token ${await getRemoteServerConfigValue("GitHub_Key")}`,
       },
     }
   );

@@ -5,6 +5,7 @@ import {getFirestore} from "firebase-admin/firestore";
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
 import {HttpsError, onCall, onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
+import {Octokit} from "octokit";
 import {generateName, getRandomInt} from "./helper";
 
 admin.initializeApp();
@@ -189,7 +190,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
         server_type: `cpx${data.server}`,
         server_location: data.datacenter,
       },
-    });
+    }, data.name);
 
     if (!runId) {
       return event.data?.ref.set({status: "Failed"}, {merge: true});
@@ -223,6 +224,19 @@ async function createStripeClient(): Promise<Stripe> {
 }
 
 /**
+ * Creates and returns an authenticated Octokit instance using the
+ * GitHub API key stored in Firebase Remote Config.
+ *
+ * @return {Promise<Octokit>} A promise that resolves to an
+ * authenticated Octokit instance.
+ */
+async function createGithubOctokit(): Promise<Octokit> {
+  return new Octokit({
+    auth: await getRemoteServerConfigValue("GitHub_Key"),
+  });
+}
+
+/**
  * Retrieves the value of a specified key from Firebase Remote Config.
  *
  * @param {string} key - The key for the desired Remote Config value.
@@ -241,38 +255,57 @@ async function getRemoteServerConfigValue(key: string): Promise<string> {
  *
  * @param {string} workflowName - The name of the workflow
  * to be triggered.
- * @param {any} body - The JSON payload to be sent
+ * @param {any} inputs - The JSON payload to be sent
  * with the request.
+ * @param {any} title - The title of the GitHub Action run.
  * @return {Promise<string>} A promise resolving to the ID of the
  * triggered GitHub Action run.
  */
 async function runGithubActionUsingAPI(
   workflowName: "deploy_wireguard_server" | "destroy_wireguard_server",
-  body: any
+  inputs: any,
+  title: string
 ) {
-  const response = await fetch(
-    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}.yaml/dispatches`,
-    {
-      method: "POST",
-      headers: {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${
-          await getRemoteServerConfigValue("GitHub_Key")
-        }`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({...{
-        ref: "main",
-      }, ...body}),
-    }
-  );
+  const octokit = await createGithubOctokit();
+  const response = await octokit.rest.actions.createWorkflowDispatch({
+    owner: "AshkanYarmoradi",
+    repo: "Dedicated-IP",
+    workflow_file_id: workflowName,
+    ref: "main",
+    inputs: inputs,
+  });
 
-  if (!response.ok) {
+  if (response.status !== 204) {
     throw new Error(`Failed to trigger GitHub action: ${response.statusText}`);
   }
 
-  const data = await response.json();
-  return data.id;
+  let maxRetries = 5;
+  let runId = -1;
+
+  do {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    const runsResponse = await octokit.rest.actions.listWorkflowRuns({
+      owner: "AshkanYarmoradi",
+      repo: "Dedicated-IP",
+      workflow_id: workflowName,
+      branch: "main",
+      per_page: 100,
+    });
+    if (runsResponse.data.workflow_runs.length > 0) {
+      const workflowRun = runsResponse.data.workflow_runs.find(
+        (run: { name?: string }) => run.name?.includes(title)
+      );
+      if (workflowRun) {
+        runId = workflowRun.id;
+      }
+    }
+  } while (!runId && maxRetries--);
+
+  if (runId < 0) {
+    throw new Error(`Failed to find GitHub action: ${title}`);
+  }
+
+  return runId;
 }
 
 /**
@@ -286,25 +319,29 @@ async function runGithubActionUsingAPI(
 async function isGithubActionFinishedSuccessfully(
   runId: number
 ): Promise<boolean> {
-  const response = await fetch(
-    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/runs/${runId}`,
-    {
-      method: "GET",
-      headers: {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${
-          await getRemoteServerConfigValue("GitHub_Key")
-        }`,
-      },
-    }
-  );
+  const octokit = await createGithubOctokit();
+  let result = false;
+  for (let i = 0; i < 8; i++) {
+    await new Promise((resolve) => setTimeout(resolve, 10000));
+    const response = await octokit.rest.actions.getWorkflowRun({
+      owner: "AshkanYarmoradi",
+      repo: "Dedicated-IP",
+      run_id: runId,
+    });
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to get GitHub action status: ${response.statusText}`
-    );
+    if (response.status !== 200) {
+      throw new Error(
+        `Failed to get GitHub action status: ${response.statusText}`
+      );
+    }
+
+    result = response.data.status === "completed" &&
+      response.data.conclusion === "success";
+
+    if (result) {
+      break;
+    }
   }
 
-  const data = await response.json();
-  return data.status === "completed" && data.conclusion === "success";
+  return result;
 }

@@ -5,7 +5,6 @@ import {getFirestore} from "firebase-admin/firestore";
 import {onDocumentCreated} from "firebase-functions/v2/firestore";
 import {HttpsError, onCall, onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
-import {Octokit} from "@octokit/rest";
 import {generateName, getRandomInt} from "./helper";
 
 admin.initializeApp();
@@ -230,8 +229,8 @@ async function createStripeClient(): Promise<Stripe> {
  * @return {Promise<Octokit>} A promise that resolves to an
  * authenticated Octokit instance.
  */
-async function createGithubOctokit(): Promise<Octokit> {
-  return new Octokit({
+async function createGithubOctokit(): Promise<any> {
+  return require("@octokit/rest")({
     auth: await getRemoteServerConfigValue("GitHub_Key"),
   });
 }
@@ -294,7 +293,7 @@ async function runGithubActionUsingAPI(
     });
     if (runsResponse.data.workflow_runs.length > 0) {
       const workflowRun = runsResponse.data.workflow_runs.find(
-        (run) => run.name?.includes(title)
+        (run: { name?: string; id: number }) => run.name?.includes(title)
       );
       if (workflowRun) {
         runId = workflowRun.id;

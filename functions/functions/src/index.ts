@@ -230,9 +230,13 @@ async function createStripeClient(): Promise<Stripe> {
  * authenticated Octokit instance.
  */
 async function createGithubOctokit(): Promise<any> {
-  return require("@octokit/rest")({
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const octaKit = require("@octokit/rest")({
     auth: await getRemoteServerConfigValue("GitHub_Key"),
   });
+
+  return octaKit;
 }
 
 /**

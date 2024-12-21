@@ -251,7 +251,7 @@ async function runGithubActionUsingAPI(
   body: any
 ) {
   const response = await fetch(
-    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}.yml/dispatches`,
+    `https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}.yaml/dispatches`,
     {
       method: "POST",
       headers: {

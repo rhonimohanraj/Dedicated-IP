@@ -31,9 +31,13 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       if (!uid) {
         throw new Error("UID is undefined in event metadata.");
       }
-      const products = JSON.parse(await getRemoteConfigValue("Products")) as ProductDto;
+      const products = JSON.parse(
+        await getRemoteConfigValue("Products")
+      ) as ProductDto;
 
-      const filteredProducts = products.products.filter((product) => product.stripePriceId === eventData.metadata?.priceId);
+      const filteredProducts = products.products.filter(
+        (product) => product.stripePriceId === eventData.metadata?.priceId
+      );
 
       if (filteredProducts.length === 0) {
         throw new Error("Product not found.");
@@ -232,22 +236,6 @@ async function createStripeClient(): Promise<Stripe> {
   const stripe = require("stripe")(stripeKey);
 
   return stripe;
-}
-
-/**
- * Creates and returns an authenticated Octokit instance using the
- * GitHub API key stored in Firebase Remote Config.
- *
- * @return {Promise<Octokit>} A promise that resolves to an
- * authenticated Octokit instance.
- */
-async function createGsithubOctokit(): Promise<any> {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const octokit = new Octokit({
-    auth: await getRemoteServerConfigValue("GitHub_Key"),
-  });
-
-  return octokit;
 }
 
 /**

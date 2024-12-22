@@ -22,6 +22,7 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { CalendarModule } from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,6 @@ import { ToastModule } from 'primeng/toast';
     CalendarModule,
     ToastModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withInterceptorsFromDi()), MessageService],
 })
 export class AppLayoutModule {}

@@ -238,7 +238,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
   }
 );
 
-export const onServerDeleteInServerCollection = onDocumentUpdated(
+export const onServerDeletingInServerCollection = onDocumentUpdated(
   {
     timeoutSeconds: 539,
     document: "/users/{userId}/servers/{documentId}",

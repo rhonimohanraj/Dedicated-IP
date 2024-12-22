@@ -310,7 +310,7 @@ async function runGithubActionUsingAPI(
   do {
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
-    const response = await fetch(`https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}/runs?branch=main&per_page=100`, {
+    const response = await fetch(`https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/workflows/${workflowName}.yaml/runs?branch=main&per_page=100`, {
       headers: {
         "Accept": "application/vnd.github.v3+json",
         "Authorization": `token ${
@@ -331,7 +331,7 @@ async function runGithubActionUsingAPI(
     if (workflowRun) {
       runId = workflowRun.id;
     }
-  } while (runId !== -1 && maxRetries--);
+  } while (runId === -1 && maxRetries--);
 
   if (runId < 0) {
     throw new Error(`Failed to find GitHub action: ${title}`);

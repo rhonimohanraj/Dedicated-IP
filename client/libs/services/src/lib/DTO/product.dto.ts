@@ -4,6 +4,7 @@ export interface ProductDto {
 
 export interface Product {
   title: string
+  duration: string;
   price: number
   discountPrice: number
   description: string

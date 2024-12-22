@@ -26,7 +26,6 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       eventData.mode === "subscription" &&
       eventData.payment_status === "paid"
     ) {
-      const firestore = getFirestore();
       const uid = eventData.metadata?.uid;
       if (!uid) {
         throw new Error("UID is undefined in event metadata.");
@@ -45,6 +44,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
 
       const product = filteredProducts[0];
 
+      const firestore = getFirestore();
       const userDoc = firestore.collection("users").doc(uid);
       const serverCollection = userDoc.collection("servers");
       await serverCollection.add({
@@ -59,8 +59,24 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         `${getRandomInt(1, 1000)}`,
         status: "pending",
         createdAt: admin.firestore.Timestamp.now(),
+        subscription: eventData.subscription,
       });
     }
+    break;
+  }
+  case "customer.subscription.deleted": {
+    const eventData = event.data.object;
+    const firestore = getFirestore();
+    const querySnapshot = await firestore.collectionGroup("servers")
+      .where("subscription", "==", eventData.id)
+      .get();
+
+    if (querySnapshot.empty) {
+      throw new Error("Server not found.");
+    }
+    querySnapshot.forEach(async (doc) => {
+      await doc.ref.set({status: "deleting"}, {merge: true});
+    });
     break;
   }
   default:

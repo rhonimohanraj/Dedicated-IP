@@ -22,7 +22,10 @@
             "input": "apps/front/public"
           }
         ],
-        "styles": ["apps/front/src/styles.scss"],
+        "styles": [
+          "node_modules/boxicons/css/boxicons.min.css",
+          "apps/front/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {

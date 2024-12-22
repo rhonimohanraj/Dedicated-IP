@@ -86,12 +86,11 @@
               <span [class]="'customer-badge status-' + server.status">{{server.status}}</span>
             </td>
             <td>
-              <a [href]="server.domain" target="_blank">
-                <i class="pi pi-spin pi-cog"></i>
-              </a>
-              <a (click)="onBillingPortal()" class="ml-2 cursor-pointer">
-                <i class="pi pi-fw pi-dollar"></i>
-              </a>
+              @if(server.status === "active"){
+                <a [href]="server.domain" target="_blank">
+                  <i class="pi pi-spin pi-cog"></i>
+                </a>
+              }
             </td>
           </tr>
         </ng-template>

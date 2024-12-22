@@ -57,11 +57,6 @@ export class ServersComponent implements OnInit {
     )).subscribe();
   }
 
-  async onBillingPortal(): Promise<void> {
-    const result = await this.functionService.createBillingPortal();
-    window.open(result.data, '_blank');
-  }
-
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }

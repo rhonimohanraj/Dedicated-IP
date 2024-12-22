@@ -61,7 +61,7 @@ export class AppMenuComponent {
           ({
             label: 'Servers',
             icon: 'pi pi-server',
-            items: result.data.map((server: Server) => {
+            items: result.data.filter((server) => server.status === "active").map((server: Server) => {
               return {
                 label: server.name,
                 icon: 'pi pi-fw pi-server',

@@ -2,8 +2,15 @@ import {logger} from "firebase-functions";
 import * as admin from "firebase-admin";
 import {auth} from "firebase-functions/v1";
 import {getFirestore} from "firebase-admin/firestore";
-import {onDocumentCreated, onDocumentUpdated} from "firebase-functions/v2/firestore";
-import {HttpsError, onCall, onRequest} from "firebase-functions/https";
+import {
+  onDocumentCreated,
+  onDocumentUpdated,
+} from "firebase-functions/v2/firestore";
+import {
+  HttpsError,
+  onCall,
+  onRequest,
+} from "firebase-functions/https";
 import Stripe from "stripe";
 import {generateName, getRandomInt} from "./helper";
 import {ProductDto} from "./DTO/product.dto";
@@ -35,7 +42,8 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       ) as ProductDto;
 
       const filteredProducts = products.products.filter(
-        (product) => product.stripePriceId === eventData.metadata?.priceId
+        (product) =>
+          product.stripePriceId === eventData.metadata?.priceId
       );
 
       if (filteredProducts.length === 0) {
@@ -54,9 +62,10 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         datacenter: product.location.datacenter,
         name: generateName() + "-" + getRandomInt(1, 1000),
         username: "admin",
-        password: `${getRandomInt(1, 1000)}` +
-        "-not-secure-" +
-        `${getRandomInt(1, 1000)}`,
+        password:
+          `${getRandomInt(1, 1000)}` +
+          "-not-secure-" +
+          `${getRandomInt(1, 1000)}`,
         status: "pending",
         createdAt: admin.firestore.Timestamp.now(),
         subscription: eventData.subscription,
@@ -124,8 +133,10 @@ export const onCreatePaymentLink = onCall({
       uid: request.auth.uid,
       priceId: request.data.priceId,
     },
-    success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
-    cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
+    success_url:
+      "https://d.dedicated-ip.net/d/servers?payment=success",
+    cancel_url:
+      "https://d.dedicated-ip.net/d/servers?payment=cancel",
   });
 
   return session.url;
@@ -224,17 +235,17 @@ export const onServerAddedToServersCollection = onDocumentCreated(
     }, data.name);
 
     if (!runId) {
-      return event.data?.ref.set({status: "Failed"}, {merge: true});
+      return event.data?.ref.set({status: "failed"}, {merge: true});
     }
 
     for (let i = 0; i < 8; i++) {
       await new Promise((resolve) => setTimeout(resolve, 10000));
       if (await isGithubActionFinishedSuccessfully(runId)) {
-        return event.data?.ref.set({status: "Active"}, {merge: true});
+        return event.data?.ref.set({status: "active"}, {merge: true});
       }
     }
 
-    return event.data?.ref.set({status: "Failed"}, {merge: true});
+    return event.data?.ref.set({status: "failed"}, {merge: true});
   }
 );
 
@@ -257,7 +268,7 @@ export const onServerDeletingInServerCollection = onDocumentUpdated(
       },
     }, data.name);
 
-    return event.data?.after.ref.set({status: "Deleted"}, {merge: true});
+    return event.data?.after.ref.set({status: "deleted"}, {merge: true});
   }
 );
 

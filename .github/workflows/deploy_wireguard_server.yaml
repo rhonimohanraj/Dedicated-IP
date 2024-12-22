@@ -81,30 +81,30 @@ jobs:
         env:
           gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         run: |
-          echo "$gcp_application_credentials" > ./terraform/apps/wireguard/gcp_credentials.json
+          echo "$gcp_application_credentials" > ./terraform/apps/wireguard/hetzner/gcp_credentials.json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/server"
-        working-directory: terraform/apps/wireguard
+        working-directory: terraform/apps/wireguard/hetzner
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: terraform/apps/wireguard
+        working-directory: terraform/apps/wireguard/hetzner
 
       - name: Save Terraform Outputs
         id: save_outputs
         run: |
           terraform output -json > output.json
-        working-directory: terraform/apps/wireguard
+        working-directory: terraform/apps/wireguard/hetzner
 
       - name: Upload Outputs
         uses: actions/upload-artifact@v4
         with:
           name: terraform-output
-          path: terraform/apps/wireguard/output.json
+          path: terraform/apps/wireguard/hetzner/output.json
 
   setup_domain:
     name: Set Domain
@@ -170,7 +170,7 @@ jobs:
           echo "Checking domain: $domain_url"
           max_attempts=40  # 10 minutes (40 attempts every 15 seconds)
           attempt=1
-          
+
           while [ $attempt -le $max_attempts ]; do
             echo "Attempt $attempt: Checking domain status..."
 

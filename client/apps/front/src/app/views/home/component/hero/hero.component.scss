@@ -1,0 +1,38 @@
+/* Spin animation */
+@-webkit-keyframes hero-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes hero-spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.hero-animation-spin {
+  -webkit-animation: hero-spin 35s linear infinite;
+  animation: hero-spin 35s linear infinite;
+}
+ /* Fade animation */
+ @-webkit-keyframes hero-fade {
+  0%, 100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+@keyframes hero-fade {
+  0%, 100% { opacity: 0 }
+  50% { opacity: 1 }
+}
+.hero-animation-fade {
+  -webkit-animation: hero-fade 4s ease-in infinite;
+  animation: hero-fade 4s ease-in infinite;
+}
+.hero-animation-delay-1,
+.hero-animation-delay-2,
+.hero-animation-delay-3 {
+  opacity: 0;
+}
+.hero-animation-delay-1 { animation-delay: .75s; }
+.hero-animation-delay-2 { animation-delay: 1.5s; }
+.hero-animation-delay-3 { animation-delay: 2s; }

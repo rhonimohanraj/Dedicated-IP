@@ -8,7 +8,7 @@ import { Pagination } from 'swiper/modules'
 register()
 
 @Component({
-  selector: 'software-dev-agency3-benefits',
+  selector: 'benefits',
   standalone: true,
   imports: [SwiperDirective],
   templateUrl: './benefits.component.html',

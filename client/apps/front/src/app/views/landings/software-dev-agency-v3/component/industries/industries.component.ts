@@ -12,7 +12,7 @@ import { initBindSwiper } from '@helpers/swiper'
 import { Navigation } from 'swiper/modules'
 
 @Component({
-  selector: 'software-dev-agency3-industries',
+  selector: 'industries',
   standalone: true,
   imports: [],
   templateUrl: './industries.component.html',

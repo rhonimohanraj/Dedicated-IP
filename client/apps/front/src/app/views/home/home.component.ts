@@ -1,38 +1,33 @@
-import { Component, computed, inject } from '@angular/core';
-import { TopbarComponent } from 'src/app/components/topbar/topbar.component'
-import { FeaturesComponent } from './component/features/features.component'
-import { LandingPagesComponent } from './component/landing-pages/landing-pages.component'
-import { MoreFeatureComponent } from './component/more-feature/more-feature.component'
-import { Footer1Component } from './component/footer1/footer1.component'
-import Rellax from 'rellax'
-import { ScrollToModule, ScrollToService } from '@nicky-lenaers/ngx-scroll-to'
-import { RemoteConfigService } from '@dedicated-ip/service';
-import { JsonPipe } from '@angular/common';
+import { Component } from '@angular/core'
+import { TopbarComponent } from '@components/topbar/topbar.component'
+import { HeroComponent } from './component/hero/hero.component'
+import { AboutComponent } from './component/about/about.component'
+import { SolutionComponent } from './component/solution/solution.component'
+import { IndustriesComponent } from './component/industries/industries.component'
+import { TechnologyComponent } from './component/technology/technology.component'
+import { ProjectsComponent } from './component/projects/projects.component'
+import { BenefitsComponent } from './component/benefits/benefits.component'
+import { BrandsComponent } from './component/brands/brands.component'
+import { BlogComponent } from './component/blog/blog.component'
+import { Footer9Component } from './component/footer9/footer9.component'
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-home-component',
   standalone: true,
   imports: [
     TopbarComponent,
-    ScrollToModule,
-    FeaturesComponent,
-    LandingPagesComponent,
-    MoreFeatureComponent,
-    Footer1Component,
-    JsonPipe,
+    HeroComponent,
+    AboutComponent,
+    SolutionComponent,
+    IndustriesComponent,
+    TechnologyComponent,
+    ProjectsComponent,
+    BenefitsComponent,
+    BrandsComponent,
+    BlogComponent,
+    Footer9Component,
   ],
   templateUrl: './home.component.html',
-  styles: `
-    :host(app-home) {
-      display: contents;
-    }
-  `,
-  providers: [ScrollToService],
+  styles: ``,
 })
-export class HomeComponent {
-  private remoteConfig = inject(RemoteConfigService);
-  protected products = this.remoteConfig.getProducts();
-  ngOnInit(): void {
-    new Rellax('.rellax');
-  }
-}
+export class HomeComponent {}

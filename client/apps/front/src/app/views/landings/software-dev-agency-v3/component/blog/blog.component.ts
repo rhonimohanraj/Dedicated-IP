@@ -8,7 +8,7 @@ import { register } from 'swiper/element'
 register()
 
 @Component({
-  selector: 'software-dev-agency3-blog',
+  selector: 'blog',
   standalone: true,
   imports: [SwiperDirective],
   templateUrl: './blog.component.html',

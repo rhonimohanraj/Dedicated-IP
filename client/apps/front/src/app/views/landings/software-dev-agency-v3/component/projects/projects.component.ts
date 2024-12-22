@@ -3,7 +3,7 @@ import { featureProjectData } from '../../data'
 import { RellaxDirective } from '@helpers/rellax-directive'
 
 @Component({
-  selector: 'software-dev-agency3-projects',
+  selector: 'projects',
   standalone: true,
   imports: [RellaxDirective],
   templateUrl: './projects.component.html',

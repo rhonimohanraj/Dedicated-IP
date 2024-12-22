@@ -1,0 +1,44 @@
+<section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+  <div class="swiper mb-xl-3 text-sm-start text-center">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of blogList; track $index) {
+        <swiper-slide class="swiper-slide h-auto">
+          <article class="card h-100 border-0 bg-transparent">
+            <div class="position-relative">
+              <a
+                href="javascript:void(0)"
+                class="position-absolute top-0 start-0 w-100 h-100"
+                aria-label="Read more"
+              ></a>
+              <img [src]="data.image" class="rounded-3" alt="Image" />
+            </div>
+            <div class="card-body pb-0 px-0">
+              <div
+                class="d-flex align-items-center justify-content-between mb-3"
+              >
+                <a
+                  href="javascript:void(0)"
+                  class="badge fs-sm text-nav bg-secondary text-decoration-none"
+                  >{{ data.category }}</a
+                >
+                <span class="fs-sm text-muted">{{ data.time }}</span>
+              </div>
+              <h3 class="h5 mb-0 fw-semibold">
+                <a href="javascript:void(0)">{{ data.title }}</a>
+              </h3>
+            </div>
+          </article>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="blogpagination"
+      class="swiper-pagination position-static mt-4 pt-lg-3 pt-2"
+    ></div>
+  </div>
+</section>

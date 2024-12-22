@@ -1,0 +1,32 @@
+<section class="container mb-5 pb-lg-5 pb-md-4 pb-3">
+  <h2 class="h1 mb-lg-5 mb-4 pb-lg-0 pb-md-2 text-center">
+    Сustom Software Solutions
+  </h2>
+
+  <div class="swiper mb-xl-3">
+    <swiper-container
+      [config]="swiperConfig"
+      init="false"
+      class="swiper-wrapper"
+    >
+      @for (data of solutionList; track $index) {
+        <swiper-slide class="swiper-slide h-auto">
+          <div class="card h-100">
+            <div
+              class="card-body my-md-5 my-4 py-xl-2 py-md-0 py-sm-2 text-center"
+            >
+              <img [src]="data.image" alt="Icon" class="d-block mb-3 mx-auto" />
+              <h3 class="h5 mb-3">{{ data.title }}</h3>
+              <p class="mb-0">{{ data.description }}</p>
+            </div>
+          </div>
+        </swiper-slide>
+      }
+    </swiper-container>
+
+    <div
+      id="solutionPagination"
+      class="swiper-pagination position-static mt-4 pt-lg-3 pt-2"
+    ></div>
+  </div>
+</section>

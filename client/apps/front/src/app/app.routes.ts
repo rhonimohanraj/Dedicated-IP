@@ -13,7 +13,6 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('@views/home/home.component').then((mod) => mod.HomeComponent),
-    data: { title: 'Multipurpose Business / Technology Template' },
   },
   {
     path: 'landings',

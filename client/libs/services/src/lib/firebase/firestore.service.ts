@@ -61,6 +61,8 @@ export class FirestoreService {
       servers.push(server);
     });
 
+    servers.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
     return servers;
   }
 

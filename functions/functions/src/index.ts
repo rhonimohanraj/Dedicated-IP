@@ -2,7 +2,7 @@ import {logger} from "firebase-functions";
 import * as admin from "firebase-admin";
 import {auth} from "firebase-functions/v1";
 import {getFirestore} from "firebase-admin/firestore";
-import {onDocumentCreated} from "firebase-functions/v2/firestore";
+import {onDocumentCreated, onDocumentUpdated} from "firebase-functions/v2/firestore";
 import {HttpsError, onCall, onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
 import {generateName, getRandomInt} from "./helper";
@@ -235,6 +235,29 @@ export const onServerAddedToServersCollection = onDocumentCreated(
     }
 
     return event.data?.ref.set({status: "Failed"}, {merge: true});
+  }
+);
+
+export const onServerDelete = onDocumentUpdated(
+  {
+    timeoutSeconds: 539,
+    document: "/users/{userId}/servers/{documentId}",
+  },
+  async (event) => {
+    const data = event.data?.after.data();
+
+    if (!data || data.status !== "deleting") {
+      return null;
+    }
+
+    await runGithubActionUsingAPI("destroy_wireguard_server", {
+      inputs: {
+        environment: "Production",
+        domain_prefix: data.name,
+      },
+    }, data.name);
+
+    return event.data?.after.ref.set({status: "Deleted"}, {merge: true});
   }
 );
 

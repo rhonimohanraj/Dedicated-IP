@@ -30,11 +30,9 @@ on:
         required: true
         type: choice
         options:
-          - cpx11
-          - cpx21
-          - cx31
-          - cx41
-          - cx51
+          - small
+          - medium
+          - big
       server_location:
         description: "Server Location"
         required: true

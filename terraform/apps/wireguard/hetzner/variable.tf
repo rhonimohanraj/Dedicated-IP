@@ -34,7 +34,7 @@ variable "admin_panel_password" {
 variable "server_type" {
   description = "Hetzner server type"
   type        = string
-  default     = "cx22"
+  default     = "small"
 }
 
 variable "server_location" {

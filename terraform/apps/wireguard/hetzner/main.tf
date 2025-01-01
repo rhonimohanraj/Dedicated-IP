@@ -2,7 +2,11 @@
 resource "hcloud_server" "server" {
   name        = var.server_name
   image       = "ubuntu-22.04"
-  server_type = var.server_type
+  server_type = lookup(var.server_type, {
+    "small"  = "cpx11",
+    "medium" = "cpx21",
+    "large"  = "cpx31",
+  }, "cpx11")
   location    = var.server_location
 
   ssh_keys = [var.ssh_key_name]

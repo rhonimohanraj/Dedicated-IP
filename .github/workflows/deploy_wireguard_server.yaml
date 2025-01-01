@@ -25,6 +25,14 @@ on:
         description: "Admin Panel Password"
         required: true
         type: string
+      datacenter_provider:
+        description: "Datacenter Provider"
+        required: true
+        type: choice
+        options:
+          - hetzner
+          - lionde
+
       server_type:
         description: "Server Type"
         required: true
@@ -44,7 +52,6 @@ on:
           - ash
           - hil
           - sin
-
 jobs:
   deploy_server:
     name: Deploy WireGuard Server
@@ -76,30 +83,30 @@ jobs:
         env:
           gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         run: |
-          echo "$gcp_application_credentials" > ./terraform/apps/wireguard/hetzner/gcp_credentials.json
+          echo "$gcp_application_credentials" > ./terraform/apps/wireguard/${{inputs.datacenter_provider}}/gcp_credentials.json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/server"
-        working-directory: terraform/apps/wireguard/hetzner
+        working-directory: terraform/apps/wireguard/${{inputs.datacenter_provider}}
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: terraform/apps/wireguard/hetzner
+        working-directory: terraform/apps/wireguard/${{inputs.datacenter_provider}}
 
       - name: Save Terraform Outputs
         id: save_outputs
         run: |
           terraform output -json > output.json
-        working-directory: terraform/apps/wireguard/hetzner
+        working-directory: terraform/apps/wireguard/${{inputs.datacenter_provider}}
 
       - name: Upload Outputs
         uses: actions/upload-artifact@v4
         with:
           name: terraform-output
-          path: terraform/apps/wireguard/hetzner/output.json
+          path: terraform/apps/wireguard/${{inputs.datacenter_provider}}/output.json
 
   setup_domain:
     name: Set Domain

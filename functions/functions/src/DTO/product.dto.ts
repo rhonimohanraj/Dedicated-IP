@@ -7,7 +7,7 @@ export interface Product {
   price: number
   discountPrice: number
   description: string
-  server: number
+  server: string
   location:{
     country: string
     countryCode: string

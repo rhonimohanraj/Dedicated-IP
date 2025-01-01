@@ -13,6 +13,7 @@ export interface Product {
     countryCode: string
     city: string
     datacenter: string
+    datacenterProvider: string
   },
   stripePriceId: string
   features: string[]

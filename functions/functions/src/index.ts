@@ -60,6 +60,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         location: `${product.location.city}, ${product.location.country}`,
         server: product.server,
         datacenter: product.location.datacenter,
+        datacenterProvider: product.location.datacenterProvider,
         name: generateName() + "-" + getRandomInt(1, 1000),
         username: "admin",
         password:
@@ -231,6 +232,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
         admin_panel_password: data.password,
         server_type: data.server,
         server_location: data.datacenter,
+        datacenter_provider: data.datacenterProvider,
       },
     }, data.name);
 

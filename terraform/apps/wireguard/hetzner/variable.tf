@@ -46,7 +46,7 @@ variable "server_location" {
 variable "ssh_key_name" {
   description = "SSH key name"
   type        = string
-  default     = "production"
+  default     = "Production"
 }
 
 variable "wireguard_ui_version" {

@@ -78,20 +78,8 @@ variable "telegram_allow_conf_request" {
   default     = "false"
 }
 
-variable "smtp_hostname" {
-  description = "value of the SMTP_HOSTNAME"
-}
-
-variable "smtp_port" {
-  description = "value of the SMTP_PORT"
-}
-
-variable "smtp_username" {
-  description = "value of the EMAIL_USERNAME"
-}
-
-variable "smtp_password" {
-  description = "value of the EMAIL_PASSWORD"
+variable "sendgrid_api" {
+  description = "value of the sendgrid api"
 }
 
 variable "email_from_address" {

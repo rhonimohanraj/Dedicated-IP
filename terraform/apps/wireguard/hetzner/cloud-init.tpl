@@ -91,12 +91,8 @@ write_files:
           TELEGRAM_TOKEN=${telegram_token}
           TELEGRAM_ALLOW_CONF_REQUEST=${telegram_allow_conf_request}
 
-          # SMTP settings
-          SMTP_HOSTNAME=${smtp_hostname}
-          SMTP_PORT=${smtp_port}
-          SMTP_USERNAME=${smtp_username}
-          SMTP_PASSWORD=${smtp_password}
-          SMTP_PORT=${smtp_port}
+          # Email settings
+          SENDGRID_API_KEY=${sendgrid_api}
           EMAIL_FROM_ADDRESS=${email_from_address}
           EMAIL_FROM_NAME=${email_from_name}
 

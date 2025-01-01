@@ -229,7 +229,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
         domain_prefix: data.name,
         admin_panel_username: data.username,
         admin_panel_password: data.password,
-        server_type: `cpx${data.server}`,
+        server_type: data.server,
         server_location: data.datacenter,
       },
     }, data.name);

@@ -267,6 +267,7 @@ export const onServerDeletingInServerCollection = onDocumentUpdated(
       inputs: {
         environment: "Production",
         domain_prefix: data.name,
+        datacenter_provider: data.datacenterProvider,
       },
     }, data.name);
 

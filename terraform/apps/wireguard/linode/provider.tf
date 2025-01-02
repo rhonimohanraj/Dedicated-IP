@@ -4,7 +4,7 @@ terraform {
       source  = "linode/linode"
     }
   }
-  // backend "gcs" {}
+  backend "gcs" {}
 }
 
 provider "linode" {

@@ -90,6 +90,7 @@ jobs:
     environment: ${{ inputs.environment }}
     env:
       TF_VAR_hcloud_token: ${{ secrets.HCLOUD_TOKEN }}
+      TF_VAR_linode_token: ${{ secrets.LINODE_TOKEN }}
       TF_VAR_server_name: ${{ inputs.domain_prefix }}
       TF_VAR_domain_name: "${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}"
       TF_VAR_ssl_email: "info@${{ vars.DOMAIN }}"

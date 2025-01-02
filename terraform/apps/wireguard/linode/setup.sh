@@ -51,6 +51,8 @@ WantedBy=multi-user.target
 EOF
 chmod 0644 /etc/systemd/system/wg-watcher.path
 
+mkdir -p /etc/caddy
+
 cat > /etc/caddy/Caddyfile << EOF
 {
   email \${ssl_email}
@@ -60,6 +62,8 @@ cat > /etc/caddy/Caddyfile << EOF
 }
 EOF
 chmod 0644 /etc/caddy/Caddyfile
+
+mkdir -p /usr/local/bin/wireguard-ui
 
 cat > /usr/local/bin/wireguard-ui/.env << EOF
 # Default configuration for wireguard-ui.

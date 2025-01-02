@@ -25,7 +25,7 @@ EOF
   rev_note = "initial cloud-init script"
 
   images = [
-    "linode/ubuntu24.10",
+    "linode/ubuntu22.04",
   ]
 
   is_public = false
@@ -40,7 +40,7 @@ data "linode_sshkey" "SSHKey" {
 # Create linode Cloud server
 resource "linode_instance" "server" {
   label        = var.server_name
-  image       = "linode/ubuntu24.10"
+  image       = "linode/ubuntu22.04"
   
   type = lookup({
     "small"  = "g6-nanode-1",

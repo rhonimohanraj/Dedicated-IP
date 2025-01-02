@@ -14,7 +14,9 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/wireguard-ui/wireguard-ui
+WorkingDirectory=/usr/local/bin/wireguard-ui
+EnvironmentFile=/usr/local/bin/wireguard-ui/.env
+ExecStart=/usr/local/bin/wireguard-ui/wireguard-ui -bind-address [::1]:5000
 Restart=on-failure
 
 [Install]
@@ -50,7 +52,6 @@ EOF
 chmod 0644 /etc/systemd/system/wg-watcher.path
 
 mkdir -p /etc/caddy
-
 cat > /etc/caddy/Caddyfile << EOF
 {
   email ${ssl_email}
@@ -62,7 +63,6 @@ EOF
 chmod 0644 /etc/caddy/Caddyfile
 
 mkdir -p /usr/local/bin/wireguard-ui
-
 cat > /usr/local/bin/wireguard-ui/.env << EOF
 # Default configuration for wireguard-ui.
 # This file is loaded by the wireguard-ui systemd service.
@@ -123,13 +123,13 @@ set -e
 session_secret=$(openssl rand -hex 16)
 sed -i "s/\$session_secret/$session_secret/g" /usr/local/bin/wireguard-ui/.env
 # Set the admin username and password
-sed -i "s/\$admin_username/$admin_panel_username/g" /usr/local/bin/wireguard-ui/.env
+sed -i "s/\$admin_username/${admin_panel_username}/g" /usr/local/bin/wireguard-ui/.env
 # Hash password and encode it again with base64 to be compatible with the format wireguard-ui requires
 
-password_hash=$(mkpasswd --method=bcrypt "$admin_panel_password" | tr -d '\n' | openssl base64 -A | sed 's/\//\\\//g')
+password_hash=$(mkpasswd --method=bcrypt "${admin_panel_password}" | tr -d '\n' | openssl base64 -A | sed 's/\//\\\//g')
 sed -i "s/\$admin_password_hash/$password_hash/g" /usr/local/bin/wireguard-ui/.env
 # Set the domain name
-sed -i "s/\$domain/$domain_name/g" /usr/local/bin/wireguard-ui/.env
+sed -i "s/\$domain/${domain_name}/g" /usr/local/bin/wireguard-ui/.env
 # replace ${ssl_email} in /etc/caddy/Caddyfile
 sed -i "s/\${ssl_email}/${ssl_email}/g" /etc/caddy/Caddyfile
 sed -i "s/\${domain_name}/${domain_name}/g" /etc/caddy/Caddyfile

@@ -81,7 +81,7 @@ WGUI_PASSWORD_HASH=\$admin_password_hash
 WGUI_ENDPOINT_ADDRESS=${domain_name}
 
 # The default endpoint port used in the global settings.
-WGUI_SERVER_LISTEN_PORT=5000
+WGUI_SERVER_LISTEN_PORT=51822
 
 # The default endpoint save config used in the global settings.
 WGUI_ENDPOINT_SAVE_CONFIG=1

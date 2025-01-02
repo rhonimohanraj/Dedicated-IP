@@ -29,7 +29,7 @@ EOF
   ]
 
   is_public = false
-  label     = var.server_name + "-CloudInit"
+  label     = join("-", [var.server_name, "cloudInit"])
 }
 
 

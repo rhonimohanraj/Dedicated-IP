@@ -14,9 +14,7 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/usr/local/bin/wireguard-ui
-EnvironmentFile=/usr/local/bin/wireguard-ui/.env
-ExecStart=/usr/local/bin/wireguard-ui/wireguard-ui -bind-address [::1]:5000
+ExecStart=/usr/local/bin/wireguard-ui/wireguard-ui
 Restart=on-failure
 
 [Install]
@@ -83,7 +81,7 @@ WGUI_PASSWORD_HASH=\$admin_password_hash
 WGUI_ENDPOINT_ADDRESS=${domain_name}
 
 # The default endpoint port used in the global settings.
-WGUI_SERVER_LISTEN_PORT=51822
+WGUI_SERVER_LISTEN_PORT=5000
 
 # The default endpoint save config used in the global settings.
 WGUI_ENDPOINT_SAVE_CONFIG=1

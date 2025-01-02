@@ -165,7 +165,6 @@ runcmd:
   - sudo ufw allow OpenSSH
   - sudo ufw allow 80 comment "allow HTTP"
   - sudo ufw allow 443 comment "allow HTTPS"
-  - sudo ufw allow proto udp to any port 443  comment "allow QUIC"
   - sudo ufw allow proto udp to any port 51822 comment "WireGuard listen port"
   - sudo ufw enable
   - sudo ufw reload

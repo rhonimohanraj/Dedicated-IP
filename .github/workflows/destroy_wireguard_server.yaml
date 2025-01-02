@@ -22,7 +22,7 @@ on:
         type: choice
         options:
           - hetzner
-          - lionde
+          - linode
 
 
 jobs:

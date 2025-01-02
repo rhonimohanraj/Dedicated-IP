@@ -1,10 +1,10 @@
-variable "lionde_token" {
-  description = "Lionde Cloud API token"
+variable "linode_token" {
+  description = "linode Cloud API token"
   type        = string
 }
 
 variable "server_name" {
-  description = "Name of the Lionde server"
+  description = "Name of the linode server"
   type        = string
   default     = "wireguard-server"
 }
@@ -32,13 +32,13 @@ variable "admin_panel_password" {
 }
 
 variable "server_type" {
-  description = "Lionde server type"
+  description = "linode server type"
   type        = string
   default     = "small"
 }
 
 variable "server_location" {
-  description = "Lionde server location"
+  description = "linode server location"
   type        = string
   default     = "ca-central"
 }

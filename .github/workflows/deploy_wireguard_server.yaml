@@ -31,7 +31,7 @@ on:
         type: choice
         options:
           - hetzner
-          - lionde
+          - linode
 
       server_type:
         description: "Server Type"

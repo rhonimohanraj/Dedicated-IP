@@ -1,5 +1,5 @@
 data "template_file" "script" {
-  template = "${file("${path.module}/cloud-init.tpl")}"
+  template = "${file("${path.module}/setup.sh")}"
 
   vars = {
     domain_name                 = var.domain_name
@@ -15,23 +15,11 @@ data "template_file" "script" {
   }
 }
 
-data "template_cloudinit_config" "config" {
-  gzip          = true
-  base64_encode = true
-
-  # Main cloud-config configuration file.
-  part {
-    filename     = "init.cfg"
-    content_type = "text/cloud-config"
-    content      = "${data.template_file.script.rendered}"
-  }
-}
-
 resource "linode_stackscript" "cloudinit_stackscript" {
-  script = "${chomp(file("${path.module}/stackscript.sh"))}"
+  script = data.template_file.script.rendered
 
   description = <<EOF
-This StackScript takes a base64 encoded `userdata` variable which will be provided to `cloud-init` on boot.
+This StackScript setup server with WireGuard
 EOF
 
   rev_note = "initial cloud-init script"
@@ -49,7 +37,7 @@ data "linode_sshkey" "SSHKey" {
   label = var.ssh_key_name
 }
 
-# Create Lionde Cloud server
+# Create linode Cloud server
 resource "linode_instance" "server" {
   label        = var.server_name
   image       = "linode/ubuntu24.10"
@@ -67,8 +55,4 @@ resource "linode_instance" "server" {
   ]
 
   stackscript_id = linode_stackscript.cloudinit_stackscript.id
-
-  stackscript_data = {
-    "userdata" = "${data.template_cloudinit_config.config.rendered}"
-  }
 }

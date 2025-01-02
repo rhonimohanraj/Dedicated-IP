@@ -29,7 +29,7 @@ EOF
   ]
 
   is_public = false
-  label     = "CloudInit"
+  label     = var.server_name + "-CloudInit"
 }
 
 

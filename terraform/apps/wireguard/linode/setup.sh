@@ -55,9 +55,9 @@ mkdir -p /etc/caddy
 
 cat > /etc/caddy/Caddyfile << EOF
 {
-  email \${ssl_email}
+  email ${ssl_email}
 }
-\${domain_name} {
+${domain_name} {
     reverse_proxy localhost:5000
 }
 EOF
@@ -80,7 +80,7 @@ WGUI_USERNAME=\$admin_username
 WGUI_PASSWORD_HASH=\$admin_password_hash
 
 # The default endpoint address used in the global settings.
-WGUI_ENDPOINT_ADDRESS=\$domain
+WGUI_ENDPOINT_ADDRESS=${domain_name}
 
 # The default endpoint port used in the global settings.
 WGUI_SERVER_LISTEN_PORT=51822
@@ -92,13 +92,13 @@ WGUI_SERVER_POST_UP_SCRIPT=/usr/local/bin/wireguard-ui/postup.sh
 WGUI_SERVER_POST_DOWN_SCRIPT=/usr/local/bin/wireguard-ui/postdown.sh
 
 # Telegram bot settings
-TELEGRAM_TOKEN=\${telegram_token}
-TELEGRAM_ALLOW_CONF_REQUEST=\${telegram_allow_conf_request}
+TELEGRAM_TOKEN=${telegram_token}
+TELEGRAM_ALLOW_CONF_REQUEST=${telegram_allow_conf_request}
 
 # Email settings
-SENDGRID_API_KEY=\${sendgrid_api}
-EMAIL_FROM_ADDRESS=\${email_from_address}
-EMAIL_FROM_NAME=\${email_from_name}
+SENDGRID_API_KEY=${sendgrid_api}
+EMAIL_FROM_ADDRESS=${email_from_address}
+EMAIL_FROM_NAME=${email_from_name}
 EOF
 chmod 0644 /usr/local/bin/wireguard-ui/.env
 
@@ -125,15 +125,17 @@ set -e
 session_secret=$(openssl rand -hex 16)
 sed -i "s/\$session_secret/$session_secret/g" /usr/local/bin/wireguard-ui/.env
 # Set the admin username and password
-username="${admin_panel_username}"
-sed -i "s/\$admin_username/$username/g" /usr/local/bin/wireguard-ui/.env
+sed -i "s/\$admin_username/$admin_panel_username/g" /usr/local/bin/wireguard-ui/.env
 # Hash password and encode it again with base64 to be compatible with the format wireguard-ui requires
 
-password="${admin_panel_password}"
-password_hash=$(mkpasswd --method=bcrypt "$password" | tr -d '\n' | openssl base64 -A | sed 's/\//\\\//g')
+password_hash=$(mkpasswd --method=bcrypt "$admin_panel_password" | tr -d '\n' | openssl base64 -A | sed 's/\//\\\//g')
 sed -i "s/\$admin_password_hash/$password_hash/g" /usr/local/bin/wireguard-ui/.env
 # Set the domain name
-sed -i "s/\$domain/\${domain_name}/g" /usr/local/bin/wireguard-ui/.env
+sed -i "s/\$domain/$domain_name/g" /usr/local/bin/wireguard-ui/.env
+# replace ${ssl_email} in /etc/caddy/Caddyfile
+sed -i "s/\${ssl_email}/${ssl_email}/g" /etc/caddy/Caddyfile
+sed -i "s/\${domain_name}/${domain_name}/g" /etc/caddy/Caddyfile
+
 # End prepare workspace
 
 # Download the given version of wireguard-ui

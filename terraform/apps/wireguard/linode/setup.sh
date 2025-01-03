@@ -168,6 +168,7 @@ systemctl start wg-watcher.service
 ufw allow OpenSSH
 ufw allow 80 comment "allow HTTP"
 ufw allow 443 comment "allow HTTPS"
+ufw allow proto udp to any port 443  comment "allow QUIC"
 ufw allow proto udp to any port 51822 comment "WireGuard listen port"
 ufw enable
 ufw reload

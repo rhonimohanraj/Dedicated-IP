@@ -162,12 +162,13 @@ runcmd:
   - systemctl start wg-watcher.path
   - systemctl start wg-watcher.service
   - # Enable the firewall
-  - sudo ufw allow OpenSSH
-  - sudo ufw allow 80 comment "allow HTTP"
-  - sudo ufw allow 443 comment "allow HTTPS"
-  - sudo ufw allow proto udp to any port 51822 comment "WireGuard listen port"
-  - sudo ufw enable
-  - sudo ufw reload
+  - ufw allow OpenSSH
+  - ufw allow 80 comment "allow HTTP"
+  - ufw allow 443 comment "allow HTTPS"
+  - ufw allow proto udp to any port 443  comment "allow QUIC"
+  - ufw allow proto udp to any port 51822 comment "WireGuard listen port"
+  - ufw enable
+  - ufw reload
   - # Enable IP forwarding
   - sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf
   - sed -i '/net.ipv6.conf.all.forwarding=1/s/^#//g' /etc/sysctl.conf

@@ -1,5 +1,5 @@
 data "template_file" "script" {
-  template = file("${path.module}/setup.sh")
+  template = file("${path.module}/cloud-init.tpl")
 
   vars = {
     domain_name                 = var.domain_name

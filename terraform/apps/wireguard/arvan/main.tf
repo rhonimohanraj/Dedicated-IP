@@ -1,5 +1,5 @@
 data "template_file" "script" {
-  template = "${file("${path.module}/setup.sh")}"
+  template = file("${path.module}/setup.sh")
 
   vars = {
     domain_name                 = var.domain_name
@@ -21,7 +21,7 @@ data "arvan_plans" "plans" {
 
 
 data "arvan_images" "images" {
-  region = var.server_location
+  region     = var.server_location
   image_type = "distributions"
 }
 
@@ -38,7 +38,7 @@ locals {
 
   network_list = tolist(data.arvan_networks.network.networks)
 
-    chosen_network = try(
+  chosen_network = try(
     [for network in local.network_list : network
     if network.name == "Default network"],
     []
@@ -93,15 +93,15 @@ resource "arvan_abrak" "server" {
     delete = "20m"
     read   = "10m"
   }
-  region          = var.server_location
-  name            = var.server_name
-  image_id        = local.chosen_image[0].id
-  flavor_id       = lookup({
+  region   = var.server_location
+  name     = var.server_name
+  image_id = local.chosen_image[0].id
+  flavor_id = lookup({
     "small"  = "eco-1-1-0",
     "medium" = "eco-2-1-0",
     "large"  = "eco-3-1-0",
   }, var.server_type, "eco-1-1-0")
-  disk_size       = 25
+  disk_size = 25
   networks = [
     {
       network_id = local.chosen_network[0].network_id
@@ -111,4 +111,8 @@ resource "arvan_abrak" "server" {
     }
   ]
   security_groups = [arvan_security_group.security_group.id]
+
+  init_script = data.template_file.script.rendered
+
+  ssh_key_name = var.ssh_key_name
 }

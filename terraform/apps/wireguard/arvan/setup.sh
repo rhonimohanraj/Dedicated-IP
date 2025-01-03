@@ -52,14 +52,9 @@ EOF
 chmod 0644 /etc/systemd/system/wg-watcher.path
 
 mkdir -p /etc/caddy
-cat > /etc/caddy/Caddyfile << EOF
-{
-  email ${ssl_email}
-}
-${domain_name} {
-    reverse_proxy localhost:5000
-}
-EOF
+caddyFileContent="ewogIGVtYWlsIFNTTF9FTUFJTF9QTEFDRUhPTERFUgp9CkRPTUFJTl9OQU1FX1BMQUNFSE9MREVSIHsKICAgIHJldmVyc2VfcHJveHkgbG9jYWxob3N0OjUwMDAKfQ=="
+caddyFile=$(echo $caddyFileContent | base64 -d | sed "s/SSL_EMAIL_PLACEHOLDER/${ssl_email}/g" | sed "s/DOMAIN_NAME_PLACEHOLDER/${domain_name}/g")
+echo $caddyFile > /etc/caddy/Caddyfile
 chmod 0644 /etc/caddy/Caddyfile
 
 mkdir -p /usr/local/bin/wireguard-ui

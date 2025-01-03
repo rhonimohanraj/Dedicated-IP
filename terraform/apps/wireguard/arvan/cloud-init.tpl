@@ -49,16 +49,6 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 
-  - path: /etc/caddy/Caddyfile
-    permissions: '0644'
-    content: |
-      {
-        email ${ssl_email}
-      }
-      ${domain_name} {
-          reverse_proxy localhost:5000
-      }
-
   - path: /usr/local/bin/wireguard-ui/.env
     permissions: '0644'
     content: |
@@ -116,7 +106,14 @@ runcmd:
   - set -e
   - apt update
   - apt upgrade -y
+  - apt-get install curl -y
   - # Prepare Workspace
+  - # Set Caddy File
+  - mkdir -p /etc/caddy
+  - caddyFileContent="ewogIGVtYWlsIFNTTF9FTUFJTF9QTEFDRUhPTERFUgp9CkRPTUFJTl9OQU1FX1BMQUNFSE9MREVSIHsKICAgIHJldmVyc2VfcHJveHkgbG9jYWxob3N0OjUwMDAKfQ=="
+  - caddyFile=$(echo $caddyFileContent | base64 -d | sed "s/SSL_EMAIL_PLACEHOLDER/${ssl_email}/g" | sed "s/DOMAIN_NAME_PLACEHOLDER/${domain_name}/g")
+  - echo $caddyFile > /etc/caddy/Caddyfile
+  - chmod 0644 /etc/caddy/Caddyfile
   - # Generate wireguard-ui session secret (16 bytes, 32 characters)
   - session_secret=$(openssl rand -hex 16)
   - sed -i "s/\$session_secret/$session_secret/g" /usr/local/bin/wireguard-ui/.env

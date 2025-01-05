@@ -116,7 +116,7 @@ jobs:
       - name: Send failed signal
         shell: bash
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"status": "failed-deleted", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.WEBHOOK_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
+          curl -X POST -H "Content-Type: application/json" -d '{"requestType":"finalize_action", "status": "failed-deleted", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.GH_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
 
   send_success_signal:
     name: Send success signal
@@ -128,4 +128,4 @@ jobs:
       - name: Send success signal
         shell: bash
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"status": "deleted", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.WEBHOOK_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
+          curl -X POST -H "Content-Type: application/json" -d '{"requestType":"finalize_action", "status": "deleted", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.GH_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"

@@ -24,12 +24,6 @@
     enabled: yes
     daemon_reload: yes
 
-- name: Wait for wg0.conf to be created
-  wait_for:
-    path: /etc/wireguard/wg0.conf
-    state: present
-    timeout: 30
-
 - name: Enable and start wg-quick@wg0 service
   systemd:
     name: wg-quick@wg0

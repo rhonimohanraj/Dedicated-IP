@@ -1,4 +1,11 @@
 ---
+- name: Wait for wg0.conf to be created
+  wait_for:
+    path: /etc/wireguard/wg0.conf
+    state: present
+    timeout: 300
+
+
 - name: Reboot the server
   reboot:
     reboot_timeout: 300

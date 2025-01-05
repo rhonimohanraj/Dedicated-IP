@@ -261,14 +261,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
       return event.data?.ref.set({status: "failed"}, {merge: true});
     }
 
-    for (let i = 0; i < 8; i++) {
-      await new Promise((resolve) => setTimeout(resolve, 10000));
-      if (await isGithubActionFinishedSuccessfully(runId)) {
-        return event.data?.ref.set({status: "active"}, {merge: true});
-      }
-    }
-
-    return event.data?.ref.set({status: "failed"}, {merge: true});
+    return event.data?.ref.set({status: "creating"}, {merge: true});
   }
 );
 
@@ -412,41 +405,4 @@ async function runGithubActionUsingAPI(
   }
 
   return runId;
-}
-
-/**
- * Checks whether a GitHub Action run has finished
- * successfully by querying the GitHub Actions API.
- *
- * @param {number} runId - The ID of the GitHub Action run to check.
- * @return {Promise<boolean>} A promise resolving to true
- * if the action finished successfully, false otherwise.
- */
-async function isGithubActionFinishedSuccessfully(
-  runId: number
-): Promise<boolean> {
-  let result = false;
-  let maxRetries = 8;
-
-  do {
-    await new Promise((resolve) => setTimeout(resolve, 10000));
-
-    const response = await fetch(`https://api.github.com/repos/AshkanYarmoradi/Dedicated-IP/actions/runs/${runId}`, {
-      headers: {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": `token ${
-          await getRemoteServerConfigValue("GitHub_Key")
-        }`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to get workflow run status: ${response.status}`);
-    }
-
-    const runData = await response.json();
-    result = runData.status === "completed" && runData.conclusion === "success";
-  } while (!result && maxRetries--);
-
-  return result;
 }

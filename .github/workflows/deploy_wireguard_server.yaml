@@ -263,7 +263,7 @@ jobs:
     name: Check server up and running
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    needs: setup_domain
+    needs: [setup_domain, setup_server]
     steps:
       - name: Check Server Status
         id: check_http_status

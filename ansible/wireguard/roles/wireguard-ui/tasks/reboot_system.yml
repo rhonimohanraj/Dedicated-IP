@@ -9,4 +9,3 @@
 - name: Reboot the server
   reboot:
     reboot_timeout: 300
-  when: reboot_required is defined and reboot_required

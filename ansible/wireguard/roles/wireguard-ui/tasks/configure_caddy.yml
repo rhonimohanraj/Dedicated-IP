@@ -7,7 +7,7 @@
 
 - name: Add Caddy apt repository
   apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.asc] https://dl.cloudsmith.io/public/caddy/stable/deb/debian stable main"
+    repo: "deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.asc] https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt stable main"
     state: present
     filename: caddy-stable
 

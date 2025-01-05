@@ -166,14 +166,13 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Set up SSH key
-        max_attempts: 3
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           
           attempts=0
-          max_attempts=6
+          max_attempts=12
           until ssh-keyscan ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts || [[ $attempts -eq $max_attempts ]]
           do
             echo "Attempt $((attempts+1)) failed. Retrying..."

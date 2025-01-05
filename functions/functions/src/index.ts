@@ -19,6 +19,30 @@ admin.initializeApp();
 
 export const onHttpRequest = onRequest(async (req, res) => {
   switch (req.body.requestType) {
+  case "finalize_action": {
+    const secretKey = req.body.secretKey;
+    if (secretKey !== await getRemoteServerConfigValue("Github_Secret_key")) {
+      res.status(401).send("Unauthorized");
+      return;
+    }
+    const name = (req.body.name as string).replace(
+      "Deploy WireGuard Server - ",
+      ""
+    );
+    const status = req.body.status;
+    const firestore = getFirestore();
+    const querySnapshot = await firestore.collectionGroup("servers")
+      .where("name", "==", name.trim())
+      .get();
+
+    if (querySnapshot.empty) {
+      throw new Error("Server not found.");
+    }
+    querySnapshot.forEach(async (doc) => {
+      await doc.ref.set({status: status}, {merge: true});
+    });
+    break;
+  }
   default:
     res.status(400).send("Invalid request type");
   }

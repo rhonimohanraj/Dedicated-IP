@@ -171,7 +171,20 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
+          
+          attempts=0
+          max_attempts=5
+          until ssh-keyscan ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts || [[ $attempts -eq $max_attempts ]]
+          do
+            echo "Attempt $((attempts+1)) failed. Retrying..."
+            sleep 10 # Wait before retrying
+            attempts=$((attempts+1))
+          done
+
+          if [[ $attempts -eq $max_attempts ]]; then
+            echo "Failed to connect after $max_attempts attempts."
+            exit 1
+          fi
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -182,12 +195,21 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install ansible
-      
+
+      - name: Set username
+        run: |
+          if [[ "${{ inputs.datacenter_provider }}" == "arvan" ]]; then
+            username="ubuntu"
+          else
+            username="root"
+          fi
+          echo "USERNAME=$username" >> $GITHUB_ENV
+    
       - name: Create inventory file
         run: |
           cat /dev/null > inventory.ini
           echo "[wireguard_servers]" > inventory.ini
-          echo "${{ env.SERVER_IP }} ansible_user=${{ inputs.datacenter_provider == 'arvan' ? 'ubuntu' : 'root' }}" >> inventory.ini
+          echo "${{ env.SERVER_IP }} ansible_user=${{ env.USERNAME }}" >> inventory.ini
         working-directory: ansible/wireguard
 
       - name: Set environment variables for Ansible

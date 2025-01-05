@@ -143,6 +143,71 @@ jobs:
           name: terraform-output
           path: terraform/${{inputs.datacenter_provider}}/output.json
 
+  setup_server:
+    name: Setup server
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: deploy_server
+    steps:
+      - name: Download Terraform Outputs
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform-output
+          path: ./outputs
+
+      - name: Extract Server IP
+        id: extract_server_ip
+        run: |
+          server_ip=$(jq -r '.server_ip.value' ./outputs/output.json)
+          echo "Extracted Server IP: $server_ip"
+          echo "SERVER_IP=$server_ip" >> $GITHUB_ENV
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+      
+      - name: Create inventory file
+        run: |
+          cat /dev/null > inventory.ini
+          echo "[wireguard_servers]" > inventory.ini
+          echo "${{ env.SERVER_IP }} ansible_user=root" >> inventory.ini
+        working-directory: ansible/wireguard
+
+      - name: Set environment variables for Ansible
+        run: |
+          cat /dev/null > vars/main.yml
+          echo "domain_name: ${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}" >> vars/main.yml
+          echo "ssl_email: info@${{ vars.DOMAIN }}" >> vars/main.yml
+          echo "admin_panel_username: ${{ inputs.admin_panel_username }}" >> vars/main.yml
+          echo "admin_panel_password: ${{ inputs.admin_panel_password }}" >> vars/main.yml
+          echo "wireguard_ui_version: ${{ vars.WIREGUARD_UI_VERSION }}" >> vars/main.yml
+          echo "telegram_token: ${{ secrets.TELEGRAM_TOKEN }}" >> vars/main.yml
+          echo "telegram_allow_conf_request: ${{ vars.TELEGRAM_ALLOW_CONF_REQUEST }}" >> vars/main.yml
+          echo "sendgrid_api: ${{ secrets.SENDGRID_API }}" >> vars/main.yml
+          echo "email_from_address: ${{ secrets.EMAIL_FROM_ADDRESS }}" >> vars/main.yml
+          echo "email_from_name: ${{ secrets.EMAIL_FROM_NAME }}" >> vars/main.yml
+        working-directory: ansible/wireguard
+
+      - name: Run Ansible playbook
+        run: ansible-playbook -i inventory.ini playbook.yml
+        working-directory: ansible/wireguard
+
   setup_domain:
     name: Set Domain
     runs-on: ubuntu-latest

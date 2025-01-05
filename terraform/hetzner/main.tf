@@ -10,17 +10,4 @@ resource "hcloud_server" "server" {
   location    = var.server_location
 
   ssh_keys = [var.ssh_key_name]
-
-  user_data = templatefile("${path.module}/cloud-init.tpl", {
-    domain_name                 = var.domain_name
-    ssl_email                   = var.ssl_email
-    admin_panel_username        = var.admin_panel_username
-    admin_panel_password        = var.admin_panel_password
-    wireguard_ui_version        = var.wireguard_ui_version
-    telegram_token              = var.telegram_token
-    telegram_allow_conf_request = var.telegram_allow_conf_request
-    sendgrid_api                = var.sendgrid_api
-    email_from_address          = var.email_from_address
-    email_from_name             = var.email_from_name
-  })
 }

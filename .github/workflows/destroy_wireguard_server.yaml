@@ -105,3 +105,27 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         working-directory: terraform/cloudflare
+
+  send_failed_signal:
+    name: Send failed signal
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: destroy_domain
+    if: always() && failure()
+    steps:
+      - name: Send failed signal
+        shell: bash
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"status": "failed-deleted", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.WEBHOOK_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
+
+  send_success_signal:
+    name: Send success signal
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: destroy_domain
+    if: always() && success()
+    steps:
+      - name: Send success signal
+        shell: bash
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"status": "deleted", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.WEBHOOK_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"

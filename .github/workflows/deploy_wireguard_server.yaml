@@ -164,13 +164,13 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v4
-      
+
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          
+
           attempts=0
           max_attempts=12
           until ssh-keyscan ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts || [[ $attempts -eq $max_attempts ]]
@@ -184,7 +184,7 @@ jobs:
             echo "Failed to connect after $max_attempts attempts."
             exit 1
           fi
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -203,7 +203,7 @@ jobs:
             username="root"
           fi
           echo "USERNAME=$username" >> $GITHUB_ENV
-    
+
       - name: Create inventory file
         run: |
           cat /dev/null > inventory.ini
@@ -313,3 +313,27 @@ jobs:
 
           echo "ERROR: Domain did not return HTTP 200 within 10 minutes."
           exit 1
+
+  send_failed_signal:
+    name: Send failed signal
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: check_server
+    if: always() && failure()
+    steps:
+      - name: Send failed signal
+        shell: bash
+        run: |
+            curl -X POST -H "Content-Type: application/json" -d '{"status": "failed", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.WEBHOOK_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
+
+  send_success_signal:
+    name: Send success signal
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: check_server
+    if: always() && success()
+    steps:
+      - name: Send success signal
+        shell: bash
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"status": "active", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.WEBHOOK_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"

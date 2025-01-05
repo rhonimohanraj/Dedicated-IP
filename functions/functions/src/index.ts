@@ -25,10 +25,7 @@ export const onHttpRequest = onRequest(async (req, res) => {
       res.status(401).send("Unauthorized");
       return;
     }
-    const name = (req.body.name as string).replace(
-      "Deploy WireGuard Server - ",
-      ""
-    );
+    const name = req.body.name;
     const status = req.body.status;
     const firestore = getFirestore();
     const querySnapshot = await firestore.collectionGroup("servers")

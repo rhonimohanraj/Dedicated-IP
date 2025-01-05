@@ -1,21 +1,32 @@
 ---
-- name: Install Caddy GPG key
-  ansible.builtin.get_url:
-    url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
-    dest: /usr/share/keyrings/caddy-stable-archive-keyring.asc
-    mode: '0644'
+- name: Install prerequisite packages
+  apt:
+    name:
+      - debian-keyring
+      - debian-archive-keyring
+      - apt-transport-https
+      - curl
+    state: present
+    update_cache: yes
+
+- name: Import Caddy GPG key
+  ansible.builtin.shell:
+    cmd: "curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg"
+    creates: /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 
 - name: Add Caddy apt repository
-  apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.asc] https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt stable main"
-    state: present
-    filename: caddy-stable
+  ansible.builtin.shell:
+    cmd: "curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list"
+    creates: /etc/apt/sources.list.d/caddy-stable.list
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
 
 - name: Install Caddy
   apt:
     name: caddy
     state: present
-    update_cache: yes
 
 - name: Template Caddyfile
   template:

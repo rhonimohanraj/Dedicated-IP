@@ -4,7 +4,7 @@ terraform {
       source = "terraform.arvancloud.ir/arvancloud/iaas"
     }
   }
-  backend "gcs" {}
+  //backend "gcs" {}
 }
 
 provider "arvan" {

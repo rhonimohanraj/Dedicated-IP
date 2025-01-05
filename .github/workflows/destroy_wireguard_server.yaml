@@ -55,18 +55,18 @@ jobs:
         env:
           gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
         run: |
-          echo "$gcp_application_credentials" > ./terraform/apps/wireguard/${{inputs.datacenter_provider}}/gcp_credentials.json
+          echo "$gcp_application_credentials" > ./terraform/${{inputs.datacenter_provider}}/gcp_credentials.json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
       - name: Terraform Init
         run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/server"
-        working-directory: terraform/apps/wireguard/${{inputs.datacenter_provider}}
+        working-directory: terraform/${{inputs.datacenter_provider}}
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
-        working-directory: terraform/apps/wireguard/${{inputs.datacenter_provider}}
+        working-directory: terraform/${{inputs.datacenter_provider}}
 
   destroy_domain:
     name: Destroy Domain

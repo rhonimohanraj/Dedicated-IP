@@ -1,0 +1,12 @@
+- hosts: wireguard_servers
+  become: true
+  vars_files:
+    - vars/main.yml
+  pre_tasks:
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: "auto"
+
+  roles:
+    - common
+    - wireguard-ui

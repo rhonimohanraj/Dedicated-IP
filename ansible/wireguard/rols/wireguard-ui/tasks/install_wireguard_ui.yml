@@ -1,0 +1,25 @@
+---
+- name: Download wireguard-ui
+  get_url:
+    url: "https://github.com/ngoduykhanh/wireguard-ui/releases/download/{{ wireguard_ui_version }}/wireguard-ui-{{ wireguard_ui_version }}-linux-amd64.tar.gz"
+    dest: "/tmp/wireguard-ui.tar.gz"
+    mode: '0644'
+
+- name: Create wireguard-ui directory
+  file:
+    path: /usr/local/bin/wireguard-ui
+    state: directory
+    mode: '0755'
+
+- name: Unpack wireguard-ui
+  unarchive:
+    src: "/tmp/wireguard-ui.tar.gz"
+    dest: "/usr/local/bin/wireguard-ui"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+
+- name: Create data directory for wireguard-ui
+  file:
+    path: /usr/local/share/wireguard-ui
+    state: directory
+    mode: '0755'

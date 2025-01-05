@@ -1,0 +1,11 @@
+---
+domain_name: "yourdomain.com" 
+ssl_email: "your_email@example.com"
+admin_panel_username: "admin"
+admin_panel_password: "your_secure_password"
+wireguard_ui_version: "v0.5.6"
+telegram_token: ""
+telegram_allow_conf_request: 0
+sendgrid_api: ""
+email_from_address: ""
+email_from_name: ""

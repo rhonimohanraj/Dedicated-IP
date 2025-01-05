@@ -1,0 +1,46 @@
+---
+- name: Template wireguard-ui service file
+  template:
+    src: wireguard-ui.service.j2
+    dest: /etc/systemd/system/wireguard-ui.service
+    mode: '0644'
+
+- name: Template wg-watcher service file
+  template:
+    src: wg-watcher.service.j2
+    dest: /etc/systemd/system/wg-watcher.service
+    mode: '0644'
+
+- name: Template wg-watcher path file
+  template:
+    src: wg-watcher.path.j2
+    dest: /etc/systemd/system/wg-watcher.path
+    mode: '0644'
+
+- name: Enable and start wireguard-ui service
+  systemd:
+    name: wireguard-ui
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: Wait for wg0.conf to be created
+  wait_for:
+    path: /etc/wireguard/wg0.conf
+    state: present
+    timeout: 30
+
+- name: Enable and start wg-quick@wg0 service
+  systemd:
+    name: wg-quick@wg0
+    state: started
+    enabled: yes
+
+- name: Enable and start wg-watcher services
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - wg-watcher.path
+    - wg-watcher.service

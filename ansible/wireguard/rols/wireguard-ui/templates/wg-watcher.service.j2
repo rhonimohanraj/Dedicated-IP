@@ -1,0 +1,11 @@
+[Unit]
+Description=Watch WireGuard wg0 interface
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/systemctl restart wg-quick@wg0.service
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+RequiredBy=wg-watcher.path

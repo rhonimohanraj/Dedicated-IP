@@ -1,0 +1,20 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+  when: ansible_pkg_mgr == 'apt'
+
+- name: Install required packages
+  apt:
+    name:
+      - curl
+      - wireguard
+      - iptables
+      - whois
+    state: present
+  when: ansible_pkg_mgr == 'apt'

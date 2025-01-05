@@ -1,7 +1,7 @@
 ---
 - name: Download wireguard-ui
   get_url:
-    url: "https://github.com/ngoduykhanh/wireguard-ui/releases/download/{{ wireguard_ui_version }}/wireguard-ui-{{ wireguard_ui_version }}-linux-amd64.tar.gz"
+    url: "https://github.com/ngoduykhanh/wireguard-ui/releases/download/v{{ wireguard_ui_version }}/wireguard-ui-v{{ wireguard_ui_version }}-linux-amd64.tar.gz"
     dest: "/tmp/wireguard-ui.tar.gz"
     mode: '0644'
 

@@ -166,6 +166,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Set up SSH key
+        max_attempts: 3
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
@@ -186,7 +187,7 @@ jobs:
         run: |
           cat /dev/null > inventory.ini
           echo "[wireguard_servers]" > inventory.ini
-          echo "${{ env.SERVER_IP }} ansible_user=root" >> inventory.ini
+          echo "${{ env.SERVER_IP }} ansible_user=${{ inputs.datacenter_provider == 'arvan' ? 'ubuntu' : 'root' }}" >> inventory.ini
         working-directory: ansible/wireguard
 
       - name: Set environment variables for Ansible

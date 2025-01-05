@@ -235,7 +235,6 @@ export const onUserAddToUsersCollection = onDocumentCreated(
 
 export const onServerAddedToServersCollection = onDocumentCreated(
   {
-    timeoutSeconds: 539,
     document: "/users/{userId}/servers/{documentId}",
   },
   async (event) => {
@@ -267,7 +266,6 @@ export const onServerAddedToServersCollection = onDocumentCreated(
 
 export const onServerDeletingInServerCollection = onDocumentUpdated(
   {
-    timeoutSeconds: 539,
     document: "/users/{userId}/servers/{documentId}",
   },
   async (event) => {

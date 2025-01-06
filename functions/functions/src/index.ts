@@ -45,7 +45,9 @@ export const onHttpRequest = onRequest(async (req, res) => {
     querySnapshot.forEach(async (doc) => {
       await doc.ref.set({status: status}, {merge: true});
     });
-    break;
+
+    res.status(200).send("OK");
+    return;
   }
   default:
     res.status(400).send("Invalid request type");

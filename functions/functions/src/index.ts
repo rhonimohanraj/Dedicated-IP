@@ -26,15 +26,22 @@ export const onHttpRequest = onRequest(async (req, res) => {
       return;
     }
     const name = req.body.name;
-    const status = req.body.status;
     const firestore = getFirestore();
     const querySnapshot = await firestore.collectionGroup("servers")
       .where("name", "==", name.trim())
+      .limit(10)
       .get();
 
     if (querySnapshot.empty) {
       throw new Error("Server not found.");
     }
+
+    if (querySnapshot.size > 1) {
+      throw new Error("Multiple servers found.");
+    }
+
+    const status = req.body.status;
+
     querySnapshot.forEach(async (doc) => {
       await doc.ref.set({status: status}, {merge: true});
     });

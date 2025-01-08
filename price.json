@@ -1,0 +1,292 @@
+{
+  "products": [
+    {
+      "id": "dbca8da6",
+      "title": "Falkenstein Dedicated IP Daily",
+      "duration": "day",
+      "price": 2,
+      "discountPrice": 1,
+      "description": "Dedicated IP address hosted in Falkenstein, Germany, suitable for up to 25 simultaneous user connections.",
+      "location": {
+        "country": "Germany",
+        "countryCode": "de",
+        "city": "Falkenstein",
+        "datacenter": "fsn1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYbjiJiFl8kjHM06i1TXL1m",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "dbca8da6",
+      "title": "Falkenstein Dedicated IP",
+      "duration": "month",
+      "price": 14,
+      "discountPrice": 10,
+      "description": "Dedicated IP address hosted in Falkenstein, Germany, suitable for up to 25 simultaneous user connections.",
+      "location": {
+        "country": "Germany",
+        "countryCode": "de",
+        "city": "Falkenstein",
+        "datacenter": "fsn1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYBZDJiFl8kjHM0Gia1DYbg",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "8e2594af",
+      "title": "Falkenstein Dedicated IP XXL",
+      "duration": "month",
+      "price": 49,
+      "discountPrice": 42,
+      "description": "Dedicated IP address hosted in Falkenstein, Germany, suitable for up to 100 simultaneous user connections.",
+      "location": {
+        "country": "Germany",
+        "countryCode": "de",
+        "city": "Falkenstein",
+        "datacenter": "fsn1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "medium",
+      "stripePriceId": "price_1QYBf2JiFl8kjHM0THbJcz08",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "3071c242",
+      "title": "Nuremberg Dedicated IP",
+      "duration": "month",
+      "price": 12,
+      "discountPrice": 10,
+      "description": "Dedicated IP address hosted in Nuremberg, Germany, suitable for up to 25 simultaneous user connections.",
+      "location": {
+        "country": "Germany",
+        "countryCode": "de",
+        "city": "Nuremberg",
+        "datacenter": "nbg1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYBxYJiFl8kjHM0k5M4OBWQ",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "150548e0",
+      "title": "Nuremberg Dedicated IP XXL",
+      "duration": "month",
+      "price": 49,
+      "discountPrice": 42,
+      "description": "Dedicated IP address hosted in Nuremberg, Germany, suitable for up to 100 simultaneous user connections.",
+      "location": {
+        "country": "Germany",
+        "countryCode": "de",
+        "city": "Nuremberg",
+        "datacenter": "nbg1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "medium",
+      "stripePriceId": "price_1QYBzfJiFl8kjHM0EmXELoBp",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "7dffcb47",
+      "title": "Helsinki Dedicated IP",
+      "duration": "month",
+      "price": 12,
+      "discountPrice": 10,
+      "description": "Dedicated IP address hosted in Helsinki, Finland, suitable for up to 25 simultaneous user connections.",
+      "location": {
+        "country": "Finland",
+        "countryCode": "fi",
+        "city": "Helsinki",
+        "datacenter": "hel1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYC49JiFl8kjHM06y08auMA",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "dd13bb39",
+      "title": "Helsinki Dedicated IP XXL",
+      "duration": "month",
+      "price": 49,
+      "discountPrice": 42,
+      "description": "Dedicated IP address hosted in Helsinki, Finland, suitable for up to 100 simultaneous user connections.",
+      "location": {
+        "country": "Finland",
+        "countryCode": "fi",
+        "city": "Helsinki",
+        "datacenter": "hel1",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "medium",
+      "stripePriceId": "price_1QYC5MJiFl8kjHM0z5VhNmND",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "9857034e",
+      "title": "Ashburn Dedicated IP",
+      "duration": "month",
+      "price": 12,
+      "discountPrice": 10,
+      "description": "Dedicated IP address hosted in Ashburn, USA, suitable for up to 25 simultaneous user connections.",
+      "location": {
+        "country": "USA",
+        "countryCode": "us",
+        "city": "Ashburn",
+        "datacenter": "ash",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYC8SJiFl8kjHM0AiuUip8m",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "48fed16e",
+      "title": "Ashburn Dedicated IP XXL",
+      "duration": "month",
+      "price": 49,
+      "discountPrice": 42,
+      "description": "Dedicated IP address hosted in Ashburn, USA, suitable for up to 100 simultaneous user connections.",
+      "location": {
+        "country": "USA",
+        "countryCode": "us",
+        "city": "Ashburn",
+        "datacenter": "ash",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "medium",
+      "stripePriceId": "price_1QYCA0JiFl8kjHM0eOWFRxkl",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "301029c0",
+      "title": "Hillsboro Dedicated IP",
+      "duration": "month",
+      "price": 12,
+      "discountPrice": 10,
+      "description": "Dedicated IP address hosted in Hillsboro, USA, suitable for up to 25 simultaneous user connections.",
+      "location": {
+        "country": "USA",
+        "countryCode": "us",
+        "city": "Hillsboro",
+        "datacenter": "hil",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYCHrJiFl8kjHM0ed7W8D6h",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "37af8a70",
+      "title": "Hillsboro Dedicated IP XXL",
+      "duration": "month",
+      "price": 49,
+      "discountPrice": 42,
+      "description": "Dedicated IP address hosted in Hillsboro, USA, suitable for up to 100 simultaneous user connections.",
+      "location": {
+        "country": "USA",
+        "countryCode": "us",
+        "city": "Hillsboro",
+        "datacenter": "hil",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "medium",
+      "stripePriceId": "price_1QYCK6JiFl8kjHM0wl5L2wmz",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address"
+      ]
+    },
+    {
+      "id": "6332b26c",
+      "title": "Singapore Dedicated IP",
+      "duration": "month",
+      "price": 18,
+      "discountPrice": 14,
+      "description": "Dedicated IP address hosted in Singapore, suitable for up to 25 simultaneous user connections. Includes 1TB of monthly traffic.",
+      "location": {
+        "country": "Singapore",
+        "countryCode": "sg",
+        "city": "Singapore",
+        "datacenter": "sin",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address",
+        "Includes 1TB of monthly traffic"
+      ]
+    },
+    {
+      "id": "c6ee7ad2",
+      "title": "Singapore Dedicated IP XXL",
+      "duration": "month",
+      "price": 69,
+      "discountPrice": 63,
+      "description": "Dedicated IP address hosted in Singapore, suitable for up to 100 simultaneous user connections. Includes 4TB of monthly traffic.",
+      "location": {
+        "country": "Singapore",
+        "countryCode": "sg",
+        "city": "Singapore",
+        "datacenter": "sin",
+        "datacenterProvider": "hetzner"
+      },
+      "server": "big",
+      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address",
+        "Includes 4TB of monthly traffic"
+      ]
+    }
+  ]
+}

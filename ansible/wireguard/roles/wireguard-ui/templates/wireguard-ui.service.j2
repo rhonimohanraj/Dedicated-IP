@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 WorkingDirectory=/usr/local/bin/wireguard-ui
 EnvironmentFile=/usr/local/bin/wireguard-ui/.env
-ExecStart=/usr/local/bin/wireguard-ui/wireguard-ui -bind-address [::1]:5000
+ExecStart=/usr/local/bin/wireguard-ui/wireguard-ui -bind-address [127.0.0.1]:5000
 Restart=on-failure
 
 [Install]

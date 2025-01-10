@@ -207,6 +207,9 @@ jobs:
           pipelining = True
           EOF
 
+      - name: Verify Ansible Configuration
+        run: ansible-config view
+
       - name: Set username
         run: |
           if [[ "${{ inputs.datacenter_provider }}" == "arvan" ]]; then

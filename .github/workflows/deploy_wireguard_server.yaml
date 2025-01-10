@@ -190,8 +190,7 @@ jobs:
 
       - name: Configure Ansible
         run: |
-          mkdir -p ~/.ansible
-          cat << EOF > ~/.ansible/ansible.cfg
+          cat << EOF > ~/.ansible.cfg
           [defaults]
           retries = 5
 

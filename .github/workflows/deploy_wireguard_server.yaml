@@ -195,6 +195,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install ansible
 
+      - name: Configure Ansible
+        run: |
+          mkdir -p ~/.ansible
+          cat << EOF > ~/.ansible/ansible.cfg
+          [ssh_connection]
+          ssh_args = -o ControlMaster=auto -o ControlPersist=1200
+          pipelining = True
+          EOF
+
       - name: Set username
         run: |
           if [[ "${{ inputs.datacenter_provider }}" == "arvan" ]]; then

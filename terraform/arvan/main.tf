@@ -52,24 +52,8 @@ resource "arvan_security_group" "security_group" {
   ]
 }
 
-resource "arvan_network" "private_network" {
-  region      = var.server_location
-  description = "created private network"
-  name        = "private_network"
-  dhcp_range = {
-    start = "10.255.255.19"
-    end   = "10.255.255.150"
-  }
-  dns_servers    = ["8.8.8.8", "1.1.1.1"]
-  enable_dhcp    = true
-  enable_gateway = true
-  cidr           = "10.255.255.0/24"
-  gateway_ip     = "10.255.255.1"
-}
-
-
 resource "arvan_abrak" "server" {
-  depends_on = [arvan_network.private_network, arvan_security_group.security_group]
+  depends_on = [arvan_security_group.security_group]
   timeouts {
     create = "1h30m"
     update = "2h"
@@ -88,9 +72,6 @@ resource "arvan_abrak" "server" {
   networks = [
     {
       network_id = local.chosen_network[0].network_id
-    },
-    {
-      network_id = arvan_network.private_network.network_id
     }
   ]
   security_groups = [arvan_security_group.security_group.id]

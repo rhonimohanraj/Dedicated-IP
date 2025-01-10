@@ -232,7 +232,20 @@ jobs:
         working-directory: ansible/wireguard
 
       - name: Run Ansible playbook
-        run: ansible-playbook -i inventory.ini playbook.yml
+        run: |
+          attempts=0
+          max_attempts=12
+          until ansible-playbook -i inventory.ini playbook.yml || [[ $attempts -eq $max_attempts ]]
+          do
+          echo "Attempt $((attempts+1)) failed. Retrying..."
+          sleep 10 # Wait before retrying
+          attempts=$((attempts+1))
+          done
+
+          if [[ $attempts -eq $max_attempts ]]; then
+          echo "Failed to complete run Ansible after $max_attempts attempts."
+          exit 1
+          fi
         working-directory: ansible/wireguard
 
   setup_domain:

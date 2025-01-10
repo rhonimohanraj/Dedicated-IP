@@ -19,18 +19,6 @@ variable "ssl_email" {
   type        = string
 }
 
-variable "admin_panel_username" {
-  description = "Admin panel username"
-  type        = string
-  default     = "admin"
-}
-
-variable "admin_panel_password" {
-  description = "Admin panel password"
-  type        = string
-  default     = "nimda"
-}
-
 variable "server_type" {
   description = "Hetzner server type"
   type        = string
@@ -49,12 +37,6 @@ variable "ssh_key_name" {
   default     = "Production"
 }
 
-variable "wireguard_ui_version" {
-  description = "WireGuard UI version"
-  type        = string
-  default     = "0.6.2"
-}
-
 variable "gcp_region" {
   description = "The region to deploy resources in"
   default     = "europe-west4"
@@ -67,25 +49,4 @@ variable "gcp_project_id" {
 variable "gcp_credentials_path" {
   description = "The path to your Google Cloud service account credentials JSON file"
   default     = "./gcp_credentials.json"
-}
-
-variable "telegram_token" {
-  description = "value of the telegram token"
-}
-
-variable "telegram_allow_conf_request" {
-  description = "value of the telegram allow conf request"
-  default     = "false"
-}
-
-variable "sendgrid_api" {
-  description = "value of the sendgrid api"
-}
-
-variable "email_from_address" {
-  description = "value of the EMAIL_FROM_ADDRESS"
-}
-
-variable "email_from_name" {
-  description = "value of the EMAIL_FROM_NAME"
 }

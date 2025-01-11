@@ -85,6 +85,9 @@ on:
           - eu-central
           - ap-northeast
           - ir-thr-ba1
+          - ir-thr-fr1
+          - ir-tbz-sh1
+          - ir-thr-si1
 jobs:
   deploy_server:
     name: Deploy WireGuard Server

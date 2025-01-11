@@ -303,7 +303,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QfALRJiFl8kjHM0Sby7E7DK",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -326,7 +326,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QfAPjJiFl8kjHM0GE0DlBt6",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -349,7 +349,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QfsZRJiFl8kjHM0NQnJ9pet",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -372,7 +372,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QfslJJiFl8kjHM0nCqs7UIS",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -395,7 +395,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QfstoJiFl8kjHM0hh1Q7mQe",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -441,7 +441,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1Qft4OJiFl8kjHM00yqXz7FS",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -464,7 +464,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1Qft1AJiFl8kjHM0y3WFDKYD",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -487,7 +487,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1Qft8tJiFl8kjHM0XIkgrXtZ",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -510,7 +510,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QftCnJiFl8kjHM0s1PjAcoW",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -533,7 +533,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QftFbJiFl8kjHM0EB7YTLHm",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -556,7 +556,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QftH9JiFl8kjHM0WtykfPtT",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",

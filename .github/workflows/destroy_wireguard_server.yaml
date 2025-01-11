@@ -112,6 +112,9 @@ jobs:
     environment: ${{ inputs.environment }}
     needs: destroy_domain
     if: always() && failure()
+    strategy:
+      matrix:
+        steps: [1]
     steps:
       - name: Send failed signal
         shell: bash
@@ -124,6 +127,9 @@ jobs:
     environment: ${{ inputs.environment }}
     needs: destroy_domain
     if: always() && success()
+    strategy:
+      matrix:
+        steps: [1]
     steps:
       - name: Send success signal
         shell: bash

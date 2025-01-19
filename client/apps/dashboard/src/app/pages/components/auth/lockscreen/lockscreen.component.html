@@ -1,9 +1,10 @@
 <div
     [class]="'login-body flex min-h-screen  '+(layoutService.config().colorScheme === 'light' ? 'layout-light':'layout-dark')">
-    <div class="login-image w-6 h-screen hidden md:block" style="max-width: 490px;">
-        <img [src]="'layout/images/pages/lock-'+ (layoutService.config().colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
-            alt="atlantis" class=" h-screen w-full">
-    </div>
+  <div class="login-image w-6 h-screen hidden md:block relative" style="max-width: 490px;">
+    <img
+      [src]="'layout/images/pages/login-'+ (layoutService.config().colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
+      alt="atlantis" class="w-full absolute bottom-0">
+  </div>
     <div class="w-full" style="background:var(--surface-ground)">
         <div class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
             style=" padding: 20% 10% 20% 10%;">

@@ -44,7 +44,7 @@ export class AppMenuComponent {
         {
           label: 'Knowledge Sharing',
           icon: 'pi pi-fw pi-question-circle',
-          url: "https://k.dedicated-ip.net/",
+          url: "https://www.dedicated-ip.net/news-articles",
           target: '_blank'
         }
       ]

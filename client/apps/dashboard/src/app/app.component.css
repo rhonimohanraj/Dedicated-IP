@@ -2,14 +2,22 @@
   background: var(--surface-ground) !important;
 }
 
-.p-datatable .p-datatable-tbody > tr > td {
+.p-column-filter-overlay {
   background: var(--surface-ground) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background: transparent !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  background: transparent !important;
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-  background: var(--surface-ground) !important;
+  background: transparent !important;
 }
 
 .p-datatable .p-datatable-header {
-  background: var(--surface-ground) !important;
+  background: transparent !important;
 }

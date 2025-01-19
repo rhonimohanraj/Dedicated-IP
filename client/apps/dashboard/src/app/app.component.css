@@ -2,4 +2,14 @@
   background: var(--surface-ground) !important;
 }
 
+.p-datatable .p-datatable-tbody > tr > td {
+  background: var(--surface-ground) !important;
+}
 
+.p-datatable .p-datatable-thead > tr > th {
+  background: var(--surface-ground) !important;
+}
+
+.p-datatable .p-datatable-header {
+  background: var(--surface-ground) !important;
+}

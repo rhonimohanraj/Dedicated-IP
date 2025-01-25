@@ -10,18 +10,20 @@ import { MessageModule } from 'primeng/message';
 import { environment } from '../environments/environment';
 import { provideTanStackQuery, QueryClient, withDevtools } from '@tanstack/angular-query-experimental';
 import { provideHttpClient } from '@angular/common/http';
+import {CrispComponent} from "../../../../libs/services/src/lib/crisp/crisp.component";
 
 @NgModule({
   declarations: [AppComponent],
   providers: [provideHttpClient(), provideTanStackQuery(new QueryClient(), withDevtools()), FirebaseProvider, MessageService, ToastModule],
-  imports: [
-    AppRoutingModule,
-    AppLayoutModule,
-    FirebaseComponent,
-    TawkComponent,
-    MessagesModule,
-    MessageModule,
-  ],
+    imports: [
+        AppRoutingModule,
+        AppLayoutModule,
+        FirebaseComponent,
+        TawkComponent,
+        MessagesModule,
+        MessageModule,
+        CrispComponent,
+    ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

@@ -30,6 +30,7 @@
     "bootstrap": "5.3.3",
     "boxicons": "^2.1.4",
     "chart.js": "^3.3.2",
+    "crisp-sdk-web": "^1.0.25",
     "firebase": "^11.0.2",
     "img-comparison-slider": "^8.0.6",
     "jarallax": "^2.2.1",

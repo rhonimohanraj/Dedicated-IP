@@ -4,6 +4,7 @@ import { BackToTopComponent } from './components/back-to-top/back-to-top.compone
 import { PreloaderComponent } from './components/preloader/preloader.component'
 import { TitleService } from '@core/services/title.service'
 import { FirebaseComponent, TawkComponent } from '@dedicated-ip/service';
+import {CrispComponent} from "../../../../libs/services/src/lib/crisp/crisp.component";
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { FirebaseComponent, TawkComponent } from '@dedicated-ip/service';
     PreloaderComponent,
     FirebaseComponent,
     TawkComponent,
+    CrispComponent,
   ],
   styles: `
     :host(app-root) {

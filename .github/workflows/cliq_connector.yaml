@@ -3,9 +3,6 @@ name : Communicating with Cliq
 on:
   workflow_run:
     workflows: ["Deploy to Firebase Functions", "Deploy to Firebase Hosting", "Deploy WireGuard Server", "Destroy WireGuard Server"]
-    types:
-      - completed
-      - requested
 
 jobs:
   connecting_cliq:

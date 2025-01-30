@@ -15,13 +15,13 @@ jobs:
       - name: Get workflow run information
         id: workflow_info
         run: |
-          echo "conclusion=${{ github.event.workflow_run.conclusion }}" >> $GITHUB_OUTPUT
-          echo "workflow_name=${{ github.event.workflow_run.workflow.name }}" >> $GITHUB_OUTPUT
+          echo "status=${{ github.event.workflow_run.status }}" >> $GITHUB_OUTPUT
+          echo "workflow_name=${{ github.event.workflow_run.display_title }}" >> $GITHUB_OUTPUT
           echo "run_number=${{ github.event.workflow_run.run_number }}" >> $GITHUB_OUTPUT
           echo "html_url=${{ github.event.workflow_run.html_url }}" >> $GITHUB_OUTPUT
 
-      - uses: Integrations-dev/GitHub-Informer@v1
-        with:
-          channel-endpoint: ${{ secrets.GITHUBOT_CLIQ }}
-          default-message : 'Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.conclusion }}. Details: ${{ steps.workflow_info.outputs.html_url }}'
-          set-message-if-none: true
+      - name: Send to Cliq
+        env:
+          GITHUBOT_CLIQ: ${{ secrets.GITHUBOT_CLIQ }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"text": "Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.conclusion }}. Details: ${{ steps.workflow_info.outputs.html_url }}"}' "$GITHUBOT_CLIQ"

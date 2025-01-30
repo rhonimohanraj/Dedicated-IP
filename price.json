@@ -793,6 +793,52 @@
         "Exclusive use of a dedicated IP address",
         "Includes 4TB of monthly traffic"
       ]
+    },
+    {
+      "id": "p23clkcixs6c",
+      "title": "Iran, Tehran Dedicated IP",
+      "duration": "month",
+      "price": 18,
+      "discountPrice": 14,
+      "description": "Dedicated IP address hosted in Iran, Tehran, suitable for up to 25 simultaneous user connections. Includes 1TB of monthly traffic.",
+      "location": {
+        "country": "Iran",
+        "countryCode": "ir",
+        "city": "Tehran",
+        "datacenter": "ir-thr-si1",
+        "datacenterProvider": "arvan"
+      },
+      "server": "small",
+      "stripePriceId": "price_1QmsqbJiFl8kjHM04TFFgnD2",
+      "features": [
+        "Supports up to 25 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address",
+        "Includes 1TB of monthly traffic"
+      ]
+    },
+    {
+      "id": "z6qugiy2",
+      "title": "Iran, Tehran Dedicated IP XXL",
+      "duration": "month",
+      "price": 49,
+      "discountPrice": 43,
+      "description": "Dedicated IP address hosted in Iran, Tehran, suitable for up to 100 simultaneous user connections. Includes 4TB of monthly traffic.",
+      "location": {
+        "country": "Iran",
+        "countryCode": "ir",
+        "city": "Tehran",
+        "datacenter": "ir-thr-si1",
+        "datacenterProvider": "arvan"
+      },
+      "server": "big",
+      "stripePriceId": "price_1QmsueJiFl8kjHM05iOkJUbV",
+      "features": [
+        "Supports up to 100 simultaneous user connections",
+        "Dedicated control panel for IP management",
+        "Exclusive use of a dedicated IP address",
+        "Includes 4TB of monthly traffic"
+      ]
     }
   ]
 }

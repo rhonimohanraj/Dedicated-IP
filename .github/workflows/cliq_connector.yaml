@@ -24,4 +24,4 @@ jobs:
         env:
           GITHUBOT_CLIQ: ${{ secrets.GITHUBOT_CLIQ }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"text": "Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.conclusion }}. Details: ${{ steps.workflow_info.outputs.html_url }}"}' "$GITHUBOT_CLIQ"
+          curl -X POST -H "Content-Type: application/json" -d '{"text": "Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.status }}. Details: ${{ steps.workflow_info.outputs.html_url }}"}' "$GITHUBOT_CLIQ"

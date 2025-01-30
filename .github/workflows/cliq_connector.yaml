@@ -9,7 +9,7 @@ on:
 
 jobs:
   connecting_cliq:
-    environment: 'production'
+    environment: 'Production'
     runs-on: ubuntu-latest
     steps:
       - uses: Integrations-dev/GitHub-Informer@v1

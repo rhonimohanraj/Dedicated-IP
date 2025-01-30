@@ -23,5 +23,5 @@ jobs:
       - uses: Integrations-dev/GitHub-Informer@v1
         with:
           channel-endpoint: ${{ secrets.GITHUBOT_CLIQ }}
-          default-message : 'Workflow "${{ steps.workflow_info.outputs.workflow_name }}" run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.conclusion }}. Details: ${{ steps.workflow_info.outputs.html_url }}'
+          default-message : 'Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.conclusion }}. Details: ${{ steps.workflow_info.outputs.html_url }}'
           set-message-if-none: true

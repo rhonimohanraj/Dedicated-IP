@@ -73,4 +73,4 @@ jobs:
     steps:
       - uses: Integrations-dev/GitHub-Informer@v1
         with:
-          channel-endpoint: ${{ secrets.GITHUBOT }}
+          channel-endpoint: ${{ secrets.GITHUBOT_CLIQ }}

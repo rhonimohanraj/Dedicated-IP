@@ -216,6 +216,13 @@ export const onUserRegister = auth.user().onCreate(async (user) => {
     displayName: user.displayName,
     photoURL: user.photoURL,
   });
+
+  try {
+    await sendCliqMessage("🎉 We have new customer: " + user.email + "🎉");
+  } catch (e) {
+    logger.error(e);
+  }
+
   return null;
 });
 
@@ -253,6 +260,12 @@ export const onServerAddedToServersCollection = onDocumentCreated(
       return null;
     }
 
+    try {
+      await sendCliqMessage("🕺 Some One Buy a new server 💃");
+    } catch (e) {
+      logger.error(e);
+    }
+
     const runId = await runGithubActionUsingAPI("deploy_wireguard_server", {
       inputs: {
         environment: "Production",
@@ -282,6 +295,12 @@ export const onServerDeletingInServerCollection = onDocumentUpdated(
 
     if (!data || data.status !== "deleting") {
       return null;
+    }
+
+    try {
+      await sendCliqMessage("😭 Some One delete server 💔");
+    } catch (e) {
+      logger.error(e);
     }
 
     await runGithubActionUsingAPI("destroy_wireguard_server", {
@@ -412,4 +431,27 @@ async function runGithubActionUsingAPI(
   }
 
   return runId;
+}
+
+/**
+ * Sends a message to the Cliq bot using the provided webhook URL
+ * retrieved from Firebase Remote Config.
+ *
+ * @param {string} message - The message text to be sent to the Cliq bot.
+ * @throws {Error} If the request fails with a non-OK response status.
+ */
+async function sendCliqMessage(message: string) {
+  const response = await fetch(await getRemoteServerConfigValue("Cliq_Bot"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "text": message,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to send message: ${response.status}`);
+  }
 }

@@ -12,16 +12,8 @@ jobs:
     environment: 'Production'
     runs-on: ubuntu-latest
     steps:
-      - name: Get workflow run information
-        id: workflow_info
-        run: |
-          echo "status=${{ github.event.workflow_run.status }}" >> $GITHUB_OUTPUT
-          echo "workflow_name=${{ github.event.workflow_run.display_title }}" >> $GITHUB_OUTPUT
-          echo "run_number=${{ github.event.workflow_run.run_number }}" >> $GITHUB_OUTPUT
-          echo "html_url=${{ github.event.workflow_run.html_url }}" >> $GITHUB_OUTPUT
-
       - name: Send to Cliq
         env:
           GITHUBOT_CLIQ: ${{ secrets.GITHUBOT_CLIQ }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"text": "Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is ${{ steps.workflow_info.outputs.status }}. Details: ${{ steps.workflow_info.outputs.html_url }}"}' "$GITHUBOT_CLIQ"
+          curl -X POST -H "Content-Type: application/json" -d '{"text": "Workflow ${{ github.event.workflow_run.display_title }} run #${{ github.event.workflow_run.run_number }} is ${{ github.event.workflow_run.status }}. Details: ${{ github.event.workflow_run.html_url }}"}' "$GITHUBOT_CLIQ"

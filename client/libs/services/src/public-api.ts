@@ -9,3 +9,4 @@ export {FirestoreService} from './lib/firebase/firestore.service';
 export {RemoteConfigService} from './lib/firebase/remote-config.service';
 export {TawkComponent} from './lib/tawk/tawk.component';
 export { FunctionService } from './lib/firebase/function.service';
+export { IpComponent } from './lib/ip/ip.component';

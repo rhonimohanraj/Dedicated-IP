@@ -51,6 +51,11 @@
             </th>
             <th style="min-width: 12rem">
               <div class="flex justify-content-between align-items-center">
+                IP Address
+              </div>
+            </th>
+            <th style="min-width: 12rem">
+              <div class="flex justify-content-between align-items-center">
 
               </div>
             </th>
@@ -82,6 +87,11 @@
             </td>
             <td>
               <span [class]="'customer-badge status-' + server.status">{{server.status}}</span>
+            </td>
+            <td>
+              @if(server.status === "active"){
+                <ip-component [domain]="server.domain"></ip-component>
+              }
             </td>
             <td>
               @if(server.status === "active"){

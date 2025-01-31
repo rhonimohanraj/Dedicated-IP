@@ -1,7 +1,7 @@
 import {Component, computed, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import { injectQuery } from '@tanstack/angular-query-experimental';
 import {DatePipe} from '@angular/common';
-import {FirestoreService, FunctionService} from '@dedicated-ip/service';
+import {FirestoreService, FunctionService, IpComponent} from '@dedicated-ip/service';
 import {SkeletonModule} from "primeng/skeleton";
 import {FileUploadModule} from "primeng/fileupload";
 import {Table, TableModule} from "primeng/table";
@@ -19,7 +19,7 @@ import {ToastModule} from "primeng/toast";
   selector: 'app-servers',
   templateUrl: './servers.component.html',
   styleUrl: './servers.component.css',
-  imports: [SkeletonModule, FileUploadModule, TableModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, RouterLink, InplaceModule, ToastModule],
+  imports: [SkeletonModule, FileUploadModule, TableModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, RouterLink, InplaceModule, ToastModule, IpComponent],
   providers: [MessageService],
 })
 export class ServersComponent implements OnInit {

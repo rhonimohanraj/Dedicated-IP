@@ -442,7 +442,7 @@ async function runGithubActionUsingAPI(
  * Default is "sales".
  * @throws {Error} If the message fails to send.
  */
-async function sendCliqMessage(message: string, channel = "sales") {
+async function sendCliqMessage(message: string, channel = "Sales") {
   const webhookUrl = await getRemoteServerConfigValue(`Cliq_${channel}_Bot`);
   const response = await fetch(webhookUrl, {
     method: "POST",

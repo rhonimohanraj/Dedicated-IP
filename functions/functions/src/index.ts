@@ -434,14 +434,17 @@ async function runGithubActionUsingAPI(
 }
 
 /**
- * Sends a message to the Cliq bot using the provided webhook URL
- * retrieved from Firebase Remote Config.
+ * Sends a message to a specified Zoho Cliq channel using the webhook URL
+ * configured in Firebase Remote Config.
  *
- * @param {string} message - The message text to be sent to the Cliq bot.
- * @throws {Error} If the request fails with a non-OK response status.
+ * @param {string} message - The message content to send.
+ * @param {string} [channel="sales"] - The Zoho Cliq channel to send the message to.
+ * Default is "sales".
+ * @throws {Error} If the message fails to send.
  */
-async function sendCliqMessage(message: string) {
-  const response = await fetch(await getRemoteServerConfigValue("Cliq_Bot"), {
+async function sendCliqMessage(message: string, channel = "sales") {
+  const webhookUrl = await getRemoteServerConfigValue(`Cliq_${channel}_Bot`);
+  const response = await fetch(webhookUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

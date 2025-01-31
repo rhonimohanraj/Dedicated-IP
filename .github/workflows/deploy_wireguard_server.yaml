@@ -361,7 +361,7 @@ jobs:
         env:
           GITHUBOT_CLIQ: ${{ secrets.GITHUBOT_CLIQ }}
         run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"text": "🚨🚨🚨 Workflow ${{ steps.workflow_info.outputs.workflow_name }} run #${{ steps.workflow_info.outputs.run_number }} is Failed. Details: ${{ steps.workflow_info.outputs.html_url }} 🚨🚨🚨"}' "$GITHUBOT_CLIQ"
+          curl -X POST -H "Content-Type: application/json" -d '{"text": "🚨🚨🚨 Workflow Deploy wireguard server run #${{ github.event.workflow_dispatch.workflow }} is Failed. 🚨🚨🚨"}' "$GITHUBOT_CLIQ"
 
   send_success_signal:
     name: Send success signal

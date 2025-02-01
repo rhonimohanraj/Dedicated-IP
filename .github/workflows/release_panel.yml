@@ -1,4 +1,4 @@
-name: wireguard-ui build release
+name: Dedicated-IP Panel build release
 
 on:
   release:

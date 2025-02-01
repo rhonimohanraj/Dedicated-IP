@@ -71,6 +71,7 @@ jobs:
     name: Upload assets to R2
     runs-on: ubuntu-22.04
     needs: [releases-matrix]
+    environment: 'Production'
     steps:
       - name: Set APP_VERSION env
         run: echo "APP_VERSION=$(echo ${GITHUB_REF} | rev | cut -d'/' -f 1 | rev )" >> $GITHUB_ENV

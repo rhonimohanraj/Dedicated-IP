@@ -3,6 +3,8 @@ set -e
 
 DIR=$(dirname "$0")
 
+cd "${DIR}"
+
 # install node modules
 YARN=yarn
 [ -x /usr/bin/lsb_release ] && [ -n "`lsb_release -i | grep Debian`" ] && YARN=yarnpkg

@@ -178,11 +178,11 @@ or
 docker compose build --build-arg=GIT_COMMIT=$(git rev-parse --short HEAD)
 ```
 
-:information_source: A container image is available on [Docker Hub](https://hub.docker.com/r/AshkanYarmoradi/dedicated-ip-panel)
+:information_source: A container image is available on [Docker Hub](https://hub.docker.com/r/AshkanYarmoradi/dedicated-ip/panel)
 which you can pull and use
 
 ```
-docker pull AshkanYarmoradi/dedicated-ip-panel
+docker pull AshkanYarmoradi/dedicated-ip/panel
 ````
 
 ### Build binary file

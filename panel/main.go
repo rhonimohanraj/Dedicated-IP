@@ -159,7 +159,7 @@ func init() {
 		fmt.Println("Git Commit\t:", gitCommit)
 		fmt.Println("Git Ref\t\t:", gitRef)
 		fmt.Println("Build Time\t:", buildTime)
-		fmt.Println("Git Repo\t:", "https://github.com/AshkanYarmoradi/dedicated-ip-panel")
+		fmt.Println("Git Repo\t:", "https://github.com/AshkanYarmoradi/dedicated-ip/panel")
 		fmt.Println("Authentication\t:", !util.DisableLogin)
 		fmt.Println("Bind address\t:", util.BindAddress)
 		//fmt.Println("Sendgrid key\t:", util.SendgridApiKey)

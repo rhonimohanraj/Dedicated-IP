@@ -1,5 +1,5 @@
 {
-  "name": "Dedicated-IP Panel",
+  "name": "Dedicated-IP",
   "version": "1.0.0",
   "description": "Dedicated-IP Panel Wireguard",
   "main": "index.js",

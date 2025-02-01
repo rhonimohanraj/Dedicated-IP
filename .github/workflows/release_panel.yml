@@ -44,8 +44,9 @@ jobs:
     # prepare assets
     - name: Prepare assets
       run: |
-        chmod +x ./panel/prepare_assets.sh
-        ./panel/prepare_assets.sh
+        cd ./panel
+        chmod +x ./prepare_assets.sh
+        ./prepare_assets.sh
 
     # build and make the releases
     - name: Build and make the releases

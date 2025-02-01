@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/model"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/store"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/model"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/store"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"github.com/sabhiram/go-wol/wol"

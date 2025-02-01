@@ -13,16 +13,16 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/store"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/telegram"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/store"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/telegram"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/emailer"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/handler"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/router"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/store/jsondb"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/util"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/emailer"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/handler"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/router"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/store/jsondb"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/util"
 )
 
 var (

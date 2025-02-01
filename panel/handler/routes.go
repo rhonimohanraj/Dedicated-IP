@@ -23,11 +23,11 @@ import (
 	"golang.zx2c4.com/wireguard/wgctrl"
 	"golang.zx2c4.com/wireguard/wgctrl/wgtypes"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/emailer"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/model"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/store"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/telegram"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/util"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/emailer"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/model"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/store"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/telegram"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/util"
 )
 
 var usernameRegexp = regexp.MustCompile("^\\w[\\w\\-.]*$")

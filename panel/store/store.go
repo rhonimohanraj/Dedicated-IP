@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/model"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/model"
 )
 
 type IStore interface {

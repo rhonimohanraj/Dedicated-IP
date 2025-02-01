@@ -13,8 +13,8 @@ import (
 	"github.com/skip2/go-qrcode"
 	"golang.zx2c4.com/wireguard/wgctrl/wgtypes"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/model"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/util"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/model"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/util"
 )
 
 type JsonDB struct {

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"path"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/model"
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/util"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/model"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/util"
 )
 
 func (o *JsonDB) GetWakeOnLanHosts() ([]model.WakeOnLanHost, error) {

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/AshkanYarmoradi/dedicated-ip-panel/util"
+	"github.com/AshkanYarmoradi/dedicated-ip/panel/util"
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"

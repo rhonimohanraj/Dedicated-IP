@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/ngoduykhanh/wireguard-ui/model"
+	"github.com/AshkanYarmoradi/dedicated-ip-panel/model"
 )
 
 type IStore interface {

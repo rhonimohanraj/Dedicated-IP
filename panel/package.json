@@ -1,10 +1,10 @@
 {
-  "name": "wireguard-ui",
+  "name": "Dedicated-IP Panel",
   "version": "1.0.0",
-  "description": "Wireguard web interface",
+  "description": "Dedicated-IP Panel Wireguard",
   "main": "index.js",
-  "repository": "git@github.com:ngoduykhanh/wireguard-ui.git",
-  "author": "Khanh Ngo <k@ndk.name>",
+  "repository": "git@github.com:AshkanYarmoradi/dedicated-ip",
+  "author": "Ashkan Yarmoradi <ashkan@dedicated-ip.net>",
   "license": "MIT",
   "dependencies": {
     "admin-lte": "^3.0",

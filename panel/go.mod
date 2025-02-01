@@ -1,4 +1,4 @@
-module github.com/ngoduykhanh/wireguard-ui
+module github.com/AshkanYarmoradi/dedicated-ip-panel
 
 go 1.21
 

@@ -64,3 +64,29 @@ jobs:
         build_flags: -v
         ldflags: -X "main.appVersion=${{ env.APP_VERSION }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
         project_path: './panel/'
+
+
+
+  upload-R2:
+    name: Upload assets to R2
+    runs-on: ubuntu-22.04
+    needs: [releases-matrix]
+    steps:
+      - name: Set APP_VERSION env
+        run: echo "APP_VERSION=$(echo ${GITHUB_REF} | rev | cut -d'/' -f 1 | rev )" >> $GITHUB_ENV
+
+      - name: Download releases
+        uses: robinraju/release-downloader@v1
+        with:
+          fileName: '*'
+          tag: '${{ env.APP_VERSION }}'
+
+      - name: Upload to R2
+        uses: ryand56/r2-upload-action@latest
+        with:
+          r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
+          r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
+          r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          r2-bucket: ${{ secrets.R2_BUCKET }}
+          source-dir: ./
+          destination-dir: ./panel/${{ env.APP_VERSION }}/

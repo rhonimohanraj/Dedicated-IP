@@ -21,8 +21,6 @@ import (
 	"time"
 
 	"github.com/AshkanYarmoradi/dedicated-ip/panel/store"
-	"github.com/AshkanYarmoradi/dedicated-ip/panel/telegram"
-	"github.com/skip2/go-qrcode"
 	"golang.org/x/mod/sumdb/dirhash"
 
 	"github.com/AshkanYarmoradi/dedicated-ip/panel/model"
@@ -595,57 +593,6 @@ func WriteWireGuardServerConfig(tmplDir fs.FS, serverConfig model.Server, client
 	f.Close()
 
 	return nil
-}
-
-// SendRequestedConfigsToTelegram to send client all their configs. Returns failed configs list.
-func SendRequestedConfigsToTelegram(db store.IStore, userid int64) []string {
-	failedList := make([]string, 0)
-	TgUseridToClientIDMutex.RLock()
-	if clids, found := TgUseridToClientID[userid]; found && len(clids) > 0 {
-		TgUseridToClientIDMutex.RUnlock()
-
-		for _, clid := range clids {
-			clientData, err := db.GetClientByID(clid, qrCodeSettings)
-			if err != nil {
-				// return fmt.Errorf("unable to get client")
-				failedList = append(failedList, clid)
-				continue
-			}
-
-			// build config
-			server, _ := db.GetServer()
-			globalSettings, _ := db.GetGlobalSettings()
-			config := BuildClientConfig(*clientData.Client, server, globalSettings)
-			configData := []byte(config)
-			var qrData []byte
-
-			if clientData.Client.PrivateKey != "" {
-				qrData, err = qrcode.Encode(config, qrcode.Medium, 512)
-				if err != nil {
-					// return fmt.Errorf("unable to encode qr")
-					failedList = append(failedList, clientData.Client.Name)
-					continue
-				}
-			}
-
-			userid, err := strconv.ParseInt(clientData.Client.TgUserid, 10, 64)
-			if err != nil {
-				// return fmt.Errorf("tg usrid is unreadable")
-				failedList = append(failedList, clientData.Client.Name)
-				continue
-			}
-
-			err = telegram.SendConfig(userid, clientData.Client.Name, configData, qrData, true)
-			if err != nil {
-				failedList = append(failedList, clientData.Client.Name)
-				continue
-			}
-			time.Sleep(2 * time.Second)
-		}
-	} else {
-		TgUseridToClientIDMutex.RUnlock()
-	}
-	return failedList
 }
 
 func LookupEnvOrString(key string, defaultVal string) string {

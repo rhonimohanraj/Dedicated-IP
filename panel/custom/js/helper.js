@@ -1,19 +1,5 @@
 function renderClientList(data) {
     $.each(data, function(index, obj) {
-        // render telegram button
-        let telegramButton = ''
-        if (obj.Client.telegram_userid) {
-            telegramButton =    `<div class="btn-group">      
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                                        data-target="#modal_telegram_client" data-clientid="${obj.Client.id}"
-                                        data-clientname="${obj.Client.name}">Telegram</button>
-                                </div>`
-        }
-
-        let telegramHtml = "";
-        if (obj.Client.telegram_userid && obj.Client.telegram_userid.length > 0) {
-            telegramHtml = `<span class="info-box-text" style="display: none"><i class="fas fa-tguserid"></i>${obj.Client.telegram_userid}</span>`
-        }
 
         // render client status css tag style
         let clientStatusHtml = '>'
@@ -53,20 +39,19 @@ function renderClientList(data) {
                                 <div class="btn-group">
                                     <a href="download?clientid=${obj.Client.id}" class="btn btn-outline-primary btn-sm">Download</a>
                                 </div>
-                                <div class="btn-group">      
+                                <div class="btn-group">
                                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                         data-target="#modal_qr_client" data-clientid="${obj.Client.id}"
                                         data-clientname="${obj.Client.name}" ${obj.QRCode != "" ? '' : ' disabled'}>QR code</button>
                                 </div>
-                                <div class="btn-group">      
+                                <div class="btn-group">
                                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                         data-target="#modal_email_client" data-clientid="${obj.Client.id}"
                                         data-clientname="${obj.Client.name}">Email</button>
                                 </div>
-                                ${telegramButton}
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-outline-danger btn-sm">More</button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle dropdown-icon" 
+                                    <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle dropdown-icon"
                                         data-toggle="dropdown">
                                     </button>
                                     <div class="dropdown-menu" role="menu">
@@ -85,7 +70,6 @@ function renderClientList(data) {
                                 <span class="info-box-text"><i class="fas fa-user"></i> ${obj.Client.name}</span>
                                 <span class="info-box-text" style="display: none"><i class="fas fa-key"></i> ${obj.Client.public_key}</span>
                                 <span class="info-box-text" style="display: none"><i class="fas fa-subnetrange"></i>${subnetRangesString}</span>
-                                ${telegramHtml}
                                 ${additionalNotesHtml}
                                 <span class="info-box-text"><i class="fas fa-envelope"></i> ${obj.Client.email}</span>
                                 <span class="info-box-text"><i class="fas fa-clock"></i>

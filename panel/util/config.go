@@ -48,6 +48,7 @@ const (
 	PasswordHashEnvVar                     = "WGUI_PASSWORD_HASH"
 	PasswordHashFileEnvVar                 = "WGUI_PASSWORD_HASH_FILE"
 	FaviconFilePathEnvVar                  = "WGUI_FAVICON_FILE_PATH"
+	LogoFilePathEnvVar                     = "WGUI_Logo_FILE_PATH"
 	EndpointAddressEnvVar                  = "WGUI_ENDPOINT_ADDRESS"
 	DNSEnvVar                              = "WGUI_DNS"
 	MTUEnvVar                              = "WGUI_MTU"

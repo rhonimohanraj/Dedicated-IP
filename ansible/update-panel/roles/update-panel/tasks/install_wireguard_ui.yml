@@ -3,7 +3,7 @@
   systemd:
     name: wireguard-ui
     state: stopped
-    ignore_errors: yes  # Ignore if service is not running
+    force: yes
 
 - name: Download wireguard-ui
   get_url:

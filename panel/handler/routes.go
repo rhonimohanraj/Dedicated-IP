@@ -278,6 +278,41 @@ func UpdateUser(db store.IStore) echo.HandlerFunc {
 	}
 }
 
+// UpdatePassword to update user password
+func UpdatePassword(db store.IStore) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		data := make(map[string]interface{})
+		err := json.NewDecoder(c.Request().Body).Decode(&data)
+
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "Bad post data"})
+		}
+
+		username := data["username"].(string)
+		password := data["password"].(string)
+
+		user, err := db.GetUserByName(username)
+		if err != nil {
+			return c.JSON(http.StatusNotFound, jsonHTTPResponse{false, err.Error()})
+		}
+
+		if password != "" {
+			hash, err := util.HashPassword(password)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+			user.PasswordHash = hash
+		}
+
+		if err := db.SaveUser(user); err != nil {
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+		}
+		log.Infof("Updated user information successfully")
+
+		return c.JSON(http.StatusOK, jsonHTTPResponse{true, "Updated user information successfully"})
+	}
+}
+
 // CreateUser to create new user
 func CreateUser(db store.IStore) echo.HandlerFunc {
 	return func(c echo.Context) error {

@@ -250,6 +250,7 @@ func main() {
 
 	// serve external api request
 	app.GET(util.BasePath+"/external/api/client/:name", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey)
+	app.GET(util.BasePath+"/external/api/update-password", handler.UpdatePassword(db), handler.ValidApiKey)
 
 	// strip the "assets/" prefix from the embedded directory so files can be called directly without the "assets/"
 	// prefix

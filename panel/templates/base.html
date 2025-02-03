@@ -128,25 +128,8 @@
                         </li>
 
                         {{if .baseData.Admin}}
-                        <li class="nav-item">
-                            <a href="{{.basePath}}/wg-server" class="nav-link {{if eq .baseData.Active "wg-server" }}active{{end}}">
-                                <i class="nav-icon fas fa-server"></i>
-                                <p>
-                                    Wireguard Server
-                                </p>
-                            </a>
-                        </li>
-
-
                         <li class="nav-header">SETTINGS</li>
-                        <li class="nav-item">
-                            <a href="{{.basePath}}/global-settings" class="nav-link {{if eq .baseData.Active "global-settings" }}active{{end}}">
-                                <i class="nav-icon fas fa-cog"></i>
-                                <p>
-                                    Global Settings
-                                </p>
-                            </a>
-                        </li>
+
                         {{if not .loginDisabled}}
                         <li class="nav-item">
                             <a href="{{.basePath}}/users-settings" class="nav-link {{if eq .baseData.Active "users-settings" }}active{{end}}">
@@ -157,6 +140,7 @@
                             </a>
                         </li>
                         {{end}}
+
                         {{end}}
 
                         <li class="nav-header">UTILITIES</li>
@@ -166,23 +150,6 @@
                                 <p>
                                     Status
                                 </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{.basePath}}/wake_on_lan_hosts" class="nav-link {{if eq .baseData.Active "wake_on_lan_hosts" }}active{{end}}">
-                                <i class="nav-icon fas  fa-solid fa-power-off"></i>
-                                <p>
-                                    WoL Hosts
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-header">ABOUT</li>
-                        <li class="nav-item">
-                            <a href="{{.basePath}}/about" class="nav-link {{if eq .baseData.Active "about" }}active{{end}}">
-                            <i class="nav-icon fas  fa-solid fa-id-card"></i>
-                            <p>
-                                About
-                            </p>
                             </a>
                         </li>
                     </ul>

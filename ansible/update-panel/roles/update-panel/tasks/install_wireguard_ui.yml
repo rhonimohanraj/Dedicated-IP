@@ -23,17 +23,3 @@
     state: started
     enabled: yes
     daemon_reload: yes
-
-- name: Wait for WireGuard UI to be up
-  uri:
-    url: http://localhost:5000/login
-    method: GET
-    status_code: 200
-    retries: 10
-    delay: 5
-  register: result
-  until: result.status == 200
-
-- name: Print WireGuard UI status
-  debug:
-    msg: "WireGuard UI is up and running at http://localhost:5000"

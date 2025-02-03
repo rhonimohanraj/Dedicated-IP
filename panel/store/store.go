@@ -14,6 +14,7 @@ type IStore interface {
 	GetServer() (model.Server, error)
 	GetClients(hasQRCode bool) ([]model.ClientData, error)
 	GetClientByID(clientID string, qrCode model.QRCodeSettings) (model.ClientData, error)
+	GetClientByName(clientName string, qrCode model.QRCodeSettings) (model.ClientData, error)
 	SaveClient(client model.Client) error
 	DeleteClient(clientID string) error
 	SaveServerInterface(serverInterface model.ServerInterface) error

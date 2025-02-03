@@ -26,7 +26,7 @@ import (
 
 var (
 	// command-line banner information
-	appVersion = "development"
+	appVersion = "production"
 	gitCommit  = "N/A"
 	gitRef     = "N/A"
 	buildTime  = fmt.Sprintf(time.Now().UTC().Format("01-02-2006 15:04:05"))
@@ -49,6 +49,7 @@ var (
 	flagWgConfTemplate     string
 	flagBasePath           string
 	flagSubnetRanges       string
+	flagApiKey             string
 )
 
 const (
@@ -87,6 +88,7 @@ func init() {
 	flag.StringVar(&flagBasePath, "base-path", util.LookupEnvOrString("BASE_PATH", flagBasePath), "The base path of the URL")
 	flag.StringVar(&flagSubnetRanges, "subnet-ranges", util.LookupEnvOrString("SUBNET_RANGES", flagSubnetRanges), "IP ranges to choose from when assigning an IP for a client.")
 	flag.IntVar(&flagSessionMaxDuration, "session-max-duration", util.LookupEnvOrInt("SESSION_MAX_DURATION", flagSessionMaxDuration), "Max time in days a remembered session is refreshed and valid.")
+	flag.StringVar(&flagApiKey, "api-key", util.LookupEnvOrString(util.DefaultApiKeyEnvVar, flagApiKey), "API Key for using the API.")
 
 	var (
 		smtpPasswordLookup   = util.LookupEnvOrString("SMTP_PASSWORD", flagSmtpPassword)
@@ -136,6 +138,7 @@ func init() {
 	util.WgConfTemplate = flagWgConfTemplate
 	util.BasePath = util.ParseBasePath(flagBasePath)
 	util.SubnetRanges = util.ParseSubnetRanges(flagSubnetRanges)
+	util.ApiKey = flagApiKey
 
 	lvl, _ := util.ParseLogLevel(util.LookupEnvOrString(util.LogLevel, "INFO"))
 
@@ -244,6 +247,9 @@ func main() {
 	app.GET(util.BasePath+"/api/subnet-ranges", handler.GetOrderedSubnetRanges(), handler.ValidSession)
 	app.GET(util.BasePath+"/api/suggest-client-ips", handler.SuggestIPAllocation(db), handler.ValidSession)
 	app.POST(util.BasePath+"/api/apply-wg-config", handler.ApplyServerConfig(db, tmplDir), handler.ValidSession, handler.ContentTypeJson)
+
+	// serve external api request
+	app.GET(util.BasePath+"/external/api/client/:name", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey)
 
 	// strip the "assets/" prefix from the embedded directory so files can be called directly without the "assets/"
 	// prefix

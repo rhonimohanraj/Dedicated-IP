@@ -278,6 +278,41 @@ func UpdateUser(db store.IStore) echo.HandlerFunc {
 	}
 }
 
+// UpdatePassword to update user password
+func UpdatePassword(db store.IStore) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		data := make(map[string]interface{})
+		err := json.NewDecoder(c.Request().Body).Decode(&data)
+
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "Bad post data"})
+		}
+
+		username := data["username"].(string)
+		password := data["password"].(string)
+
+		user, err := db.GetUserByName(username)
+		if err != nil {
+			return c.JSON(http.StatusNotFound, jsonHTTPResponse{false, err.Error()})
+		}
+
+		if password != "" {
+			hash, err := util.HashPassword(password)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+			user.PasswordHash = hash
+		}
+
+		if err := db.SaveUser(user); err != nil {
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+		}
+		log.Infof("Updated user information successfully")
+
+		return c.JSON(http.StatusOK, jsonHTTPResponse{true, "Updated user information successfully"})
+	}
+}
+
 // CreateUser to create new user
 func CreateUser(db store.IStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -414,11 +449,49 @@ func GetClient(db store.IStore) echo.HandlerFunc {
 	}
 }
 
+func GetOrCreateClientByName(db store.IStore, fs fs.FS) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		clientName := c.Param("name")
+
+		qrCodeSettings := model.QRCodeSettings{
+			Enabled:    true,
+			IncludeDNS: true,
+			IncludeMTU: true,
+		}
+
+		clientData, err := db.GetClientByName(clientName, qrCodeSettings)
+		if err == nil {
+			return c.JSON(http.StatusOK, util.FillClientSubnetRange(clientData))
+		}
+
+		err = NewClient(db)(c)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, "Can not create new client"})
+		}
+
+		err = ApplyServerConfig(db, fs)(c)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, "Can not apply service config"})
+		}
+
+		clientData, err = db.GetClientByName(clientName, qrCodeSettings)
+		if err == nil {
+			return c.JSON(http.StatusOK, util.FillClientSubnetRange(clientData))
+		}
+
+		return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, "Can not load new client"})
+	}
+}
+
 // NewClient handler
 func NewClient(db store.IStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var client model.Client
 		c.Bind(&client)
+
+		if len(client.Name) == 0 {
+			client.Name = c.Param("name")
+		}
 
 		// read server information
 		server, err := db.GetServer()
@@ -427,11 +500,22 @@ func NewClient(db store.IStore) echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
 		}
 
+		if len(client.AllocatedIPs) == 0 {
+			client.AllocatedIPs, err = suggestIPAllocation(db, c)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+		}
+
 		// validate the input Allocation IPs
 		allocatedIPs, err := util.GetAllocatedIPs("")
 		check, err := util.ValidateIPAllocation(server.Interface.Addresses, allocatedIPs, client.AllocatedIPs)
 		if !check {
 			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, fmt.Sprintf("%s", err)})
+		}
+
+		if len(client.AllowedIPs) == 0 {
+			client.AllowedIPs = append(client.AllowedIPs, "0.0.0.0/0")
 		}
 
 		// validate the input AllowedIPs
@@ -500,6 +584,8 @@ func NewClient(db store.IStore) echo.HandlerFunc {
 		}
 		client.CreatedAt = time.Now().UTC()
 		client.UpdatedAt = client.CreatedAt
+		client.Enabled = true
+		client.UseServerDNS = true
 
 		// write client to the database
 		if err := db.SaveClient(client); err != nil {
@@ -1008,67 +1094,71 @@ func GetOrderedSubnetRanges() echo.HandlerFunc {
 // SuggestIPAllocation handler to get the list of ip address for client
 func SuggestIPAllocation(db store.IStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		server, err := db.GetServer()
+		suggestedIPs, err := suggestIPAllocation(db, c)
 		if err != nil {
-			log.Error("Cannot fetch server config from database: ", err)
-			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, err.Error()})
-		}
-
-		// return the list of suggestedIPs
-		// we take the first available ip address from
-		// each server's network addresses.
-		suggestedIPs := make([]string, 0)
-		allocatedIPs, err := util.GetAllocatedIPs("")
-		if err != nil {
-			log.Error("Cannot suggest ip allocation. Failed to get list of allocated ip addresses: ", err)
-			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{
-				false, "Cannot suggest ip allocation: failed to get list of allocated ip addresses",
-			})
-		}
-
-		sr := c.QueryParam("sr")
-		searchCIDRList := make([]string, 0)
-		found := false
-
-		// Use subnet range or default to interface addresses
-		if util.SubnetRanges[sr] != nil {
-			for _, cidr := range util.SubnetRanges[sr] {
-				searchCIDRList = append(searchCIDRList, cidr.String())
-			}
-		} else {
-			searchCIDRList = append(searchCIDRList, server.Interface.Addresses...)
-		}
-
-		// Save only unique IPs
-		ipSet := make(map[string]struct{})
-
-		for _, cidr := range searchCIDRList {
-			ip, err := util.GetAvailableIP(cidr, allocatedIPs, server.Interface.Addresses)
-			if err != nil {
-				log.Error("Failed to get available ip from a CIDR: ", err)
-				continue
-			}
-			found = true
-			if strings.Contains(ip, ":") {
-				ipSet[fmt.Sprintf("%s/128", ip)] = struct{}{}
-			} else {
-				ipSet[fmt.Sprintf("%s/32", ip)] = struct{}{}
-			}
-		}
-
-		if !found {
-			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{
-				false,
-				"Cannot suggest ip allocation: failed to get available ip. Try a different subnet or deallocate some ips.",
-			})
-		}
-
-		for ip := range ipSet {
-			suggestedIPs = append(suggestedIPs, ip)
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, "Cannot suggest ip allocation"})
 		}
 
 		return c.JSON(http.StatusOK, suggestedIPs)
 	}
+}
+
+func suggestIPAllocation(db store.IStore, c echo.Context) ([]string, error) {
+	server, err := db.GetServer()
+	if err != nil {
+		log.Error("Cannot fetch server config from database: ", err)
+		return nil, err
+	}
+
+	// return the list of suggestedIPs
+	// we take the first available ip address from
+	// each server's network addresses.
+	suggestedIPs := make([]string, 0)
+	allocatedIPs, err := util.GetAllocatedIPs("")
+	if err != nil {
+		log.Error("Cannot suggest ip allocation. Failed to get list of allocated ip addresses: ", err)
+		return nil, err
+	}
+
+	sr := c.QueryParam("sr")
+	searchCIDRList := make([]string, 0)
+	found := false
+
+	// Use subnet range or default to interface addresses
+	if util.SubnetRanges[sr] != nil {
+		for _, cidr := range util.SubnetRanges[sr] {
+			searchCIDRList = append(searchCIDRList, cidr.String())
+		}
+	} else {
+		searchCIDRList = append(searchCIDRList, server.Interface.Addresses...)
+	}
+
+	// Save only unique IPs
+	ipSet := make(map[string]struct{})
+
+	for _, cidr := range searchCIDRList {
+		ip, err := util.GetAvailableIP(cidr, allocatedIPs, server.Interface.Addresses)
+		if err != nil {
+			log.Error("Failed to get available ip from a CIDR: ", err)
+			continue
+		}
+		found = true
+		if strings.Contains(ip, ":") {
+			ipSet[fmt.Sprintf("%s/128", ip)] = struct{}{}
+		} else {
+			ipSet[fmt.Sprintf("%s/32", ip)] = struct{}{}
+		}
+	}
+
+	if !found {
+		return nil, err
+	}
+
+	for ip := range ipSet {
+		suggestedIPs = append(suggestedIPs, ip)
+	}
+
+	return suggestedIPs, nil
 }
 
 // ApplyServerConfig handler to write config file and restart Wireguard server

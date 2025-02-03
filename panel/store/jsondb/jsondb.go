@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 	"time"
 
 	"github.com/sdomino/scribble"
@@ -314,6 +315,28 @@ func (o *JsonDB) GetClientByID(clientID string, qrCodeSettings model.QRCodeSetti
 	clientData.Client = &client
 
 	return clientData, nil
+}
+
+func (o *JsonDB) GetClientByName(clientName string, qrCodeSettings model.QRCodeSettings) (model.ClientData, error) {
+	clients, err := o.GetClients(false)
+	if err != nil {
+		return model.ClientData{}, err
+	}
+
+	var clientID string
+
+	for i, client := range clients {
+		if strings.ToLower(client.Client.Name) == strings.ToLower(clientName) {
+			clientID = clients[i].Client.ID
+			break
+		}
+	}
+
+	if clientID == "" {
+		return model.ClientData{}, fmt.Errorf("client not found")
+	}
+
+	return o.GetClientByID(clientID, qrCodeSettings)
 }
 
 func (o *JsonDB) SaveClient(client model.Client) error {

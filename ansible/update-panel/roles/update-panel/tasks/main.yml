@@ -1,0 +1,4 @@
+---
+- include_tasks: install_wireguard_ui.yml
+- include_tasks: configure_wireguard_ui.yml
+- include_tasks: reboot_system.yml

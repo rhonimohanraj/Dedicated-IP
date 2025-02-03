@@ -1,0 +1,223 @@
+name: Update Panel Server
+run-name: Update Panel Server - ${{ inputs.domain_prefix }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: choice
+        options:
+          - Development
+          - Production
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+      admin_panel_username:
+        description: "Admin Panel Username"
+        required: true
+        type: string
+        default: "admin"
+      admin_panel_password:
+        description: "Admin Panel Password"
+        required: true
+        type: string
+      api_key:
+        description: "API Key"
+        required: true
+        type: string
+      datacenter_provider:
+        description: "Datacenter Provider"
+        required: true
+        type: choice
+        options:
+          - hetzner
+          - linode
+          - arvan
+      
+jobs:
+  setup_server:
+    name: Setup server
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      matrix:
+        steps: [1]
+    steps:
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y dnsutils
+
+      - name: Get IP using dig
+        id: get-ip
+        run: |
+          IP_ADDRESS=$(dig +short ${{ inputs.domain_prefix }}.${{ vars.DOMAIN }} A | head -n 1)
+          echo "SERVER_IP=$IP_ADDRESS" >> $GITHUB_ENV
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          attempts=0
+          max_attempts=12
+          until ssh-keyscan ${{ env.SERVER_IP }} >> ~/.ssh/known_hosts || [[ $attempts -eq $max_attempts ]]
+          do
+            echo "Attempt $((attempts+1)) failed. Retrying..."
+            sleep 10 # Wait before retrying
+            attempts=$((attempts+1))
+          done
+
+          if [[ $attempts -eq $max_attempts ]]; then
+            echo "Failed to connect after $max_attempts attempts."
+            exit 1
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install Ansible
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+
+      - name: Configure Ansible
+        run: |
+          cat << EOF > ~/.ansible.cfg
+          [defaults]
+          retries = 5
+
+          [ssh_connection]
+          ssh_args = -o ControlMaster=auto -o ControlPersist=1200
+          pipelining = True
+          EOF
+
+      - name: Verify Ansible Configuration
+        run: ansible-config view
+
+      - name: Set username
+        run: |
+          if [[ "${{ inputs.datacenter_provider }}" == "arvan" ]]; then
+            username="ubuntu"
+          else
+            username="root"
+          fi
+          echo "USERNAME=$username" >> $GITHUB_ENV
+
+      - name: Create inventory file
+        run: |
+          cat /dev/null > inventory.ini
+          echo "[wireguard_servers]" > inventory.ini
+          echo "${{ env.SERVER_IP }} ansible_user=${{ env.USERNAME }}" >> inventory.ini
+        working-directory: ansible/update-panel
+
+      - name: Set environment variables for Ansible
+        run: |
+          cat /dev/null > vars/main.yml
+          echo "domain_name: ${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}" >> vars/main.yml
+          echo "ssl_email: info@${{ vars.DOMAIN }}" >> vars/main.yml
+          echo "admin_panel_username: ${{ inputs.admin_panel_username }}" >> vars/main.yml
+          echo "admin_panel_password: ${{ inputs.admin_panel_password }}" >> vars/main.yml
+          echo "wireguard_ui_version: ${{ vars.WIREGUARD_UI_VERSION }}" >> vars/main.yml
+          echo "sendgrid_api: ${{ secrets.SENDGRID_API }}" >> vars/main.yml
+          echo "email_from_address: ${{ secrets.EMAIL_FROM_ADDRESS }}" >> vars/main.yml
+          echo "email_from_name: ${{ secrets.EMAIL_FROM_NAME }}" >> vars/main.yml
+          echo "api_key: ${{ inputs.api_key }}" >> vars/main.yml
+        working-directory: ansible/update-panel
+
+      - name: Run Ansible playbook
+        run: |
+          attempts=0
+          max_attempts=12
+          until ansible-playbook -i inventory.ini playbook.yml || [[ $attempts -eq $max_attempts ]]
+          do
+          echo "Attempt $((attempts+1)) failed. Retrying..."
+          sleep 10 # Wait before retrying
+          attempts=$((attempts+1))
+          done
+
+          if [[ $attempts -eq $max_attempts ]]; then
+          echo "Failed to complete run Ansible after $max_attempts attempts."
+          exit 1
+          fi
+        working-directory: ansible/update-panel
+
+  check_server:
+    name: Check server up and running
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: [setup_server]
+    steps:
+      - name: Check Server Status
+        id: check_http_status
+        run: |
+          domain_url="https://${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}/login"
+          echo "Checking domain: $domain_url"
+          max_attempts=40  # 10 minutes (40 attempts every 15 seconds)
+          attempt=1
+
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt: Checking domain status..."
+
+            # Attempt to get the HTTP status code
+            http_status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url" || echo "000")
+
+            if [ "$http_status" -eq 200 ]; then
+              echo "Domain is reachable with HTTP 200 status!"
+              exit 0
+            fi
+
+            echo "HTTP status: $http_status (not 200). Retrying in 15 seconds..."
+            attempt=$((attempt + 1))
+            sleep 15
+          done
+
+          echo "ERROR: Domain did not return HTTP 200 within 10 minutes."
+          exit 1
+
+  send_failed_signal:
+    name: Send failed signal
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: check_server
+    strategy:
+      matrix:
+        steps: [1]
+    if: always() && failure()
+    steps:
+      - name: Send failed signal
+        shell: bash
+        run: |
+            curl -X POST -H "Content-Type: application/json" -d '{"requestType":"finalize_action", "status": "failed", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.GH_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
+
+      - name: Alert in Cliq
+        shell: bash
+        env:
+          GITHUBOT_CLIQ: ${{ secrets.GITHUBOT_CLIQ }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"text": "🚨🚨🚨 Workflow Update Panel server run #${{ github.event.workflow_dispatch.workflow }} is Failed. 🚨🚨🚨"}' "$GITHUBOT_CLIQ"
+
+  send_success_signal:
+    name: Send success signal
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    needs: check_server
+    strategy:
+      matrix:
+        steps: [1]
+    if: always() && success()
+    steps:
+      - name: Send success signal
+        shell: bash
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"requestType":"finalize_action", "status": "active", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.GH_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"

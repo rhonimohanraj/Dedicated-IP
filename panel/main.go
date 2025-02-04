@@ -249,8 +249,8 @@ func main() {
 	app.POST(util.BasePath+"/api/apply-wg-config", handler.ApplyServerConfig(db, tmplDir), handler.ValidSession, handler.ContentTypeJson)
 
 	// serve external api request
-	app.GET(util.BasePath+"/external/api/client/:name", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey)
-	app.GET(util.BasePath+"/external/api/update-password", handler.UpdatePassword(db), handler.ValidApiKey)
+	app.POST(util.BasePath+"/external/api/client/:name", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey, handler.ContentTypeJson)
+	app.POST(util.BasePath+"/external/api/update-password", handler.UpdatePassword(db), handler.ValidApiKey, handler.ContentTypeJson)
 
 	// strip the "assets/" prefix from the embedded directory so files can be called directly without the "assets/"
 	// prefix

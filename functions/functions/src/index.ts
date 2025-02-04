@@ -1,4 +1,4 @@
-import {logger} from "firebase-functions";
+import {logger, https} from "firebase-functions";
 import * as admin from "firebase-admin";
 import {auth} from "firebase-functions/v1";
 import {getFirestore} from "firebase-admin/firestore";
@@ -124,6 +124,65 @@ export const onStripeWebhook = onRequest(async (req, res) => {
   }
 
   res.status(200).send("OK");
+});
+
+export const onReveseProxy = onCall({
+  enforceAppCheck: true,
+  consumeAppCheckToken: true,
+}, async (request) => {
+  if (!request.auth) {
+    throw new HttpsError(
+      "failed-precondition",
+      "The function must be " + "called while authenticated."
+    );
+  }
+
+  const firestore = getFirestore();
+  const serverDoc = firestore.collection("users").doc(request.auth.uid).collection("servers");
+  const server = await serverDoc.where("name", "==", request.data.domain_name).get();
+
+  if (server.empty) {
+    throw new HttpsError("not-found", "Server not found.");
+  }
+
+  const pv8 = await serverDoc.doc(server.docs[0].id).collection("private").doc("connection").get();
+
+  if (!pv8.exists) {
+    throw new HttpsError("not-found", "Private data not found.");
+  }
+
+  const api_key = pv8.data()?.api_key;
+
+  if (!api_key) {
+    throw new HttpsError("not-found", "API Key not found.");
+  }
+
+  const queryString = request.data.queryString;
+  const body = request.data.body;
+  const options = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': api_key,
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  }
+
+  const fetch = require('node-fetch');
+
+  const response = await fetch(decodeURI(request.data.domain_name + '.dedicated-ip.cloud' + '/' + queryString), options);
+
+  if (!response.ok) {
+    const errorText = await response.text(); // Get error details from the server if possible
+    throw new https.HttpsError(
+      'aborted',
+      `API request failed with status ${response.status}: ${errorText || response.statusText}`
+    );
+  }
+
+  const apiData = await response.json();
+  
+  return apiData;
 });
 
 export const onCreatePaymentLink = onCall({

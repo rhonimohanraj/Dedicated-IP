@@ -102,7 +102,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         subscription: eventData.subscription,
       });
       const connectionCollection = serverDoc.collection("private");
-      await connectionCollection.doc("connection").set({
+      await connectionCollection.doc("connection").create({
         api_key: crypto.randomUUID(),
       });
     }

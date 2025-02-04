@@ -611,17 +611,17 @@ Wireguard Clients
                         updateSubnetRangesList("#_subnet_ranges", preselectedEl);
 
                         modal.find("#_client_allocated_ips").importTags('');
-                        client.allocated_ips.forEach(function (obj) {
+                        client.allocated_ips?.forEach(function (obj) {
                             modal.find("#_client_allocated_ips").addTag(obj);
                         });
 
                         modal.find("#_client_allowed_ips").importTags('');
-                        client.allowed_ips.forEach(function (obj) {
+                        client.allowed_ips?.forEach(function (obj) {
                             modal.find("#_client_allowed_ips").addTag(obj);
                         });
 
                         modal.find("#_client_extra_allowed_ips").importTags('');
-                        client.extra_allowed_ips.forEach(function (obj) {
+                        client.extra_allowed_ips?.forEach(function (obj) {
                             modal.find("#_client_extra_allowed_ips").addTag(obj);
                         });
 

@@ -38,7 +38,7 @@ Users Settings
                     </div>
                     <div class="form-group">
                         <label for="_user_name" class="control-label">Name</label>
-                        <input type="text" class="form-control" id="_user_name" name="_user_name" readonly="readonly">
+                        <input type="text" class="form-control" id="_user_name" name="_user_name">
                     </div>
                     <div class="form-group">
                         <label for="_user_password" class="control-label">Password</label>
@@ -114,7 +114,7 @@ Users Settings
     $(document).ready(function () {
         populateUsersList();
         let newUserHtml = '<div class="col-sm-2 offset-md-4" style=" text-align: right;">' +
-            '<button style="" id="btn_new_user" type="button" class="btn btn-outline-primary btn-sm" ' +
+            '<button style="" id="btn_new_user" type="button" class="btn btn-outline-success btn-sm" ' +
             'data-toggle="modal" data-target="#modal_edit_user" data-username="">' +
             '<i class="nav-icon fas fa-plus"></i> New User</button></div>';
         $('h1').parents(".row").append(newUserHtml);
@@ -176,6 +176,7 @@ Users Settings
 
                         modal.find(".modal-title").text("Edit user " + user.username);
                         modal.find("#_user_name").val(user.username);
+                        modal.find("#_user_name").attr("readonly", "readonly");
                         modal.find("#_previous_user_name").val(user.username);
                         modal.find("#_user_password").val("");
                         modal.find("#_user_password").prop("placeholder", "Leave empty to keep the password unchanged")
@@ -189,6 +190,7 @@ Users Settings
             } else {
                 modal.find(".modal-title").text("Add new user");
                 modal.find("#_user_name").val("");
+                modal.find("#_user_name").removeAttr("readonly");
                 modal.find("#_previous_user_name").val("");
                 modal.find("#_user_password").val("");
                 modal.find("#_user_password").prop("placeholder", "")

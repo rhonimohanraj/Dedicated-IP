@@ -37,20 +37,13 @@ function renderClientList(data) {
                             </div>
                             <div class="info-box-content" style="overflow: hidden">
                                 <div class="btn-group">
-                                    <a href="download?clientid=${obj.Client.id}" class="btn btn-outline-primary btn-sm">Download</a>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                    <a href="download?clientid=${obj.Client.id}" class="btn btn-success btn-sm">Download</a>
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
                                         data-target="#modal_qr_client" data-clientid="${obj.Client.id}"
                                         data-clientname="${obj.Client.name}" ${obj.QRCode != "" ? '' : ' disabled'}>QR code</button>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
                                         data-target="#modal_email_client" data-clientid="${obj.Client.id}"
                                         data-clientname="${obj.Client.name}">Email</button>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-outline-danger btn-sm">More</button>
                                     <button type="button" class="btn btn-outline-danger btn-sm dropdown-toggle dropdown-icon"
                                         data-toggle="dropdown">
                                     </button>
@@ -102,9 +95,7 @@ function renderUserList(data) {
                         <div class="info-box">
                             <div class="info-box-content">
                                 <div class="btn-group">
-                                     <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#modal_edit_user" data-username="${obj.username}">Edit</button>
-                                </div>
-                                <div class="btn-group">
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_edit_user" data-username="${obj.username}">Edit</button>
                                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                         data-target="#modal_remove_user" data-username="${obj.username}">Delete</button>
                                 </div>

@@ -157,7 +157,7 @@ export const onReveseProxy = onCall({
     throw new HttpsError("not-found", "API Key not found.");
   }
 
-  const queryString = request.data.queryString;
+  const function_name = request.data.function_name;
   const body = request.data.body;
   const options = {
     method: "POST",
@@ -170,7 +170,7 @@ export const onReveseProxy = onCall({
 
   const fetch = require('node-fetch');
 
-  const response = await fetch(decodeURI(request.data.domain_name + '.dedicated-ip.cloud' + '/' + queryString), options);
+  const response = await fetch(decodeURI(request.data.domain_name + '.dedicated-ip.cloud' + '/external/api/' + function_name), options);
 
   if (!response.ok) {
     const errorText = await response.text(); // Get error details from the server if possible

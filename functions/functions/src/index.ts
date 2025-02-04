@@ -163,7 +163,7 @@ export const onReveseProxy = onCall({
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': apiKey,
+      'X-API-KEY': apiKey,
     },
     body: body ? JSON.stringify(body) : undefined,
   }

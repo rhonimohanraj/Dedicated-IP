@@ -85,7 +85,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       const firestore = getFirestore();
       const userDoc = firestore.collection("users").doc(uid);
       const serverCollection = userDoc.collection("servers");
-      await serverCollection.add({
+      const serverDoc = await serverCollection.add({
         countryCode: product.location.countryCode,
         location: `${product.location.city}, ${product.location.country}`,
         server: product.server,
@@ -100,6 +100,10 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         status: "pending",
         createdAt: admin.firestore.Timestamp.now(),
         subscription: eventData.subscription,
+      });
+      const connectionCollection = serverDoc.collection("private");
+      await connectionCollection.doc("connection").set({
+        api_key: crypto.randomUUID(),
       });
     }
     break;
@@ -325,6 +329,8 @@ export const onServerAddedToServersCollection = onDocumentCreated(
       logger.error(e);
     }
 
+    const connection = await admin.firestore().collection("users").doc(event.params.userId).collection("servers").doc(event.params.documentId).collection("private").doc("connection").get();
+
     const runId = await runGithubActionUsingAPI("deploy_wireguard_server", {
       inputs: {
         environment: "Production",
@@ -334,6 +340,7 @@ export const onServerAddedToServersCollection = onDocumentCreated(
         server_type: data.server,
         server_location: data.datacenter,
         datacenter_provider: data.datacenterProvider,
+        api_key: connection.data()?.api_key,
       },
     }, data.name);
 

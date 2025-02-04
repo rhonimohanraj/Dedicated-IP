@@ -25,6 +25,10 @@ on:
         description: "Admin Panel Password"
         required: true
         type: string
+      api_key:
+        description: "API Key"
+        required: true
+        type: string
       datacenter_provider:
         description: "Datacenter Provider"
         required: true
@@ -235,6 +239,7 @@ jobs:
           echo "sendgrid_api: ${{ secrets.SENDGRID_API }}" >> vars/main.yml
           echo "email_from_address: ${{ secrets.EMAIL_FROM_ADDRESS }}" >> vars/main.yml
           echo "email_from_name: ${{ secrets.EMAIL_FROM_NAME }}" >> vars/main.yml
+          echo "api_key: ${{ inputs.api_key }}" >> vars/main.yml
         working-directory: ansible/wireguard
 
       - name: Run Ansible playbook

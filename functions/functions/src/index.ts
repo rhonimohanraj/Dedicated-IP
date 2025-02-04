@@ -170,7 +170,7 @@ export const onReveseProxy = onCall({
 
   const fetch = require('node-fetch');
 
-  const response = await fetch(decodeURI(request.data.domainName + '.dedicated-ip.cloud' + '/external/api/' + functionName), options);
+  const response = await fetch(decodeURI('https://' + request.data.domainName + '.dedicated-ip.cloud' + '/external/api/' + functionName), options);
 
   if (!response.ok) {
     const errorText = await response.text(); // Get error details from the server if possible

@@ -95,9 +95,11 @@
             </td>
             <td>
               @if(server.status === "active"){
-                <a [href]="server.domain" target="_blank">
-                  <i class="pi pi-spin pi-cog"></i>
+                <a [href]="server.domain" target="_blank" class="p-button p-button-text">
+                  <i class="pi pi-spin pi-cog"></i> <span class="ml-1">Control Panel</span>
                 </a>
+
+                <button pButton label="Reset password" icon="pi pi-key" class="p-button-warning" (click)="resetPassword(server.domain, server.password)"></button>
               }
             </td>
           </tr>

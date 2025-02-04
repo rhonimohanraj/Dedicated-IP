@@ -30,4 +30,10 @@ export class FunctionService {
       { limitedUseAppCheckTokens: true });
     return await createBillingPortal() as HttpsCallableResult<string>;
   }
+
+  reverseProxy = async (domainName: string, functionName:string, body: any): Promise<HttpsCallableResult<string>> => {
+    const reverseProxy = httpsCallable(this.function, 'onReveseProxy',
+      { limitedUseAppCheckTokens: true });
+    return await reverseProxy({domainName, functionName, body}) as HttpsCallableResult<string>;
+  }
 }

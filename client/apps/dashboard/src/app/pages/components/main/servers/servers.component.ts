@@ -65,4 +65,19 @@ export class ServersComponent implements OnInit {
     table.clear();
     this.filter.nativeElement.value = '';
   }
+
+  async resetPassword(domainName: string, password: string): Promise<void> {
+    this.messageService.add({severity: 'info', summary: 'Reset password', detail: 'Please wait...'});
+    const serverId = domainName.replace('https://', '').split('.')[0];
+    try{
+      await this.functionService.reverseProxy(serverId, 'update-password', {
+        username: 'admin',
+        password: password,
+      });
+      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Password reset successfully.'});
+    } catch (e: any) {
+      this.messageService.add({severity: 'error', summary: 'Please try again', detail: e.message});
+    }
+
+  }
 }

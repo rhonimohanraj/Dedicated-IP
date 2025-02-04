@@ -139,7 +139,7 @@ export const onReveseProxy = onCall({
 
   const firestore = getFirestore();
   const serverDoc = firestore.collection("users").doc(request.auth.uid).collection("servers");
-  const server = await serverDoc.where("name", "==", request.data.domain_name).get();
+  const server = await serverDoc.where("name", "==", request.data.domainName).get();
 
   if (server.empty) {
     throw new HttpsError("not-found", "Server not found.");
@@ -151,26 +151,26 @@ export const onReveseProxy = onCall({
     throw new HttpsError("not-found", "Private data not found.");
   }
 
-  const api_key = pv8.data()?.api_key;
+  const apiKey = pv8.data()?.api_key;
 
-  if (!api_key) {
+  if (!apiKey) {
     throw new HttpsError("not-found", "API Key not found.");
   }
 
-  const function_name = request.data.function_name;
+  const functionName = request.data.functionName;
   const body = request.data.body;
   const options = {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': api_key,
+      'Authorization': apiKey,
     },
     body: body ? JSON.stringify(body) : undefined,
   }
 
   const fetch = require('node-fetch');
 
-  const response = await fetch(decodeURI(request.data.domain_name + '.dedicated-ip.cloud' + '/external/api/' + function_name), options);
+  const response = await fetch(decodeURI(request.data.domainName + '.dedicated-ip.cloud' + '/external/api/' + functionName), options);
 
   if (!response.ok) {
     const errorText = await response.text(); // Get error details from the server if possible

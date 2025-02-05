@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "net.dedicated-ip.app"
-    compileSdkVersion flutter.compileSdkVersion
+    namespace "net.dedicated_ip.app"
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {

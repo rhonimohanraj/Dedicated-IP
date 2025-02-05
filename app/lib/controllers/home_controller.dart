@@ -3,11 +3,12 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dedicated_ip/apis/apis.dart';
-import 'package:dedicated_ip/services/firebase_services.dart';
-lpers/my_dialogs.dart';
+
+import '../apis/apis.dart';
+import '../helpers/my_dialogs.dart';
 import '../helpers/pref.dart';
 import '../models/vpn.dart';
+import '../services/firebase_services.dart';
 import '../services/vpn_engine.dart';
 
 class HomeController extends GetxController {
@@ -38,7 +39,7 @@ class HomeController extends GetxController {
       await VpnEngine.wireGuardFlutter.startVpn(
         serverAddress: vpn.value.hostname,
         wgQuickConfig: config,
-        providerBundleIdentifier: 'com.orbanvpn.wireguard.WGExtension',
+        providerBundleIdentifier: 'net.dedicated-ip.app',
       );
     } else if (vpnState.value == VpnEngine.vpnConnected) {
       //AdHelper.showRewardedVideoAd();

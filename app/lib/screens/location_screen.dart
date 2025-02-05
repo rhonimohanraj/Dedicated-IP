@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
-import 'package:orban_vpn_wireguard/models/vpn.dart';
-import 'package:orban_vpn_wireguard/services/firebase_services.dart';
-import '../controllers/native_ad_controller.dart';
+import 'package:dedicated_ip/models/vpn.dart';
+import 'package:dedicated_ip/services/firebase_services.dart';=
 import '../helpers/ad_helper.dart';
 import '../widgets/vpn_card.dart';
 

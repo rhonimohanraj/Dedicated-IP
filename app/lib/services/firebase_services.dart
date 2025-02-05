@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
-import 'package:orban_vpn_wireguard/helpers/pref.dart';
+import 'package:dedicated_ip/helpers/pref.dart';
 
 class FirebaseServices extends GetxController {
   CollectionReference subscriptions =

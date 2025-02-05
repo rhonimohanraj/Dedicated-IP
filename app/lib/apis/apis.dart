@@ -4,15 +4,13 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:orban_vpn_wireguard/models/stripe_model.dart';
+import 'package:dedicated_ip/models/stripe_model.dart';
 
 import '../helpers/my_dialogs.dart';
 import '../helpers/pref.dart';
 import '../models/ip_details.dart';
 
 class APIs {
- 
-
   static Future<void> getStripeData() async {
     try {
       FirebaseFirestore.instance

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:orban_vpn_wireguard/helpers/pref.dart';
+import 'package:dedicated_ip/helpers/pref.dart';
 
 import '../services/firebase_services.dart';
 import '../services/stripe_services.dart';

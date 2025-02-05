@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:orban_vpn_wireguard/models/stripe_model.dart';
 
+import '../models/stripe_model.dart';
 import '../models/vpn.dart';
 
 class Pref {

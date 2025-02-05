@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:orban_vpn_wireguard/helpers/config.dart';
+import 'package:dedicated_ip/helpers/config.dart';
 
-import 'helpers/ad_helper.dart';
 import 'helpers/pref.dart';
 import 'screens/splash_screen.dart';
 
@@ -17,9 +14,6 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   await Firebase.initializeApp();
   await Pref.initializeHive();
-  if (Platform.isIOS || Platform.isAndroid) {
-    await AdHelper.initAds();
-  }
 
   //for setting orientation to portrait only
   SystemChrome.setPreferredOrientations(

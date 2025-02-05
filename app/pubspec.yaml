@@ -1,4 +1,4 @@
-name: orban_vpn_wireguard
+name: dedicated_ip
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 

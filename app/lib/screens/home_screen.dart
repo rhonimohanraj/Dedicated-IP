@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:country_flags/country_flags.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dedicated_ip/helpers/pref.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:orban_vpn_wireguard/helpers/pref.dart';
+
 import '../controllers/home_controller.dart';
 import '../helpers/ad_helper.dart';
+import '../helpers/pref.dart';
 import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
 import 'location_screen.dart';

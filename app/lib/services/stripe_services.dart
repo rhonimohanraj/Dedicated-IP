@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:orban_vpn_wireguard/models/stripe_model.dart';
+import 'package:dedicated_ip/models/stripe_model.dart';
 
 import '../stripe_checkout/stripe_checkout.dart';
 

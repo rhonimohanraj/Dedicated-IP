@@ -92,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           if (_controller.vpn.value.countryLong.isEmpty)
                             const CircleAvatar(
+                              backgroundColor: Colors.white10,
                               radius: 25,
                               child: Icon(Icons.vpn_lock_outlined),
                             ),
@@ -114,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const CircleAvatar(
                             backgroundColor: Colors.white,
                             child: Icon(Icons.keyboard_arrow_right_rounded,
-                                color: Colors.blue, size: 26),
+                                color: Colors.green, size: 26),
                           )
                         ],
                       ))),

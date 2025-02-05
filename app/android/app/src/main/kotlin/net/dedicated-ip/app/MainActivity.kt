@@ -1,4 +1,4 @@
-package com.orban.orban_vpn_wireguard
+package net.dedicated-ip.app
 
 import io.flutter.embedding.android.FlutterActivity
 

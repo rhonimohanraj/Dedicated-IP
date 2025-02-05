@@ -1,11 +1,8 @@
 import 'package:country_flags/country_flags.dart';
-import 'package:dedicated_ip/helpers/pref.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
-import '../helpers/ad_helper.dart';
-import '../helpers/pref.dart';
 import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
 import 'location_screen.dart';
@@ -138,10 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
           //button
           InkWell(
             onTap: () {
-              if (Pref.isPremium == true) {
-                AdHelper.createRewardedAd();
-              }
-
               _controller.connectToVpn();
             },
             borderRadius: BorderRadius.circular(10000),

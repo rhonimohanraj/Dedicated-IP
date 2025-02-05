@@ -1,12 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
 import 'package:dedicated_ip/models/vpn.dart';
-import 'package:dedicated_ip/services/firebase_services.dart';=
-import '../helpers/ad_helper.dart';
+import 'package:dedicated_ip/services/firebase_services.dart';
 import '../widgets/vpn_card.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -17,15 +13,6 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  final _adController = NativeAdController();
-  @override
-  void initState() {
-    if (Platform.isIOS || Platform.isAndroid) {
-      _adController.ad = AdHelper.loadNativeAd(adController: _adController);
-    }
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +26,6 @@ class _LocationScreenState extends State<LocationScreen> {
           style: TextStyle(fontSize: 18),
         ),
       ),
-      bottomNavigationBar: _adController.ad != null &&
-              _adController.adLoaded.isTrue
-          ? SafeArea(
-              child:
-                  SizedBox(height: 85, child: AdWidget(ad: _adController.ad!)))
-          : null,
       body: _vpnData(),
     );
   }

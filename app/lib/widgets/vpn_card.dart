@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/my_dialogs.dart';
 
 import '../controllers/home_controller.dart';
-import '../helpers/ad_helper.dart';
 import '../helpers/pref.dart';
 import '../models/vpn.dart';
 import '../services/vpn_engine.dart';
@@ -40,7 +39,6 @@ class VpnCard extends StatelessWidget {
 
           MyDialogs().subscriptionDailog(context: context);
         } else if (vpn.premium == false && Pref.isPremium == false) {
-          AdHelper.createRewardedAd();
           connect();
         }
       },

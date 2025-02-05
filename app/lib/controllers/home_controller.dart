@@ -57,7 +57,7 @@ class HomeController extends GetxController {
   Color get getButtonColor {
     switch (vpnState.value) {
       case VpnEngine.vpnDisconnected:
-        return CupertinoColors.activeBlue;
+        return CupertinoColors.activeGreen;
 
       case VpnEngine.vpnConnected:
         return Colors.green;

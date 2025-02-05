@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
       //dark theme
       darkTheme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xff021b3a),
+          scaffoldBackgroundColor: const Color(0xff023a12),
           // fontFamily: GoogleFonts.lato().fontFamily,
           brightness: Brightness.dark,
           appBarTheme: const AppBarTheme(elevation: 0)),
@@ -46,5 +46,5 @@ class MyApp extends StatelessWidget {
 
 extension AppTheme on ThemeData {
   Color get lightText => Pref.isDarkMode ? Colors.white70 : Colors.black54;
-  Color get bottomNav => Pref.isDarkMode ? Colors.white12 : Colors.blue;
+  Color get bottomNav => Pref.isDarkMode ? Colors.white12 : Colors.green;
 }

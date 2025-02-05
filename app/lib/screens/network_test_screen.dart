@@ -26,7 +26,7 @@ class NetworkTestScreen extends StatelessWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 10, right: 10),
         child: FloatingActionButton(
-            backgroundColor: const Color(0xff1e5dff),
+            backgroundColor: Colors.green,
             onPressed: () {
               ipData.value = IPDetails.fromJson({});
               APIs.getIPDetails(ipData: ipData);
@@ -71,7 +71,7 @@ class NetworkTestScreen extends StatelessWidget {
               //pin code
               NetworkCard(
                   data: NetworkData(
-                      title: 'Pin-code',
+                      title: 'Zip code',
                       subtitle: ipData.value.zip,
                       icon: const Icon(CupertinoIcons.location_solid,
                           color: Colors.cyan))),

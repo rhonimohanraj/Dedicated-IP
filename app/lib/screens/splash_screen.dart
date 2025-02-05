@@ -43,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
               bottom: Get.height * .15,
               width: Get.width,
               child: const Text(
-                'MADE IN INDIA WITH ❤️',
+                'MADE IN Netherlands WITH ❤️',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, letterSpacing: 1),
               ))

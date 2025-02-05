@@ -34,7 +34,7 @@
               "client_id": "645631015789-5bl044v9ok4t15v4vkvv139k9s3q0jqc.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "net.dedicated-ip.app"
+                "bundle_id": "net.dedicated_ip.app"
               }
             }
           ]

@@ -15,7 +15,7 @@
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.net.dedicated-ip.app</string>
+		<string>group.net.dedicated_ip.app</string>
 	</array>
 </dict>
 </plist>

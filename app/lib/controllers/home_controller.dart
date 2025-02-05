@@ -39,7 +39,7 @@ class HomeController extends GetxController {
       await VpnEngine.wireGuardFlutter.startVpn(
         serverAddress: vpn.value.hostname,
         wgQuickConfig: config,
-        providerBundleIdentifier: 'net.dedicated-ip.app',
+        providerBundleIdentifier: 'net.dedicated_ip.app',
       );
     } else if (vpnState.value == VpnEngine.vpnConnected) {
       //AdHelper.showRewardedVideoAd();

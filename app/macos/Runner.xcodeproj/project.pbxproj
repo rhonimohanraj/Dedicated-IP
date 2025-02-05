@@ -477,7 +477,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated-ip.app.RunnerTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated_ip.app.RunnerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wireguard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/wireguard";
@@ -492,7 +492,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated-ip.app.RunnerTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated_ip.app.RunnerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wireguard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/wireguard";
@@ -507,7 +507,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated-ip.app.RunnerTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated_ip.app.RunnerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wireguard.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/wireguard";
@@ -575,7 +575,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated-ip.app";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated_ip.app";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
@@ -703,7 +703,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated-ip.app";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated_ip.app";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -725,7 +725,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated-ip.app";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.dedicated_ip.app";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};

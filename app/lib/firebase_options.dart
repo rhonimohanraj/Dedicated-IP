@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
     projectId: 'dedicated-ip-production',
     storageBucket: 'dedicated-ip-production.firebasestorage.app',
     iosClientId: '645631015789-5bl044v9ok4t15v4vkvv139k9s3q0jqc.apps.googleusercontent.com',
-    iosBundleId: 'net.dedicated-ip.app',
+    iosBundleId: 'net.dedicated_ip.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -75,7 +75,7 @@ class DefaultFirebaseOptions {
     projectId: 'dedicated-ip-production',
     storageBucket: 'dedicated-ip-production.firebasestorage.app',
     iosClientId: '645631015789-5bl044v9ok4t15v4vkvv139k9s3q0jqc.apps.googleusercontent.com',
-    iosBundleId: 'net.dedicated-ip.app',
+    iosBundleId: 'net.dedicated_ip.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

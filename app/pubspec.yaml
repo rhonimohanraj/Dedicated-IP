@@ -55,6 +55,9 @@ dependencies:
   firebase_auth: ^4.16.0
 
 
+  sentry_flutter: ^8.13.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

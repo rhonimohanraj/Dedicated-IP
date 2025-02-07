@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'helpers/pref.dart';
 import 'screens/splash_screen.dart';
@@ -12,14 +13,28 @@ Future<void> main() async {
 
   //enter full-screen
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-  await Firebase.initializeApp();
-  await Pref.initializeHive();
 
   //for setting orientation to portrait only
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((v) {
-    runApp(const MyApp());
-  });
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://1fc152a80765b9306b398ba2d7d17f66@o4508776880209920.ingest.de.sentry.io/4508777507979344';
+      options.tracesSampleRate = 0.1;
+      options.profilesSampleRate = 0.1;
+    },
+    appRunner: () async => {
+      await Firebase.initializeApp(),
+      await Pref.initializeHive(),
+      runApp(
+        const SentryWidget(
+          child: MyApp(),
+        ),
+      ),
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

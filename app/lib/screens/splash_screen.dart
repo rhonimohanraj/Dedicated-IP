@@ -1,6 +1,9 @@
+import 'package:dedicated_ip/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/route_manager.dart';
+
 import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,7 +21,11 @@ class _SplashScreenState extends State<SplashScreen> {
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
       //navigate to home
-      Get.off(() => const HomeScreen());
+      if (FirebaseAuth.instance.currentUser != null) {
+        Get.off(() => const HomeScreen());
+      } else {
+        Get.off(() => const LoginScreen());
+      }
       // Navigator.pushReplacement(
       //     context, MaterialPageRoute(builder: (_) => HomeScreen()));
     });

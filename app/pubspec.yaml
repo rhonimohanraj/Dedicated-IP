@@ -52,6 +52,7 @@ dependencies:
   country_flags: ^2.2.0
 
   cupertino_icons: ^1.0.8
+  firebase_auth: ^4.16.0
 
 
 dev_dependencies:

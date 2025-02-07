@@ -1,8 +1,8 @@
+import 'package:dedicated_ip/helpers/config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:dedicated_ip/helpers/config.dart';
 
 import 'helpers/pref.dart';
 import 'screens/splash_screen.dart';
@@ -46,5 +46,6 @@ class MyApp extends StatelessWidget {
 
 extension AppTheme on ThemeData {
   Color get lightText => Pref.isDarkMode ? Colors.white70 : Colors.black54;
+
   Color get bottomNav => Pref.isDarkMode ? Colors.white12 : Colors.green;
 }

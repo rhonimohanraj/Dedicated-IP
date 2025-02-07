@@ -54,8 +54,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_auth: ^4.16.0
 
+  rive: ^0.13.20
+  flutter_svg: ^2.0.17
 
   sentry_flutter: ^8.13.0
+  blurrycontainer: ^2.1.0
 
 
 dev_dependencies:
@@ -88,6 +91,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/rive/
     - assets/lottie/
 
 flutter_native_splash:

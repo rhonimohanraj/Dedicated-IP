@@ -1,4 +1,4 @@
-import 'package:dedicated_ip/screens/login_screen.dart';
+import 'package:dedicated_ip/screens/onboarding_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (FirebaseAuth.instance.currentUser != null) {
         Get.off(() => const HomeScreen());
       } else {
-        Get.off(() => const LoginScreen());
+        Get.off(() => const OnboardingScreen());
       }
       // Navigator.pushReplacement(
       //     context, MaterialPageRoute(builder: (_) => HomeScreen()));

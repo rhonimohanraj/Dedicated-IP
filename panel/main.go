@@ -17,6 +17,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 
+	"github.com/getsentry/sentry-go"
+
 	"github.com/AshkanYarmoradi/dedicated-ip/panel/emailer"
 	"github.com/AshkanYarmoradi/dedicated-ip/panel/handler"
 	"github.com/AshkanYarmoradi/dedicated-ip/panel/router"
@@ -72,6 +74,18 @@ var embeddedTemplates embed.FS
 var embeddedAssets embed.FS
 
 func init() {
+
+	// To initialize Sentry's handler, you need to initialize Sentry itself beforehand
+	if err := sentry.Init(sentry.ClientOptions{
+		Dsn: "https://0ac08489281080a803287edd1492d570@o4508776880209920.ingest.de.sentry.io/4508777230172240",
+		// Set TracesSampleRate to 1.0 to capture 100%
+		// of transactions for tracing.
+		// We recommend adjusting this value in production,
+		TracesSampleRate: 1.0,
+	}); err != nil {
+		fmt.Printf("Sentry initialization failed: %v\n", err)
+	}
+
 	// command-line flags and env variables
 	flag.BoolVar(&flagDisableLogin, "disable-login", util.LookupEnvOrBool("DISABLE_LOGIN", flagDisableLogin), "Disable authentication on the app. This is potentially dangerous.")
 	flag.StringVar(&flagBindAddress, "bind-address", util.LookupEnvOrString("BIND_ADDRESS", flagBindAddress), "Address:Port to which the app will be bound.")

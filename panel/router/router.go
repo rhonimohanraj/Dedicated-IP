@@ -2,6 +2,7 @@ package router
 
 import (
 	"errors"
+	sentryecho "github.com/getsentry/sentry-go/echo"
 	"io"
 	"io/fs"
 	"reflect"
@@ -50,6 +51,12 @@ func (t *TemplateRegistry) Render(w io.Writer, name string, data interface{}, c 
 // New function
 func New(tmplDir fs.FS, extraData map[string]interface{}, secret [64]byte) *echo.Echo {
 	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	// Once it's done, you can attach the handler as one of your middleware
+	e.Use(sentryecho.New(sentryecho.Options{}))
 
 	cookiePath := util.GetCookiePath()
 

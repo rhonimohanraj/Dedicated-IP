@@ -25,6 +25,8 @@ require (
 )
 
 require (
+	github.com/getsentry/sentry-go v0.31.1 // indirect
+	github.com/getsentry/sentry-go/echo v0.31.1 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-test/deep v1.1.0 // indirect

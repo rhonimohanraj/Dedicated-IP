@@ -10,3 +10,4 @@ export {RemoteConfigService} from './lib/firebase/remote-config.service';
 export {TawkComponent} from './lib/tawk/tawk.component';
 export { FunctionService } from './lib/firebase/function.service';
 export { IpComponent } from './lib/ip/ip.component';
+export {CrispComponent} from './lib/crisp/crisp.component';

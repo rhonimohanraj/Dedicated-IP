@@ -1,11 +1,15 @@
 name: Deploy to Firebase Hosting
-  
+
 on:
   workflow_dispatch:
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      SENTRY_AUTH_TOKEN: '${{ secrets.SENTRY_AUTH_TOKEN }}'
+      SENTRY_ORG: '${{ secrets.SENTRY_ORG_ID }}'
+      SENTRY_PROJECT: '${{ secrets.SENTRY_PROJECT_ID }}'
     steps:
       - uses: actions/checkout@v4
 
@@ -17,6 +21,14 @@ jobs:
         working-directory: client
 
       - run: npx nx run-many --target build --parallel=3
+        working-directory: client
+
+      - name: Install Sentry
+        run: curl -sL https://sentry.io/get-cli/ | sh
+        working-directory: client
+
+      - name: Upload Source Maps to Sentry
+        run: sentry-cli releases files run-${{ github.run_number }} upload-sourcemaps dist --rewrite --url-prefix '~/dist'
         working-directory: client
 
       - name: Deploy to Firebase Hosting

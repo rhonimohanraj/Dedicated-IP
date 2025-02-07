@@ -337,6 +337,12 @@
       crossorigin="anonymous"
     ></script>
 
+    <script>
+        Sentry.onLoad(function() {
+            Sentry.init({});
+        });
+    </script>
+
     <!-- jQuery -->
     <script src="{{.basePath}}/static/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->

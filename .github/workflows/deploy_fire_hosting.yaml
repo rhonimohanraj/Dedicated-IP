@@ -10,7 +10,7 @@ jobs:
     env:
       SENTRY_AUTH_TOKEN: '${{ secrets.SENTRY_AUTH_TOKEN }}'
       SENTRY_ORG: '${{ secrets.SENTRY_ORG_ID }}'
-      SENTRY_PROJECT: '${{ secrets.SENTRY_PROJECT_ID }}'
+      SENTRY_PROJECT: '${{ secrets.SENTRY_CLIENT_PROJECT_ID }}'
     steps:
       - uses: actions/checkout@v4
 

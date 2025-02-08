@@ -35,6 +35,7 @@ export class PricingComponent {
   });
 
   serverName = '';
+  server: { country: string, countryCode: string, city: string, datacenter: string } | null = null;
   error = '';
 
   async createPaymentLink(priceId: string): Promise<void> {

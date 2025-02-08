@@ -1,0 +1,26 @@
+<div id="layout-wrapper" (window:resize)="onResize($event)">
+
+  <!-- Top Bar -->
+  <app-topbar></app-topbar>
+  <!-- Top Bar -->
+
+  <!-- Side Bar -->
+<!--  <app-sidebar></app-sidebar>-->
+  <!-- Side Bar -->
+
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- Main Content -->
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <app-footer></app-footer>
+    <!-- Footer -->
+
+  </div>
+</div>
+
+<app-toasts></app-toasts>

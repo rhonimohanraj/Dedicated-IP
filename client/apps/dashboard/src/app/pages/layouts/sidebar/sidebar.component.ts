@@ -1,26 +1,58 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, signal } from '@angular/core';
+import {NavigationEnd, Router, RouterLink} from '@angular/router';
 
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
+import {SimplebarAngularModule} from "simplebar-angular";
+import {NgClass} from "@angular/common";
+import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
+import {FirestoreService} from "@dedicated-ip/service";
+import {injectQueryClient, QueryObserver} from "@tanstack/angular-query-experimental";
 
 @Component({
   selector: 'app-sidebar',
+  imports: [
+    SimplebarAngularModule,
+    NgClass,
+    NgbCollapse,
+    RouterLink
+  ],
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
+  private readonly queryClient = injectQueryClient();
 
-  menu: any;
+  menuItems = signal<Array<MenuItem>>([]);
   toggle: any = true;
-  menuItems: MenuItem[] = [];
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private fireStore: FirestoreService) {}
 
   ngOnInit(): void {
-    // Menu Items
-    this.menuItems = MENU;
+    const unsubscribe = new QueryObserver(this.queryClient, this.fireStore.GetServerQuery()).subscribe(result => {
+      if (result.isSuccess) {
+        this.menuItems.set(MENU);
+        result.data.filter((server) => server.status === "active").forEach((server) => {
+          this.menuItems.update((value)=>{
+            value.push({
+              label: server.name,
+              icon: 'ri-server-line',
+              isCollapsed:true,
+              id: server.id,
+              subItems: [
+                {
+                  label: 'Control Panel',
+                  link: server.domain,
+                }
+              ]
+            });
+            return value;
+          });
+        });
+        unsubscribe();
+      }
+    });
     this.router.events.subscribe((event) => {
       if (document.documentElement.getAttribute('data-layout') != "twocolumn") {
         if (event instanceof NavigationEnd) {
@@ -46,7 +78,7 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleItem(item: any) {
-    this.menuItems.forEach((menuItem: any) => {
+    this.menuItems().forEach((menuItem: any) => {
 
       if (menuItem == item) {
         menuItem.isCollapsed = !menuItem.isCollapsed
@@ -122,7 +154,7 @@ export class SidebarComponent implements OnInit {
   initActiveMenu() {
     const pathName = window.location.pathname;
 
-    const active = this.findMenuItem(pathName, this.menuItems)
+    const active = this.findMenuItem(pathName, this.menuItems())
     this.toggleItem(active)
     const ul = document.getElementById("navbar-nav");
     if (ul) {

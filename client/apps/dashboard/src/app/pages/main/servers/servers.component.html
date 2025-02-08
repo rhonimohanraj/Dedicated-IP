@@ -1,5 +1,3 @@
-<p-toast/>
-
 @if (servers.isSuccess()) {
   <div class="row">
     <div class="col-xl-4">
@@ -39,7 +37,7 @@
                   <div class="card pt-2 border-0 item-box text-center">
                     <div class="timeline-content p-3 rounded">
                       <div>
-                        <p class="text-muted fw-medium mb-0">{{ server.createdAt | date: 'MMMM/dd/yyyy' }}</p>
+                        <p class="text-muted fw-medium mb-0">{{ server.createdAt | date: 'MMMM dd, yyyy' }}</p>
                         <h6 class="mb-0">create server {{ server.name }}</h6>
                       </div>
                     </div>
@@ -74,38 +72,56 @@
               </div>
 
               <div class="mx-n3">
-                <ul class="list list-group list-group-flush mb-0">
-                  @for (data of filteredServer().slice((page - 1) * pageSize, page * pageSize); track $index) {
-                    <!-- <li *ngFor="let data of paginationDatas | filterBy:['name','type']:term" class="list-group-item"> -->
-                    <li class="list-group-item">
-                      <div class="d-flex align-items-center pagi-list">
-                        <div class="flex-shrink-0 me-3">
-                          <div>
-                            <img class="image avatar-xs rounded-circle" alt="" src="
-                                              {{data.countryCode}}">
-                          </div>
-                        </div>
+                <table class="table">
+                  <thead>
+                  <tr class="bg-light text-muted">
+                    <th>Country</th>
+                    <th>Name</th>
+                    <th>Ip Address</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @for (data of filteredServer().slice((page - 1) * pageSize, page * pageSize); track $index) {
+                      <tr>
+                          <td class="flex-shrink-0 me-3">
+                              <img class="country-flag img rounded" src="/images/flags/{{data.countryCode}}.svg"
+                                   style="width: 30px;">
+                          </td>
 
-                        <div class="flex-grow-1 overflow-hidden">
-                          <h5 class="fs-13 mb-1"><a href="#" class="link text-body">{{ data.name }}</a>
-                          </h5>
-                          <p class="born timestamp text-muted mb-0">{{ data.username }}</p>
-                        </div>
+                          <td class="flex-grow-1 overflow-hidden">
+                            <h5 class="fs-13 mb-1"><a href="#" class="link text-body">{{ data.name }}</a>
+                            </h5>
+                            <p class="born timestamp text-muted mb-0">{{ data.location }}</p>
+                          </td>
 
-                        <div class="flex-shrink-0 ms-2">
-                          <div>
-                            <button type="button" class="btn btn-sm btn-light"><i class="ri-mail-line align-bottom"></i>
-                              Message
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  }
-                  <!-- end list item -->
-                </ul>
-                <!-- end ul list -->
+                        <td class="flex-grow-1 overflow-hidden">
+                          @if(data.status === 'active') {
+                            <ip-component [domain]="data.domain"></ip-component>
+                          }
+                        </td>
 
+                        <td class="flex-grow-1 overflow-hidden">
+                          {{ data.createdAt | date: 'MMMM dd, yyyy' }}
+                        </td>
+
+                        <td>
+                          <span [className]="data.status === 'active' ? 'badge bg-success-subtle text-success text-uppercase' : data.status === 'deleted' ? 'badge bg-danger-subtle text-danger text-uppercase' : 'badge bg-info-subtle text-info text-uppercase'">{{ data.status }}</span>
+                        </td>
+
+                          <td class="flex-shrink-0 ms-2">
+                            <div>
+                              <button type="button" class="btn btn-sm btn-light"><i class="ri-mail-line align-bottom"></i>
+                                Message
+                              </button>
+                            </div>
+                          </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
                 <div class="d-flex justify-content-center">
                   <div class="text-sm-right float-sm-end listjs-pagination gap-2">
                     <ngb-pagination [collectionSize]="filteredServer().length" [(page)]="page" [pageSize]="pageSize">
@@ -122,46 +138,5 @@
       <!-- end row -->
     </div>
 
-  </div>
-} @else {
-  <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
-    <ul class="m-0 p-0 list-none">
-      <li class="mb-4">
-        <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
-          <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2"/>
-            <p-skeleton width="75%"/>
-          </div>
-        </div>
-      </li>
-      <li class="mb-4">
-        <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
-          <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2"/>
-            <p-skeleton width="75%"/>
-          </div>
-        </div>
-      </li>
-      <li class="mb-4">
-        <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
-          <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2"/>
-            <p-skeleton width="75%"/>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
-          <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2"/>
-            <p-skeleton width="75%"/>
-          </div>
-        </div>
-      </li>
-    </ul>
   </div>
 }

@@ -1,31 +1,22 @@
 import {Component, computed, effect, ElementRef, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {injectQuery} from '@tanstack/angular-query-experimental';
 import {DatePipe} from '@angular/common';
-import {FirestoreService, FunctionService} from '@dedicated-ip/service';
-import {SkeletonModule} from "primeng/skeleton";
-import {FileUploadModule} from "primeng/fileupload";
-import {SliderModule} from "primeng/slider";
-import {DropdownModule} from "primeng/dropdown";
-import {MultiSelectModule} from "primeng/multiselect";
-import {ChipsModule} from "primeng/chips";
-import {ActivatedRoute, Router} from "@angular/router";
-import {InplaceModule} from "primeng/inplace";
+import {FirestoreService, FunctionService, IpComponent} from '@dedicated-ip/service';
 import {asyncScheduler, tap} from "rxjs";
-import {MessageService} from "primeng/api";
-import {ToastModule} from "primeng/toast";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {MapComponent} from "../../../components/map.component";
 import {StatComponent} from "../../../components/stat.component";
 import {SlickCarouselModule} from "ngx-slick-carousel";
 import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ToastService} from "../../../services/toast/toast.service";
 
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
   styleUrl: './servers.component.css',
-  imports: [SkeletonModule, FileUploadModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, InplaceModule, ToastModule, LeafletModule, StatComponent, MapComponent, SlickCarouselModule, NgbPagination, FormsModule],
-  providers: [MessageService],
+  imports: [DatePipe, LeafletModule, StatComponent, MapComponent, SlickCarouselModule, NgbPagination, FormsModule, IpComponent],
 })
 export class ServersComponent implements OnInit {
   private readonly firestore = inject(FirestoreService);
@@ -33,7 +24,7 @@ export class ServersComponent implements OnInit {
   public readonly servers = injectQuery(() => this.firestore.GetServerQuery());
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly messageService = inject(MessageService);
+  private readonly toastService = inject(ToastService);
 
   @ViewChild('filter') filter!: ElementRef;
 
@@ -61,20 +52,12 @@ export class ServersComponent implements OnInit {
       tap(params => {
           if (params['payment'] === 'success') {
             asyncScheduler.schedule(() => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
-                detail: 'Payment was successful, The server will be provisioned shortly.'
-              });
+              this.toastService.show("Payment was successful, The server will be provisioned shortly.", { classname: 'bg-success text-white', delay: 15000 });
             }, 2000);
           }
           if (params['payment'] === 'cancel') {
             asyncScheduler.schedule(() => {
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
-                detail: 'Payment was cancelled, Please try again.'
-              });
+              this.toastService.show("Payment was cancelled, Please try again.", { classname: 'bg-danger text-white', delay: 15000 });
             }, 2000);
           }
         }
@@ -82,16 +65,16 @@ export class ServersComponent implements OnInit {
   }
 
   async resetPassword(domainName: string, password: string): Promise<void> {
-    this.messageService.add({severity: 'info', summary: 'Reset password', detail: 'Please wait...'});
+    this.toastService.show("Resetting password, Please wait...", { classname: 'bg-info text-white', delay: 15000 });
     const serverId = domainName.replace('https://', '').split('.')[0];
     try {
       await this.functionService.reverseProxy(serverId, 'update-password', {
         username: 'admin',
         password: password,
       });
-      this.messageService.add({severity: 'success', summary: 'Success', detail: 'Password reset successfully.'});
+      this.toastService.show("Password reset successfully.", { classname: 'bg-success text-white', delay: 15000 });
     } catch (e: any) {
-      this.messageService.add({severity: 'error', summary: 'Please try again', detail: e.message});
+      this.toastService.show("Reset password failed, please try again.", { classname: 'bg-danger text-white', delay: 15000 });
     }
 
   }

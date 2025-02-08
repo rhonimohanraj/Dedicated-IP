@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { LayoutService } from '../../../../layout/service/app.layout.service';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ChipsModule } from 'primeng/chips';
 import { MessageService } from 'primeng/api';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirebaseService } from '@dedicated-ip/service';
-import { KeyValuePipe } from '@angular/common';
+import {NgClass} from '@angular/common';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
+import {ToastService} from "../../../../services/toast/toast.service";
+import {ToastsContainerComponent} from "../../../../services/toast/toast-container.componenet";
 
 @Component({
   imports: [
@@ -16,9 +18,10 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,
     ChipsModule,
     ReactiveFormsModule,
-    KeyValuePipe,
     PasswordModule,
     ToastModule,
+    NgClass,
+    ToastsContainerComponent,
   ],
   templateUrl: './forgotpassword.component.html',
 })
@@ -26,8 +29,12 @@ export class ForgotPasswordComponent {
   public readonly layoutService = inject(LayoutService);
   private readonly messageService = inject(MessageService);
   private readonly FirebaseService = inject(FirebaseService);
+  private readonly toastService = inject(ToastService);
 
   formGroup!: FormGroup;
+  submitted = false;
+  error = '';
+  year: number = new Date().getFullYear();
 
   constructor() {
     this.formGroup = new FormGroup({
@@ -39,25 +46,20 @@ export class ForgotPasswordComponent {
     return this.formGroup.get('email');
   }
 
+  get f() { return this.formGroup.controls; }
+
   get dark(): boolean {
     return this.layoutService.config().colorScheme !== 'light';
   }
 
   async onForgotPassword(): Promise<void> {
+    this.submitted = true;
     if (this.formGroup.valid) {
       try {
         await this.FirebaseService.sendPasswordResetEmail(this.email!.value);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Email sent',
-          detail: 'Check your email for instructions',
-        });
+        this.toastService.show("Email sent, Check your email for instructions.", { classname: 'bg-success text-white', delay: 15000 });
       } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Email Sent failed',
-          detail: error.toString(),
-        });
+        this.toastService.show(error.toString(), { classname: 'bg-danger text-white', delay: 15000 });
       }
     }
   }

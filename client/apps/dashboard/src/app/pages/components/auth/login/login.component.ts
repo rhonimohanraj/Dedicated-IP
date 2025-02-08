@@ -26,7 +26,6 @@ import { RippleModule } from 'primeng/ripple';
     ReactiveFormsModule,
     PasswordModule,
     InputMaskModule,
-    KeyValuePipe,
     ToastModule,
     DividerModule,
     RippleModule,
@@ -39,7 +38,6 @@ import { RippleModule } from 'primeng/ripple';
 export class LoginComponent {
   private readonly router = inject(Router);
   public readonly layoutService = inject(LayoutService);
-  private readonly messageService = inject(MessageService);
   private readonly FirebaseService = inject(FirebaseService);
 
   formGroup!: FormGroup;
@@ -75,6 +73,7 @@ export class LoginComponent {
 
   async onLoginWithEmailAndPassword(): Promise<void> {
     this.submitted = true;
+    this.error = '';
     if (this.formGroup.valid) {
       try {
         const user = await this.FirebaseService.signInWithEmailAndPassword(
@@ -91,62 +90,50 @@ export class LoginComponent {
   }
 
   async onLoginWithGoogle(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithGoogle();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
     }
   }
 
   async onLoginWithFacebook(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithFacebook();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
     }
   }
 
   async onLoginWithTwitter(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithTwitter();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
     }
   }
 
   async onLoginWithGithub(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithGithub();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
     }
   }
 }

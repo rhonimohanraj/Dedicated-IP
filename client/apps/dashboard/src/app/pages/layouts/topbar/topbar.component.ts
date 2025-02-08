@@ -15,7 +15,6 @@ import {EventService} from "../../../services/event.service";
     NgbDropdown,
     NgbDropdownMenu,
   ],
-  styleUrls: ['./topbar.component.scss']
 })
 export class TopbarComponent {
   mode: string | undefined;
@@ -67,11 +66,13 @@ export class TopbarComponent {
   }
 
   async onChangePassword(): Promise<void> {
+    this.toastService.show("Sending email for changing password.", { classname: 'bg-info text-white', delay: 15000 });
     await this.firebaseService.sendPasswordResetEmail(this.email);
     this.toastService.show("Email sent, Check your email for instructions.", { classname: 'bg-success text-white', delay: 15000 });
   }
 
   async onBillingPortal(): Promise<void> {
+    this.toastService.show("Creating billing portal for you, Please wait.", { classname: 'bg-info text-white', delay: 15000 });
     const result = await this.functionService.createBillingPortal();
     window.open(result.data, '_blank');
   }

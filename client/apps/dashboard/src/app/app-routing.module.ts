@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { AppLayoutComponent } from './layout/app.layout.component';
 import { AuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import {LayoutComponent} from "./pages/layouts/layout.component";
 
 const routerOptions: ExtraOptions = {
   anchorScrolling: 'enabled',
@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'd',
     loadChildren: () =>
       import('./pages/components/main/main.module').then((m) => m.MainModule),
-    component: AppLayoutComponent,
+    component: LayoutComponent,
     canActivate: [AuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLanding },
   },

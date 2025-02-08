@@ -7,8 +7,8 @@ import { FirebaseService } from '@dedicated-ip/service';
 import {NgClass} from '@angular/common';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
-import {ToastService} from "../../../../services/toast/toast.service";
-import {ToastsContainerComponent} from "../../../../services/toast/toast-container.componenet";
+import {ToastService} from "../../../services/toast/toast.service";
+import {ToastsContainerComponent} from "../../../services/toast/toast-container.componenet";
 
 @Component({
   imports: [

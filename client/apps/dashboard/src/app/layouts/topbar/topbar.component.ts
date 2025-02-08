@@ -2,9 +2,9 @@ import { Component, EventEmitter, Output} from '@angular/core';
 import {Router} from '@angular/router';
 import {SimplebarAngularModule} from "simplebar-angular";
 import {FirebaseService, FunctionService} from "@dedicated-ip/service";
-import {ToastService} from "../../../services/toast/toast.service";
+import {ToastService} from "../../services/toast/toast.service";
 import {NgbDropdown, NgbDropdownMenu, NgbDropdownToggle} from "@ng-bootstrap/ng-bootstrap";
-import {EventService} from "../../../services/event.service";
+import {EventService} from "../../services/event.service";
 
 @Component({
   selector: 'app-topbar',

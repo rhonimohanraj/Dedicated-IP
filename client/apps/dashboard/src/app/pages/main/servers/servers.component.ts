@@ -16,7 +16,7 @@ import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import { circle, latLng, tileLayer } from 'leaflet';
-import {StatComponent} from "../../../../components/stat.component";
+import {StatComponent} from "../../../components/stat.component";
 
 @Component({
   selector: 'app-servers',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from "@angular/router";
-import {ToastsContainerComponent} from "../../services/toast/toast-container.componenet";
+import {ToastsContainerComponent} from "../services/toast/toast-container.componenet";
 import {TopbarComponent} from "./topbar/topbar.component";
-import {EventService} from "../../services/event.service";
+import {EventService} from "../services/event.service";
 import {SidebarComponent} from "./sidebar/sidebar.component";
 import {FooterComponent} from "./footer/footer.component";
 

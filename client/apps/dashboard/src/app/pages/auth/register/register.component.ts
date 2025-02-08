@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from '@dedicated-ip/service';
 import { asyncScheduler } from 'rxjs';
-import {ToastService} from "../../../../services/toast/toast.service";
+import {ToastService} from "../../../services/toast/toast.service";
 
 @Component({
     templateUrl: './register.component.html',

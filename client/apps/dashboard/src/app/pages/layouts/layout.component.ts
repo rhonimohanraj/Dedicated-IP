@@ -33,15 +33,24 @@ export class LayoutComponent implements OnInit {
         if (event instanceof NavigationEnd) {
           // Update the attribute state based on the current route or any other conditions
           if (event.url !== '/disabled-route') {
-            (document.getElementById("preloader") as HTMLElement).style.opacity = "1";
-            (document.getElementById("preloader") as HTMLElement).style.visibility = "";
+            const doc = document.getElementById("preloader");
+            if(doc){
+              doc.style.opacity = "1";
+              doc.style.visibility = "";
+            }
             setTimeout(() => {
-              (document.getElementById("preloader") as HTMLElement).style.opacity = "0";
-              (document.getElementById("preloader") as HTMLElement).style.visibility = "hidden";
+              const doc = document.getElementById("preloader");
+              if(doc){
+                doc.style.opacity = "0";
+                doc.style.visibility = "hidden";
+              }
             }, 1000);
           } else {
-            (document.getElementById("preloader") as HTMLElement).style.opacity = "0";
-            (document.getElementById("preloader") as HTMLElement).style.visibility = "hidden";
+            const doc = document.getElementById("preloader");
+            if(doc) {
+              doc.style.opacity = "0";
+              doc.style.visibility = "hidden";
+            }
           }
         }
       }
@@ -69,15 +78,24 @@ export class LayoutComponent implements OnInit {
   }
   private handlePreloader(route: any) {
     if (route !== '/disabled-route') {
-      (document.getElementById("preloader") as HTMLElement).style.opacity = "1";
-      (document.getElementById("preloader") as HTMLElement).style.visibility = "";
+      const doc = document.getElementById("preloader");
+      if(doc) {
+        doc.style.opacity = "1";
+        doc.style.visibility = "";
+      }
       setTimeout(() => {
-        (document.getElementById("preloader") as HTMLElement).style.opacity = "0";
-        (document.getElementById("preloader") as HTMLElement).style.visibility = "hidden";
+        const doc = document.getElementById("preloader");
+        if(doc) {
+          doc.style.opacity = "0";
+          doc.style.visibility = "hidden";
+        }
       }, 1000);
     } else {
-      (document.getElementById("preloader") as HTMLElement).style.opacity = "0";
-      (document.getElementById("preloader") as HTMLElement).style.visibility = "hidden";
+      const doc = document.getElementById("preloader");
+      if(doc) {
+        doc.style.opacity = "0";
+        doc.style.visibility = "hidden";
+      }
     }
   }
 

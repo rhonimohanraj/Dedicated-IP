@@ -1,10 +1,9 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { LayoutService } from '../../../../layout/service/app.layout.service';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from '@dedicated-ip/service';
 import { asyncScheduler } from 'rxjs';
+import {ToastService} from "../../../../services/toast/toast.service";
 
 @Component({
     templateUrl: './register.component.html',
@@ -13,11 +12,14 @@ import { asyncScheduler } from 'rxjs';
 })
 export class RegisterComponent {
   private readonly router = inject(Router);
-  public readonly layoutService = inject(LayoutService);
-  private readonly messageService = inject(MessageService);
   private readonly FirebaseService = inject(FirebaseService);
+  private readonly toastService = inject(ToastService);
 
   formGroup!: FormGroup;
+  submitted = false;
+  fieldTextType!: boolean;
+  error = '';
+  year: number = new Date().getFullYear();
 
   constructor() {
     this.formGroup = new FormGroup({
@@ -35,11 +37,15 @@ export class RegisterComponent {
     return this.formGroup.get('password');
   }
 
-  get dark(): boolean {
-    return this.layoutService.config().colorScheme !== 'light';
+  get f() { return this.formGroup.controls; }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 
   async onRegisterWithEmailAndPassword(): Promise<void> {
+    this.error = '';
+    this.submitted = true;
     if (this.formGroup.valid) {
       try {
         const user = await this.FirebaseService.createUserWithEmailAndPassword(
@@ -47,83 +53,67 @@ export class RegisterComponent {
           this.password!.value,
         );
         if (user) {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Register successful',
-            detail: 'You have successfully Registered, Please verify your email address',
-          });
+          this.toastService.show("You have successfully Registered, Please verify your email address.", { classname: 'bg-success text-white', delay: 15000 });
           asyncScheduler.schedule(async () => {
             await this.router.navigate(['/']);
           }, 4000);
         }
       } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Register failed',
-          detail: error.toString(),
-        });
+        this.error = error.toString();
+        this.toastService.show("Register failed, please try again.", { classname: 'bg-danger text-white', delay: 15000 });
       }
     }
   }
 
-  async onLoginWithGoogle(): Promise<void> {
+  async onRegisterWithGoogle(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithGoogle();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
+      this.toastService.show("Register Failed.", { classname: 'bg-danger text-white', delay: 15000 });
     }
   }
 
-  async onLoginWithFacebook(): Promise<void> {
+  async onRegisterWithFacebook(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithFacebook();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
+      this.toastService.show("Register Failed.", { classname: 'bg-danger text-white', delay: 15000 });
     }
   }
 
-  async onLoginWithTwitter(): Promise<void> {
+  async onRegisterWithTwitter(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithTwitter();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
+      this.toastService.show("Register Failed.", { classname: 'bg-danger text-white', delay: 15000 });
     }
   }
 
-  async onLoginWithGithub(): Promise<void> {
+  async onRegisterWithGithub(): Promise<void> {
+    this.error = '';
     try {
       const user = await this.FirebaseService.signInWithGithub();
       if (user) {
         await this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Login failed',
-        detail: error.toString(),
-      });
+      this.error = error.toString();
+      this.toastService.show("Register Failed.", { classname: 'bg-danger text-white', delay: 15000 });
     }
   }
-
 }

@@ -1,115 +1,114 @@
-<p-toast />
-<div
-  [class]="'login-body flex min-h-screen  '+(layoutService.config().colorScheme === 'light' ? 'layout-light':'layout-dark')">
-  <div class="login-image w-6 h-screen hidden md:block relative" style="max-width: 490px;">
-    <img
-      [src]="'layout/images/pages/login-'+ (layoutService.config().colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
-      alt="atlantis" class="w-full absolute bottom-0">
-  </div>
-  <div class="login-panel w-full" style="background:var(--surface-ground)">
-    <div
-      class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
-      style=" padding: 20% 10% 20% 10%;">
+<div class="auth-page-wrapper pt-5">
+  <!-- auth page bg -->
+  <div class="auth-one-bg-position auth-one-bg"  id="auth-particles">
+    <div class="bg-overlay"></div>
 
-      <div class="md:col-12">
-        <div class="card">
-          <div class="grid">
-            <div class="col-12 md:col-5 flex align-items-center justify-content-center">
-              <div class="flex flex-column w-full">
-                <form [formGroup]="formGroup" class="px-2">
-                  <div class="flex align-items-center mb-6 logo-container">
-                    <img
-                      [src]="'layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
-                      class="login-logo" style=" width: 45px;" />
-                    <img
-                      [src]="'layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
-                      class="login-appname ml-3" style="width: 150px;" />
-                  </div>
-                  <div class="form-container">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-envelope"></i>
-                      <div class="p-element p-inputtext p-component block mb-3" style="max-width: 320px; min-width: 270px;">
-                        <input type="text" autocomplete="off" formControlName="email" pInputText placeholder="Email">
-                      </div>
-                    </span>
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-key"></i>
-                    <p-password formControlName="password" pInputText class="block mb-3" placeholder="Password"
-                                [style.max-width]="'320px'" [style.min-width]="'270px'" />
-                    </span>
-                    <div class="mt-2 flex flex-wrap mb-2">
-                      <p-checkbox name="checkbox" value="val" formControlName="confirmed" styleClass="mr-2" [binary]="true"></p-checkbox>
-                      <label for="checkbox" class="text-00 font-medium mr-2">I have read the</label>
-                      <a class="text-600 cursor-pointer hover:text-primary cursor-pointer">Terms and Conditions</a>
+    <div class="shape">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+        <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- auth page content -->
+  <div class="auth-page-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-center mt-sm-5 mb-4 text-white-50">
+            <div>
+              <a routerLink="/" class="d-inline-block auth-logo">
+                <img src="images/logo-light.png" alt="" height="50">
+              </a>
+            </div>
+            <p class="mt-3 fs-15 fw-semibold">Expand Your Online Presence Worldwide.</p>
+          </div>
+        </div>
+      </div>
+      <!-- end row -->
+
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-5">
+          <div class="card mt-4">
+
+            <div class="card-body p-4">
+              <div class="text-center mt-2">
+                <h5 class="text-primary">Create New Account</h5>
+                <p class="text-muted">Get your free Dedicated-IP account now</p>
+              </div>
+              <div class="p-2 mt-4">
+                <form [formGroup]="formGroup" (ngSubmit)="onRegisterWithEmailAndPassword()">
+
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email address" required formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                    <div class="invalid-feedback">
+                      Please enter email
                     </div>
                   </div>
 
-                  @if (formGroup.invalid && formGroup.dirty) {
-                    @for (control of formGroup.controls | keyvalue; track $index) {
-                      @if (control.value.invalid) {
-                        @for (error of control.value.errors | keyvalue; track $index) {
-                          <div
-                            class="p-message p-message-error p-message-text p-component p-message-filled p-message-icon-only mb-4">
-                            @if (error.key === 'required') {
-                              <span class="p-message-text">{{ control.key }} is required</span>
-                            } @else if (error.key === control.key) {
-                              <span class="p-message-text">{{ control.key }} is invalid</span>
-                            } @else {
-                              <span class="p-message-text">{{ control.key }} is {{ error.key }}</span>
-                            }
-                          </div>
-                        }
-                      }
-                    }
-                  }
+                  <div class="mb-2">
+                    <label for="userpassword" class="form-label">Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password" required formControlName="password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                    <div class="invalid-feedback">
+                      Please enter password
+                    </div>
+                  </div>
 
-                  <div class="button-container" style="text-align: start">
-                    <button (click)="onRegisterWithEmailAndPassword()" type="button" pButton label="Register"
-                            [routerLink]="['/auth/register']"
-                            class="block" style="max-width: 320px; margin-bottom: 32px;"></button>
-                    <span class="font-medium text-600">Already have an account? <a [routerLink]="['/auth/login']" class="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">Login</a></span>
+                  <div class="mb-4">
+                    <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the Dedicated-IP <a href="javascript:void(0);" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
+                  </div>
+
+                  <div class="mt-4">
+                    <button class="btn btn-success w-100" type="submit">Sign Up</button>
+                  </div>
+
+                  <div class="text-danger mt-1">{{error}}</div>
+
+                  <div class="mt-4 text-center">
+                    <div class="signin-other-title">
+                      <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
+                    </div>
+
+                    <div class="d-flex gap-2 justify-content-center">
+                      <button type="button" class="btn btn-info btn-icon waves-effect waves-light" (click)="onRegisterWithFacebook()"><i class="ri-facebook-fill fs-16"></i></button>
+                      <button type="button" class="btn btn-danger btn-icon waves-effect waves-light" (click)="onRegisterWithGoogle()"><i class="ri-google-fill fs-16"></i></button>
+                      <button type="button" class="btn btn-dark btn-icon waves-effect waves-light" (click)="onRegisterWithGithub()"><i class="ri-github-fill fs-16"></i></button>
+                      <button type="button" class="btn btn-info btn-icon waves-effect waves-light" (click)="onRegisterWithTwitter()"><i class="ri-twitter-fill fs-16"></i></button>
+                    </div>
                   </div>
                 </form>
+
               </div>
             </div>
-            <div class="md:col-2 md:block hidden">
-              <p-divider layout="vertical">
-                <b>OR</b>
-              </p-divider>
-            </div>
-            <div class="col-12 md:col-5 align-items-center justify-content-center">
-              <h5>
-                Register using
-              </h5>
-
-              <p-divider layout="horizontal"></p-divider>
-
-              <button (click)="onLoginWithGoogle()" [style.margin-bottom]="'20px'" [style.margin-top]="'25px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-google"
-                      iconPos="left" label="Google" pButton
-                      pRipple></button>
-              <div class="clearfix"></div>
-              <button (click)="onLoginWithFacebook()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-facebook" iconPos="left"
-                      label="Facebook" pButton pRipple></button>
-              <div class="clearfix"></div>
-              <button (click)="onLoginWithTwitter()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-twitter" iconPos="left"
-                      label="Twitter" pButton pRipple></button>
-              <div class="clearfix"></div>
-              <button (click)="onLoginWithGithub()" [style.margin-bottom]="'20px'" [style.max-width]="'200px'" class="p-button-outlined" icon="pi pi-github" iconPos="left"
-                      label="Github" pButton pRipple></button>
-            </div>
+            <!-- end card body -->
           </div>
-        </div>
+          <!-- end card -->
 
-        <div class="login-footer flex align-items-center md:absolute" style="bottom: 75px;">
-          <div
-            class="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
-            <img src="layout/images/logo-gray.png" class="login-footer-logo" style="width: 22px;" />
-            <img src="layout/images/appname-gray.png" class="login-footer-appname ml-2"
-                 style="  width: 100px;" />
+          <div class="mt-4 text-center">
+            <p class="mb-0">Already have an account ? <a routerLink="/auth/login" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
           </div>
-          <span class="text-sm text-color-secondary mr-3">Copyright 2025</span>
+
         </div>
       </div>
-
+      <!-- end row -->
     </div>
+    <!-- end container -->
   </div>
+  <!-- end auth page content -->
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="text-center">
+            <p class="mb-0 text-muted">&copy; {{year}} Dedicated-IP. Crafted with <i class="mdi mdi-heart text-danger"></i> in Netherlands</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- end Footer -->
+</div>
+<!-- end auth-page-wrapper -->

@@ -27,6 +27,32 @@
           </div>
         }
       </div>
+
+      <div>
+        <h5>Your Timeline</h5>
+        <div class="horizontal-timeline my-3">
+          <div class="swiper timelineSlider" dir="ltr">
+            <ngx-slick-carousel class="carousel space" [config]="config">
+              @for(server of servers.data().reverse()!; track $index){
+                <div class="swiper-slide" ngxSlickItem>
+                  <div class="card pt-2 border-0 item-box text-center">
+                    <div class="timeline-content p-3 rounded">
+                      <div>
+                        <p class="text-muted fw-medium mb-0">{{server.createdAt | date: 'MMMM/dd/yyyy'}}</p>
+                        <h6 class="mb-0">create server {{server.name}}</h6>
+                      </div>
+                    </div>
+                    <div class="time"><span class="badge bg-success">{{server.createdAt | date: 'MM/dd/yyyy'}}</span></div>
+                  </div>
+                </div>
+              }
+            </ngx-slick-carousel>
+          </div>
+
+
+        </div><!--end timeline-->
+      </div>
+
     </div>
   </div>
 

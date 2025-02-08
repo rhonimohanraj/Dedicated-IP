@@ -8,7 +8,7 @@ import {firstValueFrom} from "rxjs";
 @Component({
   selector: 'app-map',
   template: `
-    <div leaflet style="height: 300px;" [leafletOptions]="options" [leafletLayers]="layers"></div>
+    <div leaflet style="height: 500px;" [leafletOptions]="options" [leafletLayers]="layers"></div>
   `,
   imports: [
     CountUpModule,

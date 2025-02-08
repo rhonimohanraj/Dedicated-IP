@@ -17,12 +17,13 @@ import {ToastModule} from "primeng/toast";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {MapComponent} from "../../../components/map.component";
 import {StatComponent} from "../../../components/stat.component";
+import {SlickCarouselModule} from "ngx-slick-carousel";
 
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
   styleUrl: './servers.component.css',
-  imports: [SkeletonModule, FileUploadModule, TableModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, RouterLink, InplaceModule, ToastModule, IpComponent, LeafletModule, StatComponent, MapComponent],
+  imports: [SkeletonModule, FileUploadModule, TableModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, RouterLink, InplaceModule, ToastModule, IpComponent, LeafletModule, StatComponent, MapComponent, SlickCarouselModule],
   providers: [MessageService],
 })
 export class ServersComponent implements OnInit {
@@ -131,6 +132,14 @@ export class ServersComponent implements OnInit {
       bg_color: 'bg-danger'
     }
     ]);
+
+  config = {
+    infinite: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    arrows: false
+  };
 
   cities = signal<Array<string>>([]);
 }

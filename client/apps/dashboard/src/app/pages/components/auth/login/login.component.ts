@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
-import { KeyValuePipe } from '@angular/common';
+import {KeyValuePipe, NgClass} from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { FirebaseService } from '@dedicated-ip/service';
@@ -30,6 +30,7 @@ import { RippleModule } from 'primeng/ripple';
     ToastModule,
     DividerModule,
     RippleModule,
+    NgClass,
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
@@ -42,6 +43,10 @@ export class LoginComponent {
   private readonly FirebaseService = inject(FirebaseService);
 
   formGroup!: FormGroup;
+  submitted = false;
+  fieldTextType!: boolean;
+  error = '';
+  year: number = new Date().getFullYear();
 
   constructor() {
     this.formGroup = new FormGroup({
@@ -58,11 +63,18 @@ export class LoginComponent {
     return this.formGroup.get('password');
   }
 
+  get f() { return this.formGroup.controls; }
+
   get dark(): boolean {
     return this.layoutService.config().colorScheme !== 'light';
   }
 
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+
   async onLoginWithEmailAndPassword(): Promise<void> {
+    this.submitted = true;
     if (this.formGroup.valid) {
       try {
         const user = await this.FirebaseService.signInWithEmailAndPassword(
@@ -73,11 +85,7 @@ export class LoginComponent {
           await this.router.navigate(['/']);
         }
       } catch (error: any) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Login failed',
-          detail: error.toString(),
-        });
+        this.error = error.toString();
       }
     }
   }

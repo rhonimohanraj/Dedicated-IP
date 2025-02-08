@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { LayoutService } from '../../../../layout/service/app.layout.service';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ChipsModule } from 'primeng/chips';
@@ -25,7 +24,6 @@ import {ToastsContainerComponent} from "../../../../services/toast/toast-contain
   templateUrl: './forgotpassword.component.html',
 })
 export class ForgotPasswordComponent {
-  public readonly layoutService = inject(LayoutService);
   private readonly FirebaseService = inject(FirebaseService);
   private readonly toastService = inject(ToastService);
 
@@ -45,10 +43,6 @@ export class ForgotPasswordComponent {
   }
 
   get f() { return this.formGroup.controls; }
-
-  get dark(): boolean {
-    return this.layoutService.config().colorScheme !== 'light';
-  }
 
   async onForgotPassword(): Promise<void> {
     this.submitted = true;

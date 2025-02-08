@@ -1,5 +1,4 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-import { LayoutService } from '../../../../layout/service/app.layout.service';
 import { Router, RouterLink } from '@angular/router';
 import { ChipsModule } from 'primeng/chips';
 import { ButtonModule } from 'primeng/button';
@@ -37,7 +36,6 @@ import { RippleModule } from 'primeng/ripple';
 })
 export class LoginComponent {
   private readonly router = inject(Router);
-  public readonly layoutService = inject(LayoutService);
   private readonly FirebaseService = inject(FirebaseService);
 
   formGroup!: FormGroup;
@@ -62,10 +60,6 @@ export class LoginComponent {
   }
 
   get f() { return this.formGroup.controls; }
-
-  get dark(): boolean {
-    return this.layoutService.config().colorScheme !== 'light';
-  }
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;

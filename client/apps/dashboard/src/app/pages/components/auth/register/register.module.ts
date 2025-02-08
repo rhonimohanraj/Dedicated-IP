@@ -7,7 +7,6 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
-import { AppConfigModule } from '../../../../layout/config/app.config.module';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
@@ -21,7 +20,6 @@ import { ToastModule } from 'primeng/toast';
     RippleModule,
     InputTextModule,
     CheckboxModule,
-    AppConfigModule,
     PasswordModule,
     DividerModule,
     ToastModule,

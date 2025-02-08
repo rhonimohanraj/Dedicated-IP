@@ -2,6 +2,35 @@
 
 @if (servers.isSuccess()) {
   <div class="col-12">
+    <div class="col-xl-4">
+      <!-- card -->
+      <div class="card card-height-100">
+        <div class="card-header align-items-center d-flex">
+          <h4 class="card-title mb-0 flex-grow-1">Your Server Location</h4>
+        </div><!-- end card header -->
+
+        <!-- card body -->
+        <div class="card-body">
+
+          <div id="sales-by-locations" leaflet style="height: 269px;" [leafletOptions]="options" [leafletLayers]="layers"></div>
+
+        </div>
+        <!-- end card body -->
+      </div>
+      <!-- end card -->
+    </div>
+    <div class="col-xl-8">
+      <div class="row">
+        @for(stat of statData;track $index){
+          <div class="col-xl-3 col-md-6">
+            <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [persantage]="stat.persantage" [profit]="stat.profit" [bg_color]="stat.bg_color" [link]="stat.link"></app-stat>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
     <div class="card">
       <p-table #dt1 [value]="servers.data()!" dataKey="id" [rows]="10" [loading]="servers.isLoading()" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
         <ng-template pTemplate="caption">

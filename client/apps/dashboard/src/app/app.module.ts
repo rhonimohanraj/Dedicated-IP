@@ -1,7 +1,6 @@
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AppLayoutModule} from './layout/app.layout.module';
 import {CrispComponent, FirebaseComponent, FirebaseProvider, TawkComponent} from '@dedicated-ip/service';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
@@ -12,6 +11,7 @@ import {provideTanStackQuery, QueryClient, withDevtools} from '@tanstack/angular
 import {provideHttpClient} from '@angular/common/http';
 import * as Sentry from "@sentry/angular";
 import {Router} from '@angular/router';
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,8 +30,8 @@ import {Router} from '@angular/router';
       multi: true,
     },],
   imports: [
+    BrowserModule,
     AppRoutingModule,
-    AppLayoutModule,
     FirebaseComponent,
     TawkComponent,
     MessagesModule,

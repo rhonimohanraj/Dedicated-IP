@@ -3,7 +3,6 @@ import { LayoutService } from '../../../../layout/service/app.layout.service';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ChipsModule } from 'primeng/chips';
-import { MessageService } from 'primeng/api';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FirebaseService } from '@dedicated-ip/service';
 import {NgClass} from '@angular/common';
@@ -27,7 +26,6 @@ import {ToastsContainerComponent} from "../../../../services/toast/toast-contain
 })
 export class ForgotPasswordComponent {
   public readonly layoutService = inject(LayoutService);
-  private readonly messageService = inject(MessageService);
   private readonly FirebaseService = inject(FirebaseService);
   private readonly toastService = inject(ToastService);
 

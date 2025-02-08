@@ -1,15 +1,14 @@
-import {Component, effect, ElementRef, inject, OnInit, signal, ViewChild} from '@angular/core';
+import {Component, computed, effect, ElementRef, inject, OnInit, signal, ViewChild} from '@angular/core';
 import {injectQuery} from '@tanstack/angular-query-experimental';
 import {DatePipe} from '@angular/common';
-import {FirestoreService, FunctionService, IpComponent} from '@dedicated-ip/service';
+import {FirestoreService, FunctionService} from '@dedicated-ip/service';
 import {SkeletonModule} from "primeng/skeleton";
 import {FileUploadModule} from "primeng/fileupload";
-import {Table, TableModule} from "primeng/table";
 import {SliderModule} from "primeng/slider";
 import {DropdownModule} from "primeng/dropdown";
 import {MultiSelectModule} from "primeng/multiselect";
 import {ChipsModule} from "primeng/chips";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {InplaceModule} from "primeng/inplace";
 import {asyncScheduler, tap} from "rxjs";
 import {MessageService} from "primeng/api";
@@ -18,12 +17,14 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {MapComponent} from "../../../components/map.component";
 import {StatComponent} from "../../../components/stat.component";
 import {SlickCarouselModule} from "ngx-slick-carousel";
+import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-servers',
   templateUrl: './servers.component.html',
   styleUrl: './servers.component.css',
-  imports: [SkeletonModule, FileUploadModule, TableModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, RouterLink, InplaceModule, ToastModule, IpComponent, LeafletModule, StatComponent, MapComponent, SlickCarouselModule],
+  imports: [SkeletonModule, FileUploadModule, SliderModule, DropdownModule, MultiSelectModule, ChipsModule, DatePipe, InplaceModule, ToastModule, LeafletModule, StatComponent, MapComponent, SlickCarouselModule, NgbPagination, FormsModule],
   providers: [MessageService],
 })
 export class ServersComponent implements OnInit {
@@ -80,15 +81,6 @@ export class ServersComponent implements OnInit {
       )).subscribe();
   }
 
-  onGlobalFilter(table: Table, event: Event) {
-    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-  }
-
-  clear(table: Table) {
-    table.clear();
-    this.filter.nativeElement.value = '';
-  }
-
   async resetPassword(domainName: string, password: string): Promise<void> {
     this.messageService.add({severity: 'info', summary: 'Reset password', detail: 'Please wait...'});
     const serverId = domainName.replace('https://', '').split('.')[0];
@@ -142,4 +134,11 @@ export class ServersComponent implements OnInit {
   };
 
   cities = signal<Array<string>>([]);
+
+  page = 1;
+  pageSize = 10;
+  term = signal('');
+  filteredServer = computed(() => {
+    return this.servers.data()?.filter(x => x.domain.includes(this.term()) || x.location.includes(this.term()) || x.status.includes(this.term()) || x.name.includes(this.term())) ?? [];
+  });
 }

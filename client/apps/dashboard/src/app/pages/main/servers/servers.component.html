@@ -12,7 +12,7 @@
         <!-- card body -->
         <div class="card-body">
 
-          <app-map [cities]="cities()" />
+          <app-map [cities]="cities()"/>
 
         </div>
         <!-- end card body -->
@@ -21,9 +21,10 @@
     </div>
     <div class="col-xl-8">
       <div class="row">
-        @for(stat of statData(); track $index){
+        @for (stat of statData(); track $index) {
           <div class="col-xl-3 col-md-6">
-            <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [bg_color]="stat.bg_color"></app-stat>
+            <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"
+                      [bg_color]="stat.bg_color"></app-stat>
           </div>
         }
       </div>
@@ -33,16 +34,17 @@
         <div class="horizontal-timeline my-3">
           <div class="swiper timelineSlider" dir="ltr">
             <ngx-slick-carousel class="carousel space" [config]="config">
-              @for(server of servers.data().reverse()!; track $index){
+              @for (server of servers.data().reverse()!; track $index) {
                 <div class="swiper-slide" ngxSlickItem>
                   <div class="card pt-2 border-0 item-box text-center">
                     <div class="timeline-content p-3 rounded">
                       <div>
-                        <p class="text-muted fw-medium mb-0">{{server.createdAt | date: 'MMMM/dd/yyyy'}}</p>
-                        <h6 class="mb-0">create server {{server.name}}</h6>
+                        <p class="text-muted fw-medium mb-0">{{ server.createdAt | date: 'MMMM/dd/yyyy' }}</p>
+                        <h6 class="mb-0">create server {{ server.name }}</h6>
                       </div>
                     </div>
-                    <div class="time"><span class="badge bg-success">{{server.createdAt | date: 'MM/dd/yyyy'}}</span></div>
+                    <div class="time"><span class="badge bg-success">{{ server.createdAt | date: 'MM/dd/yyyy' }}</span>
+                    </div>
                   </div>
                 </div>
               }
@@ -58,157 +60,105 @@
 
   <div class="col-12">
     <div class="card">
-      <p-table #dt1 [value]="servers.data()!" dataKey="id" [rows]="10" [loading]="servers.isLoading()" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll">
-        <ng-template pTemplate="caption">
-          <div class="flex justify-content-between flex-column sm:flex-row">
-            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
-            <span class="p-input-icon-left mb-2">
-							<i class="pi pi-search"></i>
-							<input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)" placeholder="Search Keyword" class="w-full"/>
-						</span>
-          </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-          <tr>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                Name
-                <p-columnFilter type="text" field="name" display="menu" placeholder="Search by name"></p-columnFilter>
+      <div class="row">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title mb-0">Your servers</h4>
+          </div><!-- end card header -->
+
+          <div class="card-body">
+
+            <div class="listjs-table" id="pagination-list">
+              <div class="mb-2">
+                <input type="text" class="search form-control" placeholder="Search" [(ngModel)]="term"/>
               </div>
-            </th>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                Location
-                <p-columnFilter type="text" field="country.name" display="menu" placeholder="Search by country"></p-columnFilter>
-              </div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="flex justify-content-between align-items-center">
-                Date
-                <p-columnFilter type="date" field="createdAt" display="menu" placeholder="mm/dd/yyyy"></p-columnFilter>
-              </div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="flex justify-content-between align-items-center">
-                Panel Username
-              </div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="flex justify-content-between align-items-center">
-                Panel Password
-              </div>
-            </th>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                Status
-                <p-columnFilter type="text" field="country.name" display="menu" placeholder="Search by status"></p-columnFilter>
-              </div>
-            </th>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
-                IP Address
-              </div>
-            </th>
-            <th style="min-width: 12rem">
-              <div class="flex justify-content-between align-items-center">
+
+              <div class="mx-n3">
+                <ul class="list list-group list-group-flush mb-0">
+                  @for (data of filteredServer().slice((page - 1) * pageSize, page * pageSize); track $index) {
+                    <!-- <li *ngFor="let data of paginationDatas | filterBy:['name','type']:term" class="list-group-item"> -->
+                    <li class="list-group-item">
+                      <div class="d-flex align-items-center pagi-list">
+                        <div class="flex-shrink-0 me-3">
+                          <div>
+                            <img class="image avatar-xs rounded-circle" alt="" src="
+                                              {{data.countryCode}}">
+                          </div>
+                        </div>
+
+                        <div class="flex-grow-1 overflow-hidden">
+                          <h5 class="fs-13 mb-1"><a href="#" class="link text-body">{{ data.name }}</a>
+                          </h5>
+                          <p class="born timestamp text-muted mb-0">{{ data.username }}</p>
+                        </div>
+
+                        <div class="flex-shrink-0 ms-2">
+                          <div>
+                            <button type="button" class="btn btn-sm btn-light"><i class="ri-mail-line align-bottom"></i>
+                              Message
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  }
+                  <!-- end list item -->
+                </ul>
+                <!-- end ul list -->
+
+                <div class="d-flex justify-content-center">
+                  <div class="text-sm-right float-sm-end listjs-pagination gap-2">
+                    <ngb-pagination [collectionSize]="filteredServer().length" [(page)]="page" [pageSize]="pageSize">
+                    </ngb-pagination>
+                  </div>
+                </div>
 
               </div>
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-server>
-          <tr>
-            <td>
-              {{server.name}}
-            </td>
-            <td>
-              <span class="image-text ml-2">{{server.location}}</span>
-            </td>
-            <td>
-              {{server.createdAt | date: 'MM/dd/yyyy'}}
-            </td>
-            <td>
-              {{server.username}}
-            </td>
-            <td>
-              <p-inplace>
-                <ng-template pTemplate="display">
-                  <span>View Password</span>
-                </ng-template>
-                <ng-template pTemplate="content">
-                  <p class="m-0 select-all">{{server.password}}</p>
-                </ng-template>
-              </p-inplace>
-            </td>
-            <td>
-              <span [class]="'customer-badge status-' + server.status">{{server.status}}</span>
-            </td>
-            <td>
-              @if(server.status === "active"){
-                <ip-component [domain]="server.domain"></ip-component>
-              }
-            </td>
-            <td>
-              @if(server.status === "active"){
-                <a [href]="server.domain" target="_blank" class="p-button p-button-text">
-                  <i class="pi pi-spin pi-cog"></i> <span class="ml-1">Control Panel</span>
-                </a>
-
-                <button pButton label="Reset password" icon="pi pi-key" class="p-button-warning" (click)="resetPassword(server.domain, server.password)"></button>
-              }
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="8" class="justify-content-center align-content-center text-center p-5">
-              You don't have any server let's create one.
-              <div class="clearfix"></div>
-              <button pButton label="Create" class="m-2" [routerLink]="['/d/pricing']"></button>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+            </div>
+          </div><!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
     </div>
 
   </div>
-}
-@else {
+} @else {
   <div class="rounded border border-surface-200 dark:border-surface-700 p-6 bg-surface-0 dark:bg-surface-900">
     <ul class="m-0 p-0 list-none">
       <li class="mb-4">
         <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
           <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2" />
-            <p-skeleton width="75%" />
+            <p-skeleton width="100%" styleClass="mb-2"/>
+            <p-skeleton width="75%"/>
           </div>
         </div>
       </li>
       <li class="mb-4">
         <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
           <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2" />
-            <p-skeleton width="75%" />
+            <p-skeleton width="100%" styleClass="mb-2"/>
+            <p-skeleton width="75%"/>
           </div>
         </div>
       </li>
       <li class="mb-4">
         <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
           <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2" />
-            <p-skeleton width="75%" />
+            <p-skeleton width="100%" styleClass="mb-2"/>
+            <p-skeleton width="75%"/>
           </div>
         </div>
       </li>
       <li>
         <div class="flex">
-          <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2"/>
           <div class="self-center" style="flex: 1">
-            <p-skeleton width="100%" styleClass="mb-2" />
-            <p-skeleton width="75%" />
+            <p-skeleton width="100%" styleClass="mb-2"/>
+            <p-skeleton width="75%"/>
           </div>
         </div>
       </li>

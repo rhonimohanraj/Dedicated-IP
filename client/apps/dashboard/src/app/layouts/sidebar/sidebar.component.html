@@ -91,11 +91,20 @@
                               </ul>
                             </div>
                           }@else {
-                            <a [href]="subitem.link" class="nav-link" [attr.data-parent]="subitem.parentId" (click)="updateActive($event)">
-                              {{ subitem.label }}
-                              @if(subitem.badge){<span class="badge badge-pill {{subitem.badge.variant}}">{{subitem.badge.text
-                                }}</span>}
-                            </a>
+                            @if(subitem.link){
+                              <a [href]="subitem.link" class="nav-link" [attr.data-parent]="subitem.parentId" (click)="updateActive($event)">
+                                {{ subitem.label }}
+                                @if(subitem.badge){<span class="badge badge-pill {{subitem.badge.variant}}">{{subitem.badge.text
+                                  }}</span>}
+                              </a>
+                            }
+                            @if(subitem.click){
+                              <a (click)="subitem.click()" class="nav-link cursor-pointer" [attr.data-parent]="subitem.parentId">
+                                {{ subitem.label }}
+                                @if(subitem.badge){<span class="badge badge-pill {{subitem.badge.variant}}">{{subitem.badge.text
+                                  }}</span>}
+                              </a>
+                            }
                           }
                         </li>
                       }

@@ -17,10 +17,12 @@ import {CountUpModule} from "ngx-countup";
               <h5 class="text-white fs-14 mb-0">
                 <i class="fs-13 align-middle float-start"
                    [ngClass]=" {'ri-arrow-right-up-line': profit === 'up', 'ri-arrow-right-down-line': profit === 'down'}"></i>
-                @if (profit === 'up' || profit === 'equal') {
-                  <span>+</span>{{ persantage }} %
-                } @else {
-                  <span>-</span>{{ persantage }} %
+                @if(profit){
+                  @if (profit === 'up' || profit === 'equal') {
+                    <span>+</span>{{ persantage }} %
+                  } @else {
+                    <span>-</span>{{ persantage }} %
+                  }
                 }
               </h5>
             </div>

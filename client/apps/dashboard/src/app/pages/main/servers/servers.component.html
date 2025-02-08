@@ -1,7 +1,7 @@
 <p-toast/>
 
 @if (servers.isSuccess()) {
-  <div class="col-12">
+  <div class="row">
     <div class="col-xl-4">
       <!-- card -->
       <div class="card card-height-100">
@@ -12,7 +12,7 @@
         <!-- card body -->
         <div class="card-body">
 
-          <div id="sales-by-locations" leaflet style="height: 269px;" [leafletOptions]="options" [leafletLayers]="layers"></div>
+          <app-map [cities]="cities()" />
 
         </div>
         <!-- end card body -->
@@ -21,9 +21,9 @@
     </div>
     <div class="col-xl-8">
       <div class="row">
-        @for(stat of statData;track $index){
+        @for(stat of statData(); track $index){
           <div class="col-xl-3 col-md-6">
-            <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [persantage]="stat.persantage" [profit]="stat.profit" [bg_color]="stat.bg_color" [link]="stat.link"></app-stat>
+            <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [bg_color]="stat.bg_color"></app-stat>
           </div>
         }
       </div>

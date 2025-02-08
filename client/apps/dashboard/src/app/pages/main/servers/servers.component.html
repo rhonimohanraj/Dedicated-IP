@@ -113,9 +113,11 @@
 
                           <td class="flex-shrink-0 ms-2">
                             <div>
-                              <button type="button" class="btn btn-sm btn-light"><i class="ri-tools-line align-bottom"></i>
-                                Control Panel
-                              </button>
+                              @if (data.status === 'active') {
+                                <button type="button" class="btn btn-sm btn-light" (click)="openControlPanel(data.domain, data.username, data.password)"><i class="ri-tools-line align-bottom"></i>
+                                  Control Panel
+                                </button>
+                              }
                             </div>
                           </td>
                       </tr>

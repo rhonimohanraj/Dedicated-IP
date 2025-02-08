@@ -64,19 +64,25 @@ export class ServersComponent implements OnInit {
       )).subscribe();
   }
 
-  async resetPassword(domainName: string, password: string): Promise<void> {
-    this.toastService.show("Resetting password, Please wait...", { classname: 'bg-info text-white', delay: 15000 });
-    const serverId = domainName.replace('https://', '').split('.')[0];
-    try {
-      await this.functionService.reverseProxy(serverId, 'update-password', {
-        username: 'admin',
-        password: password,
-      });
-      this.toastService.show("Password reset successfully.", { classname: 'bg-success text-white', delay: 15000 });
-    } catch (e: any) {
-      this.toastService.show("Reset password failed, please try again.", { classname: 'bg-danger text-white', delay: 15000 });
-    }
-
+  openControlPanel(domain: string, username: string, password: string): void {
+    // create hidden form and submit then delete it
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = domain + '/login';
+    form.target = '_blank';
+    const usernameField = document.createElement('input');
+    usernameField.type = 'text';
+    usernameField.name = 'username';
+    usernameField.value = username;
+    form.appendChild(usernameField);
+    const passwordField = document.createElement('input');
+    passwordField.type = 'password';
+    passwordField.name = 'password';
+    passwordField.value = password;
+    form.appendChild(passwordField);
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   }
 
   statData = signal<Array<{

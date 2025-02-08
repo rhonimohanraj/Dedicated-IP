@@ -3,13 +3,17 @@ import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from "@angular/rout
 import {ToastsContainerComponent} from "../../services/toast/toast-container.componenet";
 import {TopbarComponent} from "./topbar/topbar.component";
 import {EventService} from "../../services/event.service";
+import {SidebarComponent} from "./sidebar/sidebar.component";
+import {FooterComponent} from "./footer/footer.component";
 
 @Component({
   selector: 'app-layout',
   imports: [
     RouterOutlet,
     ToastsContainerComponent,
-    TopbarComponent
+    TopbarComponent,
+    SidebarComponent,
+    FooterComponent
   ],
   templateUrl: './layout.component.html'
 })

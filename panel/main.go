@@ -221,7 +221,7 @@ func main() {
 
 	if !util.DisableLogin {
 		app.GET(util.BasePath+"/login", handler.LoginPage())
-		app.POST(util.BasePath+"/login", handler.Login(db), handler.ContentTypeJson)
+		app.POST(util.BasePath+"/login", handler.Login(db))
 		app.GET(util.BasePath+"/logout", handler.Logout(), handler.ValidSession)
 		app.GET(util.BasePath+"/profile", handler.LoadProfile(), handler.ValidSession, handler.RefreshSession)
 		app.GET(util.BasePath+"/users-settings", handler.UsersSettings(), handler.ValidSession, handler.RefreshSession, handler.NeedsAdmin)

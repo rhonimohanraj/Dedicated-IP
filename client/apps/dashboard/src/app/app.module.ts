@@ -11,7 +11,8 @@ import {provideTanStackQuery, QueryClient, withDevtools} from '@tanstack/angular
 import {provideHttpClient} from '@angular/common/http';
 import * as Sentry from "@sentry/angular";
 import {Router} from '@angular/router';
-import {BrowserModule} from "@angular/platform-browser";
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import {BrowserModule} from "@angular/platform-browser";
     },],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FirebaseComponent,
     TawkComponent,

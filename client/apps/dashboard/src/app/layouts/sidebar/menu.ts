@@ -14,13 +14,13 @@ export const MENU: MenuItem[] = [
   },
   {
     id: "55",
-    label: 'Create Server',
+    label: 'Buy Dedicated IP',
     icon: 'ri-stack-line',
     link: '/d/pricing',
   },
   {
     id: "96",
-    label: 'Your Servers',
+    label: 'Your Dedicated IPs',
     isTitle: true
   },
 ];

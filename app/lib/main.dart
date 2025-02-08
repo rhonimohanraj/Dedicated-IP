@@ -62,5 +62,6 @@ class MyApp extends StatelessWidget {
 extension AppTheme on ThemeData {
   Color get lightText => Pref.isDarkMode ? Colors.white70 : Colors.black54;
 
-  Color get bottomNav => Pref.isDarkMode ? Colors.white12 : Colors.green;
+  Color get bottomNav =>
+      Pref.isDarkMode ? Colors.white12 : const Color(0xFF26401D);
 }

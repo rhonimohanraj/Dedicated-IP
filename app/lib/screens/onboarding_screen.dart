@@ -81,7 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         // Background color
-                        foregroundColor: Colors.green,
+                        foregroundColor: const Color(0xFF26401D),
                         // Text and icon color
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 16),
@@ -105,7 +105,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           Text("Start now"),
                           SizedBox(width: 8),
                           // Space between icon and text
-                          Icon(Icons.arrow_forward, color: Colors.green),
+                          Icon(Icons.arrow_forward, color: Color(0xFF26401D)),
                           // Arrow icon
                         ],
                       ),

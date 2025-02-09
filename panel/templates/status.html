@@ -28,15 +28,15 @@ Connected Peers
     return parseFloat(temporal.toFixed(2)) + units[pow]+"B"
   }
 </script>
-<section class="content">
+<section class="content info-box pt-4 pb-2">
     <div class="container-fluid">
         {{ if .error }}
         <div class="alert alert-warning" role="alert">{{.error}}</div>
         {{ end}}
         {{ range $dev := .devices }}
-            <table class="table table-sm">
-                <caption>List of connected peers for device with name {{ $dev.Name }} </caption>
-              <thead>
+            <div class="table-responsive">
+              <table class="table table-sm table-striped table-bordered">
+                <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
@@ -49,24 +49,25 @@ Connected Peers
                   <th scope="col">Connected (Approximation)</th>
                   <th scope="col">Last Handshake</th>
                 </tr>
-              </thead>
-              <tbody>
-              {{ range $idx, $peer := $dev.Peers }}
-              <tr {{ if $peer.Connected }} class="table-success" {{ end }}>
-                <th scope="row">{{ $idx }}</th>
-                <td>{{ $peer.Name }}</td>
-                <td>{{ $peer.Email }}</td>
-                <td>{{ $peer.AllocatedIP }}</td>
-                <td>{{ $peer.Endpoint }}</td>
-                <td>{{ $peer.PublicKey }}</td>
-                <td title="{{ $peer.ReceivedBytes }} Bytes"><script>document.write(bytesToHumanReadable({{ $peer.ReceivedBytes }}))</script></td>
-                <td title="{{ $peer.TransmitBytes }} Bytes"><script>document.write(bytesToHumanReadable({{ $peer.TransmitBytes }}))</script></td>
-                <td>{{ if $peer.Connected }}✓{{end}}</td>
-                <td>{{ $peer.LastHandshakeTime.Format "2006-01-02 15:04:05 MST" }}</td>
-               </tr>
-              {{ end }}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                {{ range $idx, $peer := $dev.Peers }}
+                <tr {{ if $peer.Connected }} class="table-success" {{ end }}>
+                  <th scope="row">{{ $idx }}</th>
+                  <td>{{ $peer.Name }}</td>
+                  <td>{{ $peer.Email }}</td>
+                  <td>{{ $peer.AllocatedIP }}</td>
+                  <td>{{ $peer.Endpoint }}</td>
+                  <td>{{ $peer.PublicKey }}</td>
+                  <td title="{{ $peer.ReceivedBytes }} Bytes"><script>document.write(bytesToHumanReadable({{ $peer.ReceivedBytes }}))</script></td>
+                  <td title="{{ $peer.TransmitBytes }} Bytes"><script>document.write(bytesToHumanReadable({{ $peer.TransmitBytes }}))</script></td>
+                  <td>{{ if $peer.Connected }}✓{{end}}</td>
+                  <td>{{ $peer.LastHandshakeTime.Format "2006-01-02 15:04:05 MST" }}</td>
+                </tr>
+                {{ end }}
+                </tbody>
+              </table>
+            </div>
         {{ end }}
     </div>
 </section>

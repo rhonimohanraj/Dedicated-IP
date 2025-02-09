@@ -54,7 +54,8 @@ export class TopbarComponent {
   }
 
   get photoURL(): string {
-    return this.firebaseService.currentUser?.photoURL ?? '';
+    return '/images/user-illustarator-1.png';
+    return this.firebaseService.currentUser?.photoURL ?? '/images/user-illustarator-1.png';
   }
 
   get displayName(): string {

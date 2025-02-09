@@ -1,11 +1,11 @@
 <div id="layout-wrapper" (window:resize)="onResize($event)">
 
   <!-- Top Bar -->
-  <app-topbar></app-topbar>
+  <app-topbar (mobileMenuButtonClicked)="onToggleMobileMenu()"></app-topbar>
   <!-- Top Bar -->
 
   <!-- Side Bar -->
-  <app-sidebar></app-sidebar>
+  <app-sidebar (mobileMenuButtonClicked)="onToggleMobileMenu()"></app-sidebar>
   <!-- Side Bar -->
 
   <div class="main-content">

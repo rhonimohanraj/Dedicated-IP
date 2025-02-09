@@ -95,7 +95,6 @@ function renderUserList(data) {
                         <div class="info-box">
                             <div class="info-box-content">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_edit_user" data-username="${obj.username}">Edit</button>
                                     <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                         data-target="#modal_remove_user" data-username="${obj.username}">Delete</button>
                                 </div>

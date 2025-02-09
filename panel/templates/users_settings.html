@@ -21,52 +21,6 @@ Users Settings
     </div>
 </section>
 
-<div class="modal fade" id="modal_edit_user">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Edit User</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form name="frm_edit_user" id="frm_edit_user">
-                <div class="modal-body">
-                    <div class="form-group" style="display:none">
-                        <input type="text" style="display:none" class="form-control" id="_previous_user_name"
-                               name="_previous_user_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="_user_name" class="control-label">Name</label>
-                        <input type="text" class="form-control" id="_user_name" name="_user_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="_user_password" class="control-label">Password</label>
-                        <input type="password" class="form-control" id="_user_password" name="_user_password" value=""
-                               placeholder="Leave empty to keep the password unchanged">
-                    </div>
-                    <div class="form-group">
-                        <div class="icheck-primary d-inline">
-                            <input type="checkbox" id="_admin">
-                            <label for="_admin">
-                                Admin
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
 <div class="modal fade" id="modal_remove_user">
     <div class="modal-dialog">
         <div class="modal-content bg-danger">
@@ -177,6 +131,7 @@ Users Settings
                         modal.find(".modal-title").text("Edit user " + user.username);
                         modal.find("#_user_name").val(user.username);
                         modal.find("#_user_name").attr("readonly", "readonly");
+                        modal.find("#_user_password").attr("readonly", "readonly");
                         modal.find("#_previous_user_name").val(user.username);
                         modal.find("#_user_password").val("");
                         modal.find("#_user_password").prop("placeholder", "Leave empty to keep the password unchanged")
@@ -191,6 +146,7 @@ Users Settings
                 modal.find(".modal-title").text("Add new user");
                 modal.find("#_user_name").val("");
                 modal.find("#_user_name").removeAttr("readonly");
+                modal.find("#_user_password").removeAttr("readonly");
                 modal.find("#_previous_user_name").val("");
                 modal.find("#_user_password").val("");
                 modal.find("#_user_password").prop("placeholder", "")

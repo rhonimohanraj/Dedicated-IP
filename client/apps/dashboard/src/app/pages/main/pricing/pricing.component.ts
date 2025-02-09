@@ -39,7 +39,7 @@ export class PricingComponent {
   error = '';
 
   async createPaymentLink(priceId: string): Promise<void> {
-    const paymentLink = await this.functionService.createPaymentLink(priceId);
+    const paymentLink = await this.functionService.createPaymentLink(priceId, this.serverName);
     if (paymentLink.data) {
       window.open(paymentLink.data, '_self');
     }

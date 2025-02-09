@@ -128,6 +128,6 @@ export class ServersComponent implements OnInit {
   pageSize = 10;
   term = signal('');
   filteredServer = computed(() => {
-    return this.servers.data()?.filter(x => x.domain.includes(this.term()) || x.location.includes(this.term()) || x.status.includes(this.term()) || x.name.includes(this.term())) ?? [];
+    return this.servers.data()?.filter(x => x.domain.includes(this.term()) || x.location.includes(this.term()) || x.status.includes(this.term()) || x.name.includes(this.term())).sort((x, y)=> x.createdAt.getUTCMilliseconds() - y.createdAt.getUTCMilliseconds()) ?? [];
   });
 }

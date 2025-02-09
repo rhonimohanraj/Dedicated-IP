@@ -14,7 +14,6 @@ import {
 import Stripe from "stripe";
 import {generateName, getRandomInt} from "./helper";
 import {ProductDto} from "./DTO/product.dto";
-import crypto from "crypto";
 
 admin.initializeApp();
 
@@ -157,14 +156,22 @@ export const onReverseProxy = onCall({
   }
 
   const firestore = getFirestore();
-  const serverDoc = firestore.collection("users").doc(request.auth.uid).collection("servers");
-  const server = await serverDoc.where("name", "==", request.data.domainName).get();
+  const userCollection = firestore.collection("users");
+  const userDoc = userCollection.doc(request.auth.uid);
+  const serverDoc = userDoc.collection("servers");
+  const server = await serverDoc
+    .where("name", "==", request.data.domainName)
+    .get();
 
   if (server.empty) {
     throw new HttpsError("not-found", "Server not found.");
   }
 
-  const pv8 = await serverDoc.doc(server.docs[0].id).collection("private").doc("connection").get();
+  const pv8 = await serverDoc
+    .doc(server.docs[0].id)
+    .collection("private")
+    .doc("connection")
+    .get();
 
   if (!pv8.exists) {
     throw new HttpsError("not-found", "Private data not found.");
@@ -189,13 +196,24 @@ export const onReverseProxy = onCall({
 
   const fetch = require("node-fetch");
 
-  const response = await fetch(decodeURI("https://" + request.data.domainName + ".dedicated-ip.cloud" + "/external/api/" + functionName), options);
+  const response = await fetch(
+    decodeURI(
+      "https://" +
+      request.data.domainName +
+      ".dedicated-ip.cloud" +
+      "/external/api/" +
+      functionName
+    ),
+    options
+  );
 
   if (!response.ok) {
-    const errorText = await response.text(); // Get error details from the server if possible
+    const errorText = await response.text();
+    // Get error details from the server if possible
     throw new https.HttpsError(
       "aborted",
-      `API request failed with status ${response.status}: ${errorText || response.statusText}`
+      `API request failed with status ${response.status}: ` +
+      `${errorText || response.statusText}`
     );
   }
 
@@ -345,7 +363,15 @@ export const onServerAddedToServersCollection = onDocumentCreated(
       logger.error(e);
     }
 
-    const connection = await admin.firestore().collection("users").doc(event.params.userId).collection("servers").doc(event.params.documentId).collection("private").doc("connection").get();
+    const connection = await admin
+      .firestore()
+      .collection("users")
+      .doc(event.params.userId)
+      .collection("servers")
+      .doc(event.params.documentId)
+      .collection("private")
+      .doc("connection")
+      .get();
 
     const runId = await runGithubActionUsingAPI("deploy_wireguard_server", {
       inputs: {
@@ -520,7 +546,8 @@ async function runGithubActionUsingAPI(
  * configured in Firebase Remote Config.
  *
  * @param {string} message - The message content to send.
- * @param {string} [channel="sales"] - The Zoho Cliq channel to send the message to.
+ * @param {string} [channel="sales"] - The Zoho Cliq channel to send the
+ *     message to.
  * Default is "sales".
  * @throws {Error} If the message fails to send.
  */

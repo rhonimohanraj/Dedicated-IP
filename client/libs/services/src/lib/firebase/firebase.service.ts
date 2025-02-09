@@ -61,11 +61,15 @@ export class FirebaseService {
       return result.user;
     } catch (error: unknown) {
       if ((error as FirebaseError).code) {
+        console.log('error', error);
         switch ((error as FirebaseError).code) {
           case 'auth/user-not-found':
             throw Error('User not found');
           case 'auth/wrong-password':
             throw Error('Wrong password');
+          case 'auth/email-already-in-use':{
+            throw Error('Email already in use, Please try to login');
+          }
           default:
             throw Error('Invalid email or password');
         }

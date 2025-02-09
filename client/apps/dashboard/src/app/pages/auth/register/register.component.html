@@ -60,7 +60,15 @@
                   </div>
 
                   <div class="mt-4">
-                    <button class="btn btn-success w-100" type="submit">Sign Up</button>
+                    @if(loading()){
+                      <button class="btn btn-success w-100" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Signing Up...
+                      </button>
+                    }
+                    @else {
+                      <button class="btn btn-success w-100" type="submit">Sign Up</button>
+                    }
                   </div>
 
                   <div class="text-danger mt-1">{{error}}</div>

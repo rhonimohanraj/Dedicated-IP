@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from '@dedicated-ip/service';
@@ -20,6 +20,7 @@ export class RegisterComponent {
   fieldTextType!: boolean;
   error = '';
   year: number = new Date().getFullYear();
+  loading = signal<boolean>(false);
 
   constructor() {
     this.formGroup = new FormGroup({
@@ -46,6 +47,7 @@ export class RegisterComponent {
     this.error = '';
     this.submitted = true;
     if (this.formGroup.valid) {
+      this.loading.set(true);
       try {
         const user = await this.FirebaseService.createUserWithEmailAndPassword(
           this.email!.value,
@@ -57,12 +59,12 @@ export class RegisterComponent {
             await this.router.navigate(['/']);
           }, 4000);
         }
+        this.loading.set(false);
       } catch (error: any) {
+        this.loading.set(false);
         this.error = error.toString();
         this.toastService.show("Register failed, please try again.", { classname: 'bg-danger text-white', delay: 15000 });
       }
-    } else{
-      this.toastService.show("Please fill in all the required fields.", { classname: 'bg-danger text-white', delay: 15000 });
     }
   }
 

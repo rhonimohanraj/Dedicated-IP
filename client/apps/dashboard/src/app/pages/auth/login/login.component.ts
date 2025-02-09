@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ChipsModule } from 'primeng/chips';
 import { ButtonModule } from 'primeng/button';
@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputMaskModule } from 'primeng/inputmask';
-import {KeyValuePipe, NgClass} from '@angular/common';
+import { NgClass } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { FirebaseService } from '@dedicated-ip/service';
@@ -43,6 +43,7 @@ export class LoginComponent {
   fieldTextType!: boolean;
   error = '';
   year: number = new Date().getFullYear();
+  loading = signal<boolean>(false);
 
   constructor() {
     this.formGroup = new FormGroup({
@@ -70,6 +71,7 @@ export class LoginComponent {
     this.error = '';
     if (this.formGroup.valid) {
       try {
+        this.loading.set(true);
         const user = await this.FirebaseService.signInWithEmailAndPassword(
           this.email!.value,
           this.password!.value,
@@ -77,7 +79,9 @@ export class LoginComponent {
         if (user) {
           await this.router.navigate(['/']);
         }
+        this.loading.set(false);
       } catch (error: any) {
+        this.loading.set(false);
         this.error = error.toString();
       }
     }

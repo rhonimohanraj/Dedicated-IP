@@ -61,7 +61,6 @@ export class FirebaseService {
       return result.user;
     } catch (error: unknown) {
       if ((error as FirebaseError).code) {
-        console.log('error', error);
         switch ((error as FirebaseError).code) {
           case 'auth/user-not-found':
             throw Error('User not found');

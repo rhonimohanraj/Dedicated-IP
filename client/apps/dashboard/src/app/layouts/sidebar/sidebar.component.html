@@ -1,7 +1,27 @@
 <!-- ========== App Menu ========== -->
 <div class="app-menu navbar-menu">
-  <!-- LOGO -->
+
+
   <div class="navbar-brand-box">
+    <!-- LOGO -->
+    <a routerLink="/" class="logo logo-dark">
+      <span class="logo-sm">
+        <img src="images/logo-sm.png" alt="" height="30">
+      </span>
+      <span class="logo-lg">
+        <img src="images/logo-dark.png" alt="" height="30">
+      </span>
+    </a>
+    <!-- Light Logo-->
+    <a routerLink="/" class="logo logo-light">
+      <span class="logo-sm">
+        <img src="images/logo-sm.png" alt="" height="30">
+      </span>
+      <span class="logo-lg">
+        <img src="images/logo-light.png" alt="" height="30">
+      </span>
+    </a>
+
     <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
       <i class="ri-record-circle-line"></i>
     </button>
@@ -12,79 +32,111 @@
 
       <div id="two-column-menu">
       </div>
-      <ngx-simplebar class="sidebar-menu-scroll" style="max-height: calc(100vh - 70px); padding-top: 70px;">
+      <ngx-simplebar class="sidebar-menu-scroll" style="max-height: calc(100vh - 70px);">
         <ul class="metismenu list-unstyled navbar-nav" id="navbar-nav">
-          @for(item of menuItems(); track $index){
-            @if(item.isTitle){
-              <li class="menu-title"><span data-key="t-menu">{{ item.label  }}</span></li>
-            }@else {
+          @for (item of menuItems(); track $index) {
+            @if (item.isTitle) {
+              <li class="menu-title"><span data-key="t-menu">{{ item.label }}</span></li>
+            } @else {
               <li class="nav-item">
-                @if(hasItems(item)){
-                  <a href="javascript:void(0);" class="is-parent nav-link menu-link" [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}" data-bs-toggle="collapse" [attr.aria-expanded]="!item.isCollapsed" (click)="toggleItem(item)">
+                @if (hasItems(item)) {
+                  <a href="javascript:void(0);" class="is-parent nav-link menu-link"
+                     [ngClass]="{'has-arrow': !item.badge, 'has-dropdown': item.badge}" data-bs-toggle="collapse"
+                     [attr.aria-expanded]="!item.isCollapsed" (click)="toggleItem(item)">
                     <i class="{{ item.icon }} icon nav-icon"></i>
-                    <span class=""> {{ item.label  }}</span>
-                    @if(item.badge){<span class="badge badge-pill {{item.badge.variant}}">{{item.badge.text
-                      }}</span>}
+                    <span class=""> {{ item.label }}</span>
+                    @if (item.badge) {
+                      <span class="badge badge-pill {{item.badge.variant}}">{{
+                          item.badge.text
+                        }}</span>
+                    }
                   </a>
 
                   <div class="collapse menu-dropdown" #collapse="ngbCollapse" [(ngbCollapse)]="item.isCollapsed">
                     <ul class="nav nav-sm flex-column" aria-expanded="false">
-                      @for(subitem of item.subItems; track $index){
+                      @for (subitem of item.subItems; track $index) {
                         <li class="nav-item">
-                          @if(hasItems(subitem)){
-                            <a class="nav-link" href="javascript:void(0);" [attr.data-parent]="subitem.parentId" data-bs-toggle="collapse" [attr.aria-expanded]="!subitem.isCollapsed" (click)="toggleItem(subitem)">
+                          @if (hasItems(subitem)) {
+                            <a class="nav-link" href="javascript:void(0);" [attr.data-parent]="subitem.parentId"
+                               data-bs-toggle="collapse" [attr.aria-expanded]="!subitem.isCollapsed"
+                               (click)="toggleItem(subitem)">
                               {{ subitem.label }}
-                              @if(subitem.badge){<span class="badge badge-pill {{subitem.badge.variant}}">{{subitem.badge.text
-                                }}</span>}
+                              @if (subitem.badge) {
+                                <span class="badge badge-pill {{subitem.badge.variant}}">{{
+                                    subitem.badge.text
+                                  }}</span>
+                              }
                             </a>
 
-                            <div class="collapse menu-dropdown sub-menu" #collapse="ngbCollapse" [(ngbCollapse)]="subitem.isCollapsed">
+                            <div class="collapse menu-dropdown sub-menu" #collapse="ngbCollapse"
+                                 [(ngbCollapse)]="subitem.isCollapsed">
                               <ul class="nav nav-sm flex-column" aria-expanded="false">
-                                @for(subSubitem of subitem.subItems; track $index){
+                                @for (subSubitem of subitem.subItems; track $index) {
                                   <li class="nav-item">
-                                    @if(hasItems(subSubitem)){
-                                      <a class="nav-link" href="javascript:void(0);" [attr.data-parent]="subSubitem.parentId" data-bs-toggle="collapse" [attr.aria-expanded]="!subSubitem.isCollapsed" (click)="toggleItem(subSubitem)">
+                                    @if (hasItems(subSubitem)) {
+                                      <a class="nav-link" href="javascript:void(0);"
+                                         [attr.data-parent]="subSubitem.parentId" data-bs-toggle="collapse"
+                                         [attr.aria-expanded]="!subSubitem.isCollapsed"
+                                         (click)="toggleItem(subSubitem)">
                                         {{ subSubitem.label }}
-                                        @if(subSubitem.badge){<span class="badge badge-pill {{subSubitem.badge.variant}}">{{subSubitem.badge.text
-                                          }}</span>}
+                                        @if (subSubitem.badge) {
+                                          <span class="badge badge-pill {{subSubitem.badge.variant}}">{{
+                                              subSubitem.badge.text
+                                            }}</span>
+                                        }
                                       </a>
 
-                                      <div class="collapse menu-dropdown extra-sub-menu" #collapse="ngbCollapse" [(ngbCollapse)]="subSubitem.isCollapsed">
+                                      <div class="collapse menu-dropdown extra-sub-menu" #collapse="ngbCollapse"
+                                           [(ngbCollapse)]="subSubitem.isCollapsed">
                                         <ul class="nav nav-sm flex-column" aria-expanded="false">
-                                          @for(subSubitem1 of subSubitem.subItems; track $index){
+                                          @for (subSubitem1 of subSubitem.subItems; track $index) {
                                             <li class="nav-item">
-                                              <a [attr.data-parent]="subSubitem1.parentId" [routerLink]="subSubitem1.link" class="nav-link" (click)="updateActive($event)">
-                                                {{ subSubitem1.label  }}
+                                              <a [attr.data-parent]="subSubitem1.parentId"
+                                                 [routerLink]="subSubitem1.link" class="nav-link"
+                                                 (click)="updateActive($event)">
+                                                {{ subSubitem1.label }}
                                               </a>
 
                                             </li>
                                           }
                                         </ul>
                                       </div>
-                                    }@else {
-                                      <a [routerLink]="subSubitem.link" class="nav-link" [attr.data-parent]="subSubitem.parentId" (click)="updateActive($event)">
+                                    } @else {
+                                      <a [routerLink]="subSubitem.link" class="nav-link"
+                                         [attr.data-parent]="subSubitem.parentId" (click)="updateActive($event)">
                                         {{ subSubitem.label }}
-                                        @if(subSubitem.badge){<span class="badge badge-pill {{subSubitem.badge.variant}}">{{subSubitem.badge.text
-                                          }}</span>}
+                                        @if (subSubitem.badge) {
+                                          <span class="badge badge-pill {{subSubitem.badge.variant}}">{{
+                                              subSubitem.badge.text
+                                            }}</span>
+                                        }
                                       </a>
                                     }
                                   </li>
                                 }
                               </ul>
                             </div>
-                          }@else {
-                            @if(subitem.link){
-                              <a [href]="subitem.link" class="nav-link" [attr.data-parent]="subitem.parentId" (click)="updateActive($event)">
+                          } @else {
+                            @if (subitem.link) {
+                              <a [href]="subitem.link" class="nav-link" [attr.data-parent]="subitem.parentId"
+                                 (click)="updateActive($event)">
                                 {{ subitem.label }}
-                                @if(subitem.badge){<span class="badge badge-pill {{subitem.badge.variant}}">{{subitem.badge.text
-                                  }}</span>}
+                                @if (subitem.badge) {
+                                  <span class="badge badge-pill {{subitem.badge.variant}}">{{
+                                      subitem.badge.text
+                                    }}</span>
+                                }
                               </a>
                             }
-                            @if(subitem.click){
-                              <a (click)="subitem.click()" class="nav-link cursor-pointer" [attr.data-parent]="subitem.parentId">
+                            @if (subitem.click) {
+                              <a (click)="subitem.click()" class="nav-link cursor-pointer"
+                                 [attr.data-parent]="subitem.parentId">
                                 {{ subitem.label }}
-                                @if(subitem.badge){<span class="badge badge-pill {{subitem.badge.variant}}">{{subitem.badge.text
-                                  }}</span>}
+                                @if (subitem.badge) {
+                                  <span class="badge badge-pill {{subitem.badge.variant}}">{{
+                                      subitem.badge.text
+                                    }}</span>
+                                }
                               </a>
                             }
                           }
@@ -92,11 +144,15 @@
                       }
                     </ul>
                   </div>
-                }@else {
-                  <a [routerLink]="item.link" routerLinkActive="active" class="side-nav-link-ref nav-link menu-link" >
-                    @if(item.icon){<i class="bx {{ item.icon }} icon nav-icon"></i>}
-                    <span class=""> {{ item.label  }} </span>
-                    @if(item.badge){<span class="badge {{item.badge.variant}} float-end">{{item.badge.text}}</span>}
+                } @else {
+                  <a [routerLink]="item.link" routerLinkActive="active" class="side-nav-link-ref nav-link menu-link">
+                    @if (item.icon) {
+                      <i class="bx {{ item.icon }} icon nav-icon"></i>
+                    }
+                    <span class=""> {{ item.label }} </span>
+                    @if (item.badge) {
+                      <span class="badge {{item.badge.variant}} float-end">{{ item.badge.text }}</span>
+                    }
                   </a>
                 }
               </li>

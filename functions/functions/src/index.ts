@@ -147,7 +147,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
   res.status(200).send("OK");
 });
 
-export const onReveseProxy = onCall({
+export const onReverseProxy = onCall({
   enforceAppCheck: true,
   consumeAppCheckToken: true,
 }, async (request) => {

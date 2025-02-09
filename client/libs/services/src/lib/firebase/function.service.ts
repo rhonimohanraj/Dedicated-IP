@@ -32,7 +32,7 @@ export class FunctionService {
   }
 
   reverseProxy = async (domainName: string, functionName:string, body: any): Promise<HttpsCallableResult<string>> => {
-    const reverseProxy = httpsCallable(this.function, 'onReveseProxy',
+    const reverseProxy = httpsCallable(this.function, 'onReverseProxy',
       { limitedUseAppCheckTokens: true });
     return await reverseProxy({domainName, functionName, body}) as HttpsCallableResult<string>;
   }

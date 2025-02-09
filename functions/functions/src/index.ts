@@ -82,7 +82,23 @@ export const onStripeWebhook = onRequest(async (req, res) => {
 
       const product = filteredProducts[0];
 
+      let serverName = eventData.metadata?.serverName;
+
+      if (!serverName) {
+        serverName = generateName() + "-" + getRandomInt(1, 1000);
+      }
+
       const firestore = getFirestore();
+
+      const querySnapshot = await firestore.collectionGroup("servers")
+        .where("name", "==", serverName.trim())
+        .limit(10)
+        .get();
+
+      if (querySnapshot.size > 1) {
+        serverName = serverName + "-" + getRandomInt(1, 1000);
+      }
+
       const userDoc = firestore.collection("users").doc(uid);
       const serverCollection = userDoc.collection("servers");
       const serverDoc = await serverCollection.add({
@@ -91,7 +107,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         server: product.server,
         datacenter: product.location.datacenter,
         datacenterProvider: product.location.datacenterProvider,
-        name: generateName() + "-" + getRandomInt(1, 1000),
+        name: serverName,
         username: "admin",
         password:
           `${getRandomInt(1, 1000)}` +
@@ -167,26 +183,26 @@ export const onReveseProxy = onCall({
   const options = {
     method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'X-API-KEY': apiKey,
+      "Content-Type": "application/json",
+      "X-API-KEY": apiKey,
     },
     body: body ? JSON.stringify(body) : undefined,
-  }
+  };
 
-  const fetch = require('node-fetch');
+  const fetch = require("node-fetch");
 
-  const response = await fetch(decodeURI('https://' + request.data.domainName + '.dedicated-ip.cloud' + '/external/api/' + functionName), options);
+  const response = await fetch(decodeURI("https://" + request.data.domainName + ".dedicated-ip.cloud" + "/external/api/" + functionName), options);
 
   if (!response.ok) {
     const errorText = await response.text(); // Get error details from the server if possible
     throw new https.HttpsError(
-      'aborted',
+      "aborted",
       `API request failed with status ${response.status}: ${errorText || response.statusText}`
     );
   }
 
   const apiData = await response.json();
-  
+
   return apiData;
 });
 
@@ -227,6 +243,7 @@ export const onCreatePaymentLink = onCall({
     metadata: {
       uid: request.auth.uid,
       priceId: request.data.priceId,
+      serverName: request.data.serverName,
     },
     success_url:
       "https://d.dedicated-ip.net/d/servers?payment=success",

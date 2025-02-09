@@ -14,6 +14,7 @@ import {
 import Stripe from "stripe";
 import {generateName, getRandomInt} from "./helper";
 import {ProductDto} from "./DTO/product.dto";
+import crypto from "crypto";
 
 admin.initializeApp();
 
@@ -101,6 +102,7 @@ export const onStripeWebhook = onRequest(async (req, res) => {
 
       const userDoc = firestore.collection("users").doc(uid);
       const serverCollection = userDoc.collection("servers");
+      const crypto = require('crypto');
       const serverDoc = await serverCollection.add({
         countryCode: product.location.countryCode,
         location: `${product.location.city}, ${product.location.country}`,
@@ -108,17 +110,13 @@ export const onStripeWebhook = onRequest(async (req, res) => {
         datacenter: product.location.datacenter,
         datacenterProvider: product.location.datacenterProvider,
         name: serverName,
-        username: "admin",
-        password:
-          `${getRandomInt(1, 1000)}` +
-          "-not-secure-" +
-          `${getRandomInt(1, 1000)}`,
+        username: crypto.randomUUID(),
+        password: crypto.randomUUID(),
         status: "pending",
         createdAt: admin.firestore.Timestamp.now(),
         subscription: eventData.subscription,
       });
       const connectionCollection = serverDoc.collection("private");
-      const crypto = require('crypto');
       await connectionCollection.doc("connection").create({
         api_key: crypto.randomUUID(),
       });

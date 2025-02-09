@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ChipsModule } from 'primeng/chips';
@@ -31,6 +31,7 @@ export class ForgotPasswordComponent {
   submitted = false;
   error = '';
   year: number = new Date().getFullYear();
+  loading = signal<boolean>(false);
 
   constructor() {
     this.formGroup = new FormGroup({
@@ -47,12 +48,14 @@ export class ForgotPasswordComponent {
   async onForgotPassword(): Promise<void> {
     this.submitted = true;
     if (this.formGroup.valid) {
+      this.loading.set(true);
       try {
         await this.FirebaseService.sendPasswordResetEmail(this.email!.value);
         this.toastService.show("Email sent, Check your email for instructions.", { classname: 'bg-success text-white', delay: 15000 });
       } catch (error: any) {
         this.toastService.show(error.toString(), { classname: 'bg-danger text-white', delay: 15000 });
       }
+      this.loading.set(false);
     }
   }
 }

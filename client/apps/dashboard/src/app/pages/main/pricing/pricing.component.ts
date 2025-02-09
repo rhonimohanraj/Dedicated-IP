@@ -1,4 +1,4 @@
-import {Component, computed, ElementRef, inject, ViewChild, viewChild} from '@angular/core';
+import {Component, computed, ElementRef, inject, signal, ViewChild, viewChild} from '@angular/core';
 import {FunctionService, RemoteConfigService} from "@dedicated-ip/service";
 import {UpperCasePipe} from "@angular/common";
 import {CdkStep, CdkStepLabel, CdkStepperNext, CdkStepperPrevious} from "@angular/cdk/stepper";
@@ -27,11 +27,11 @@ export class PricingComponent {
   private readonly functionService = inject(FunctionService);
   public readonly products = this.remoteConfigService.getProducts();
   public readonly filteredProducts = computed(() => {
-    if (!this.server) {
+    if (!this.server()) {
       return this.products();
     }
     return this.products().filter(product => {
-      return this.server && product.location.city === this.server.city;
+      return this.server()?.city === product.location.city;
     });
   });
   public readonly locations = computed(()=>{
@@ -45,7 +45,7 @@ export class PricingComponent {
   });
 
   serverName = '';
-  server: { country: string, countryCode: string, city: string, datacenter: string } | null = null;
+  server = signal<{ country: string, countryCode: string, city: string, datacenter: string } | null>(null);
   error = '';
 
   async createPaymentLink(priceId: string): Promise<void> {
@@ -71,4 +71,6 @@ export class PricingComponent {
     const data = await response.json();
     return (data.Answer?.length ?? 0) > 0;
   }
+
+  protected readonly console = console;
 }

@@ -21,7 +21,7 @@
             <div class="col-lg-6">
               <div class="my-3">
                 <label class="form-label">Select Server Location</label>
-                <ng-select appearance="outline" [searchable]="true" [clearable]="true" (change)="server = $event">
+                <ng-select appearance="outline" [searchable]="true" [clearable]="true" (change)="server.set($event);">
                   @for (data of locations(); track $index) {
                     <ng-option [value]="data">
                       <img src="/images/flags/{{data.countryCode}}.svg" alt="country flag" class="options-flagimg"

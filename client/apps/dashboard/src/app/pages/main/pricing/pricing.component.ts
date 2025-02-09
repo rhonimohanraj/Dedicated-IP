@@ -26,12 +26,22 @@ export class PricingComponent {
   private readonly remoteConfigService = inject(RemoteConfigService);
   private readonly functionService = inject(FunctionService);
   public readonly products = this.remoteConfigService.getProducts();
-  public readonly locations = computed(()=>{
-    const locationSet = new Set<{ country: string, countryCode: string, city: string, datacenter: string }>();
-    this.products().forEach(product => {
-      locationSet.add(product.location);
+  public readonly filteredProducts = computed(() => {
+    if (!this.server) {
+      return this.products();
+    }
+    return this.products().filter(product => {
+      return this.server && product.location.city === this.server.city;
     });
-    return Array.from(locationSet);
+  });
+  public readonly locations = computed(()=>{
+    const locations = new Array<{ country: string, countryCode: string, city: string, datacenter: string }>();
+    this.products().forEach(product => {
+      if (locations.filter(location => location.city === product.location.city).length === 0) {
+        locations.push(product.location);
+      }
+    });
+    return locations;
   });
 
   serverName = '';

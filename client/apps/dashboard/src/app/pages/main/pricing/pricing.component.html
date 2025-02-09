@@ -21,9 +21,9 @@
             <div class="col-lg-6">
               <div class="my-3">
                 <label class="form-label">Select Server Location</label>
-                <ng-select appearance="outline" [searchable]="true" [clearable]="true" [(ngModel)]="server">
+                <ng-select appearance="outline" [searchable]="true" [clearable]="true" (change)="server = $event">
                   @for (data of locations(); track $index) {
-                    <ng-option value="batman">
+                    <ng-option [value]="data">
                       <img src="/images/flags/{{data.countryCode}}.svg" alt="country flag" class="options-flagimg"
                            height="20">
                       {{ data.city }}, {{ data.country }}
@@ -70,7 +70,7 @@
           <div class="row justify-content-center">
             <div class="col-xl-9">
               <div class="row">
-                @for(data of products();track $index){
+                @for(data of filteredProducts();track $index){
                   <div class="col-lg-4">
                     <div class="card pricing-box">
                       <div class="card-body p-4 m-2">

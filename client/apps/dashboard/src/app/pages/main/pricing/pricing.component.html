@@ -65,25 +65,66 @@
           </li>
         </ng-template>
         <div>
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Upload Image</label>
-            <input class="form-control" type="file" id="formFile">
-          </div>
-          <div>
-            <label class="form-label" for="des-info-description-input">Description</label>
-            <textarea class="form-control" placeholder="Enter Description"
-                      id="des-info-description-input" rows="3"></textarea>
-          </div>
+
+
+          <div class="row justify-content-center">
+            <div class="col-xl-9">
+              <div class="row">
+                @for(data of products();track $index){
+                  <div class="col-lg-4">
+                    <div class="card pricing-box">
+                      <div class="card-body p-4 m-2">
+                        <div class="d-flex align-items-center">
+                          <div class="flex-grow-1">
+                            <h5 class="mb-1 fw-bold">{{data.title}}</h5>
+                            <p class="text-muted mb-0">{{data.description}}</p>
+                          </div>
+                          <div class="avatar-sm">
+                              <img class="rounded" src="/images/flags/{{data.location.countryCode}}.svg"/>
+                          </div>
+                        </div>
+                        <div class="pt-4">
+                          <h2><sup><small>$</small></sup>{{data.price}} <span class="fs-14 text-muted">/{{ data.duration }}</span>
+                          </h2>
+                        </div>
+                        <hr class="my-4 text-muted">
+                        <div>
+                          <ul class="list-unstyled text-muted vstack gap-3">
+
+                            @for (feature of data.features; track $index) {
+                              <li>
+                                <div class="d-flex">
+                                  <div class="flex-shrink-0 text-success me-1">
+                                    <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
+                                  </div>
+                                  <div class="flex-grow-1">
+                                    {{feature}}
+                                  </div>
+                                </div>
+                              </li>
+                            }
+
+                          </ul>
+                          <div class="mt-4">
+                            <a href="javascript:void(0);" #button (click)="createPaymentLink(data.stripePriceId); button.text='Selected, Please wait'" class="btn btn-success w-100 waves-effect waves-light">Select & Buy</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!--end col-->
+                }
+              </div><!--end row-->
+            </div><!--end col-->
+          </div><!--end row-->
+
+
+
         </div>
         <div class="d-flex align-items-start gap-3 mt-4">
           <button type="button" class="btn btn-light btn-label previestab"
                   data-previous="steparrow-gen-info-tab" cdkStepperPrevious><i
             class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i> Back to
             General
-          </button>
-          <button type="button" class="btn btn-success btn-label right ms-auto nexttab
-    nexttab" data-nexttab="pills-experience-tab" cdkStepperNext><i
-            class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Submit
           </button>
         </div>
       </cdk-step>
@@ -113,49 +154,3 @@
   <!-- end card body -->
 </div>
 <!-- end card -->
-
-
-<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
-  <div class="text-900 font-bold text-6xl mb-4 text-center">Plans</div>
-  <div class="grid">
-    @for (product of products(); track $index) {
-      <div class="col-12 lg:col-4">
-        <div class="p-3 h-full">
-          <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 6px">
-            <div class="text-900 font-medium text-xl mb-2">
-              <img
-                src="http://purecatamphetamine.github.io/country-flag-icons/3x2/{{product.location.countryCode | uppercase}}.svg"
-                class="w-2 h-2 mr-2"
-              />
-              {{ product.title }}
-            </div>
-            <div class="text-600">{{ product.description }}</div>
-            <hr class="my-3 mx-0 border-top-1 border-none surface-border"/>
-            <div class="flex align-items-center">
-              <span class="font-bold text-2xl text-900">
-                $
-                @if (product.discountPrice !== product.price) {
-                  <span class="text-500 line-through">{{ product.price }}</span>
-                }
-                {{ product.discountPrice }} </span>
-              <span class="ml-2 font-medium text-600">per {{ product.duration }}</span>
-            </div>
-            <hr class="my-3 mx-0 border-top-1 border-none surface-border"/>
-            <ul class="list-none p-0 m-0 flex-grow-1">
-              @for (feature of product.features; track $index) {
-                <li class="flex align-items-center mb-3">
-                  <i class="pi pi-check-circle text-green-500 mr-2"></i>
-                  <span class="text-900">{{ feature }}</span>
-                </li>
-              }
-            </ul>
-            <hr class="mb-3 mx-0 border-top-1 border-none surface-border mt-auto"/>
-            <button pButton pRipple label="Buy Now" class="p-3 w-full mt-auto"
-                    (click)="createPaymentLink(product.stripePriceId); button.disabled=true; button.className='p-3 w-full mt-auto cursor-wait'"
-                    #button></button>
-          </div>
-        </div>
-      </div>
-    }
-  </div>
-</div>

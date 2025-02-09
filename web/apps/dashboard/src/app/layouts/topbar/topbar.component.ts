@@ -96,4 +96,9 @@ export class TopbarComponent {
     event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
   }
+
+  topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
 }

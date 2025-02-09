@@ -172,17 +172,17 @@ jobs:
             # Attempt to get the HTTP status code
             http_status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url" || echo "000")
 
-            if [ "$http_status" -eq 200 ]; then
-              echo "Domain is reachable with HTTP 200 status!"
+            if [ "$http_status" -eq 307 ]; then
+              echo "Domain is reachable with HTTP 307 status!"
               exit 0
             fi
 
-            echo "HTTP status: $http_status (not 200). Retrying in 15 seconds..."
+            echo "HTTP status: $http_status (not 307). Retrying in 15 seconds..."
             attempt=$((attempt + 1))
             sleep 15
           done
 
-          echo "ERROR: Domain did not return HTTP 200 within 10 minutes."
+          echo "ERROR: Domain did not return HTTP 307 within 10 minutes."
           exit 1
 
   send_failed_signal:

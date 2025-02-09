@@ -12,17 +12,6 @@
       ]
     },
     {
-      "site": "dedicated-ip-production",
-      "public": "dist/apps/front/browser",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/index.html"
-        }
-      ]
-    },
-    {
       "site": "functions-dedicated-ip-production",
       "rewrites": [
         {

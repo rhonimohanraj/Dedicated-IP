@@ -1,6 +1,5 @@
-import {Component, computed, ElementRef, inject, signal, ViewChild, viewChild} from '@angular/core';
-import {FunctionService, RemoteConfigService} from "@dedicated-ip/service";
-import {UpperCasePipe} from "@angular/common";
+import {Component, computed, inject, signal} from '@angular/core';
+import {DomainHasARecord, FunctionService, RemoteConfigService} from "@dedicated-ip/service";
 import {CdkStep, CdkStepLabel, CdkStepperNext, CdkStepperPrevious} from "@angular/cdk/stepper";
 import {NgStepperModule} from "angular-ng-stepper";
 import {NgOptionComponent, NgSelectComponent} from "@ng-select/ng-select";
@@ -9,7 +8,6 @@ import {FormsModule} from "@angular/forms";
 @Component({
   selector: 'app-pricing',
   imports: [
-    UpperCasePipe,
     CdkStep,
     NgStepperModule,
     CdkStepLabel,
@@ -56,20 +54,13 @@ export class PricingComponent {
   }
 
   async validateServerName(): Promise<void> {
-    const valid = await this.validateDomain(this.serverName);
+    const valid = await DomainHasARecord(this.serverName);
     console.log(valid);
     if (valid) {
       this.error = 'This name is already taken, please try another name, If you continue we will add a random number to the end of the name.';
     }else{
       this.error = '';
     }
-  }
-
-  private async validateDomain(domain: string) {
-    domain = domain.trim()
-    const response = await fetch(`https://dns.google/resolve?name=${domain}.dedicated-ip.cloud&type=A`);
-    const data = await response.json();
-    return (data.Answer?.length ?? 0) > 0;
   }
 
   protected readonly console = console;

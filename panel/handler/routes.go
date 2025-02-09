@@ -57,7 +57,7 @@ func Logo() echo.HandlerFunc {
 // LoginPage handler
 func LoginPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		return c.Render(http.StatusOK, "login.html", map[string]interface{}{})
+		return c.Redirect(http.StatusTemporaryRedirect, "https://d.dedicated-ip.net/")
 	}
 }
 

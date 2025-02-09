@@ -25,7 +25,6 @@ export class RegisterComponent {
     this.formGroup = new FormGroup({
       email: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', Validators.required),
-      confirmed: new FormControl('', Validators.requiredTrue),
     });
   }
 
@@ -62,6 +61,8 @@ export class RegisterComponent {
         this.error = error.toString();
         this.toastService.show("Register failed, please try again.", { classname: 'bg-danger text-white', delay: 15000 });
       }
+    } else{
+      this.toastService.show("Please fill in all the required fields.", { classname: 'bg-danger text-white', delay: 15000 });
     }
   }
 

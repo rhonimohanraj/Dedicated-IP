@@ -1,7 +1,13 @@
 import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {CrispComponent, FirebaseComponent, FirebaseProvider, TawkComponent} from '@dedicated-ip/service';
+import {
+  CrispComponent,
+  FirebaseComponent,
+  FirebaseProvider,
+  HotjarComponent,
+  TawkComponent
+} from '@dedicated-ip/service';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {MessagesModule} from 'primeng/messages';
@@ -30,16 +36,17 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       deps: [Sentry.TraceService],
       multi: true,
     },],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FirebaseComponent,
-    TawkComponent,
-    MessagesModule,
-    MessageModule,
-    CrispComponent,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FirebaseComponent,
+        TawkComponent,
+        MessagesModule,
+        MessageModule,
+        CrispComponent,
+        HotjarComponent,
+    ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

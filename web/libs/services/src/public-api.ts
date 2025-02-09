@@ -12,3 +12,4 @@ export { FunctionService } from './lib/firebase/function.service';
 export { IpComponent } from './lib/ip/ip.component';
 export {CrispComponent} from './lib/crisp/crisp.component';
 export { DomainHasARecord } from './lib/ip/ip.service';
+export { HotjarComponent } from './lib/hotjar/hotjar.component';

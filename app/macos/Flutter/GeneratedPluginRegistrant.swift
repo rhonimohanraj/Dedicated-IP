@@ -13,6 +13,7 @@ import package_info_plus
 import path_provider_foundation
 import rive_common
 import sentry_flutter
+import webview_flutter_wkwebview
 import wireguard_flutter
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
@@ -24,5 +25,6 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   PathProviderPlugin.register(with: registry.registrar(forPlugin: "PathProviderPlugin"))
   RivePlugin.register(with: registry.registrar(forPlugin: "RivePlugin"))
   SentryFlutterPlugin.register(with: registry.registrar(forPlugin: "SentryFlutterPlugin"))
+  WebViewFlutterPlugin.register(with: registry.registrar(forPlugin: "WebViewFlutterPlugin"))
   WireguardFlutterPlugin.register(with: registry.registrar(forPlugin: "WireguardFlutterPlugin"))
 }

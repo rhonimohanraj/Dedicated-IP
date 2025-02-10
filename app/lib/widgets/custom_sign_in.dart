@@ -1,8 +1,9 @@
+import 'package:dedicated_ip/widgets/custom_sign_up.dart';
 import 'package:dedicated_ip/widgets/sign_in_form.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-Future<Object?> customSigninDialog(BuildContext context,
+Future<Object?> customSignInDialog(BuildContext context,
     {required ValueChanged onClosed}) {
   return showGeneralDialog(
       barrierDismissible: true,
@@ -10,7 +11,7 @@ Future<Object?> customSigninDialog(BuildContext context,
       context: context,
       transitionDuration: const Duration(milliseconds: 400),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
-        Tween<Offset> tween = Tween(begin: Offset(0, -1), end: Offset.zero);
+        Tween<Offset> tween = Tween(begin: const Offset(0, -1), end: Offset.zero);
         return SlideTransition(
             position: tween.animate(
                 CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
@@ -18,7 +19,7 @@ Future<Object?> customSigninDialog(BuildContext context,
       },
       pageBuilder: (context, _, __) => Center(
             child: Container(
-              height: 620,
+              height: 550,
               margin: const EdgeInsets.symmetric(horizontal: 16),
               padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
               decoration: BoxDecoration(
@@ -66,38 +67,17 @@ Future<Object?> customSigninDialog(BuildContext context,
                           ),
                         ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Text("Sign up with Email, Apple or Google",
-                            style: TextStyle(color: Colors.black54)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: RichText(text: TextSpan(
+                          children: [
+                            TextSpan(text: "Don't have an account? ", style: TextStyle(color: Colors.black54)),
+                            TextSpan(text: "Sign up", style: TextStyle(color: Colors.blue), recognizer: TapGestureRecognizer()..onTap = (){
+                              Future.delayed(const Duration(milliseconds: 800), () { customSignUpDialog(context, onClosed: (_) {},);});
+                            }),
+                          ],
+                        ),),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.email,
-                              )),
-                          IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                "assets/icons/apple_box.svg",
-                                height: 64,
-                                width: 64,
-                              )),
-                          IconButton(
-                              padding: EdgeInsets.zero,
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                "assets/icons/google_box.svg",
-                                height: 64,
-                                width: 64,
-                              ))
-                        ],
-                      )
                     ]),
                     const Positioned(
                       left: 0,

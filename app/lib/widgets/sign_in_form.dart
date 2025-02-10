@@ -89,8 +89,9 @@ class _SignInFormState extends State<SignInForm> {
                   decoration: Constants.inputDecorationOnWhiteScreen(Icons.email),
                 ),
               ),
-              const Text(
+              Text(
                 "Password",
+                style: TextStyle(color: Constants.primaryColor),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 16),

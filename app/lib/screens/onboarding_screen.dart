@@ -68,36 +68,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Future.delayed(const Duration(milliseconds: 800), () {
+                        setState(() {
+                          isSignInDialogShown = true;
+                        });
+                        customSignInDialog(context, onClosed: (_) {
+                          if (!context.mounted) return;
                           setState(() {
-                            isSignInDialogShown = true;
-                          });
-                          customSignInDialog(context, onClosed: (_) {
-                            if (!context.mounted) return;
-                            setState(() {
-                              isSignInDialogShown = false;
-                            });
+                            isSignInDialogShown = false;
                           });
                         });
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        // Background color
                         foregroundColor: Constants.primaryColor,
-                        // Text and icon color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 16),
-                        // Adjust padding as needed
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              25), // Adjust border radius as needed
-                        ),
-                        elevation:
-                            2, // Add elevation for a subtle shadow (optional)
                       ),
                       child: Row(
                         // Use a Row to arrange icon and text
@@ -107,7 +90,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           const Text("Start now"),
                           const SizedBox(width: 8),
                           // Space between icon and text
-                          Icon(Icons.arrow_forward, color: Constants.primaryColor),
+                          Icon(Icons.arrow_forward,
+                              color: Constants.primaryColor),
                           // Arrow icon
                         ],
                       ),

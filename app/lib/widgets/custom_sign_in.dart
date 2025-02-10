@@ -1,3 +1,4 @@
+import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/widgets/custom_sign_up.dart';
 import 'package:dedicated_ip/widgets/sign_in_form.dart';
 import 'package:flutter/gestures.dart';
@@ -44,7 +45,7 @@ Future<Object?> customSignInDialog(BuildContext context,
                       const Padding(
                         padding: EdgeInsets.symmetric(vertical: 16),
                         child: Text(
-                          "You're just steps away from a more secure and private online experience. Let's get started.",
+                          "Access your account and connect to your dedicated IP VPN service.",
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.black54),
                         ),
@@ -72,8 +73,8 @@ Future<Object?> customSignInDialog(BuildContext context,
                         child: RichText(text: TextSpan(
                           children: [
                             const TextSpan(text: "Don't have an account? ", style: TextStyle(color: Colors.black54)),
-                            TextSpan(text: "Sign up", style: TextStyle(color: Colors.blue), recognizer: TapGestureRecognizer()..onTap = (){
-                              Future.delayed(const Duration(milliseconds: 800), () { customSignUpDialog(context, onClosed: (_) {},);});
+                            TextSpan(text: "Sign up", style: TextStyle(color: Constants.primaryColor), recognizer: TapGestureRecognizer()..onTap = (){
+                              customSignUpDialog(context, onClosed: (_) {},);
                             }),
                           ],
                         ),),

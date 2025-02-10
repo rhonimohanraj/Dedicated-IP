@@ -71,7 +71,7 @@ Future<Object?> customSignInDialog(BuildContext context,
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: RichText(text: TextSpan(
                           children: [
-                            TextSpan(text: "Don't have an account? ", style: TextStyle(color: Colors.black54)),
+                            const TextSpan(text: "Don't have an account? ", style: TextStyle(color: Colors.black54)),
                             TextSpan(text: "Sign up", style: TextStyle(color: Colors.blue), recognizer: TapGestureRecognizer()..onTap = (){
                               Future.delayed(const Duration(milliseconds: 800), () { customSignUpDialog(context, onClosed: (_) {},);});
                             }),

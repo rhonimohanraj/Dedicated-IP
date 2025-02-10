@@ -5,6 +5,8 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+import '../helpers/constants.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -81,7 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         // Background color
-                        foregroundColor: const Color(0xFF26401D),
+                        foregroundColor: Constants.primaryColor,
                         // Text and icon color
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 16),
@@ -97,15 +99,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         elevation:
                             2, // Add elevation for a subtle shadow (optional)
                       ),
-                      child: const Row(
+                      child: Row(
                         // Use a Row to arrange icon and text
                         mainAxisSize: MainAxisSize.min,
                         // Important: Makes the Row take only the needed space
                         children: [
-                          Text("Start now"),
-                          SizedBox(width: 8),
+                          const Text("Start now"),
+                          const SizedBox(width: 8),
                           // Space between icon and text
-                          Icon(Icons.arrow_forward, color: Color(0xFF26401D)),
+                          Icon(Icons.arrow_forward, color: Constants.primaryColor),
                           // Arrow icon
                         ],
                       ),

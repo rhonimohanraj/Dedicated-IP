@@ -50,35 +50,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
 
       //dark theme
-      darkTheme: ThemeData(
-          primaryColor: Constants.primaryColor,
-          primaryColorDark: Constants.primaryColor,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Constants.primaryColor,
-              foregroundColor: Colors.white,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(25)),
-              ),
-              minimumSize: const Size(double.infinity, 56),
-              iconColor: Colors.white,
-            ),
-          ),
-
-          scaffoldBackgroundColor: Constants.primaryColor,
-          fontFamily: GoogleFonts.lato().fontFamily,
-          brightness: Brightness.dark,
-          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme).copyWith(
-            bodyMedium: const TextStyle(color: Colors.white),
-            titleMedium: TextStyle(color: Constants.primaryColor),
-            labelMedium: TextStyle(color: Constants.primaryColor),
-            displayMedium: TextStyle(color: Constants.primaryColor),
-          ),
-          inputDecorationTheme: InputDecorationTheme(
-            labelStyle: TextStyle(color: Constants.primaryColor),
-            iconColor: Constants.primaryColor,
-          ),
-          appBarTheme: const AppBarTheme(elevation: 0)),
+      darkTheme: Constants.darkTheme(context),
       debugShowCheckedModeBanner: false,
     );
   }

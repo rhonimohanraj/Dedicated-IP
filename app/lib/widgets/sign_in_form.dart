@@ -1,3 +1,4 @@
+import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -70,9 +71,9 @@ class _SignInFormState extends State<SignInForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Email",
-                style: TextStyle(color: Colors.black54),
+                style: TextStyle(color: Constants.primaryColor),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 16),
@@ -84,17 +85,12 @@ class _SignInFormState extends State<SignInForm> {
                     return null;
                   },
                   onSaved: (email) => _email = email,
-                  decoration: const InputDecoration(
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.email),
-                    ),
-                  ),
+                  style: TextStyle(color: Constants.primaryColor),
+                  decoration: Constants.inputDecorationOnWhiteScreen(Icons.email),
                 ),
               ),
               const Text(
                 "Password",
-                style: TextStyle(color: Colors.black54),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 16),
@@ -110,12 +106,7 @@ class _SignInFormState extends State<SignInForm> {
                   },
                   onSaved: (password) => _password = password,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.password),
-                    ),
-                  ),
+                  decoration: Constants.inputDecorationOnWhiteScreen(Icons.password),
                 ),
               ),
               Padding(
@@ -124,20 +115,11 @@ class _SignInFormState extends State<SignInForm> {
                   onPressed: () {
                     signIn(context);
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF26401D),
-                    minimumSize: const Size(double.infinity, 56),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                    ),
-                  ),
                   icon: const Icon(
                     CupertinoIcons.arrow_right,
-                    color: Colors.white,
                   ),
                   label: const Text(
-                    "Sign In",
-                    style: TextStyle(color: Colors.white),
+                    "Sign In"
                   ),
                 ),
               ),

@@ -1,8 +1,9 @@
-import 'package:dedicated_ip/helpers/config.dart';
+import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'helpers/pref.dart';
@@ -43,16 +44,40 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: Config.appName,
+      title: Constants.appName,
       home: const SplashScreen(),
 
       themeMode: ThemeMode.dark,
 
       //dark theme
       darkTheme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xff023a12),
-          // fontFamily: GoogleFonts.lato().fontFamily,
+          primaryColor: Constants.primaryColor,
+          primaryColorDark: Constants.primaryColor,
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Constants.primaryColor,
+              foregroundColor: Colors.white,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              minimumSize: const Size(double.infinity, 56),
+              iconColor: Colors.white,
+            ),
+          ),
+
+          scaffoldBackgroundColor: Constants.primaryColor,
+          fontFamily: GoogleFonts.lato().fontFamily,
           brightness: Brightness.dark,
+          textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme).copyWith(
+            bodyMedium: const TextStyle(color: Colors.white),
+            titleMedium: TextStyle(color: Constants.primaryColor),
+            labelMedium: TextStyle(color: Constants.primaryColor),
+            displayMedium: TextStyle(color: Constants.primaryColor),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            labelStyle: TextStyle(color: Constants.primaryColor),
+            iconColor: Constants.primaryColor,
+          ),
           appBarTheme: const AppBarTheme(elevation: 0)),
       debugShowCheckedModeBanner: false,
     );

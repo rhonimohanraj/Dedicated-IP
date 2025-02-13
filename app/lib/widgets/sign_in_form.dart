@@ -1,4 +1,5 @@
 import 'package:dedicated_ip/helpers/constants.dart';
+import 'package:dedicated_ip/widgets/custom_positioned.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -158,26 +159,6 @@ class _SignInFormState extends State<SignInForm> {
         )
             : const SizedBox(),
       ],
-    );
-  }
-}
-
-class CustomPositioned extends StatelessWidget {
-  const CustomPositioned({super.key, required this.child, this.size = 100});
-
-  final Widget child;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: Center( // Use Center widget for better positioning
-        child: SizedBox(
-          height: size,
-          width: size,
-          child: child,
-        ),
-      ),
     );
   }
 }

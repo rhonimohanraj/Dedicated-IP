@@ -1,4 +1,4 @@
-import 'package:dedicated_ip/widgets/sign_in_form.dart';
+import 'package:dedicated_ip/widgets/sign_up_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +48,7 @@ Future<Object?> customSignUpDialog(BuildContext context,
                       style: TextStyle(color: Colors.black54),
                     ),
                   ),
-                  SignInForm(),
+                  SignUpForm(),
                 ]),
                 Positioned(
             left: 0,

@@ -32,6 +32,12 @@ class FirebaseServices extends GetxController {
     } else if (Platform.isWindows) {
       WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
       return windowsInfo.deviceId;
+    } else if(Platform.isLinux){
+      LinuxDeviceInfo linuxInfo = await deviceInfo.linuxInfo;
+      return linuxInfo.machineId!;
+    } else if(Platform.isMacOS){
+      MacOsDeviceInfo macOsInfo = await deviceInfo.macOsInfo;
+      return macOsInfo.systemGUID!;
     } else {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       return androidInfo.id;

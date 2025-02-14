@@ -1233,3 +1233,29 @@ func GetHashesChanges(db store.IStore) echo.HandlerFunc {
 		}
 	}
 }
+
+func GetOpenPorts(db store.IStore) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		clientDataList, err := db.GetClients(true)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{
+				false, fmt.Sprintf("Cannot get client list: %v", err),
+			})
+		}
+
+		openPorts := make([]model.OpenPort, 0)
+
+		for _, clientData := range clientDataList {
+			for _, OpenPort := range clientData.Client.OpenPort {
+				openPorts = append(openPorts, model.OpenPort{
+					ClientIP:     strings.Split(clientData.Client.AllocatedIPs[0], "/")[0],
+					InternalPort: OpenPort,
+					ExternalPort: OpenPort,
+					Protocol:     "tcp",
+				})
+			}
+		}
+
+		return c.JSON(http.StatusOK, openPorts)
+	}
+}

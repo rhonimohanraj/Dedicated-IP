@@ -262,6 +262,9 @@ func main() {
 	app.GET(util.BasePath+"/api/suggest-client-ips", handler.SuggestIPAllocation(db), handler.ValidSession)
 	app.POST(util.BasePath+"/api/apply-wg-config", handler.ApplyServerConfig(db, tmplDir), handler.ValidSession, handler.ContentTypeJson)
 
+	// serve internal api request
+	app.GET(util.BasePath+"/internal/api/open-ports", handler.GetOpenPorts(db), handler.ValidLocalRequest)
+
 	// serve external api request
 	app.POST(util.BasePath+"/external/api/client/:name", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey, handler.ContentTypeJson)
 	app.POST(util.BasePath+"/external/api/update-password", handler.UpdatePassword(db), handler.ValidApiKey, handler.ContentTypeJson)

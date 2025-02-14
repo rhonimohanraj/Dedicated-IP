@@ -10,4 +10,3 @@ telegram_allow_conf_request: 0
 sendgrid_api: ""
 email_from_address: ""
 email_from_name: ""
-acme_account_jwk: ""

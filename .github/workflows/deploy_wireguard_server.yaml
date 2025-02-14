@@ -221,7 +221,7 @@ jobs:
             username="root"
           fi
           echo "USERNAME=$username" >> $GITHUB_ENV
-           if [[ "${{ inputs.environment }}" == "development" ]]; then
+           if [[ "${{ inputs.environment }}" == "Development" ]]; then
             internal_login="true"
           else
             internal_login="false"

@@ -56,7 +56,7 @@ export class FirestoreService {
     const servers: Server[] = [];
     serverSnap.forEach((serverDoc) => {
       const server = { id: serverDoc.id, ...serverDoc.data() } as Server;
-      server.domain = 'https://' + server.name + '.dedicated-ip.cloud';
+      server.domain = 'https://' + server.name + '.dedicated-ip.cloud:8443';
       server.createdAt = (server.createdAt as unknown as Timestamp).toDate();
       servers.push(server);
     });

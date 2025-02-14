@@ -753,6 +753,7 @@ func UpdateClient(db store.IStore) echo.HandlerFunc {
 		// map new data
 		client.Name = _client.Name
 		client.Email = _client.Email
+		client.OpenPort = _client.OpenPort
 		client.Enabled = _client.Enabled
 		client.UseServerDNS = _client.UseServerDNS
 		client.AllocatedIPs = _client.AllocatedIPs
@@ -1031,6 +1032,7 @@ func Status(db store.IStore) echo.HandlerFunc {
 					if _client, ok := m[pVm.PublicKey]; ok {
 						pVm.Name = _client.Name
 						pVm.Email = _client.Email
+
 					}
 					devVm.Peers = append(devVm.Peers, pVm)
 				}

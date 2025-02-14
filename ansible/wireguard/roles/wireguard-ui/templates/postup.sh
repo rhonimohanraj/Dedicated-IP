@@ -17,6 +17,9 @@ API_ENDPOINT="http://localhost:5000/internal/api/open-ports"
 # --- WireGuard Network Subnet ---
 WG_IPV4_SUBNET="10.252.1.0/24"
 
+# --- Server's WireGuard IP Address ---
+WG_SERVER_IP="10.252.1.1"
+
 # --- ipset name ---
 IPSET_NAME_IPV4="dedicated-ip-forward-ipv4"
 
@@ -46,7 +49,7 @@ fi
 
 # --- Process Port Forwarding Rules (IPv4) ---
 while read -r client_ip external_port internal_port protocol; do
-    # Sanitize input (basic example - more robust validation is needed!)
+    # Sanitize input
     client_ip=$(echo "$client_ip" | grep -E "^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$")
     external_port=$(echo "$external_port" | grep -E "^[0-9]+$")
     internal_port=$(echo "$internal_port" | grep -E "^[0-9]+$")
@@ -66,9 +69,10 @@ while read -r client_ip external_port internal_port protocol; do
     # Add to ipset
     sudo ipset add "$IPSET_NAME_IPV4" "$client_ip,$internal_port"
 
-    # Add iptables rules
+    # Add iptables rules (including Hairpin NAT)
     sudo iptables -t nat -A PREROUTING -p "$protocol" --dport "$external_port" -j DNAT --to-destination "$client_ip:$internal_port"
     sudo iptables -A FORWARD -p "$protocol" -d "$client_ip" --dport "$internal_port" -m set --match-set "$IPSET_NAME_IPV4" dst -j ACCEPT
+    sudo iptables -t nat -A POSTROUTING -s "$client_ip" -d "$client_ip" -p "$protocol" --dport "$internal_port" -j SNAT --to-source "$WG_SERVER_IP"
 
 done < <(echo "$RULES" | jq -r '.[] | "\(.client_ip) \(.external_port) \(.internal_port) \(.protocol)"')
 

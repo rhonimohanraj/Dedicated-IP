@@ -248,6 +248,7 @@ jobs:
           echo "email_from_address: ${{ secrets.EMAIL_FROM_ADDRESS }}" >> vars/main.yml
           echo "email_from_name: ${{ secrets.EMAIL_FROM_NAME }}" >> vars/main.yml
           echo "api_key: ${{ inputs.api_key }}" >> vars/main.yml
+          echo "acme_account_jwk: ${{secrets.ACME_ACCOUNT_JWK}}" >> vars/main.yml
         working-directory: ansible/wireguard
 
       - name: Run Ansible playbook

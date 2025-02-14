@@ -12,7 +12,7 @@ WG_INTERFACE="wg0"
 OUT_INTERFACE=$(get_default_interface)
 
 # --- WireGuard Network Subnet ---
-WG_IPV4_SUBNET="10.8.0.0/24"  # Replace with your actual IPv4 subnet
+WG_IPV4_SUBNET="10.252.1.0/24"
 
 # --- ipset name ---
 IPSET_NAME_IPV4="dedicated-ip-forward-ipv4"

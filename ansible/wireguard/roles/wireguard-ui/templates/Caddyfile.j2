@@ -1,16 +1,7 @@
 {
   email {{ ssl_email }}
-  acme_ca https://acme-v02.api.letsencrypt.org/directory
 }
 
 {{ domain_name }}:8443 {
-  tls {
-      certificates {
-          automate {{ domain_name }} {
-                acme_account {
-                    private_key_pem "{{ acme_account_jwk }}"
-                }
-          }
-  }
   reverse_proxy 127.0.0.1:5000
 }

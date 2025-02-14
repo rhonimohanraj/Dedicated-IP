@@ -6,7 +6,7 @@
 {{ domain_name }}:8443 {
   tls {
     acme_account {
-      private_key_pem {{ acme_account_jwk }}
+      private_key_pem "{{ acme_account_jwk }}"
     }
   }
   reverse_proxy 127.0.0.1:5000

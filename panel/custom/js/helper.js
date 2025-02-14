@@ -7,6 +7,11 @@ function renderClientList(data) {
             clientStatusHtml = `style="visibility: hidden;">`
         }
 
+        let openPortHtml = "";
+        $.each(obj.Client.open_port, function(index, obj) {
+          openPortHtml += `<small class="badge badge-secondary">${obj}</small>&nbsp;`;
+        })
+
         // render client allocated ip addresses
         let allocatedIpsHtml = "";
         $.each(obj.Client.allocated_ips, function(index, obj) {
@@ -77,6 +82,8 @@ function renderClientList(data) {
                                 + allocatedIpsHtml
                                 + `<span class="info-box-text"><strong>Allowed IPs</strong></span>`
                                 + allowedIpsHtml
+                                + `<span class="info-box-text"><strong>Open Ports</strong></span>`
+                                + openPortHtml
                             +`</div>
                         </div>
                     </div>`

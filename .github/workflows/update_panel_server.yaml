@@ -113,6 +113,12 @@ jobs:
             username="root"
           fi
           echo "USERNAME=$username" >> $GITHUB_ENV
+          if [[ "${{ inputs.environment }}" == "Development" ]]; then
+            internal_login="true"
+          else
+            internal_login="false"
+          fi
+          echo "INTERNAL_LOGIN=$internal_login" >> $GITHUB_ENV
 
       - name: Create inventory file
         run: |
@@ -129,6 +135,7 @@ jobs:
           echo "admin_panel_username: ${{ inputs.admin_panel_username }}" >> vars/main.yml
           echo "admin_panel_password: ${{ inputs.admin_panel_password }}" >> vars/main.yml
           echo "wireguard_ui_version: ${{ vars.WIREGUARD_UI_VERSION }}" >> vars/main.yml
+          echo "internal_login: ${{ env.INTERNAL_LOGIN }}" >> vars/main.yml
           echo "sendgrid_api: ${{ secrets.SENDGRID_API }}" >> vars/main.yml
           echo "email_from_address: ${{ secrets.EMAIL_FROM_ADDRESS }}" >> vars/main.yml
           echo "email_from_name: ${{ secrets.EMAIL_FROM_NAME }}" >> vars/main.yml
@@ -161,8 +168,15 @@ jobs:
       - name: Check Server Status
         id: check_http_status
         run: |
-          domain_url="https://${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}/login"
+          domain_url="https://${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}:8443/login"
           echo "Checking domain: $domain_url"
+
+          if [[ "${{ inputs.environment }}" == "Development" ]]; then
+            status=200
+          else
+            status=307
+          fi
+
           max_attempts=40  # 10 minutes (40 attempts every 15 seconds)
           attempt=1
 
@@ -172,17 +186,17 @@ jobs:
             # Attempt to get the HTTP status code
             http_status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url" || echo "000")
 
-            if [ "$http_status" -eq 307 ]; then
-              echo "Domain is reachable with HTTP 307 status!"
+            if [ "$http_status" -eq $status ]; then
+              echo "Domain is reachable with HTTP $status status!"
               exit 0
             fi
 
-            echo "HTTP status: $http_status (not 307). Retrying in 15 seconds..."
+            echo "HTTP status: $http_status (not $status). Retrying in 15 seconds..."
             attempt=$((attempt + 1))
             sleep 15
           done
 
-          echo "ERROR: Domain did not return HTTP 307 within 10 minutes."
+          echo "ERROR: Domain did not return HTTP $status within 10 minutes."
           exit 1
 
   send_failed_signal:

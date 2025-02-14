@@ -200,7 +200,7 @@ export const onReverseProxy = onCall({
     decodeURI(
       "https://" +
       request.data.domainName +
-      ".dedicated-ip.cloud" +
+      ".dedicated-ip.cloud:8443" +
       "/external/api/" +
       functionName
     ),

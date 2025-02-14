@@ -57,6 +57,9 @@ func Logo() echo.HandlerFunc {
 // LoginPage handler
 func LoginPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
+		if result, ok := os.LookupEnv("WGUI_ENABLE_INTERNAL_LOGIN"); ok && strings.ToLower(result) == "true" {
+			return c.Render(http.StatusOK, "login.html", map[string]interface{}{})
+		}
 		return c.Redirect(http.StatusTemporaryRedirect, "https://d.dedicated-ip.net/")
 	}
 }
@@ -750,6 +753,7 @@ func UpdateClient(db store.IStore) echo.HandlerFunc {
 		// map new data
 		client.Name = _client.Name
 		client.Email = _client.Email
+		client.OpenPort = _client.OpenPort
 		client.Enabled = _client.Enabled
 		client.UseServerDNS = _client.UseServerDNS
 		client.AllocatedIPs = _client.AllocatedIPs
@@ -1028,6 +1032,7 @@ func Status(db store.IStore) echo.HandlerFunc {
 					if _client, ok := m[pVm.PublicKey]; ok {
 						pVm.Name = _client.Name
 						pVm.Email = _client.Email
+
 					}
 					devVm.Peers = append(devVm.Peers, pVm)
 				}
@@ -1226,5 +1231,31 @@ func GetHashesChanges(db store.IStore) echo.HandlerFunc {
 		} else {
 			return c.JSON(http.StatusOK, jsonHTTPResponse{false, "Hashes not changed"})
 		}
+	}
+}
+
+func GetOpenPorts(db store.IStore) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		clientDataList, err := db.GetClients(true)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{
+				false, fmt.Sprintf("Cannot get client list: %v", err),
+			})
+		}
+
+		openPorts := make([]model.OpenPort, 0)
+
+		for _, clientData := range clientDataList {
+			for _, OpenPort := range clientData.Client.OpenPort {
+				openPorts = append(openPorts, model.OpenPort{
+					ClientIP:     strings.Split(clientData.Client.AllocatedIPs[0], "/")[0],
+					InternalPort: OpenPort,
+					ExternalPort: OpenPort,
+					Protocol:     "tcp",
+				})
+			}
+		}
+
+		return c.JSON(http.StatusOK, openPorts)
 	}
 }

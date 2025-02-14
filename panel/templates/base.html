@@ -178,6 +178,10 @@
                                 <label for="client_email" class="control-label">Email</label>
                                 <input type="text" class="form-control" id="client_email" name="client_email">
                             </div>
+                            <div class="form-group">
+                              <label for="client_open_port" class="control-label">Open Ports (2 way vpn)</label>
+                              <input type="text" data-role="tagsinput" class="form-control" id="client_open_port">
+                            </div>
                             <details>
                               <summary>
                                 <strong>Advanced Configuration</strong>
@@ -440,6 +444,7 @@
         function submitNewClient() {
             const name = $("#client_name").val();
             const email = $("#client_email").val();
+            const open_port = $("#_client_open_port").val().split(",");
             const allocated_ips = $("#client_allocated_ips").val().split(",");
             const allowed_ips = $("#client_allowed_ips").val().split(",");
             const endpoint = $("#client_endpoint").val();
@@ -466,7 +471,7 @@
             const additional_notes = $("#additional_notes").val();
 
             const data = {"name": name, "email": email, "allocated_ips": allocated_ips, "allowed_ips": allowed_ips,
-                "extra_allowed_ips": extra_allowed_ips, "endpoint": endpoint, "use_server_dns": use_server_dns, "enabled": enabled,
+                "extra_allowed_ips": extra_allowed_ips, "endpoint": endpoint, "open_port": open_port, "use_server_dns": use_server_dns, "enabled": enabled,
                 "public_key": public_key, "preshared_key": preshared_key, "additional_notes": additional_notes};
 
             $.ajax({
@@ -554,6 +559,17 @@
             'placeholderColor': '#666666'
         });
 
+        $("#_client_open_port").tagsInput({
+          'width': '100%',
+          'height': '75%',
+          'interactive': true,
+          'defaultText': 'Add More',
+          'removeWithBackspace': true,
+          'minChars': 0,
+          'minInputWidth': '100%',
+          'placeholderColor': '#666666'
+        });
+
         $("#client_extra_allowed_ips").tagsInput({
             'width': '100%',
             'height': '75%',
@@ -606,6 +622,7 @@
                 $("#client_preshared_key").val("");
                 $("#client_allocated_ips").importTags('');
                 $("#client_extra_allowed_ips").importTags('');
+                $("#_client_open_port").importTags('');
                 $("#client_endpoint").val('');
                 $("#additional_notes").val('');
                 updateSubnetRangesList("#subnet_ranges");

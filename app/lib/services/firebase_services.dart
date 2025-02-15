@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/pref.dart';
 
@@ -62,6 +63,16 @@ class FirebaseServices extends GetxController {
       } else {
         Pref.isPremium = false;
       }
+    });
+  }
+
+  Future<void> getServers() async {
+    var user = await FirebaseAuth.instance.currentUser!..getIdTokenResult(true);
+    var serverCollection = FirebaseFirestore.instance.collection('users').doc(user.uid).collection('servers');
+    var serversDocs = await serverCollection.get();
+
+    serversDocs.docs.forEach((serversDoc) {
+      //serversDoc..data();
     });
   }
 

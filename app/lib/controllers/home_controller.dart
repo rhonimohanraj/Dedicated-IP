@@ -53,6 +53,10 @@ class HomeController extends GetxController {
     firebase_services.checkSubscription();
   }
 
+  Future<void> getServers() async {
+    await firebase_services.getServers();
+  }
+
   // vpn buttons color
   Color get getButtonColor {
     switch (vpnState.value) {

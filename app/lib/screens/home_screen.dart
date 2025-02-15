@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    _controller.getStripeData();
+    _controller.getServers();
     super.initState();
   }
 

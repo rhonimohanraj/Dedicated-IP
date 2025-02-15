@@ -66,6 +66,9 @@ class LogInWithEmailAndPasswordFailure implements Exception {
         return const LogInWithEmailAndPasswordFailure(
           'Email is not valid or badly formatted.',
         );
+      case 'invalid-credential':
+        return const LogInWithEmailAndPasswordFailure(
+            'Username or password is incorrect.');
       case 'user-disabled':
         return const LogInWithEmailAndPasswordFailure(
           'This user has been disabled. Please contact support for help.',
@@ -240,7 +243,7 @@ class AuthenticationRepository {
       );
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
-    } catch (_) {
+    } catch (e) {
       throw const LogInWithEmailAndPasswordFailure();
     }
   }

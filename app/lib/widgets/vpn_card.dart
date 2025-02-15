@@ -59,7 +59,7 @@ class VpnCard extends StatelessWidget {
                 vpn.countryShort.toLowerCase(),
                 height: 35,
                 width: Get.width * .12,
-                borderRadius: 5,
+                shape: RoundedRectangle(10),
               ),
             ),
 

@@ -1,11 +1,14 @@
 import 'package:dedicated_ip/helpers/constants.dart';
+import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/widgets/custom_positioned.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class SignInForm extends StatefulWidget {
-  const SignInForm({super.key});
+  final AuthenticationRepository authenticationRepository;
+
+  const SignInForm({super.key, required this.authenticationRepository});
 
   @override
   State<SignInForm> createState() => _SignInFormState();
@@ -17,48 +20,36 @@ class _SignInFormState extends State<SignInForm> {
   bool isShowConfetti = false;
   String? _email;
   String? _password;
-
-  late SMITrigger check;
-  late SMITrigger error;
-  late SMITrigger reset;
-
-  late SMITrigger confetti;
+  String? _error;
 
   StateMachineController getRiveController(Artboard artBoard) {
     StateMachineController? controller =
-    StateMachineController.fromArtboard(artBoard, "State Machine 1");
-    if (controller != null) { // More robust null check
+        StateMachineController.fromArtboard(artBoard, "sign in state machine");
+    if (controller != null) {
+      // More robust null check
       artBoard.addController(controller);
       return controller;
     }
     throw Exception("Failed to load animation");
   }
 
-  void signIn(BuildContext context) {
+  void signIn(BuildContext context) async {
+    _error = '';
     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       setState(() {
-        isShowLoading = true; // Show loading only if validation passes
+        isShowLoading = true;
       });
 
-      // Simulate authentication delay (only called if form is valid)
-      Future.delayed(const Duration(seconds: 1), () {
-        // Successful sign-in
-        check.fire();
-        Future.delayed(const Duration(seconds: 2), () {
-          setState(() {
-            isShowLoading = false;
-            isShowConfetti = true;
-          });
-          confetti.fire();
-        });
-      });
-    } else {
-      // Validation failed - show error animation and DO NOT start loading
-      error.fire();
-      Future.delayed(const Duration(seconds: 2), () {
-        // Stop the error animation (if you have a reset trigger)
-        // reset.fire(); // If you have a reset trigger in your Rive animation
+      try {
+        await widget.authenticationRepository
+            .logInWithEmailAndPassword(email: _email!, password: _password!);
+      } on LogInWithEmailAndPasswordFailure catch (e) {
+        _error = e.message;
+      }
+
+      setState(() {
+        isShowLoading = false;
       });
     }
   }
@@ -87,7 +78,8 @@ class _SignInFormState extends State<SignInForm> {
                   },
                   onSaved: (email) => _email = email,
                   style: TextStyle(color: Constants.primaryColor),
-                  decoration: Constants.inputDecorationOnWhiteScreen(Icons.email),
+                  decoration:
+                      Constants.inputDecorationOnWhiteScreen(Icons.email),
                 ),
               ),
               Text(
@@ -108,56 +100,37 @@ class _SignInFormState extends State<SignInForm> {
                   },
                   onSaved: (password) => _password = password,
                   obscureText: true,
-                  decoration: Constants.inputDecorationOnWhiteScreen(Icons.password),
+                  decoration:
+                      Constants.inputDecorationOnWhiteScreen(Icons.password),
                 ),
               ),
+              if (_error != null)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Text(
+                    _error!,
+                    style: const TextStyle(color: Colors.red,),
+                  ),
+                ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 24),
                 child: ElevatedButton.icon(
                   onPressed: () {
                     signIn(context);
                   },
-                  icon: const Icon(
+                  icon: isShowLoading? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(color: Colors.white,),
+                  ) : const Icon(
                     CupertinoIcons.arrow_right,
                   ),
-                  label: const Text(
-                    "Sign In"
-                  ),
+                  label: const Text("Sign In"),
                 ),
               ),
             ],
           ),
         ),
-        isShowLoading
-            ? CustomPositioned(
-          child: RiveAnimation.asset(
-            "assets/rive/check.riv", // Replace with your actual path
-            onInit: (artBoard) {
-              StateMachineController controller =
-              getRiveController(artBoard);
-              check = controller.findSMI("Check") as SMITrigger;
-              error = controller.findSMI("Error") as SMITrigger;
-              reset = controller.findSMI("Reset") as SMITrigger;
-            },
-          ),
-        )
-            : const SizedBox(),
-        isShowConfetti
-            ? CustomPositioned(
-          child: Transform.scale(
-            scale: 2, // Adjusted scale
-            child: RiveAnimation.asset(
-              "assets/rive/confetti.riv", // Replace with your actual path
-              onInit: (artboard) {
-                StateMachineController controller =
-                getRiveController(artboard);
-                confetti =
-                controller.findSMI("Trigger explosion") as SMITrigger;
-              },
-            ),
-          ),
-        )
-            : const SizedBox(),
       ],
     );
   }

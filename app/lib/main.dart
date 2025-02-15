@@ -31,7 +31,7 @@ Future<void> main() async {
 
   await Pref.initializeHive();
 
-  final authenticationRepository = AuthenticationRepository();
+  final authenticationRepository = AuthenticationRepository()..logOut();
   await authenticationRepository.user.first;
 
   await SentryFlutter.init(
@@ -46,7 +46,7 @@ Future<void> main() async {
         SentryWidget(
           child: BlocProvider<AppBloc>(
             create: (context) => AppBloc(authenticationRepository: authenticationRepository),
-            child: const MyApp(),
+            child: RepositoryProvider(create: (context) => authenticationRepository,child: const MyApp(),),
           ),
         ),
       ),

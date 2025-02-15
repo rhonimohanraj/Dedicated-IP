@@ -1,11 +1,14 @@
 import 'package:dedicated_ip/helpers/constants.dart';
+import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/widgets/custom_sign_up.dart';
 import 'package:dedicated_ip/widgets/sign_in_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<Object?> customSignInDialog(BuildContext context,
     {required ValueChanged onClosed}) {
+  var authenticationRepository = context.read<AuthenticationRepository>();
   return showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "Sign up",
@@ -50,7 +53,7 @@ Future<Object?> customSignInDialog(BuildContext context,
                           style: TextStyle(color: Colors.black54),
                         ),
                       ),
-                      const SignInForm(),
+                      SignInForm(authenticationRepository: authenticationRepository,),
                       const Row(
                         children: [
                           Expanded(

@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .toLowerCase(),
                                 height: 40,
                                 width: Get.width * .15,
-                                borderRadius: 10,
+                                shape: RoundedRectangle(10),
                               ),
                             ),
 

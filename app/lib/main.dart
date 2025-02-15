@@ -1,13 +1,18 @@
+import 'package:dedicated_ip/bloc/app/app_bloc.dart';
+import 'package:dedicated_ip/bloc/bloc_observer.dart';
 import 'package:dedicated_ip/helpers/constants.dart';
+import 'package:dedicated_ip/repositories/authentication_repository.dart';
+import 'package:dedicated_ip/screens/home_screen.dart';
+import 'package:dedicated_ip/screens/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+
 import 'helpers/pref.dart';
-import 'screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +24,16 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
+  Bloc.observer = const AppBlocObserver();
+
+
+  await Firebase.initializeApp();
+
+  await Pref.initializeHive();
+
+  final authenticationRepository = AuthenticationRepository();
+  await authenticationRepository.user.first;
+
   await SentryFlutter.init(
     (options) {
       options.dsn =
@@ -27,11 +42,12 @@ Future<void> main() async {
       options.profilesSampleRate = 0.1;
     },
     appRunner: () async => {
-      await Firebase.initializeApp(),
-      await Pref.initializeHive(),
       runApp(
-        const SentryWidget(
-          child: MyApp(),
+        SentryWidget(
+          child: BlocProvider<AppBloc>(
+            create: (context) => AppBloc(authenticationRepository: authenticationRepository),
+            child: const MyApp(),
+          ),
         ),
       ),
     },
@@ -45,7 +61,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: Constants.appName,
-      home: const SplashScreen(),
+      home: BlocBuilder<AppBloc, AppState>(
+        builder: (context, state) {
+          if ( state.status == AppStatus.unauthenticated) {
+            return const OnboardingScreen();
+          } else {
+            return const HomeScreen();
+          }
+        },
+      ),
 
       themeMode: ThemeMode.dark,
 
@@ -54,11 +78,4 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
     );
   }
-}
-
-extension AppTheme on ThemeData {
-  Color get lightText => Pref.isDarkMode ? Colors.white70 : Colors.black54;
-
-  Color get bottomNav =>
-      Pref.isDarkMode ? Colors.white12 : const Color(0xFF26401D);
 }

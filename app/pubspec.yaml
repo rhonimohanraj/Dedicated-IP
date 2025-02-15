@@ -61,6 +61,10 @@ dependencies:
   blurrycontainer: ^2.1.0
   google_fonts: ^6.2.1
 
+  flutter_bloc: ^9.0.0
+  equatable: ^2.0.7
+  google_sign_in: ^6.2.2
+
 
 dev_dependencies:
   flutter_test:

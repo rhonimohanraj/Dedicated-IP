@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dedicated_ip/helpers/pref.dart';
 import 'package:dedicated_ip/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -174,6 +175,7 @@ class AuthenticationRepository {
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
+      Pref.user = user;
       return user;
     });
   }
@@ -181,7 +183,7 @@ class AuthenticationRepository {
   /// Returns the current cached user.
   /// Defaults to [User.empty] if there is no cached user.
   User get currentUser {
-    return _firebaseAuth.currentUser?.toUser ?? User.empty;
+    return Pref.user.isEmpty() ? User.empty : Pref.user;
   }
 
   /// Creates a new user with the provided [email] and [password].

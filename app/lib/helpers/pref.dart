@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dedicated_ip/models/user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/stripe_model.dart';
@@ -29,6 +30,10 @@ class Pref {
   //for storing single selected vpn details
   static Vpn get vpn => Vpn.fromJson(jsonDecode(_box.get('vpn') ?? '{}'));
   static set vpn(Vpn v) => _box.put('vpn', jsonEncode(v));
+
+  //for storing single selected user details
+  static User get user => User.fromJson(jsonDecode(_box.get('user') ?? '{}'));
+  static set user(User v) => _box.put('user', jsonEncode(v));
 
   //for storing single selected vpn details
   static StripeModel get stripeModel =>

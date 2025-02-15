@@ -25,4 +25,28 @@ class User extends Equatable {
 
   @override
   List<Object?> get props => [email, id, name, photo];
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] ?? '',
+      email: json['email'] ?? '',
+      name: json['name'] ?? '',
+      photo: json['photo'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['email'] = email;
+    data['name'] = name;
+    data['photo'] = photo;
+
+    return data;
+  }
+
+  bool isEmpty() {
+    if (id.isEmpty) return true;
+    return false;
+  }
 }

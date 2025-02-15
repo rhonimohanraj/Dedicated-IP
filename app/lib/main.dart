@@ -31,7 +31,7 @@ Future<void> main() async {
 
   await Pref.initializeHive();
 
-  final authenticationRepository = AuthenticationRepository()..logOut();
+  final authenticationRepository = AuthenticationRepository();
   await authenticationRepository.user.first;
 
   await SentryFlutter.init(

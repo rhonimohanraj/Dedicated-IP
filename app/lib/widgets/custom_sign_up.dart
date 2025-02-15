@@ -1,8 +1,11 @@
+import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<Object?> customSignUpDialog(BuildContext context,
     {required ValueChanged onClosed}) {
+  var authenticationRepository = context.read<AuthenticationRepository>();
   return showGeneralDialog(
       barrierDismissible: true,
       barrierLabel: "Sign up",
@@ -23,7 +26,7 @@ Future<Object?> customSignUpDialog(BuildContext context,
           decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.95),
               borderRadius: const BorderRadius.all(Radius.circular(40))),
-          child: const Scaffold(
+          child: Scaffold(
             backgroundColor: Colors.transparent,
             resizeToAvoidBottomInset:
             false, // avoid overflow error when keyboard shows up
@@ -31,7 +34,7 @@ Future<Object?> customSignUpDialog(BuildContext context,
               clipBehavior: Clip.none,
               children: [
                 Column(children: [
-                  Text(
+                  const Text(
                     "Sign Up",
                     style: TextStyle(
                       fontSize: 34,
@@ -39,7 +42,7 @@ Future<Object?> customSignUpDialog(BuildContext context,
                       color: Colors.black87,
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16),
                     child: Text(
                       "You're just steps away from a more secure and private online experience. Let's get started.",
@@ -47,9 +50,9 @@ Future<Object?> customSignUpDialog(BuildContext context,
                       style: TextStyle(color: Colors.black54),
                     ),
                   ),
-                  SignUpForm(),
+                  SignUpForm(authenticationRepository: authenticationRepository),
                 ]),
-                Positioned(
+                const Positioned(
             left: 0,
                   right: 0,
                   bottom: -48,

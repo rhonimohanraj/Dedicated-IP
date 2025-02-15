@@ -1,6 +1,6 @@
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/repositories/authentication_repository.dart';
-import 'package:dedicated_ip/widgets/custom_positioned.dart';
+import 'package:dedicated_ip/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -44,6 +44,14 @@ class _SignInFormState extends State<SignInForm> {
       try {
         await widget.authenticationRepository
             .logInWithEmailAndPassword(email: _email!, password: _password!);
+        if (!context.mounted) {
+          return;
+        }
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ), (route) => false,
+        );
       } on LogInWithEmailAndPasswordFailure catch (e) {
         _error = e.message;
       }

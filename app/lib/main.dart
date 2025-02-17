@@ -1,17 +1,14 @@
-import 'package:dedicated_ip/bloc/app/app_bloc.dart';
-import 'package:dedicated_ip/bloc/bloc_observer.dart';
 import 'package:dedicated_ip/firebase_options.dart';
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/screens/home_screen.dart';
 import 'package:dedicated_ip/screens/onboarding_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
 
 import 'helpers/pref.dart';
 
@@ -25,15 +22,14 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  Bloc.observer = const AppBlocObserver();
-
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await Pref.initializeHive();
 
   final authenticationRepository = AuthenticationRepository();
   await authenticationRepository.user.first;
+
+  Get.put(authenticationRepository, permanent: true);
 
   await SentryFlutter.init(
     (options) {
@@ -45,10 +41,7 @@ Future<void> main() async {
     appRunner: () async => {
       runApp(
         SentryWidget(
-          child: BlocProvider<AppBloc>(
-            create: (context) => AppBloc(authenticationRepository: authenticationRepository),
-            child: RepositoryProvider(create: (context) => authenticationRepository,child: const MyApp(),),
-          ),
+          child: const MyApp(),
         ),
       ),
     },
@@ -62,16 +55,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: Constants.appName,
-      home: BlocBuilder<AppBloc, AppState>(
-        builder: (context, state) {
-          if ( state.status == AppStatus.unauthenticated) {
-            return const OnboardingScreen();
-          } else {
-            return const HomeScreen();
-          }
-        },
-      ),
-
+      home: FirebaseAuth.instance.currentUser == null
+          ? OnboardingScreen()
+          : HomeScreen(),
       themeMode: ThemeMode.dark,
 
       //dark theme

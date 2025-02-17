@@ -31,14 +31,14 @@ class VpnCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        if (Pref.isPremium == true &&
+        if (true == true &&
             true == true) {
           connect();
-        } else if (vpn.premium == true && Pref.isPremium == false) {
+        } else if (vpn.premium == true && true== false) {
           //Route to stripe
 
           MyDialogs().subscriptionDailog(context: context);
-        } else if (vpn.premium == false && Pref.isPremium == false) {
+        } else if (vpn.premium == false && true == false) {
           connect();
         }
       },

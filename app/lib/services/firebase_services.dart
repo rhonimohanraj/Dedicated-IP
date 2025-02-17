@@ -37,6 +37,6 @@ class FirebaseServices extends GetxController {
     var serversDocs = await serverCollection.get();
     var servers =
         serversDocs.docs.map((e) => Server.fromJson(e.data(), e.id)).toList();
-    Pref.servers = servers;
+    //Pref.servers = servers;
   }
 }

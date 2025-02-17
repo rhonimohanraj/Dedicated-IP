@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dedicated_ip/helpers/pref.dart';
 
 import '../services/firebase_services.dart';
 import '../services/stripe_services.dart';
@@ -153,27 +152,27 @@ class MyDialogs {
                       onTap: () async {
                         String deviceID = await firebase_services.getDeviceId();
 
-                        await stripeService.stripePaymentCheckout(
-                            stripeModel: Pref.stripeModel,
-                            context: context,
-                            mounted: true,
-                            onCancel: () {
-                              print("cancel");
-                            },
-                            onError: (e) {
-                              print("Error " + e.toString());
-                            },
-                            onSuccess: () {
-                              // firebase_services
-                              //     .paymentComplete(
-                              //         deviceId: deviceID,
-                              //         days: Pref.stripeModel.days,
-                              //         price: Pref.stripeModel.price)
-                              //     .then((value) {
-                              //   MyDialogs.success(
-                              //       msg: 'Congrats! Payment Successfull');
-                              // });
-                            });
+                        // await stripeService.stripePaymentCheckout(
+                        //     stripeModel: Pref.stripeModel,
+                        //     context: context,
+                        //     mounted: true,
+                        //     onCancel: () {
+                        //       print("cancel");
+                        //     },
+                        //     onError: (e) {
+                        //       print("Error " + e.toString());
+                        //     },
+                        //     onSuccess: () {
+                        //       // firebase_services
+                        //       //     .paymentComplete(
+                        //       //         deviceId: deviceID,
+                        //       //         days: Pref.stripeModel.days,
+                        //       //         price: Pref.stripeModel.price)
+                        //       //     .then((value) {
+                        //       //   MyDialogs.success(
+                        //       //       msg: 'Congrats! Payment Successfull');
+                        //       // });
+                        //     });
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -183,7 +182,7 @@ class MyDialogs {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(30))),
                         child: Text(
-                          '${Pref.stripeModel.price}\$ Per Month',
+                          '10\$ Per Month',
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 15,

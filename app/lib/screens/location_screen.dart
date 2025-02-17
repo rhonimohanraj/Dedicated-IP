@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:dedicated_ip/models/vpn.dart';
-import 'package:dedicated_ip/services/firebase_services.dart';
 import '../widgets/vpn_card.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -31,7 +30,7 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   _vpnData() => StreamBuilder(
-      stream: FirebaseServices().servers.snapshots(),
+      stream: Stream.value([]),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return _noVPNFound();
@@ -40,7 +39,7 @@ class _LocationScreenState extends State<LocationScreen> {
           return _loadingWidget();
         }
         return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
+            itemCount: snapshot.data!.length,
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.only(
                 top: Get.height * .015,
@@ -48,7 +47,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 left: Get.width * .04,
                 right: Get.width * .04),
             itemBuilder: (ctx, i) {
-              var data = snapshot.data!.docs[i]["serverDetail"]
+              var data = snapshot.data!
                   as Map<String, dynamic>;
               return VpnCard(vpn: Vpn.fromJson(data));
             });

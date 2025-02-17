@@ -164,15 +164,15 @@ class MyDialogs {
                               print("Error " + e.toString());
                             },
                             onSuccess: () {
-                              firebase_services
-                                  .paymentComplete(
-                                      deviceId: deviceID,
-                                      days: Pref.stripeModel.days,
-                                      price: Pref.stripeModel.price)
-                                  .then((value) {
-                                MyDialogs.success(
-                                    msg: 'Congrats! Payment Successfull');
-                              });
+                              // firebase_services
+                              //     .paymentComplete(
+                              //         deviceId: deviceID,
+                              //         days: Pref.stripeModel.days,
+                              //         price: Pref.stripeModel.price)
+                              //     .then((value) {
+                              //   MyDialogs.success(
+                              //       msg: 'Congrats! Payment Successfull');
+                              // });
                             });
                       },
                       child: Container(

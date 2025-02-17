@@ -7,23 +7,6 @@ import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/pref.dart';
 
 class FirebaseServices extends GetxController {
-  CollectionReference subscriptions =
-      FirebaseFirestore.instance.collection('Subscriptions');
-
-  CollectionReference servers =
-      FirebaseFirestore.instance.collection('wireguard_server');
-  Future<void> paymentComplete(
-      {required String deviceId, required int price, required int days}) async {
-    await subscriptions.doc(deviceId).set({
-      'price': price,
-      'deviceId': deviceId,
-      'expiryDate': DateTime.now().add(Duration(days: days)),
-      'timestamp': DateTime.now(),
-    });
-
-    Pref.isPremium = true;
-    Pref.expiryDate = DateTime.now().add(Duration(days: days)).toString();
-  }
 
   Future<String> getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -45,45 +28,9 @@ class FirebaseServices extends GetxController {
     }
   }
 
-  Future<void> checkSubscription() async {
-    String id = await getDeviceId();
-    await subscriptions.doc(id).get().then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        var doc = documentSnapshot.data() as Map<String, dynamic>;
-
-        DateTime date = (doc["expiryDate"] as Timestamp).toDate();
-
-        var dateDeff = date.difference(DateTime.now()).inDays;
-        Pref.expiryDate = date.toString();
-        if (dateDeff >= 1) {
-          Pref.isPremium = true;
-        } else {
-          Pref.isPremium = false;
-        }
-      } else {
-        Pref.isPremium = false;
-      }
-    });
-  }
-
   Future<void> getServers() async {
-    var user = await FirebaseAuth.instance.currentUser!..getIdTokenResult(true);
-    var serverCollection = FirebaseFirestore.instance.collection('users').doc(user.uid).collection('servers');
+    var user = Pref.user;
+    var serverCollection = await FirebaseFirestore.instance.collection('users').doc(user.id).collection("servers");
     var serversDocs = await serverCollection.get();
-
-    serversDocs.docs.forEach((serversDoc) {
-      //serversDoc..data();
-    });
-  }
-
-  bool checkPremium() {
-    final date = DateTime.parse(Pref.expiryDate);
-    var dateDeff = date.difference(DateTime.now()).inDays;
-
-    if (dateDeff >= 1) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../apis/apis.dart';
 import '../helpers/my_dialogs.dart';
 import '../helpers/pref.dart';
 import '../models/vpn.dart';
@@ -25,13 +23,6 @@ class HomeController extends GetxController {
       return;
     }
 
-    if (vpn.value.premium == true &&
-        firebase_services.checkPremium() == false) {
-      MyDialogs.info(
-          msg: 'Your subscription plan is expire \'Subscribe again\'');
-      return;
-    }
-
     if (vpnState.value == VpnEngine.vpnDisconnected) {
       final data = const Base64Decoder().convert(vpn.value.configDataBase64);
       final config = const Utf8Decoder().convert(data);
@@ -45,12 +36,6 @@ class HomeController extends GetxController {
       //AdHelper.showRewardedVideoAd();
       VpnEngine.wireGuardFlutter.stopVpn();
     }
-  }
-
-  //Stripe data
-  Future<void> getStripeData() async {
-    await APIs.getStripeData();
-    firebase_services.checkSubscription();
   }
 
   Future<void> getServers() async {

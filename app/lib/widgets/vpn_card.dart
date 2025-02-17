@@ -32,7 +32,7 @@ class VpnCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (Pref.isPremium == true &&
-            controller.firebase_services.checkPremium() == true) {
+            true == true) {
           connect();
         } else if (vpn.premium == true && Pref.isPremium == false) {
           //Route to stripe

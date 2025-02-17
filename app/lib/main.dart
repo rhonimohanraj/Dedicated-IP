@@ -1,5 +1,6 @@
 import 'package:dedicated_ip/bloc/app/app_bloc.dart';
 import 'package:dedicated_ip/bloc/bloc_observer.dart';
+import 'package:dedicated_ip/firebase_options.dart';
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/screens/home_screen.dart';
@@ -27,7 +28,7 @@ Future<void> main() async {
   Bloc.observer = const AppBlocObserver();
 
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   await Pref.initializeHive();
 

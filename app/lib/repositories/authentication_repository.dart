@@ -191,10 +191,13 @@ class AuthenticationRepository {
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
   Future<void> signUp({required String email, required String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      var user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      if(user.user!= null){
+        Pref.user = user.user!.toUser;
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -223,7 +226,11 @@ class AuthenticationRepository {
         );
       }
 
-      await _firebaseAuth.signInWithCredential(credential);
+      var user = await _firebaseAuth.signInWithCredential(credential);
+
+      if(user.user!= null){
+        Pref.user = user.user!.toUser;
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (_) {
@@ -239,10 +246,14 @@ class AuthenticationRepository {
     required String password,
   }) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      var user = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      if(user.user!= null){
+        Pref.user = user.user!.toUser;
+      }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (e) {
@@ -260,6 +271,7 @@ class AuthenticationRepository {
         _firebaseAuth.signOut(),
         _googleSignIn.signOut(),
       ]);
+      Pref.user = User.empty;
     } catch (_) {
       throw LogOutFailure();
     }

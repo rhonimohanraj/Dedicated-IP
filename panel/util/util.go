@@ -112,6 +112,11 @@ func ContainsCIDR(ipnet1, ipnet2 *net.IPNet) bool {
 	return ones1 <= ones2 && ipnet1.Contains(ipnet2.IP)
 }
 
+func ValidateNumber(value string) bool {
+	_, err := strconv.Atoi(value)
+	return err == nil
+}
+
 // ValidateCIDR to validate a network CIDR
 func ValidateCIDR(cidr string) bool {
 	_, _, err := net.ParseCIDR(cidr)

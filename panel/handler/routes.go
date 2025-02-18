@@ -512,6 +512,13 @@ func NewClient(db store.IStore) echo.HandlerFunc {
 			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
 		}
 
+		for _, s := range client.OpenPort {
+			if util.ValidateNumber(s) == false {
+				log.Warnf("Invalid OpenPort input from user: %v", s)
+				return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "OpenPort must be a number"})
+			}
+		}
+
 		if len(client.AllocatedIPs) == 0 {
 			client.AllocatedIPs, err = suggestIPAllocation(db, c)
 			if err != nil {
@@ -699,6 +706,13 @@ func UpdateClient(db store.IStore) echo.HandlerFunc {
 		check, err := util.ValidateIPAllocation(server.Interface.Addresses, allocatedIPs, _client.AllocatedIPs)
 		if !check {
 			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, fmt.Sprintf("%s", err)})
+		}
+
+		for _, s := range client.OpenPort {
+			if util.ValidateNumber(s) == false {
+				log.Warnf("Invalid OpenPort input from user: %v", s)
+				return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "OpenPort must be a number"})
+			}
 		}
 
 		// validate the input AllowedIPs
@@ -1247,6 +1261,10 @@ func GetOpenPorts(db store.IStore) echo.HandlerFunc {
 
 		for _, clientData := range clientDataList {
 			for _, OpenPort := range clientData.Client.OpenPort {
+				if util.ValidateNumber(OpenPort) == false {
+					log.Warnf("Invalid OpenPort input from user: %v", OpenPort)
+					continue
+				}
 				openPorts = append(openPorts, model.OpenPort{
 					ClientIP:     strings.Split(clientData.Client.AllocatedIPs[0], "/")[0],
 					InternalPort: OpenPort,

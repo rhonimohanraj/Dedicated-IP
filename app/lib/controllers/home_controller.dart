@@ -11,13 +11,24 @@ import '../services/vpn_engine.dart';
 
 class HomeController extends GetxController {
   final Rx<Vpn> vpn = Pref.vpn.obs;
-  final firebase_services = Get.put(FirebaseServices());
+  final firebaseServices = Get.put(FirebaseServices());
   final vpnState = VpnEngine.vpnDisconnected.obs;
 
   void connectToVpn() async {
     await VpnEngine.wireGuardFlutter.initialize(
-      interfaceName: 'wg_vpn',
+      interfaceName: 'Dedicated_IP',
     );
+
+
+    var server = Pref.servers.where((y)=>y.status == 'active').first;
+    vpnState.value = VpnEngine.vpnConnecting;
+
+    var config = await firebaseServices.reverseProxy(functionName: "client/${firebaseServices.getDeviceId()}", domainName: server.server, body: null);
+
+    return;
+
+
+
     if (vpn.value.configDataBase64.isEmpty) {
       MyDialogs.info(msg: 'Select a Location by clicking \'Change Location\'');
       return;
@@ -33,13 +44,12 @@ class HomeController extends GetxController {
         providerBundleIdentifier: 'net.dedicated_ip.app',
       );
     } else if (vpnState.value == VpnEngine.vpnConnected) {
-      //AdHelper.showRewardedVideoAd();
       VpnEngine.wireGuardFlutter.stopVpn();
     }
   }
 
   Future<void> getServers() async {
-    await firebase_services.getServers();
+    await firebaseServices.getServers();
   }
 
   // vpn buttons color

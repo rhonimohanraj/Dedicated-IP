@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:dedicated_ip/models/server.dart';
 import 'package:dedicated_ip/models/user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/stripe_model.dart';
 import '../models/vpn.dart';
 
 class Pref {
@@ -21,4 +21,14 @@ class Pref {
   //for storing single selected user details
   static User get user => User.fromJson(jsonDecode(_box.get('user') ?? '{}'));
   static set user(User v) => _box.put('user', jsonEncode(v));
+
+  static List<Server> get servers {
+    List<Server> servers = [];
+    var cachedData = jsonDecode(_box.get('servers') ?? "[]");
+    for (var element in cachedData) {
+      servers.add(Server.fromJson(element, ''));
+    }
+    return servers;
+  }
+  static set servers(List<Server> v) => _box.put('servers', jsonEncode(v));
 }

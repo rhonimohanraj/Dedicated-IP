@@ -54,7 +54,7 @@ class Server extends Equatable {
 
   static Server fromJson(Map<String, dynamic> json, String? uid) {
     return Server(
-      id: uid ?? json['uid'] ?? '',
+      id: uid ?? json['id'] ?? '',
       countryCode: json['countryCode'] ?? '',
       datacenterProvider: json['datacenterProvider'] ?? '',
       datacenter: json['datacenter'] ?? '',

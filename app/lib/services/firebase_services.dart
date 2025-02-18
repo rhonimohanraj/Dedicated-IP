@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dedicated_ip/models/server.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/pref.dart';
 
@@ -36,7 +38,39 @@ class FirebaseServices extends GetxController {
         .collection("servers");
     var serversDocs = await serverCollection.get();
     var servers =
-        serversDocs.docs.map((e) => Server.fromJson(e.data(), e.id)).toList();
-    //Pref.servers = servers;
+    serversDocs.docs.map((e) => Server.fromJson(e.data(), e.id)).toList();
+    Pref.servers = servers;
+  }
+
+  Future<String> reverseProxy({
+    required String domainName,
+    required String functionName,
+    required dynamic body, // Use 'dynamic' since 'any' isn't a Dart type
+  }) async {
+    try {
+      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        'onReverseProxy', // The name of your Cloud Function
+        options: HttpsCallableOptions(
+          limitedUseAppCheckToken: true,
+        ),
+      );
+
+      final HttpsCallableResult result = await callable.call(<String, dynamic>{
+        'domainName': domainName,
+        'functionName': functionName,
+        'body': body,
+      });
+
+      if (result.data is String) {
+        return result.data;
+      }
+      else {
+        throw Exception('Cloud Function returned null data.');
+      }
+    } on FirebaseFunctionsException catch (e) {
+      throw Exception('Firebase Functions Error: ${e.message}');
+    } catch (e) {
+      throw Exception('Error calling Cloud Function: $e');
+    }
   }
 }

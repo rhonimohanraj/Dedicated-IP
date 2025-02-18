@@ -3,6 +3,7 @@ import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/screens/home_screen.dart';
 import 'package:dedicated_ip/screens/onboarding_screen.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAppCheck.instance.activate(androidProvider: AndroidProvider.playIntegrity);
 
   await Pref.initializeHive();
 

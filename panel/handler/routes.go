@@ -463,7 +463,16 @@ func GetClient(db store.IStore) echo.HandlerFunc {
 
 func GetOrCreateClientByName(db store.IStore, fs fs.FS) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		clientName := c.Param("name")
+		var req model.GetOrCreateNewClient
+		err := c.Bind(&req)
+		if err != nil {
+			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "Bad request data"})
+		}
+
+		clientName := req.Name
+		if clientName == "" {
+			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "Please provide a valid client name"})
+		}
 
 		qrCodeSettings := model.QRCodeSettings{
 			Enabled:    true,

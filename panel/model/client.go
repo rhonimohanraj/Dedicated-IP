@@ -36,3 +36,7 @@ type QRCodeSettings struct {
 	IncludeDNS bool
 	IncludeMTU bool
 }
+
+type GetOrCreateNewClient struct {
+	Name string `json:"name"`
+}

@@ -266,7 +266,7 @@ func main() {
 	app.GET(util.BasePath+"/internal/api/open-ports", handler.GetOpenPorts(db), handler.ValidLocalRequest)
 
 	// serve external api request
-	app.POST(util.BasePath+"/external/api/client/:name", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey, handler.ContentTypeJson)
+	app.POST(util.BasePath+"/external/api/client", handler.GetOrCreateClientByName(db, tmplDir), handler.ValidApiKey, handler.ContentTypeJson)
 	app.POST(util.BasePath+"/external/api/update-password", handler.UpdatePassword(db), handler.ValidApiKey, handler.ContentTypeJson)
 
 	// strip the "assets/" prefix from the embedded directory so files can be called directly without the "assets/"

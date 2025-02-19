@@ -475,14 +475,23 @@ func GetOrCreateClientByName(db store.IStore, fs fs.FS) echo.HandlerFunc {
 		}
 
 		qrCodeSettings := model.QRCodeSettings{
-			Enabled:    true,
+			Enabled:    false,
 			IncludeDNS: true,
 			IncludeMTU: true,
 		}
 
 		clientData, err := db.GetClientByName(clientName, qrCodeSettings)
 		if err == nil {
-			return c.JSON(http.StatusOK, util.FillClientSubnetRange(clientData))
+			server, err := db.GetServer()
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+			globalSettings, err := db.GetGlobalSettings()
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+			config := util.BuildClientConfig(*clientData.Client, server, globalSettings)
+			return c.String(http.StatusOK, config)
 		}
 
 		err = _NewClient(db, model.Client{Name: clientName})(c)
@@ -497,7 +506,16 @@ func GetOrCreateClientByName(db store.IStore, fs fs.FS) echo.HandlerFunc {
 
 		clientData, err = db.GetClientByName(clientName, qrCodeSettings)
 		if err == nil {
-			return c.JSON(http.StatusOK, util.FillClientSubnetRange(clientData))
+			server, err := db.GetServer()
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+			globalSettings, err := db.GetGlobalSettings()
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, err.Error()})
+			}
+			config := util.BuildClientConfig(*clientData.Client, server, globalSettings)
+			return c.String(http.StatusOK, config)
 		}
 
 		return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, "Can not load new client"})

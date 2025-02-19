@@ -708,7 +708,7 @@ func UpdateClient(db store.IStore) echo.HandlerFunc {
 			return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, fmt.Sprintf("%s", err)})
 		}
 
-		for _, s := range client.OpenPort {
+		for _, s := range _client.OpenPort {
 			if util.ValidateNumber(s) == false {
 				log.Warnf("Invalid OpenPort input from user: %v", s)
 				return c.JSON(http.StatusBadRequest, jsonHTTPResponse{false, "OpenPort must be a number"})

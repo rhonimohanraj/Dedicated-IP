@@ -485,7 +485,7 @@ func GetOrCreateClientByName(db store.IStore, fs fs.FS) echo.HandlerFunc {
 			return c.JSON(http.StatusOK, util.FillClientSubnetRange(clientData))
 		}
 
-		err = NewClient(db)(c)
+		err = _NewClient(db, model.Client{Name: clientName})(c)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, jsonHTTPResponse{false, "Can not create new client"})
 		}
@@ -504,16 +504,21 @@ func GetOrCreateClientByName(db store.IStore, fs fs.FS) echo.HandlerFunc {
 	}
 }
 
-// NewClient handler
 func NewClient(db store.IStore) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var client model.Client
-		c.Bind(&client)
-
-		if len(client.Name) == 0 {
-			client.Name = c.Param("name")
+		err := c.Bind(&client)
+		if err != nil {
+			return err
 		}
 
+		return _NewClient(db, client)(c)
+	}
+}
+
+// NewClient handler
+func _NewClient(db store.IStore, client model.Client) echo.HandlerFunc {
+	return func(c echo.Context) error {
 		// read server information
 		server, err := db.GetServer()
 		if err != nil {

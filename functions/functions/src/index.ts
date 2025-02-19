@@ -217,7 +217,7 @@ export const onReverseProxy = onCall({
     );
   }
 
-  const apiData = await response.json();
+  const apiData = await response.text();
 
   return apiData;
 });

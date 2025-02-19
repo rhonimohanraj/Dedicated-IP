@@ -1,11 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dedicated_ip/models/server.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/pref.dart';
 
@@ -45,7 +44,7 @@ class FirebaseServices extends GetxController {
   Future<String> reverseProxy({
     required String domainName,
     required String functionName,
-    required dynamic body, // Use 'dynamic' since 'any' isn't a Dart type
+    required Object body,
   }) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
@@ -54,6 +53,8 @@ class FirebaseServices extends GetxController {
           limitedUseAppCheckToken: true,
         ),
       );
+
+      var jsonBody = jsonEncode(body);
 
       final HttpsCallableResult result = await callable.call(<String, dynamic>{
         'domainName': domainName,
@@ -72,5 +73,9 @@ class FirebaseServices extends GetxController {
     } catch (e) {
       throw Exception('Error calling Cloud Function: $e');
     }
+  }
+
+  Future<String> getVPNConfig(String domainName) async  {
+    return await reverseProxy(functionName: "client", domainName: domainName, body: {"name": await getDeviceId()});
   }
 }

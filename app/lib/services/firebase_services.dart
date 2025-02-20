@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -53,8 +52,6 @@ class FirebaseServices extends GetxController {
           limitedUseAppCheckToken: true,
         ),
       );
-
-      var jsonBody = jsonEncode(body);
 
       final HttpsCallableResult result = await callable.call(<String, dynamic>{
         'domainName': domainName,

@@ -6,6 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 class Constants {
   static String get appName => "Dedicated IP";
 
+  static String get vpnInterfaceName => "Dedicated_IP";
+
+  static String get vpnBundleIdentifier => 'net.dedicated_ip.app';
+
   static Color get primaryColor=>
       const Color(0xff023a12); // Example using Col
   // or

@@ -27,6 +27,8 @@ class Server extends Equatable {
 
   final String name;
 
+  String get hostname => '$name.dedicated-ip.cloud';
+
   final String password;
 
   final String server;

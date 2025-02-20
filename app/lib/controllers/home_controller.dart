@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,32 +15,23 @@ class HomeController extends GetxController {
 
   void connectToVpn() async {
     await VpnEngine.wireGuardFlutter.initialize(
-      interfaceName: 'Dedicated_IP',
+      interfaceName: Constants.vpnInterfaceName,
     );
 
-
     var server = Pref.servers.where((y)=>y.status == 'active').first;
-    vpnState.value = VpnEngine.vpnConnecting;
 
-    var config = await firebaseServices.reverseProxy(functionName: "client/${firebaseServices.getDeviceId()}", domainName: server.server, body: null);
-
-    return;
-
-
-
-    if (vpn.value.configDataBase64.isEmpty) {
+    if (server.isEmpty()) {
       MyDialogs.info(msg: 'Select a Location by clicking \'Change Location\'');
       return;
     }
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
-      final data = const Base64Decoder().convert(vpn.value.configDataBase64);
-      final config = const Utf8Decoder().convert(data);
+      var config = await firebaseServices.getVPNConfig(server.name);
 
       await VpnEngine.wireGuardFlutter.startVpn(
-        serverAddress: vpn.value.hostname,
+        serverAddress: server.hostname,
         wgQuickConfig: config,
-        providerBundleIdentifier: 'net.dedicated_ip.app',
+        providerBundleIdentifier: Constants.vpnBundleIdentifier,
       );
     } else if (vpnState.value == VpnEngine.vpnConnected) {
       VpnEngine.wireGuardFlutter.stopVpn();

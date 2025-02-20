@@ -18,9 +18,9 @@ class HomeController extends GetxController {
       interfaceName: Constants.vpnInterfaceName,
     );
 
-    var server = Pref.servers.where((y)=>y.status == 'active').first;
+    var server = Pref.servers.where((y)=>y.status == 'active').firstOrNull;
 
-    if (server.isEmpty()) {
+    if (server == null) {
       MyDialogs.info(msg: 'Select a Location by clicking \'Change Location\'');
       return;
     }

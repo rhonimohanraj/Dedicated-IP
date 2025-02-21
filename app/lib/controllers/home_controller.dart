@@ -21,8 +21,8 @@ class HomeController extends GetxController {
       interfaceName: Constants.vpnInterfaceName,
     );
 
-    if (server.value == null) {
-      MyDialogs.info(msg: 'Select a Location by clicking \'Change Location\'');
+    if (server.value.countryCode.isBlank == true) {
+      MyDialogs.info(msg: 'Select a Dedicated IP by clicking \'Select Dedicated-IP\'');
       return;
     }
 

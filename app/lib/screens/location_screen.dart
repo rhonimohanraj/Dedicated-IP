@@ -23,7 +23,7 @@ class _LocationScreenState extends State<LocationScreen> {
         backgroundColor: context.theme.scaffoldBackgroundColor,
         centerTitle: true,
         title: const Text(
-          'VPN Locations',
+          'Dedicated-IP',
           style: TextStyle(fontSize: 18),
         ),
       ),

@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           _controller.server.value.countryCode.isEmpty
                               ? Text(
-                                  'Select Location',
+                                  'Select Dedicated-IP',
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,

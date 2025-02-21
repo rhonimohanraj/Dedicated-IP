@@ -1,5 +1,6 @@
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/models/server.dart';
+import 'package:dedicated_ip/services/ip_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ import '../services/vpn_engine.dart';
 class HomeController extends GetxController {
   final Rx<Server> server = Pref.server.obs;
   final firebaseServices = Get.put(FirebaseServices());
+  final ipService = Get.put(IpService());
+
   final vpnState = VpnEngine.vpnDisconnected.obs;
 
   void connectToVpn() async {

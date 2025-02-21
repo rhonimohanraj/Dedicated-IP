@@ -98,15 +98,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           const SizedBox(width: 10),
 
-                          Text(
-                            _controller.server.value.countryCode.isEmpty
-                                ? 'Select Location'
-                                : _controller.server.value.countryCode,
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                          ),
+                          _controller.server.value.countryCode.isEmpty
+                              ? Text(
+                                  'Select Location',
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                )
+                              : FutureBuilder(
+                                  future: _controller.ipService
+                                      .getIp(_controller.server.value.hostname),
+                                  builder: (context, snapshot) => Text(
+                                    snapshot.data ?? '',
+                                  ),
+                                ),
 
                           //for covering available spacing
                           const Spacer(),

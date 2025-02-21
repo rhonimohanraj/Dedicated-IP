@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Obx(() => _vpnButton()),
 
             InkWell(
-              onTap: () => Get.to(() => const LocationScreen()),
+              onTap: () => Get.to(() => LocationScreen()),
               child: Container(
                   decoration: BoxDecoration(
                       color: _controller.getButtonColor.withOpacity(.1),
@@ -77,12 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: Get.height * 0.07,
                   child: Obx(() => Row(
                         children: [
-                          if (_controller.vpn.value.countryLong.isNotEmpty)
+                          if (_controller.server.value.countryCode.isNotEmpty)
                             Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5)),
                               child: CountryFlag.fromCountryCode(
-                                _controller.vpn.value.countryShort
+                                _controller.server.value.countryCode
                                     .toLowerCase(),
                                 height: 40,
                                 width: Get.width * .15,
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
 
-                          if (_controller.vpn.value.countryLong.isEmpty)
+                          if (_controller.server.value.countryCode.isEmpty)
                             const CircleAvatar(
                               backgroundColor: Colors.white10,
                               radius: 25,
@@ -99,9 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(width: 10),
 
                           Text(
-                            _controller.vpn.value.countryLong.isEmpty
+                            _controller.server.value.countryCode.isEmpty
                                 ? 'Select Location'
-                                : _controller.vpn.value.countryLong,
+                                : _controller.server.value.countryCode,
                             style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -195,9 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          if (_controller.vpn.value.countryLong.isNotEmpty)
+          if (_controller.server.value.countryCode.isNotEmpty)
             Text(
-              "IP:  " + _controller.vpn.value.ip,
+              "Name:  " + _controller.server.value.name,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,

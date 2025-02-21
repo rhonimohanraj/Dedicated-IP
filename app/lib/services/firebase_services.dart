@@ -28,7 +28,7 @@ class FirebaseServices extends GetxController {
     }
   }
 
-  Future<void> getServers() async {
+  Future<List<Server>> getServers() async {
     var user = Pref.user;
     var serverCollection = await FirebaseFirestore.instance
         .collection('users')
@@ -38,6 +38,7 @@ class FirebaseServices extends GetxController {
     var servers =
     serversDocs.docs.map((e) => Server.fromJson(e.data(), e.id)).toList();
     Pref.servers = servers;
+    return servers;
   }
 
   Future<String> reverseProxy({

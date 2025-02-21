@@ -18,9 +18,14 @@ class Pref {
   static Vpn get vpn => Vpn.fromJson(jsonDecode(_box.get('vpn') ?? '{}'));
   static set vpn(Vpn v) => _box.put('vpn', jsonEncode(v));
 
-  //for storing single selected user details
   static User get user => User.fromJson(jsonDecode(_box.get('user') ?? '{}'));
   static set user(User v) => _box.put('user', jsonEncode(v));
+
+  static Server get server => Server.fromJson(jsonDecode(_box.get('server') ?? '{}'), _box.get('server_id') ?? '');
+  static set server(Server v) => {
+    _box.put('server', jsonEncode(v)),
+    _box.put('server_id', v.id)
+  };
 
   static List<Server> get servers {
     List<Server> servers = [];

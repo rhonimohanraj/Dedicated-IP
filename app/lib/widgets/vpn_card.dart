@@ -1,24 +1,26 @@
 import 'package:country_flags/country_flags.dart';
+import 'package:dedicated_ip/models/server.dart';
+import 'package:dedicated_ip/services/ip_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dedicated_ip/helpers/my_dialogs.dart';
 
 import '../controllers/home_controller.dart';
 import '../helpers/pref.dart';
-import '../models/vpn.dart';
 import '../services/vpn_engine.dart';
 
 class VpnCard extends StatelessWidget {
-  final Vpn vpn;
+  final Server server;
 
-  const VpnCard({super.key, required this.vpn});
+  const VpnCard({super.key, required this.server});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
+    final ipService = Get.put(IpService());
+
     void connect() {
-      controller.vpn.value = vpn;
-      Pref.vpn = vpn;
+      controller.server.value = server;
+      Pref.server = server;
       Get.back();
       if (controller.vpnState.value == VpnEngine.vpnConnected) {
         VpnEngine.wireGuardFlutter.stopVpn();
@@ -31,16 +33,10 @@ class VpnCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        if (true == true &&
-            true == true) {
-          connect();
-        } else if (vpn.premium == true && true== false) {
-          //Route to stripe
-
-          MyDialogs().subscriptionDailog(context: context);
-        } else if (vpn.premium == false && true == false) {
-          connect();
+        if (server.status != 'active') {
+          return;
         }
+        connect();
       },
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),
@@ -56,28 +52,28 @@ class VpnCard extends StatelessWidget {
                   border: Border.all(color: Colors.black12),
                   borderRadius: BorderRadius.circular(5)),
               child: CountryFlag.fromCountryCode(
-                vpn.countryShort.toLowerCase(),
+                server.countryCode.toLowerCase(),
                 height: 35,
                 width: Get.width * .12,
                 shape: RoundedRectangle(10),
               ),
             ),
 
-            //title
             title: Text(
-              vpn.countryLong,
+              server.name,
               style: const TextStyle(fontSize: 18),
             ),
 
-            //trailing
-            trailing: vpn.premium == true
+            subtitle: server.status == 'active' ? FutureBuilder(
+                future: ipService.getIp(server.hostname),
+                builder: (context, snapshot) => Text(snapshot.data ?? '')) : null,
+
+            trailing: true == true
                 ? Image.asset(
                     'assets/images/premium.png',
                     height: Get.height * 0.03,
                   )
-                : Container(
-                    child: Text('Free'),
-                  ),
+                : Text('Free'),
           )),
     );
   }

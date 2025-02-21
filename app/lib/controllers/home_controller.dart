@@ -1,15 +1,15 @@
 import 'package:dedicated_ip/helpers/constants.dart';
+import 'package:dedicated_ip/models/server.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../helpers/my_dialogs.dart';
 import '../helpers/pref.dart';
-import '../models/vpn.dart';
 import '../services/firebase_services.dart';
 import '../services/vpn_engine.dart';
 
 class HomeController extends GetxController {
-  final Rx<Vpn> vpn = Pref.vpn.obs;
+  final Rx<Server> server = Pref.server.obs;
   final firebaseServices = Get.put(FirebaseServices());
   final vpnState = VpnEngine.vpnDisconnected.obs;
 
@@ -18,18 +18,16 @@ class HomeController extends GetxController {
       interfaceName: Constants.vpnInterfaceName,
     );
 
-    var server = Pref.servers.where((y)=>y.status == 'active').firstOrNull;
-
-    if (server == null) {
+    if (server.value == null) {
       MyDialogs.info(msg: 'Select a Location by clicking \'Change Location\'');
       return;
     }
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
-      var config = await firebaseServices.getVPNConfig(server.name);
+      var config = await firebaseServices.getVPNConfig(server.value.name);
 
       await VpnEngine.wireGuardFlutter.startVpn(
-        serverAddress: server.hostname,
+        serverAddress: server.value.hostname,
         wgQuickConfig: config,
         providerBundleIdentifier: Constants.vpnBundleIdentifier,
       );

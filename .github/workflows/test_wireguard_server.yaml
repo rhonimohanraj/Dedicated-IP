@@ -27,6 +27,7 @@ jobs:
     deploy_server:
         uses: ./.github/workflows/deploy_wireguard_server.yaml
         needs: init
+        secrets: inherit
         strategy:
             matrix:
                 data: ${{fromJson(needs.init.outputs.data)}}
@@ -43,6 +44,7 @@ jobs:
     destroy_server:
         uses: ./.github/workflows/destroy_wireguard_server.yaml
         needs: [init, deploy_server]
+        secrets: inherit
         if: always()
         strategy:
             matrix:

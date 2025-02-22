@@ -213,6 +213,7 @@ jobs:
   setup_server:
     name: Setup server
     needs: deploy_server
+    secrets: inherit
     uses: ./.github/workflows/setup_wireguard_server.yaml
     with:
       server_ip: ${{ needs.deploy_server.outputs.SERVER_IP }}

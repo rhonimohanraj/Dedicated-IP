@@ -37,7 +37,7 @@ class _LocationScreenState extends State<LocationScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _loadingWidget();
         }
-        if (!snapshot.hasData) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return _noVPNFound();
         }
         return ListView.builder(

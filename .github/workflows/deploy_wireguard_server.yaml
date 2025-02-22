@@ -204,12 +204,6 @@ jobs:
           echo "SERVER_IP=$server_ip" >> $GITHUB_OUTPUT
         working-directory: terraform/${{inputs.datacenter_provider}}
 
-      - name: Upload Outputs
-        uses: actions/upload-artifact@v4
-        with:
-          name: terraform-output
-          path: terraform/${{inputs.datacenter_provider}}/output.json
-
   setup_server:
     name: Setup server
     needs: deploy_server

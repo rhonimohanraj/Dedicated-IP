@@ -115,14 +115,9 @@ jobs:
 
       - name: connect to proxy
         if: ${{ inputs.datacenter_provider == 'arvan' && vars.GH_PROXY_NETWORK == 'true' }}
-        uses: egor-tensin/setup-wireguard@v1
+        uses: ./github/actions/proxy
         with:
-          endpoint: '${{ secrets.GH_PROXY_NETWORK_ENDPOINT }}'
-          endpoint_public_key: '${{ secrets.GH_PROXY_NETWORK_PUBLIC_KEY }}'
-          ips: '${{ secrets.GH_PROXY_NETWORK_ADDRESS }}'
-          allowed_ips: '${{ secrets.GH_PROXY_NETWORK_ALLOWED_IPS }}'
-          private_key: '${{ secrets.GH_PROXY_NETWORK_PRIVATE_KEY }}'
-          preshared_key: '${{ secrets.GH_PROXY_NETWORK_PRESHARED_KEY }}'
+          WIREGUARD_CONFIG: ${{ secrets.GH_PROXY_NETWORK_CONFIG }}
 
       - name: 'Echo public IP'
         run: curl https://api.ipify.org

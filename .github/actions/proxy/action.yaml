@@ -1,0 +1,31 @@
+name: 'Connect to WireGuard'
+description: 'Connects to a WireGuard server using a configuration stored in GitHub secrets.'
+
+inputs:
+  WIREGUARD_CONFIG:
+    description: 'Base64-encoded WireGuard configuration file.'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install WireGuard
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wireguard
+
+    - name: Create WireGuard configuration
+      shell: bash
+      run: |
+        echo "$WIREGUARD_CONFIG" | base64 --decode > wg0.conf
+      env:
+        WIREGUARD_CONFIG: ${{ inputs.WIREGUARD_CONFIG }}
+
+    - name: Start WireGuard tunnel
+      shell: bash
+      run: sudo wg-quick up wg0
+
+    - name: Disconnect WireGuard tunnel
+      shell: bash
+      run: sudo wg-quick down wg0

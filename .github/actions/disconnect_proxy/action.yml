@@ -1,0 +1,9 @@
+name: 'Disconnect to WireGuard'
+description: 'Disconnects from a WireGuard server.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Stop WireGuard tunnel
+      shell: bash
+      run: sudo wg-quick down wg0

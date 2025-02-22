@@ -1,8 +1,9 @@
+import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/services/firebase_services.dart';
+import 'package:dedicated_ip/widgets/server_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import '../widgets/vpn_card.dart';
 
 class LocationScreen extends StatefulWidget {
   LocationScreen({super.key});
@@ -14,7 +15,6 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,11 +67,33 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
       );
 
-  _noVPNFound() => const Center(
-        child: Text(
-          'VPNs Not Found! ',
-          style: TextStyle(
-              fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      );
+  _noVPNFound() => Center(
+          child: Column(
+        children: [
+          const Text(
+            "You didn't purchase any servers yet.",
+            style: TextStyle(
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: Constants.primaryColor,
+            ),
+            child: Row(
+              // Use a Row to arrange icon and text
+              mainAxisSize: MainAxisSize.min,
+              // Important: Makes the Row take only the needed space
+              children: [
+                const Text("Buy now"),
+                const SizedBox(width: 8),
+                // Space between icon and text
+                Icon(Icons.arrow_forward, color: Constants.primaryColor),
+                // Arrow icon
+              ],
+            ),
+          ),
+        ],
+      ));
 }

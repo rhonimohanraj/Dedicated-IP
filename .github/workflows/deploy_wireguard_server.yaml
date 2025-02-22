@@ -115,7 +115,7 @@ jobs:
 
       - name: connect to proxy
         if: ${{ inputs.datacenter_provider == 'arvan' && vars.GH_PROXY_NETWORK == 'true' }}
-        uses: ./github/actions/proxy
+        uses: ./.github/actions/proxy
         with:
           WIREGUARD_CONFIG: ${{ secrets.GH_PROXY_NETWORK_CONFIG }}
 

@@ -148,7 +148,9 @@ jobs:
       TF_VAR_server_type: ${{ inputs.server_type }}
       TF_VAR_server_location: ${{ inputs.server_location }}
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      TF_LOG: DEBUG
       GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+
     outputs:
       SERVER_IP: ${{ steps.extract_server_ip.outputs.server_ip }}
     steps:

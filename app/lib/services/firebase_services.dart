@@ -29,6 +29,8 @@ class FirebaseServices extends GetxController {
   }
 
   Future<List<Server>> getServers() async {
+    await Future.delayed(Duration(seconds: 5));
+
     var user = Pref.user;
     var serverCollection = await FirebaseFirestore.instance
         .collection('users')

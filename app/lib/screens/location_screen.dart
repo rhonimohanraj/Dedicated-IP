@@ -23,7 +23,7 @@ class _LocationScreenState extends State<LocationScreen> {
         backgroundColor: context.theme.scaffoldBackgroundColor,
         centerTitle: true,
         title: const Text(
-          'Dedicated-IP',
+          'Your Dedicated-IP List',
           style: TextStyle(fontSize: 18),
         ),
       ),
@@ -34,11 +34,11 @@ class _LocationScreenState extends State<LocationScreen> {
   _vpnData() => FutureBuilder(
       future: widget.firebaseServices.getServers(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return _noVPNFound();
-        }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return _loadingWidget();
+        }
+        if (!snapshot.hasData) {
+          return _noVPNFound();
         }
         return ListView.builder(
             itemCount: snapshot.data!.length,

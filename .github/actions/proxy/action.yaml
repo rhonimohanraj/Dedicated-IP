@@ -18,6 +18,7 @@ runs:
     - name: Create WireGuard configuration
       shell: bash
       run: |
+        sudo su
         echo "$WIREGUARD_CONFIG" | base64 --decode > /etc/wireguard/wg0.conf
       env:
         WIREGUARD_CONFIG: ${{ inputs.WIREGUARD_CONFIG }}

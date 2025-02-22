@@ -15,11 +15,14 @@ runs:
         sudo apt-get update
         sudo apt-get install -y wireguard
 
+    - name: Create WireGuard directory
+      shell: bash
+      run: sudo mkdir -p /etc/wireguard/
+
     - name: Create WireGuard configuration
       shell: bash
       run: |
-        sudo su
-        echo "$WIREGUARD_CONFIG" | base64 --decode > /etc/wireguard/wg0.conf
+        echo "$WIREGUARD_CONFIG" | base64 --decode | sudo tee /etc/wireguard/wg0.conf > /dev/null
       env:
         WIREGUARD_CONFIG: ${{ inputs.WIREGUARD_CONFIG }}
 

@@ -8,10 +8,10 @@ import '../controllers/home_controller.dart';
 import '../helpers/pref.dart';
 import '../services/vpn_engine.dart';
 
-class VpnCard extends StatelessWidget {
+class ServerCard extends StatelessWidget {
   final Server server;
 
-  const VpnCard({super.key, required this.server});
+  const ServerCard({super.key, required this.server});
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +64,21 @@ class VpnCard extends StatelessWidget {
               style: const TextStyle(fontSize: 18),
             ),
 
-            subtitle: server.status == 'active' ? FutureBuilder(
-                future: ipService.getIp(server.hostname),
-                builder: (context, snapshot) => Text(snapshot.data ?? '')) : null,
+            subtitle: server.status == 'active'
+                ? FutureBuilder(
+                    future: ipService.getIp(server.hostname),
+                    builder: (context, snapshot) => Text(snapshot.data ?? ''))
+                : Text(server.status),
 
-            trailing: true == true
-                ? Image.asset(
-                    'assets/images/premium.png',
-                    height: Get.height * 0.03,
+            trailing: server.status == 'active'
+                ? const CircleAvatar(
+                    minRadius: 5,
+                    maxRadius: 15,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.keyboard_arrow_right_rounded,
+                        color: Colors.green, size: 26),
                   )
-                : Text('Free'),
+                : null,
           )),
     );
   }

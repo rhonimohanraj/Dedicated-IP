@@ -50,7 +50,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 right: Get.width * .04),
             itemBuilder: (ctx, i) {
               var data = snapshot.data![i];
-              return VpnCard(server: data);
+              return ServerCard(server: data);
             });
       });
 
@@ -63,22 +63,13 @@ class _LocationScreenState extends State<LocationScreen> {
             //lottie animation
             LottieBuilder.asset('assets/lottie/loading.json',
                 width: Get.width * .7),
-
-            //text
-            const Text(
-              'Loading VPNs... 😌',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            )
           ],
         ),
       );
 
   _noVPNFound() => const Center(
         child: Text(
-          'VPNs Not Found! 😔',
+          'VPNs Not Found! ',
           style: TextStyle(
               fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
         ),

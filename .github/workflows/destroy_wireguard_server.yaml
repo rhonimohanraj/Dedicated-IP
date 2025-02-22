@@ -25,6 +25,22 @@ on:
           - linode
           - arvan
 
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: string
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+      datacenter_provider:
+        description: "Datacenter Provider"
+        required: true
+        type: string
+        default: "hetzner"
 
 jobs:
   destroy_server:

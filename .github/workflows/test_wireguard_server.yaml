@@ -1,0 +1,50 @@
+name: Test deploy and destroy WireGuard Server
+run-name: Test deploy and destroy WireGuard Server
+
+on:
+    schedule:
+        - cron:  '1 */6 * * 0-6'
+    workflow_dispatch:
+
+env:
+    data: |
+        {"datacenter_provider": "hetzner", "server_location": "fsn1", "domain_prefix": "hetzner-test-gh-a"},
+        {"datacenter_provider": "linode", "server_location": "us-iad", "domain_prefix": "linode-test-gh-a"},
+        {"datacenter_provider": "arvan", "server_location": "ir-thr-si1", "domain_prefix": "arvan-test-gh-a"},
+
+jobs:
+    init:
+        runs-on: ubuntu-latest
+        outputs:
+            data: ${{env.data}}
+        steps:
+            - name: Create output
+              run: |
+                echo "Output created successfully."
+
+    deploy_server:
+        uses: ./.github/workflows/deploy_wireguard_server.yaml
+        needs: init
+        strategy:
+            matrix:
+                data: ${{fromJson(needs.init.outputs.data)}}
+        with:
+            admin_panel_password: "nimda"
+            admin_panel_username: "admin"
+            api_key: "S3cr3t"
+            datacenter_provider: ${{ matrix.data.datacenter_provider }}
+            domain_prefix: ${{ matrix.data.domain_prefix }}
+            server_location: ${{ matrix.data.server_location }}
+            environment: "Development"
+            server_type: "small"
+
+    destroy_server:
+        uses: ./.github/workflows/destroy_wireguard_server.yaml
+        needs: [init, deploy_server]
+        strategy:
+            matrix:
+                data: ${{fromJson(needs.init.outputs.data)}}
+        with:
+            datacenter_provider: ${{ matrix.data.datacenter_provider }}
+            domain_prefix: ${{ matrix.data.domain_prefix }}
+            environment: "Development"

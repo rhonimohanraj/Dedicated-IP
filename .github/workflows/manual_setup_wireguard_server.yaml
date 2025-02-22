@@ -1,5 +1,5 @@
-name: Deploy WireGuard Server
-run-name: Deploy WireGuard Server - ${{ inputs.domain_prefix }}
+name: Manual Deploy WireGuard Server
+run-name: Manual Deploy WireGuard Server - ${{ inputs.domain_prefix }}
 
 on:
   workflow_dispatch:

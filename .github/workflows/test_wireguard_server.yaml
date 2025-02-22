@@ -41,6 +41,7 @@ jobs:
     destroy_server:
         uses: ./.github/workflows/destroy_wireguard_server.yaml
         needs: [init, deploy_server]
+        if: always()
         strategy:
             matrix:
                 data: ${{fromJson(needs.init.outputs.data)}}

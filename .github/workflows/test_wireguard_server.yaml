@@ -8,9 +8,11 @@ on:
 
 env:
     data: |
-        {"datacenter_provider": "hetzner", "server_location": "fsn1", "domain_prefix": "hetzner-test-gh-a"},
-        {"datacenter_provider": "linode", "server_location": "us-iad", "domain_prefix": "linode-test-gh-a"},
-        {"datacenter_provider": "arvan", "server_location": "ir-thr-si1", "domain_prefix": "arvan-test-gh-a"}
+        [
+            {"datacenter_provider": "hetzner", "server_location": "fsn1", "domain_prefix": "hetzner-test-gh-a"},
+            {"datacenter_provider": "linode", "server_location": "us-iad", "domain_prefix": "linode-test-gh-a"},
+            {"datacenter_provider": "arvan", "server_location": "ir-thr-si1", "domain_prefix": "arvan-test-gh-a"}
+        ]
 
 jobs:
     init:

@@ -73,28 +73,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           child: Column(
         children: [
           const Text(
-            "You didn't purchase any servers yet.",
+            "There is a issue to load services to purchase.",
             style: TextStyle(
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Constants.primaryColor,
-            ),
-            child: Row(
-              // Use a Row to arrange icon and text
-              mainAxisSize: MainAxisSize.min,
-              // Important: Makes the Row take only the needed space
-              children: [
-                const Text("Buy now"),
-                const SizedBox(width: 8),
-                // Space between icon and text
-                Icon(Icons.arrow_forward, color: Constants.primaryColor),
-                // Arrow icon
-              ],
-            ),
           ),
         ],
       ));

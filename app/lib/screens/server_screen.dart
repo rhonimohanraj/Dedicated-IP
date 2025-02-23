@@ -1,5 +1,4 @@
 import 'package:dedicated_ip/helpers/constants.dart';
-import 'package:dedicated_ip/screens/network_test_screen.dart';
 import 'package:dedicated_ip/screens/purchase_screen.dart';
 import 'package:dedicated_ip/services/firebase_services.dart';
 import 'package:dedicated_ip/widgets/server_card.dart';
@@ -87,7 +86,7 @@ class _ServerScreenState extends State<ServerScreen> {
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => Get.to(() => PurchaseScreen()),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               foregroundColor: Constants.primaryColor,

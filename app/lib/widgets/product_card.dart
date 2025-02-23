@@ -1,13 +1,8 @@
 import 'package:country_flags/country_flags.dart';
+import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/models/product.dart';
-import 'package:dedicated_ip/models/server.dart';
-import 'package:dedicated_ip/services/ip_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../controllers/home_controller.dart';
-import '../helpers/pref.dart';
-import '../services/vpn_engine.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -50,14 +45,14 @@ class ProductCard extends StatelessWidget {
               style: const TextStyle(fontSize: 18),
             ),
 
-            subtitle: Text('${product.discountPrice} €'),
+            subtitle: Text('${product.discountPrice} € per ${product.duration}'),
 
-            trailing: const CircleAvatar(
+            trailing: CircleAvatar(
                     minRadius: 5,
                     maxRadius: 15,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.keyboard_arrow_right_rounded,
-                        color: Colors.green, size: 26),
+                    child: Icon(Icons.shopping_basket,
+                        color: Constants.primaryColor, size: 26),
                   )
           )),
     );

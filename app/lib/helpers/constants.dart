@@ -11,8 +11,11 @@ class Constants {
   static String get vpnBundleIdentifier => 'net.dedicated_ip.app';
 
   static Color get primaryColor=>
-      const Color(0xff023a12); // Example using Col
-  // or
+      const Color(0xff023a12);
+
+  static String get stripePublishableKey => "pk_live_51QPqSYJiFl8kjHM0w3xaAHNQBo9QVwlfCptKIoFdxPCHEYYO8OezcxRXeLPlRZxt2hFPODyVuwBR4em2OGWEYQwT00z1z4MhdI";
+  static String get stripePublishableKeyTest => "pk_test_51QPqSYJiFl8kjHM0GBPuuxyq45pzMUv3407s7yksgDrt9lLHk7lmSzjvQ9D1jR1SWaujmZcx6z05eZ507FNXF8Zh00urSX4bYy";
+
   static InputDecoration inputDecorationOnWhiteScreen(IconData icon)  => InputDecoration(
         fillColor: Constants.primaryColor,
         border: UnderlineInputBorder(

@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
@@ -23,6 +24,13 @@ Future<void> main() async {
   //for setting orientation to portrait only
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  if (kDebugMode) {
+    Stripe.publishableKey = Constants.stripePublishableKeyTest;
+  }
+  else{
+    Stripe.publishableKey = Constants.stripePublishableKey;
+  }
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

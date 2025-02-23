@@ -1,4 +1,5 @@
 import 'package:dedicated_ip/helpers/constants.dart';
+import 'package:dedicated_ip/screens/network_test_screen.dart';
 import 'package:dedicated_ip/services/firebase_services.dart';
 import 'package:dedicated_ip/widgets/server_card.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,15 @@ class _ServerScreenState extends State<ServerScreen> {
           'Your Dedicated-IP List',
           style: TextStyle(fontSize: 18),
         ),
+        actions: [
+          IconButton(
+              padding: const EdgeInsets.only(right: 8),
+              onPressed: () => Get.to(() => const NetworkTestScreen()),
+              icon: const Icon(
+                Icons.shopping_basket_rounded,
+                size: 27,
+              )),
+        ],
       ),
       body: _vpnData(),
     );

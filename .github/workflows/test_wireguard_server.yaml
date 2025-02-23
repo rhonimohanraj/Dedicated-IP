@@ -10,8 +10,7 @@ env:
     data: |
         [
             {"datacenter_provider": "hetzner", "server_location": "fsn1", "domain_prefix": "hetzner-test-gh-a"},
-            {"datacenter_provider": "linode", "server_location": "nl-ams", "domain_prefix": "linode-test-gh-a"},
-            {"datacenter_provider": "arvan", "server_location": "ir-thr-si1", "domain_prefix": "arvan-test-gh-a"}
+            {"datacenter_provider": "linode", "server_location": "nl-ams", "domain_prefix": "linode-test-gh-a"}
         ]
 
 jobs:
@@ -40,6 +39,22 @@ jobs:
             server_location: ${{ matrix.data.server_location }}
             environment: "Development"
             server_type: "small"
+
+    update_panel_server:
+        uses: ./.github/workflows/update_panel_server.yaml
+        needs: [init, deploy_server]
+        secrets: inherit
+        if: always()
+        strategy:
+            matrix:
+                data: ${{fromJson(needs.init.outputs.data)}}
+        with:
+            admin_panel_password: "nimda"
+            admin_panel_username: "admin"
+            api_key: "S3cr3t"
+            datacenter_provider: ${{ matrix.data.datacenter_provider }}
+            domain_prefix: ${{ matrix.data.domain_prefix }}
+            environment: "Development"
 
     destroy_server:
         uses: ./.github/workflows/destroy_wireguard_server.yaml

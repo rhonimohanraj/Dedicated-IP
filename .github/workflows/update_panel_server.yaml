@@ -37,6 +37,35 @@ on:
           - hetzner
           - linode
           - arvan
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: string
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+      admin_panel_username:
+        description: "Admin Panel Username"
+        required: true
+        type: string
+        default: "admin"
+      admin_panel_password:
+        description: "Admin Panel Password"
+        required: true
+        type: string
+      api_key:
+        description: "API Key"
+        required: true
+        type: string
+      datacenter_provider:
+        description: "Datacenter Provider"
+        required: true
+        default: "hetzner"
+        type: string
       
 jobs:
   setup_server:

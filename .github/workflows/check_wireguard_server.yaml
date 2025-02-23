@@ -45,7 +45,7 @@ jobs:
     name: Check server up and running
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-    if: success()
+    if: ${{ success() }}
     steps:
       - name: Check Server Status
         id: check_http_status

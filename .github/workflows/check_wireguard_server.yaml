@@ -89,7 +89,7 @@ jobs:
     strategy:
       matrix:
         steps: [1]
-    if: always() && failure() && ${{ inputs.send_signal }}
+    if:  ${{ always() && failure() && inputs.send_signal }}
     steps:
       - name: Send failed signal
         shell: bash
@@ -111,7 +111,7 @@ jobs:
     strategy:
       matrix:
         steps: [1]
-    if: always() && success() && ${{ inputs.send_signal }}
+    if: ${{ always() && success() && inputs.send_signal }}
     steps:
       - name: Send success signal
         shell: bash

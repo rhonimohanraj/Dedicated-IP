@@ -418,7 +418,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1Qvn9lJiFl8kjHM0Lthnb9S8",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -579,7 +579,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QvnIgJiFl8kjHM0PJW2niwt",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -592,7 +592,7 @@
       "title": "Espania, Madrid Dedicated IP XXL",
       "duration": "month",
       "price": 49,
-      "discountPrice": 43,
+      "discountPrice": 63,
       "description": "Dedicated IP address hosted in Espania, Madrid, suitable for up to 100 simultaneous user connections. Includes 4TB of monthly traffic.",
       "location": {
         "country": "Espania",
@@ -602,7 +602,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QvnKaJiFl8kjHM0TUaMbDwp",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -625,7 +625,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QvnMHJiFl8kjHM0ZGMKe6F8",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -648,7 +648,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QvnNcJiFl8kjHM0bHr6X1XN",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -671,7 +671,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QvnOwJiFl8kjHM0nIBL59ug",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -694,7 +694,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QvnQJJiFl8kjHM0bDJbkCw7",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -717,7 +717,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QvnRwJiFl8kjHM0EG4kWtSN",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -740,7 +740,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QvnTbJiFl8kjHM0D3qPqUWr",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -763,7 +763,7 @@
         "datacenterProvider": "linode"
       },
       "server": "small",
-      "stripePriceId": "price_1QYCMpJiFl8kjHM0hUUI3RPE",
+      "stripePriceId": "price_1QvnVSJiFl8kjHM0qWE0gcUs",
       "features": [
         "Supports up to 25 simultaneous user connections",
         "Dedicated control panel for IP management",
@@ -786,7 +786,7 @@
         "datacenterProvider": "linode"
       },
       "server": "big",
-      "stripePriceId": "price_1QYCOfJiFl8kjHM02nUx4or5",
+      "stripePriceId": "price_1QvnWtJiFl8kjHM0iwBgZ4gI",
       "features": [
         "Supports up to 100 simultaneous user connections",
         "Dedicated control panel for IP management",

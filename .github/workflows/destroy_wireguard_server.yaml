@@ -100,41 +100,12 @@ jobs:
 
   destroy_domain:
     name: Destroy Domain
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
     needs: destroy_server
-    env:
-      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_TOKEN }}
-      TF_VAR_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
-      TF_VAR_record_name: ${{ inputs.domain_prefix }}
-      TF_VAR_record_value: '127.0.0.1'
-      TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
-      GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: 'Prepare Workspace'
-        shell: bash
-        env:
-          gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
-        run: |
-          echo "$gcp_application_credentials" > ./terraform/cloudflare/gcp_credentials.json
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/domain"
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
-        working-directory: terraform/cloudflare
-
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
-        working-directory: terraform/cloudflare
+    secrets: inherit
+    uses: ./.github/workflows/destroy_cloudflare_domain.yaml
+    with:
+      domain_prefix: ${{ inputs.domain_prefix }}
+      environment: ${{ inputs.environment }}
 
   send_failed_signal:
     name: Send failed signal

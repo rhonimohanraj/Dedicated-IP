@@ -1,0 +1,84 @@
+name: Setup Cloudflare Domain
+run-name: Setup Cloudflare Domain - ${{ inputs.domain_prefix }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: choice
+        options:
+          - Development
+          - Production
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+      server_ip:
+        description: "Server IP"
+        required: true
+        type: string
+
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "Development"
+        type: string
+      domain_prefix:
+        description: "Domain Prefix"
+        required: true
+        type: string
+      server_ip:
+        description: "Server IP"
+        required: true
+        type: string
+          
+jobs:
+  setup_domain:
+    name: Set Domain
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      matrix:
+        steps: [1]
+    env:
+      TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_TOKEN }}
+      TF_VAR_zone_id: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+      TF_VAR_record_name: ${{ inputs.domain_prefix }}
+      TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 'Prepare Workspace'
+        shell: bash
+        env:
+          gcp_bucket_storage_credentials: ${{ secrets.GCP_BUCKET_STORAGE_CREDENTIALS }}
+        run: |
+          echo "$gcp_application_credentials" > ./terraform/cloudflare/gcp_credentials.json
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: 'latest'
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Extract Server IP
+        id: extract_server_ip
+        run: |
+          echo "TF_VAR_record_value=${{inputs.server_ip}}" >> $GITHUB_ENV
+
+      - name: Terraform Init
+        run: terraform init -backend-config="bucket=${{secrets.GCP_BUCKET_STORAGE_TERRAFORM_NAME}}" -backend-config="prefix=terraform/state/${{inputs.domain_prefix}}/domain"
+        working-directory: terraform/cloudflare
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        working-directory: terraform/cloudflare

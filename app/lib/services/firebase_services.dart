@@ -1,13 +1,24 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:dedicated_ip/models/product.dart';
 import 'package:dedicated_ip/models/server.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/pref.dart';
 
 class FirebaseServices extends GetxController {
+  FirebaseServices(){
+    FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
+      fetchTimeout: const Duration(minutes: 1),
+      minimumFetchInterval: const Duration(hours: 1),
+    ));
+    FirebaseRemoteConfig.instance.fetchAndActivate();
+  }
+
   Future<String> getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
@@ -75,5 +86,11 @@ class FirebaseServices extends GetxController {
 
   Future<String> getVPNConfig(String domainName) async  {
     return await reverseProxy(functionName: "client", domainName: domainName, body: {"name": await getDeviceId()});
+  }
+
+  Future<List<Product>> getProducts() async {
+    var productsDtoJson = FirebaseRemoteConfig.instance.getString("Products");
+    var productsDto = ProductDto.fromJson(jsonDecode(productsDtoJson));
+    return productsDto.products;
   }
 }

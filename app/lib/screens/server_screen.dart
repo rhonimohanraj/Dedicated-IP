@@ -1,5 +1,6 @@
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/screens/network_test_screen.dart';
+import 'package:dedicated_ip/screens/purchase_screen.dart';
 import 'package:dedicated_ip/services/firebase_services.dart';
 import 'package:dedicated_ip/widgets/server_card.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _ServerScreenState extends State<ServerScreen> {
         actions: [
           IconButton(
               padding: const EdgeInsets.only(right: 8),
-              onPressed: () => Get.to(() => const NetworkTestScreen()),
+              onPressed: () => Get.to(() => PurchaseScreen()),
               icon: const Icon(
                 Icons.shopping_basket_rounded,
                 size: 27,

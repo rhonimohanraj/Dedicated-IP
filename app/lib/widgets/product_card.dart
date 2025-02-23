@@ -1,0 +1,65 @@
+import 'package:country_flags/country_flags.dart';
+import 'package:dedicated_ip/models/product.dart';
+import 'package:dedicated_ip/models/server.dart';
+import 'package:dedicated_ip/services/ip_service.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../controllers/home_controller.dart';
+import '../helpers/pref.dart';
+import '../services/vpn_engine.dart';
+
+class ProductCard extends StatelessWidget {
+  final Product product;
+
+  const ProductCard({super.key, required this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    void purchase() {
+      Get.back();
+    }
+
+    return InkWell(
+      onTap: () {
+        purchase();
+      },
+      child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              border: Border.all(color: Colors.greenAccent),
+              borderRadius: BorderRadius.circular(15)),
+          child: ListTile(
+            //flag
+            leading: Container(
+              padding: const EdgeInsets.all(.5),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(5)),
+              child: CountryFlag.fromCountryCode(
+                product.location.countryCode.toLowerCase(),
+                height: 35,
+                width: Get.width * .12,
+                shape: RoundedRectangle(10),
+              ),
+            ),
+
+            title: Text(
+              '${product.location.city}, ${product.location.country}',
+              style: const TextStyle(fontSize: 18),
+            ),
+
+            subtitle: Text('${product.discountPrice} €'),
+
+            trailing: const CircleAvatar(
+                    minRadius: 5,
+                    maxRadius: 15,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.keyboard_arrow_right_rounded,
+                        color: Colors.green, size: 26),
+                  )
+          )),
+    );
+  }
+}

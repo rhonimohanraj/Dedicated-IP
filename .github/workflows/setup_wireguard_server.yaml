@@ -261,78 +261,11 @@ jobs:
         working-directory: terraform/cloudflare
 
   check_server:
-    name: Check server up and running
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    needs: [setup_domain, setup_server]
-    steps:
-      - name: Check Server Status
-        id: check_http_status
-        run: |
-          domain_url="https://${{ inputs.domain_prefix }}.${{ vars.DOMAIN }}:8443/login"
-          echo "Checking domain: $domain_url"
-
-          if [[ "${{ inputs.environment }}" == "Development" ]]; then
-            status=200
-          else
-            status=307
-          fi
-
-          max_attempts=40  # 10 minutes (40 attempts every 15 seconds)
-          attempt=1
-
-          while [ $attempt -le $max_attempts ]; do
-            echo "Attempt $attempt: Checking domain status..."
-
-            # Attempt to get the HTTP status code
-            http_status=$(curl -s -o /dev/null -w "%{http_code}" "$domain_url" || echo "000")
-
-            if [ "$http_status" -eq $status ]; then
-              echo "Domain is reachable with HTTP $status status!"
-              exit 0
-            fi
-
-            echo "HTTP status: $http_status (not $status). Retrying in 15 seconds..."
-            attempt=$((attempt + 1))
-            sleep 15
-          done
-
-          echo "ERROR: Domain did not return HTTP $status within 10 minutes."
-          exit 1
-
-  send_failed_signal:
-    name: Send failed signal
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    needs: check_server
-    strategy:
-      matrix:
-        steps: [1]
-    if: always() && failure()
-    steps:
-      - name: Send failed signal
-        shell: bash
-        run: |
-            curl -X POST -H "Content-Type: application/json" -d '{"requestType":"finalize_action", "status": "failed", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.GH_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
-
-      - name: Alert in Cliq
-        shell: bash
-        env:
-          GITHUBOT_CLIQ: ${{ secrets.GITHUBOT_CLIQ }}
-        run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"text": "🚨🚨🚨 Workflow Deploy wireguard server run #${{ github.event.workflow_dispatch.workflow }} is Failed. 🚨🚨🚨"}' "$GITHUBOT_CLIQ"
-
-  send_success_signal:
-    name: Send success signal
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
-    needs: check_server
-    strategy:
-      matrix:
-        steps: [1]
-    if: always() && success()
-    steps:
-      - name: Send success signal
-        shell: bash
-        run: |
-          curl -X POST -H "Content-Type: application/json" -d '{"requestType":"finalize_action", "status": "active", "name": "${{ inputs.domain_prefix }}", "secretKey": "${{secrets.GH_SECRET_KEY}}"}' "https://f.dedicated-ip.net/"
+    name: Setup server
+    needs: [setup_server, setup_domain]
+    if: always()
+    secrets: inherit
+    uses: ./.github/workflows/check_wireguard_server.yaml
+    with:
+      domain_prefix: ${{ inputs.domain_prefix }}
+      environment: ${{ inputs.environment }}

@@ -44,7 +44,6 @@ jobs:
         uses: ./.github/workflows/update_panel_server.yaml
         needs: [init, deploy_server]
         secrets: inherit
-        if: always()
         strategy:
             matrix:
                 data: ${{fromJson(needs.init.outputs.data)}}

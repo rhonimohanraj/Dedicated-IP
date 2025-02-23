@@ -217,7 +217,6 @@ jobs:
 
   setup_domain:
     name: Setup Domain
-    needs: setup_server
     secrets: inherit
     uses: ./.github/workflows/setup_cloudflare_domain.yaml
     with:

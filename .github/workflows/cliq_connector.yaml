@@ -2,7 +2,7 @@ name : Communicating with Cliq
 
 on:
   workflow_run:
-    workflows: ["Deploy to Firebase Functions", "Deploy to Firebase Hosting", "Deploy WireGuard Server", "Destroy WireGuard Server"]
+    workflows: ["Check WireGuard Server", "Deploy to Firebase Functions", "Deploy to Firebase Hosting", "Deploy WireGuard Server", "Destroy Cloudflare Domain", "Destroy WireGuard Server",  "Dedicated-IP Panel build release", "Setup Cloudflare Domain", "Setup WireGuard Server", "Test deploy and destroy WireGuard Server", "Update Panel Server", "Bulk Update Panel Server"]
     types:
       - completed
       - requested

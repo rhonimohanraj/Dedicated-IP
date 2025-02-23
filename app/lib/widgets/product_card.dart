@@ -1,23 +1,21 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/models/product.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final AsyncCallback selected;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, required this.selected});
 
   @override
   Widget build(BuildContext context) {
-    void purchase() {
-      Get.back();
-    }
-
     return InkWell(
-      onTap: () {
-        purchase();
+      onTap: () async {
+        await selected();
       },
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),

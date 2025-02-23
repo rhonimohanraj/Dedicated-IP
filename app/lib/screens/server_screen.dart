@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class LocationScreen extends StatefulWidget {
-  LocationScreen({super.key});
+class ServerScreen extends StatefulWidget {
+  ServerScreen({super.key});
 
   final firebaseServices = Get.put(FirebaseServices());
 
   @override
-  State<LocationScreen> createState() => _LocationScreenState();
+  State<ServerScreen> createState() => _ServerScreenState();
 }
 
-class _LocationScreenState extends State<LocationScreen> {
+class _ServerScreenState extends State<ServerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

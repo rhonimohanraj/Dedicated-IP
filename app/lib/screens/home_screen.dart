@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 import '../services/vpn_engine.dart';
 import '../widgets/count_down_timer.dart';
-import 'location_screen.dart';
+import 'server_screen.dart';
 import 'network_test_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Obx(() => _vpnButton()),
 
             InkWell(
-              onTap: () => Get.to(() => LocationScreen()),
+              onTap: () => Get.to(() => ServerScreen()),
               child: Container(
                   decoration: BoxDecoration(
                       color: _controller.getButtonColor.withOpacity(.1),

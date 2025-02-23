@@ -61,6 +61,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: connect to proxy
+        if: ${{ vars.GH_PROXY_NETWORK == 'true' && inputs.datacenter_provider == 'arvan' }}
+        uses: ./.github/actions/connect_proxy
+        with:
+          WIREGUARD_CONFIG: ${{ secrets.GH_PROXY_NETWORK_CONFIG }}
+
+      - name: 'Echo public IP'
+        run: curl https://api.ipify.org
+
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
@@ -158,6 +167,10 @@ jobs:
           exit 1
           fi
         working-directory: ansible/update-panel
+
+      - name: disconnect from proxy
+        if: ${{ vars.GH_PROXY_NETWORK == 'true' && inputs.datacenter_provider == 'arvan' }}
+        uses: ./.github/actions/disconnect_proxy
 
   check_server:
     name: Check server up and running

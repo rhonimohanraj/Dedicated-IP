@@ -68,7 +68,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: connect to proxy
-        if: ${{ vars.GH_PROXY_NETWORK == 'true' }}
+        if: ${{ vars.GH_PROXY_NETWORK == 'true' && inputs.datacenter_provider == 'arvan' }}
         uses: ./.github/actions/connect_proxy
         with:
           WIREGUARD_CONFIG: ${{ secrets.GH_PROXY_NETWORK_CONFIG }}
@@ -95,7 +95,7 @@ jobs:
         working-directory: terraform/${{inputs.datacenter_provider}}
 
       - name: disconnect from proxy
-        if: ${{ vars.GH_PROXY_NETWORK == 'true' }}
+        if: ${{ vars.GH_PROXY_NETWORK == 'true' && inputs.datacenter_provider == 'arvan' }}
         uses: ./.github/actions/disconnect_proxy
 
   destroy_domain:

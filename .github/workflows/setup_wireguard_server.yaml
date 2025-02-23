@@ -100,6 +100,16 @@ jobs:
         run: |
           echo "SERVER_IP=${{inputs.server_ip}}" >> $GITHUB_ENV
 
+      - name: connect to proxy
+        if: ${{ vars.GH_PROXY_NETWORK == 'true' && inputs.datacenter_provider == 'arvan' }}
+        uses: ./.github/actions/connect_proxy
+        with:
+          WIREGUARD_CONFIG: ${{ secrets.GH_PROXY_NETWORK_CONFIG }}
+
+      - name: 'Echo public IP'
+        run: curl https://api.ipify.org
+
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -200,6 +210,10 @@ jobs:
           exit 1
           fi
         working-directory: ansible/wireguard
+
+      - name: disconnect from proxy
+        if: ${{ vars.GH_PROXY_NETWORK == 'true' && inputs.datacenter_provider == 'arvan' }}
+        uses: ./.github/actions/disconnect_proxy
 
   setup_domain:
     name: Set Domain

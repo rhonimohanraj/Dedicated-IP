@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                       color: _controller.getButtonColor.withOpacity(.1),
                       border: Border.all(
-                          color: _controller.getButtonColor.withOpacity(.3)),
+                          color: Colors.greenAccent),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(30))),
                   padding: EdgeInsets.symmetric(horizontal: Get.width * .04),

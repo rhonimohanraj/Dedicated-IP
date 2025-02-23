@@ -42,7 +42,7 @@ class ServerCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(
               color: Colors.transparent,
-              border: Border.all(color: Colors.blueAccent),
+              border: Border.all(color: Colors.greenAccent),
               borderRadius: BorderRadius.circular(15)),
           child: ListTile(
             //flag

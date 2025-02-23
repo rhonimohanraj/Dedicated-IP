@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../services/firebase_services.dart';
-import '../services/stripe_services.dart';
 
 class MyDialogs {
   static success({required String msg}) {
@@ -46,7 +45,6 @@ class MyDialogs {
 
   Widget _filterWidget(BuildContext context) {
     var theme = context.theme;
-    StripeService stripeService = StripeService();
     final firebase_services = Get.put(FirebaseServices());
 
     return Hero(

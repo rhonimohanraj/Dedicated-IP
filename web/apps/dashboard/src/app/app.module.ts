@@ -2,11 +2,8 @@ import {APP_INITIALIZER, ErrorHandler, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {
-  CrispComponent,
   FirebaseComponent,
   FirebaseProvider,
-  HotjarComponent,
-  TawkComponent
 } from '@dedicated-ip/service';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
@@ -41,11 +38,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         BrowserAnimationsModule,
         AppRoutingModule,
         FirebaseComponent,
-        TawkComponent,
         MessagesModule,
         MessageModule,
-        CrispComponent,
-        HotjarComponent,
     ],
   bootstrap: [AppComponent],
 })

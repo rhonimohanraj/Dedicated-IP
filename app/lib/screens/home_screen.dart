@@ -203,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           if (_controller.server.value.countryCode.isNotEmpty)
             Text(
-              "Name:  " + _controller.server.value.name,
+              "Name:  ${_controller.server.value.name}",
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,

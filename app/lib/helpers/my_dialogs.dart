@@ -45,7 +45,7 @@ class MyDialogs {
 
   Widget _filterWidget(BuildContext context) {
     var theme = context.theme;
-    final firebase_services = Get.put(FirebaseServices());
+    final firebaseServices = Get.put(FirebaseServices());
 
     return Hero(
       tag: 'filter',
@@ -148,7 +148,7 @@ class MyDialogs {
                     SizedBox(height: Get.height * 0.02),
                     InkWell(
                       onTap: () async {
-                        String deviceID = await firebase_services.getDeviceId();
+                        String deviceID = await firebaseServices.getDeviceId();
 
                         // await stripeService.stripePaymentCheckout(
                         //     stripeModel: Pref.stripeModel,

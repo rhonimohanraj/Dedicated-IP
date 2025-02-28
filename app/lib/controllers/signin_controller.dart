@@ -17,15 +17,7 @@ class SignInController extends GetxController {
   void setEmail(String? value) => email.value = value ?? '';
   void setPassword(String? value) => password.value = value ?? '';
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void signIn() async {
     error.value = ''; // Clear previous errors

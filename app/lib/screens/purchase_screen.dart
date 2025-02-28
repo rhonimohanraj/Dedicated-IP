@@ -42,7 +42,9 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
           return _noVPNFound();
         }
         return ListView.builder(
-            itemCount: snapshot.data!.length,
+            itemCount: snapshot.data!
+                .where((x) => x.title.toLowerCase().contains("xxl") == false)
+                .length,
             physics: const AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.only(
                 top: Get.height * .015,
@@ -50,10 +52,18 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
                 left: Get.width * .04,
                 right: Get.width * .04),
             itemBuilder: (ctx, i) {
-              var data = snapshot.data![i];
-              return ProductCard(product: data, selected: () async {
-                await widget.stripeService.checkout(data.stripePriceId);
-              },);
+              var data = snapshot.data!
+                  .where((x) => x.title.toLowerCase().contains("xxl") == false)
+                  .toList()[i];
+              if (data.title.toLowerCase().contains("xxl")) {
+                return null;
+              }
+              return ProductCard(
+                product: data,
+                selected: () async {
+                  await widget.stripeService.checkout(data.stripePriceId);
+                },
+              );
             });
       });
 

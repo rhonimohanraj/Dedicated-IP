@@ -32,11 +32,6 @@ Future<void> main() async {
     Stripe.publishableKey = Constants.stripePublishableKey;
   }
 
-  Stripe.merchantIdentifier = 'merchant.dedicated_ip.net';
-  Stripe.urlScheme = 'dedicated_ip';
-
-  await Stripe.instance.applySettings();
-
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   AndroidProvider androidProvider;

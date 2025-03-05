@@ -17,7 +17,7 @@
         {
           "site": "functions-dedicated-ip-production",
           "source": "**",
-          "function": "onHttpRequest"
+          "function": "onHttpWebhook"
         }
       ]
     },

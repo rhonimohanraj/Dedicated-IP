@@ -24,5 +24,5 @@ jobs:
           export_environment_variables: true
 
 
-      - run: npx firebase-tools deploy --set-build-env-vars GOOGLE_VENDOR_NPM_DEPENDENCIES=true
+      - run: npx firebase-tools deploy --force
         working-directory: functions

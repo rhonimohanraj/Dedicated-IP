@@ -1,5 +1,6 @@
 // functions/src/config/firebase.config.ts
-import * as admin from "firebase-admin";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const admin = require("firebase-admin");
 
 admin.initializeApp();
 

@@ -73,7 +73,7 @@ export async function updateServerStatusBySubscription(subscriptionId: string, s
   }
 
   const batch = db.batch(); // Use batch for atomic updates
-  querySnapshot.forEach((doc) => {
+  querySnapshot.forEach((doc: any) => {
     const updateData: ServerUpdateDto = {status};
     batch.set(doc.ref, updateData, {merge: true});
   });
@@ -95,7 +95,7 @@ export async function updateServerByGithub(name:string, status: string) {
   }
 
 
-  const updatePromises = querySnapshot.docs.map((doc) => {
+  const updatePromises = querySnapshot.docs.map((doc: any) => {
     const updateData: ServerUpdateDto = {status};
     return doc.ref.set(updateData, {merge: true});
   });

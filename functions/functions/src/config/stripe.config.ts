@@ -11,7 +11,7 @@ export async function createStripeClient(): Promise<Stripe> {
       throw new Error("Stripe key not found in Remote Config.");
     }
     stripeInstance = new Stripe(stripeKey, {
-      apiVersion: "2024-12-18.acacia",
+      apiVersion: "2024-11-20.acacia",
     });
   }
   return stripeInstance;

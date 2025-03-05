@@ -24,10 +24,10 @@ export const onStripeWebhook = onRequest(async (req, res) => {
       };
 
       const {uid, serverName, priceId, subscription} = checkoutCompletedResult as CheckoutCompletedResult;
-      if (!uid || !subscription) {
+      if (!uid || !subscription || !priceId) {
         break;
       }
-      await createServer(uid, priceId!, serverName);
+      await createServer(uid, priceId, serverName);
       await updateServerStatusBySubscription(subscription.toString(), "pending");
       break;
     }

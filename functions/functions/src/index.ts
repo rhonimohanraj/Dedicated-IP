@@ -2,6 +2,7 @@
 
 // Webhooks
 export {onStripeWebhook} from "./webhooks/stripe.webhook";
+export {onHttpWebhook} from "./webhooks/http.webhook";
 
 // Triggers
 export {onUserRegister} from "./triggers/auth.triggers";

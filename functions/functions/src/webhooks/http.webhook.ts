@@ -1,6 +1,6 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
-import {getFirestore} from "firebase-admin/lib/firestore";
+import {getFirestore} from "firebase-admin/firestore";
 import {getRemoteServerConfigValue} from "../config/remote.config";
 import {db} from "../config/firebase.config";
 import {ServerUpdateDto} from "../dto/server.dto";

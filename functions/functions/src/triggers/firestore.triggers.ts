@@ -4,7 +4,6 @@ import {
   onDocumentUpdated,
 } from "firebase-functions/v2/firestore";
 import {createStripeClient} from "../config/stripe.config";
-import {sendCliqMessage} from "../services/cliq.service";
 import {deployServer, deleteServer} from "../services/server.service";
 import {InternalServerError, NotFoundError} from "../utils/errors";
 import {logger} from "firebase-functions";
@@ -48,7 +47,6 @@ export const onServerAddedToServersCollection = onDocumentCreated(
       if (!event.params || !event.data) {
         return;
       }
-      await sendCliqMessage("🕺 Someone bought a new server 💃");
       await deployServer(event.params.userId, event.params.documentId);
     } catch (e: any) {
       logger.error("onServerAddedToServersCollection Trigger ", e);
@@ -68,7 +66,6 @@ export const onServerDeletingInServerCollection = onDocumentUpdated(
       }
 
       const data = event.data.after.data();
-      await sendCliqMessage("😭 Someone deleted a server 💔");
       await deleteServer(data);
     } catch (e:any) {
       logger.error("onServerDeletingInServerCollection Trigger ", e);

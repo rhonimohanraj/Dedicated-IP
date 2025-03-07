@@ -7,6 +7,7 @@ import {ServerCreateDto, ServerPrivateDto, ServerUpdateDto} from "../dto/server.
 import * as crypto from "crypto";
 import {FieldValue} from "firebase-admin/firestore";
 import {runGithubAction} from "./github.service";
+import {sendCliqMessage} from "./cliq.service";
 
 export async function createServer(uid: string, priceId: string, subscription: string, serverName?: string): Promise<string> {
   const products = JSON.parse(
@@ -109,6 +110,8 @@ export async function deployServer(userId: string, documentId: string) {
     return;
   }
 
+  await sendCliqMessage("🕺 Someone bought a new server 💃");
+
   const connection = await db
     .collection("users")
     .doc(userId)
@@ -139,6 +142,8 @@ export async function deleteServer(data: FirebaseFirestore.DocumentData) {
   if (!data || data.status !== "deleting") {
     return;
   }
+
+  await sendCliqMessage("😭 Someone deleted a server 💔");
 
   await runGithubAction("destroy_wireguard_server", {
     environment: "Production",

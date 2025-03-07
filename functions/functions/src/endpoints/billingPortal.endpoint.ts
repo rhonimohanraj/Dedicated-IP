@@ -4,6 +4,7 @@ import {db} from "../config/firebase.config";
 import {createBillingPortalSession} from "../services/stripe.service";
 import {FailedPreconditionError, NotFoundError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
+import {createStripeClient} from "../config/stripe.config";
 
 export const onCreateBillingPortal = onCall({
   enforceAppCheck: true,
@@ -26,7 +27,15 @@ export const onCreateBillingPortal = onCall({
     const userData = user.data();
 
     if (!userData?.stripeUid) {
-      throw new FailedPreconditionError("User has no Stripe account.");
+      const stripe = await createStripeClient();
+      const customer = await stripe.customers.create({
+        name: userData.displayName,
+        email: userData.email,
+        metadata: {
+          uid: userData.uid,
+        },
+      });
+      await userDoc.set({stripeUid: customer.id}, {merge: true});
     }
     return await createBillingPortalSession(userData.stripeUid);
   } catch (e: any) {

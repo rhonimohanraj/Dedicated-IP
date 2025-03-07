@@ -22,7 +22,7 @@ export async function createCheckoutSession(
     metadata: {
       uid,
       priceId,
-      serverName: serverName ? serverName : "", // Ensure serverName is handled
+      serverName: serverName ?? "",
     },
     success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
     cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",

@@ -3,6 +3,7 @@ export interface ProductDto {
 }
 
 export interface Product {
+  id: string
   title: string
   price: number
   discountPrice: number

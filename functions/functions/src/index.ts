@@ -1,7 +1,7 @@
 // functions/src/index.ts
 
 // Webhooks
-export {onPaymentWebhook, onUpdateProduct} from "./webhooks/payment.webhook";
+export {onPaymentWebhook} from "./webhooks/payment.webhook";
 export {onHttpWebhook} from "./webhooks/http.webhook";
 
 // Triggers

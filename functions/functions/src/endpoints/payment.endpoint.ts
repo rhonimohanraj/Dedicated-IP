@@ -6,6 +6,7 @@ import {FailedPreconditionError, NotFoundError, UnauthenticatedError} from "../u
 import {HttpsError} from "firebase-functions/v1/https";
 import {getRemoteConfigValue} from "../config/remote.config";
 import {ProductDto} from "../dto/product.dto";
+import {createStripeClient} from "../config/stripe.config";
 
 export const onCreatePaymentLink = onCall({
   enforceAppCheck: true,
@@ -43,8 +44,17 @@ export const onCreatePaymentLink = onCall({
     const product = filteredProducts[0];
 
     if (!userData?.stripeUid) {
-      throw new FailedPreconditionError("User has no Stripe account.");
+      const stripe = await createStripeClient();
+      const customer = await stripe.customers.create({
+        name: userData.displayName,
+        email: userData.email,
+        metadata: {
+          uid: userData.uid,
+        },
+      });
+      await userDoc.set({stripeUid: customer.id}, {merge: true});
     }
+
     return await createCheckoutSession(userData.stripeUid, product.stripePriceId, request.auth.uid, request.data.serverName);
   } catch (e: any) {
     if (e instanceof HttpsError) {

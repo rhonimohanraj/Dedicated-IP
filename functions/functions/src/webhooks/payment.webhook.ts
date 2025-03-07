@@ -5,6 +5,7 @@ import {handleCheckoutCompleted, updateProductsStripe} from "../services/stripe.
 import {createServer, updateServerStatusBySubscription} from "../services/server.service";
 import {createStripeClient} from "../config/stripe.config";
 import {getRemoteServerConfigValue} from "../config/remote.config";
+import {db} from "../config/firebase.config";
 
 export const onPaymentWebhook = onRequest(async (req, res) => {
   try {
@@ -40,6 +41,15 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
       if (!uid || !subscription || !priceId) {
         break;
       }
+
+      const querySnapshot = await db.collectionGroup("servers")
+        .where("subscription", "==", subscription)
+        .get();
+
+      if (!querySnapshot.empty) {
+        break;
+      }
+
       await createServer(uid, priceId, serverName);
       await updateServerStatusBySubscription(subscription.toString(), "pending");
       break;

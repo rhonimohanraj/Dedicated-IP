@@ -43,7 +43,9 @@ export const onCreatePaymentLink = onCall({
 
     const product = filteredProducts[0];
 
-    if (!userData?.stripeUid) {
+    let stripeUid = userData.stripeUid as string;
+
+    if (!stripeUid) {
       const stripe = await createStripeClient();
       const customer = await stripe.customers.create({
         name: userData.displayName,
@@ -53,9 +55,10 @@ export const onCreatePaymentLink = onCall({
         },
       });
       await userDoc.set({stripeUid: customer.id}, {merge: true});
+      stripeUid = customer.id;
     }
 
-    return await createCheckoutSession(userData.stripeUid, product.stripePriceId, request.auth.uid, request.data.serverName);
+    return await createCheckoutSession(stripeUid, product.stripePriceId, request.auth.uid, request.data.serverName);
   } catch (e: any) {
     if (e instanceof HttpsError) {
       throw e;

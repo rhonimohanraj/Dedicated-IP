@@ -17,6 +17,7 @@ export const onHttpWebhook = onRequest(async (req, res) => {
     const firestore = getFirestore();
     const querySnapshot = await firestore.collectionGroup("servers")
       .where("name", "==", name.trim())
+      .where("status", "!=", "deleted")
       .limit(10)
       .get();
 

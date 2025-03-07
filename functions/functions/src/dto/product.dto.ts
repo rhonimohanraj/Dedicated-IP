@@ -8,6 +8,7 @@ export interface Product {
   price: number
   discountPrice: number
   description: string
+  duration: string
   server: string
   location:{
     country: string

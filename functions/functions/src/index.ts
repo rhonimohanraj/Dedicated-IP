@@ -1,7 +1,7 @@
 // functions/src/index.ts
 
 // Webhooks
-export {onPaymentWebhook} from "./webhooks/payment.webhook";
+export {onPaymentWebhook, onUpdateProduct} from "./webhooks/payment.webhook";
 export {onHttpWebhook} from "./webhooks/http.webhook";
 
 // Triggers
@@ -11,6 +11,7 @@ export {
   onServerAddedToServersCollection,
   onServerDeletingInServerCollection,
 } from "./triggers/firestore.triggers";
+export {onUpdateProductsStripe} from "./triggers/schedule.triggers";
 
 // Endpoints
 export {onReverseProxy} from "./endpoints/reverseProxy.endpoint";

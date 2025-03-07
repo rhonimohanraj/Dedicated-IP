@@ -8,7 +8,7 @@ import * as crypto from "crypto";
 import {FieldValue} from "firebase-admin/firestore";
 import {runGithubAction} from "./github.service";
 
-export async function createServer(uid: string, priceId: string, serverName?: string): Promise<string> {
+export async function createServer(uid: string, priceId: string, subscription: string, serverName?: string): Promise<string> {
   const products = JSON.parse(
     await getRemoteConfigValue("Products")
   ) as ProductDto;
@@ -51,7 +51,7 @@ export async function createServer(uid: string, priceId: string, serverName?: st
     password: crypto.randomUUID(),
     status: "pending",
     createdAt: FieldValue.serverTimestamp() as any,
-    subscription: "pending", // Placeholder, will be updated by webhook
+    subscription: subscription,
   };
 
   const serverDoc = await serverCollection.add(serverData);

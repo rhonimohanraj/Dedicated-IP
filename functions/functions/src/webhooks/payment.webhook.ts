@@ -50,7 +50,7 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
         break;
       }
 
-      await createServer(uid, priceId, serverName);
+      await createServer(uid, priceId, subscription, serverName);
       await updateServerStatusBySubscription(subscription.toString(), "pending");
       break;
     }

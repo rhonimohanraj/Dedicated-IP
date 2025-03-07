@@ -16,7 +16,7 @@ export class IpComponent {
   ip = signal('');
 
   r = rxResource({
-    request: computed(()=>({domain: this.domain().replace('http://', '').replace('https://', '')})),
+    request: computed(()=>({domain: this.domain().replace('http://', '').replace('https://', '').replace(':8443', '')})),
     loader: (data)=> of(this.loader(data.request.domain)),
   });
 

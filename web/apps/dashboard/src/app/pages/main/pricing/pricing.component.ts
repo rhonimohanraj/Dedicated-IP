@@ -46,8 +46,8 @@ export class PricingComponent {
   server = signal<{ country: string, countryCode: string, city: string, datacenter: string } | null>(null);
   error = '';
 
-  async createPaymentLink(priceId: string): Promise<void> {
-    const paymentLink = await this.functionService.createPaymentLink(priceId, this.serverName);
+  async createPaymentLink(productId: string): Promise<void> {
+    const paymentLink = await this.functionService.createPaymentLink(productId, this.serverName);
     if (paymentLink.data) {
       window.open(paymentLink.data, '_self');
     }

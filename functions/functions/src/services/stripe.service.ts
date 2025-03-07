@@ -67,6 +67,19 @@ export async function updateProductsStripe(): Promise<void> {
   };
 
   await remoteConfig.publishTemplate(template);
+
+  const priceList = await stripe.prices.list({
+    limit: 100,
+    active: true,
+  });
+
+  for (const price of priceList.data) {
+    if (!products.products.find((product) => product.stripePriceId === price.id)) {
+      await stripe.prices.update(price.id, {
+        active: false,
+      });
+    }
+  }
 }
 
 async function createPrice(product: Product): Promise<string> {

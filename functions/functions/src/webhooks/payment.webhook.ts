@@ -15,7 +15,7 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
     try {
       const stripe = await createStripeClient();
       const stripeEndpointSecret = await getRemoteServerConfigValue("Stripe_Endpoint_Secret");
-      event = stripe.webhooks.constructEvent(req.body, sig, stripeEndpointSecret);
+      event = stripe.webhooks.constructEvent(req.rawBody, sig, stripeEndpointSecret);
     } catch (err: any) {
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;

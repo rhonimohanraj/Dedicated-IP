@@ -3,10 +3,23 @@ import {onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
 import {handleCheckoutCompleted, updateProductsStripe} from "../services/stripe.service";
 import {createServer, updateServerStatusBySubscription} from "../services/server.service";
+import {createStripeClient} from "../config/stripe.config";
+import {getRemoteServerConfigValue} from "../config/remote.config";
 
 export const onPaymentWebhook = onRequest(async (req, res) => {
   try {
-    const event: Stripe.Event = req.body;
+    const sig = req.headers["stripe-signature"] as string;
+
+    let event: Stripe.Event;
+
+    try {
+      const stripe = await createStripeClient();
+      const stripeEndpointSecret = await getRemoteServerConfigValue("Stripe_Endpoint_Secret");
+      event = stripe.webhooks.constructEvent(req.body, sig, stripeEndpointSecret);
+    } catch (err: any) {
+      res.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
 
     switch (event.type) {
     case "checkout.session.completed": {

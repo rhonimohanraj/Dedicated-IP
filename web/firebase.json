@@ -22,12 +22,12 @@
       ]
     },
     {
-      "site": "stripe-webhook-dedicated-ip-production",
+      "site": "payment-webhook-dedicated-ip-production",
       "rewrites": [
         {
-          "site": "stripe-webhook-dedicated-ip-production",
+          "site": "payment-webhook-dedicated-ip-production",
           "source": "**",
-          "function": "onStripeWebhook"
+          "function": "onPaymentWebhook"
         }
       ]
     }

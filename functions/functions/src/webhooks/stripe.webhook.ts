@@ -4,7 +4,7 @@ import Stripe from "stripe";
 import {handleCheckoutCompleted} from "../services/stripe.service";
 import {createServer, updateServerStatusBySubscription} from "../services/server.service";
 
-export const onStripeWebhook = onRequest(async (req, res) => {
+export const onPaymentWebhook = onRequest(async (req, res) => {
   try {
     const event: Stripe.Event = req.body;
 

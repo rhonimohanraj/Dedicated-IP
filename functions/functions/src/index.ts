@@ -1,7 +1,7 @@
 // functions/src/index.ts
 
 // Webhooks
-export {onStripeWebhook} from "./webhooks/stripe.webhook";
+export {onPaymentWebhook} from "./webhooks/payment.webhook";
 export {onHttpWebhook} from "./webhooks/http.webhook";
 
 // Triggers

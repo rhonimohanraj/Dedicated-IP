@@ -22,7 +22,7 @@ export const onReverseProxy = onCall({
     const serverDoc = userDoc.collection("servers");
     const server = await serverDoc
       .where("name", "==", request.data.domainName)
-      .where("status", "!=", "deleted")
+      .where("status", "==", "active")
       .get();
 
     if (server.empty) {

@@ -174,6 +174,38 @@ export async function createCheckoutSession(
   return session.url;
 }
 
+export async function createCheckoutSessionClientSecret(
+  customerId: string,
+  priceId: string,
+  uid: string,
+  serverName?: string,
+): Promise<string> {
+  const stripe = await createStripeClient();
+  const session = await stripe.checkout.sessions.create({
+    mode: "subscription",
+    line_items: [
+      {
+        price: priceId,
+        quantity: 1,
+      },
+    ],
+    customer: customerId,
+    metadata: {
+      uid,
+      priceId,
+      serverName: serverName ?? "",
+    },
+    success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
+    cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
+  });
+
+  if (!session || !session.client_secret) {
+    throw new HttpsError("internal", "Failed to create checkout session");
+  }
+
+  return session.client_secret;
+}
+
 export async function createBillingPortalSession(
   customerId: string
 ): Promise<string> {

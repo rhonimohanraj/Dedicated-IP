@@ -203,3 +203,33 @@ export async function deleteServer(data: FirebaseFirestore.DocumentData) {
 
   await db.doc(data.ref.path).set({status: "deleted"}, {merge: true});
 }
+
+export async function getEmailLinkToServer(name: string): Promise<string> {
+  const querySnapshot = await db
+    .collectionGroup("servers")
+    .where("name", "==", name)
+    .limit(10)
+    .get();
+
+  if (querySnapshot.empty) {
+    throw new Error("Server not found.");
+  }
+
+  if (querySnapshot.size > 1) {
+    throw new Error("Multiple servers found.");
+  }
+
+  const parent = querySnapshot.docs[0].ref.parent.parent;
+
+  if (!parent) {
+    throw new Error("Parent not found.");
+  }
+
+  const server = await parent.get();
+
+  if (!server.exists) {
+    throw new Error("Server not found.");
+  }
+
+  return server.data()?.email;
+}

@@ -1,7 +1,8 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
 import {getRemoteServerConfigValue} from "../config/remote.config";
-import {updateServerByGithub} from "../services/server.service";
+import {getEmailLinkToServer, updateServerByGithub} from "../services/server.service";
+import {sendServerStatusChangedEmail} from "../services/sendgrid.services";
 
 export const onHttpWebhook = onRequest(async (req, res) => {
   switch (req.body.requestType) {
@@ -13,6 +14,10 @@ export const onHttpWebhook = onRequest(async (req, res) => {
     }
 
     await updateServerByGithub(req.body.name, req.body.status);
+
+    const email = await getEmailLinkToServer(req.body.name);
+
+    await sendServerStatusChangedEmail(email, req.body.name, req.body.status);
 
     res.status(200).send("OK");
     return;

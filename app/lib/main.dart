@@ -27,8 +27,7 @@ Future<void> main() async {
 
   if (kDebugMode) {
     Stripe.publishableKey = Constants.stripePublishableKeyTest;
-  }
-  else{
+  } else {
     Stripe.publishableKey = Constants.stripePublishableKey;
   }
 
@@ -55,21 +54,25 @@ Future<void> main() async {
 
   Get.put(authenticationRepository, permanent: true);
 
-  await SentryFlutter.init(
-    (options) {
-      options.dsn =
-          'https://1fc152a80765b9306b398ba2d7d17f66@o4508776880209920.ingest.de.sentry.io/4508777507979344';
-      options.tracesSampleRate = 0.1;
-      options.profilesSampleRate = 0.1;
-    },
-    appRunner: () async => {
-      runApp(
-        SentryWidget(
-          child: const MyApp(),
+  if (kDebugMode) {
+    runApp(const MyApp());
+  } else {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn =
+            'https://1fc152a80765b9306b398ba2d7d17f66@o4508776880209920.ingest.de.sentry.io/4508777507979344';
+        options.tracesSampleRate = 0.1;
+        options.profilesSampleRate = 0.1;
+      },
+      appRunner: () async => {
+        runApp(
+          SentryWidget(
+            child: const MyApp(),
+          ),
         ),
-      ),
-    },
-  );
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {

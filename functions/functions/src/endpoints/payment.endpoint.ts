@@ -1,11 +1,12 @@
 // functions/src/endpoints/payment.endpoint.ts
-import {onCall} from "firebase-functions/https";
+import { onCall } from "firebase-functions/https";
 import {
   createBillingPortalSession,
   createCheckoutSession,
 } from "../services/stripe.service";
-import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
-import {HttpsError} from "firebase-functions/v1/https";
+import { FailedPreconditionError, UnauthenticatedError } from "../utils/errors";
+import { HttpsError } from "firebase-functions/v1/https";
+import { generateName, getRandomInt } from "../utils/helpers";
 
 export const onCreatePaymentLink = onCall(
   {
@@ -20,13 +21,25 @@ export const onCreatePaymentLink = onCall(
         );
       }
 
+      let serverName = request.data.serverName;
+
+      if (!serverName) {
+        serverName = generateName() + "-" + getRandomInt(1, 1000);
+      }
+
+      serverName = serverName
+        .toLowerCase()
+        .replace(/[^a-z0-9-]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
       const session = await createCheckoutSession(
         request.data.productId,
         request.auth.uid,
-        request.data.serverName
+        serverName
       );
 
-      return {url: session.url};
+      return { url: session.url };
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;
@@ -49,13 +62,25 @@ export const onCreatePaymentLinkApp = onCall(
         );
       }
 
+      let serverName = request.data.serverName;
+
+      if (!serverName) {
+        serverName = generateName() + "-" + getRandomInt(1, 1000);
+      }
+
+      serverName = serverName
+        .toLowerCase()
+        .replace(/[^a-z0-9-]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
       const session = await createCheckoutSession(
         request.data.productId,
         request.auth.uid,
-        request.data.serverName
+        serverName
       );
 
-      return {clientSecret: session.client_secret};
+      return { clientSecret: session.client_secret };
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;
@@ -80,7 +105,7 @@ export const onCreateBillingPortal = onCall(
 
       const session = await createBillingPortalSession(request.auth.uid);
 
-      return {url: session.url};
+      return { url: session.url };
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;

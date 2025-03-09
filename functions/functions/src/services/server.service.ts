@@ -27,10 +27,16 @@ export async function createServer(uid: string, priceId: string, subscription: s
 
   let finalServerName = serverName || generateName() + "-" + getRandomInt(1, 1000);
 
+  finalServerName = finalServerName
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
   const firestore = db;
 
   const querySnapshot = await firestore.collectionGroup("servers")
-    .where("name", "==", finalServerName.trim())
+    .where("name", "==", finalServerName)
     .where("status", "==", "active")
     .limit(10)
     .get();

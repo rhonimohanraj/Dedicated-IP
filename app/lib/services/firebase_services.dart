@@ -52,6 +52,32 @@ class FirebaseServices extends GetxController {
     return servers;
   }
 
+  Future<String> createPaymentLink({required String productId}) async {
+    try {
+      final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        'onCreatePaymentLinkApp', // The name of your Cloud Function
+        options: HttpsCallableOptions(
+          limitedUseAppCheckToken: true,
+        ),
+      );
+
+      final HttpsCallableResult result = await callable.call(<String, dynamic>{
+        'productId': productId,
+      });
+
+      if (result.data is String) {
+        return result.data;
+      }
+      else {
+        throw Exception('Cloud Function returned null data.');
+      }
+    } on FirebaseFunctionsException catch (e) {
+      throw Exception('Firebase Functions Error: ${e.message}');
+    } catch (e) {
+      throw Exception('Error calling Cloud Function: $e');
+    }
+  }
+
   Future<String> reverseProxy({
     required String domainName,
     required String functionName,

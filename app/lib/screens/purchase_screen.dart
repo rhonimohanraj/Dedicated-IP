@@ -61,7 +61,7 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
               return ProductCard(
                 product: data,
                 selected: () async {
-                  await widget.stripeService.checkout(data.stripePriceId);
+                  await widget.stripeService.checkout(data.id, data.discountPrice.toString(), data.title);
                 },
               );
             });

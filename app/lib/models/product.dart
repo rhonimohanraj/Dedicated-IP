@@ -19,6 +19,7 @@ class ProductDto {
 }
 
 class Product {
+  String id;
   String title;
   String duration;
   double price;
@@ -30,6 +31,7 @@ class Product {
   List<String> features;
 
   Product({
+    required this.id,
     required this.title,
     required this.duration,
     required this.price,
@@ -43,6 +45,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      id: json['id'],
       title: json['title'],
       duration: json['duration'],
       price: (json['price'] as num).toDouble(),
@@ -57,6 +60,7 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'duration': duration,
       'price': price,

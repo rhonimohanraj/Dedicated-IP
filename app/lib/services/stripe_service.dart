@@ -31,6 +31,5 @@ class StripeService extends GetxController {
       style: ThemeMode.light,
     ));
     await Stripe.instance.presentPaymentSheet();
-    +++++++++++++++++++++++++++++++++
   }
 }

@@ -49,7 +49,7 @@ export class PricingComponent {
   async createPaymentLink(productId: string): Promise<void> {
     const paymentLink = await this.functionService.createPaymentLink(productId, this.serverName);
     if (paymentLink.data) {
-      window.open(paymentLink.data, '_self');
+      window.open(paymentLink.data.url, '_self');
     }
   }
 

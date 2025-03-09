@@ -74,7 +74,7 @@ export class TopbarComponent {
   async onBillingPortal(): Promise<void> {
     this.toastService.show("Creating billing portal for you, Please wait.", { classname: 'bg-info text-white', delay: 15000 });
     const result = await this.functionService.createBillingPortal();
-    window.open(result.data, '_blank');
+    window.open(result.data.url, '_self');
   }
 
   async onLogout(): Promise<void> {

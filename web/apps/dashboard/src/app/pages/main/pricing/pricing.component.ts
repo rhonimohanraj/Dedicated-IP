@@ -54,13 +54,26 @@ export class PricingComponent {
   }
 
   async validateServerName(): Promise<void> {
+    if(this.isValidServerName(this.serverName)) {
+      this.error = 'Please enter valid name.';
+      return;
+    }
     const valid = await DomainHasARecord(this.serverName);
-    console.log(valid);
     if (valid) {
       this.error = 'This name is already taken, please try another name, If you continue we will add a random number to the end of the name.';
     }else{
       this.error = '';
     }
+  }
+
+  isValidServerName(serverName: string) : boolean {
+    const normalized = serverName
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    return serverName === normalized && normalized.length > 0;
   }
 
   protected readonly console = console;

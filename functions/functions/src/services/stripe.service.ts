@@ -171,7 +171,7 @@ export async function createCheckoutSession(
     ],
     customer: customerId,
     metadata: {
-      uid: customerId,
+      uid: userId,
       priceId: product.stripePriceId,
       serverName: serverName ?? "",
     },

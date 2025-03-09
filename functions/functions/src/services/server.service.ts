@@ -31,6 +31,7 @@ export async function createServer(uid: string, priceId: string, subscription: s
 
   const querySnapshot = await firestore.collectionGroup("servers")
     .where("name", "==", finalServerName.trim())
+    .where("status", "==", "active")
     .limit(10)
     .get();
 

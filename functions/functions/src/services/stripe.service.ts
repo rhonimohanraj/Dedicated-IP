@@ -4,6 +4,8 @@ import Stripe from "stripe";
 import {HttpsError} from "firebase-functions/v1/https";
 import {remoteConfig} from "../config/firebase.config";
 import {Product, ProductDto} from "../dto/product.dto";
+import { getProduct } from "./product.service";
+import { getUser, updateStripeId } from "./user.service";
 
 export async function updateProductsStripe(): Promise<void> {
   const template = await remoteConfig.getTemplate();
@@ -143,81 +145,82 @@ async function createPrice(product: Product): Promise<string> {
 }
 
 export async function createCheckoutSession(
-  customerId: string,
-  priceId: string,
-  uid: string,
+  productId: string,
+  userId: string,
   serverName?: string,
-): Promise<string> {
+): Promise<Stripe.Checkout.Session> {
+  const userData = await getUser(userId);
+
+  const product = await getProduct(productId);
+
+  let customerId = userData.stripeUid as string;
+
+  if (!customerId) {
+    customerId = await createCustomer(userData.displayName, userData.email, userId);
+    await updateStripeId(userId, customerId);
+  }
+
   const stripe = await createStripeClient();
   const session = await stripe.checkout.sessions.create({
     mode: "subscription",
     line_items: [
       {
-        price: priceId,
+        price: product.stripePriceId,
         quantity: 1,
       },
     ],
     customer: customerId,
     metadata: {
-      uid,
-      priceId,
+      uid: customerId,
+      priceId: product.stripePriceId,
       serverName: serverName ?? "",
     },
     success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
     cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
   });
 
-  if (!session || !session.url) {
+  if (!session) {
     throw new HttpsError("internal", "Failed to create checkout session");
   }
 
-  return session.url;
-}
-
-export async function createCheckoutSessionClientSecret(
-  customerId: string,
-  priceId: string,
-  uid: string,
-  serverName?: string,
-): Promise<string> {
-  const stripe = await createStripeClient();
-  const session = await stripe.checkout.sessions.create({
-    mode: "subscription",
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
-    customer: customerId,
-    metadata: {
-      uid,
-      priceId,
-      serverName: serverName ?? "",
-    },
-    success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
-    cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
-  });
-
-  if (!session || !session.client_secret) {
-    throw new HttpsError("internal", "Failed to create checkout session");
-  }
-
-  return session.client_secret;
+  return session;
 }
 
 export async function createBillingPortalSession(
-  customerId: string
-): Promise<string> {
+  userId: string
+): Promise<Stripe.BillingPortal.Session> {
+  const userData = await getUser(userId);
+
+  if (!userData?.stripeUid) {
+    const customerId = await createCustomer(userData.displayName, userData.email, userId);
+    await updateStripeId(userId, customerId);
+    userData.stripeUid = customerId;
+  }
+
   const stripe = await createStripeClient();
+
   const session = await stripe.billingPortal.sessions.create({
-    customer: customerId,
+    customer: userData?.stripeUid,
     return_url: "https://d.dedicated-ip.net/d/servers",
   });
-  if (!session || !session.url) {
+
+  if (!session) {
     throw new HttpsError("internal", "Failed to create billing portal session");
   }
-  return session.url;
+
+  return session;
+}
+
+export async function createCustomer(displayName: string, email: string, userId: string): Promise<string> {
+  const stripe = await createStripeClient();
+  const customer = await stripe.customers.create({
+    name: displayName,
+    email: email,
+    metadata: {
+      uid: userId,
+    },
+  });
+  return customer.id;
 }
 
 export async function handleCheckoutCompleted(eventData: Stripe.Checkout.Session) {

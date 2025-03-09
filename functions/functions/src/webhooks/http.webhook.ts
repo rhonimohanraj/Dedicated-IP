@@ -1,9 +1,7 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
-import {getFirestore} from "firebase-admin/firestore";
 import {getRemoteServerConfigValue} from "../config/remote.config";
-import {db} from "../config/firebase.config";
-import {ServerUpdateDto} from "../dto/server.dto";
+import { updateServerByGithub } from "../services/server.service";
 
 export const onHttpWebhook = onRequest(async (req, res) => {
   switch (req.body.requestType) {
@@ -13,30 +11,8 @@ export const onHttpWebhook = onRequest(async (req, res) => {
       res.status(401).send("Unauthorized");
       return;
     }
-    const name = req.body.name;
-    const firestore = getFirestore();
-    const querySnapshot = await firestore.collectionGroup("servers")
-      .where("name", "==", name.trim())
-      .where("status", "!=", "deleted")
-      .limit(10)
-      .get();
-
-    if (querySnapshot.empty) {
-      throw new Error("Server not found.");
-    }
-
-    if (querySnapshot.size > 1) {
-      throw new Error("Multiple servers found.");
-    }
-
-    const status = req.body.status;
-
-    const batch = db.batch(); // Use batch for atomic updates
-    querySnapshot.forEach((doc) => {
-      const updateData: ServerUpdateDto = {status};
-      batch.set(doc.ref, updateData, {merge: true});
-    });
-    await batch.commit();
+    
+    await updateServerByGithub(req.body.name, req.body.status);
 
     res.status(200).send("OK");
     return;

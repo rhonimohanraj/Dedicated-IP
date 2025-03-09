@@ -84,6 +84,7 @@ export async function updateServerStatusBySubscription(subscriptionId: string, s
 export async function updateServerByGithub(name:string, status: string) {
   const querySnapshot = await db.collectionGroup("servers")
     .where("name", "==", name.trim())
+    .where("status", "!=", "deleted")
     .limit(10)
     .get();
 

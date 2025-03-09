@@ -3,10 +3,10 @@ import {
   onDocumentCreated,
   onDocumentUpdated,
 } from "firebase-functions/v2/firestore";
-import {createStripeClient} from "../config/stripe.config";
 import {deployServer, deleteServer} from "../services/server.service";
-import {InternalServerError, NotFoundError} from "../utils/errors";
+import {InternalServerError} from "../utils/errors";
 import {logger} from "firebase-functions";
+import { createCustomer } from "../services/stripe.service";
 
 export const onUserAddToUsersCollection = onDocumentCreated(
   "/users/{documentId}",
@@ -18,19 +18,9 @@ export const onUserAddToUsersCollection = onDocumentCreated(
         return null;
       }
 
-      const stripe = await createStripeClient();
+      const customerId = await createCustomer(data.displayName, data.email, data.uid);
 
-      const customer = await stripe.customers.create({
-        name: data.displayName,
-        email: data.email,
-        metadata: {
-          uid: data.uid,
-        },
-      });
-      if (!event.data) {
-        throw new NotFoundError("Event data not found");
-      }
-      return event.data.ref.set({stripeUid: customer.id}, {merge: true});
+      return event.data!.ref.set({stripeUid: customerId}, {merge: true});
     } catch (e: any) {
       logger.error("onUserAddToUsersCollection Trigger ", e);
       throw new InternalServerError("Failed on user add to users collection " + e.message);

@@ -15,5 +15,4 @@ export {onUpdateProductsStripe} from "./triggers/schedule.triggers";
 
 // Endpoints
 export {onReverseProxy} from "./endpoints/reverseProxy.endpoint";
-export {onCreatePaymentLink, onCreatePaymentLinkApp} from "./endpoints/payment.endpoint";
-export {onCreateBillingPortal} from "./endpoints/billingPortal.endpoint";
+export {onCreatePaymentLink, onCreatePaymentLinkApp, onCreateBillingPortal} from "./endpoints/payment.endpoint";

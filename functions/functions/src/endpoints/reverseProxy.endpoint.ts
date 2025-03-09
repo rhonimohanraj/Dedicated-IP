@@ -1,9 +1,9 @@
 // functions/src/endpoints/reverseProxy.endpoint.ts
 import {onCall} from "firebase-functions/https";
-import {db} from "../config/firebase.config";
 import fetch from "node-fetch";
 import {FailedPreconditionError, NotFoundError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
+import { getrivateKeyForServer } from "../services/user.service";
 
 export const onReverseProxy = onCall({
   enforceAppCheck: true,
@@ -15,31 +15,7 @@ export const onReverseProxy = onCall({
         "The function must be called while authenticated."
       );
     }
-
-    const firestore = db;
-    const userCollection = firestore.collection("users");
-    const userDoc = userCollection.doc(request.auth.uid);
-    const serverDoc = userDoc.collection("servers");
-    const server = await serverDoc
-      .where("name", "==", request.data.domainName)
-      .where("status", "==", "active")
-      .get();
-
-    if (server.empty) {
-      throw new NotFoundError("Server not found.");
-    }
-
-    const pv8 = await serverDoc
-      .doc(server.docs[0].id)
-      .collection("private")
-      .doc("connection")
-      .get();
-
-    if (!pv8.exists) {
-      throw new NotFoundError("Private data not found.");
-    }
-
-    const apiKey = pv8.data()?.api_key;
+    const apiKey = await getrivateKeyForServer(request.auth.uid, request.data.domainName);
 
     if (!apiKey) {
       throw new NotFoundError("API Key not found.");

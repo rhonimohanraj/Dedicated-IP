@@ -19,16 +19,24 @@ export class FunctionService {
     return this.auth.currentUser;
   }
 
-  createPaymentLink = async (productId: string, serverName: string): Promise<HttpsCallableResult<string>> => {
+  createPaymentLink = async (productId: string, serverName: string): Promise<HttpsCallableResult<{
+    url: string
+  }>> => {
     const createPaymentLink = httpsCallable(this.function, 'onCreatePaymentLink',
       { limitedUseAppCheckTokens: true });
-    return await createPaymentLink({ productId , serverName}) as HttpsCallableResult<string>;
+    return await createPaymentLink({ productId , serverName}) as HttpsCallableResult<{
+      url: string
+    }>;
   }
 
-  createBillingPortal = async (): Promise<HttpsCallableResult<string>> => {
+  createBillingPortal = async (): Promise<HttpsCallableResult<{
+    url: string
+  }>> => {
     const createBillingPortal = httpsCallable(this.function, 'onCreateBillingPortal',
       { limitedUseAppCheckTokens: true });
-    return await createBillingPortal() as HttpsCallableResult<string>;
+    return await createBillingPortal() as HttpsCallableResult<{
+      url: string
+    }>;
   }
 
   reverseProxy = async (domainName: string, functionName:string, body: any): Promise<HttpsCallableResult<string>> => {

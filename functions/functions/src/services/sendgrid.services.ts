@@ -14,26 +14,10 @@ export async function sendServerStatusChangedEmail(email: string, name: string, 
       to: email,
       from: "system@dedicated-ip.net",
       subject: `Server status changed to '${status}'!`,
-      templateId: "f1573599-3c24-46b9-a0c1-8b4834ece8c2",
+      templateId: "d-b0261f7e9aa6422e9fde68541aeb783e",
       dynamicTemplateData: {
         name,
         status,
-      },
-      trackingSettings: {
-        clickTracking: {
-          enable: true,
-          enableText: true,
-        },
-        openTracking: {
-          enable: true,
-          substitutionTag: "open-tracking",
-        },
-        subscriptionTracking: {
-          enable: true,
-          text: "%opt_in_ip%",
-          html: "%opt_in_ip%",
-          substitutionTag: "subscription-tracking",
-        },
       },
     });
   } catch (error) {

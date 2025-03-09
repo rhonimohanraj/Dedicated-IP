@@ -1,7 +1,7 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
 import {getRemoteServerConfigValue} from "../config/remote.config";
-import { updateServerByGithub } from "../services/server.service";
+import {updateServerByGithub} from "../services/server.service";
 
 export const onHttpWebhook = onRequest(async (req, res) => {
   switch (req.body.requestType) {
@@ -11,7 +11,7 @@ export const onHttpWebhook = onRequest(async (req, res) => {
       res.status(401).send("Unauthorized");
       return;
     }
-    
+
     await updateServerByGithub(req.body.name, req.body.status);
 
     res.status(200).send("OK");

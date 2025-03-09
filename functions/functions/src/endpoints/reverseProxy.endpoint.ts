@@ -3,7 +3,7 @@ import {onCall} from "firebase-functions/https";
 import fetch from "node-fetch";
 import {FailedPreconditionError, NotFoundError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
-import { getrivateKeyForServer } from "../services/user.service";
+import {getrivateKeyForServer} from "../services/user.service";
 
 export const onReverseProxy = onCall({
   enforceAppCheck: true,

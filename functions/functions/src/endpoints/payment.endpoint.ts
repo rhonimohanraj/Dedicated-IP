@@ -1,71 +1,91 @@
 // functions/src/endpoints/payment.endpoint.ts
-import {onCall} from "firebase-functions/https";import {createBillingPortalSession, createCheckoutSession} from "../services/stripe.service";
+import {onCall} from "firebase-functions/https";
+import {
+  createBillingPortalSession,
+  createCheckoutSession,
+} from "../services/stripe.service";
 import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
 
-export const onCreatePaymentLink = onCall({
-  enforceAppCheck: true,
-  consumeAppCheckToken: true,
-}, async (request) => {
-  try {
-    if (!request.auth) {
-      throw new UnauthenticatedError(
-        "The function must be called while authenticated."
+export const onCreatePaymentLink = onCall(
+  {
+    enforceAppCheck: true,
+    consumeAppCheckToken: true,
+  },
+  async (request) => {
+    try {
+      if (!request.auth) {
+        throw new UnauthenticatedError(
+          "The function must be called while authenticated."
+        );
+      }
+
+      const session = await createCheckoutSession(
+        request.data.productId,
+        request.auth.uid,
+        request.data.serverName
       );
-    }
 
-    const session = await createCheckoutSession(request.data.productId, request.auth.uid, request.data.serverName);
-
-    return {url: session.url};
-  } catch (e: any) {
-    if (e instanceof HttpsError) {
-      throw e;
+      return {url: session.url};
+    } catch (e: any) {
+      if (e instanceof HttpsError) {
+        throw e;
+      }
+      throw new FailedPreconditionError(e.message);
     }
-    throw new FailedPreconditionError(e.message);
   }
-});
+);
 
-export const onCreatePaymentLinkApp = onCall({
-  enforceAppCheck: true,
-  consumeAppCheckToken: true,
-}, async (request) => {
-  try {
-    if (!request.auth) {
-      throw new UnauthenticatedError(
-        "The function must be called while authenticated."
+export const onCreatePaymentLinkApp = onCall(
+  {
+    enforceAppCheck: true,
+    consumeAppCheckToken: true,
+  },
+  async (request) => {
+    try {
+      if (!request.auth) {
+        throw new UnauthenticatedError(
+          "The function must be called while authenticated."
+        );
+      }
+
+      const session = await createCheckoutSession(
+        request.data.productId,
+        request.auth.uid,
+        request.data.serverName
       );
-    }
 
-    const session = await createCheckoutSession(request.data.productId, request.auth.uid, request.data.serverName);
-
-    return {clientSecret: session.client_secret};
-  } catch (e: any) {
-    if (e instanceof HttpsError) {
-      throw e;
+      return {clientSecret: session.client_secret};
+    } catch (e: any) {
+      if (e instanceof HttpsError) {
+        throw e;
+      }
+      throw new FailedPreconditionError(e.message);
     }
-    throw new FailedPreconditionError(e.message);
   }
-});
+);
 
-export const onCreateBillingPortal = onCall({
-  enforceAppCheck: true,
-  consumeAppCheckToken: true,
-}, async (request) => {
-  try {
-    if (!request.auth) {
-      throw new UnauthenticatedError(
-        "The function must be called while authenticated."
-      );
+export const onCreateBillingPortal = onCall(
+  {
+    enforceAppCheck: true,
+    consumeAppCheckToken: true,
+  },
+  async (request) => {
+    try {
+      if (!request.auth) {
+        throw new UnauthenticatedError(
+          "The function must be called while authenticated."
+        );
+      }
+
+      const session = await createBillingPortalSession(request.auth.uid);
+
+      return {url: session.url};
+    } catch (e: any) {
+      if (e instanceof HttpsError) {
+        throw e;
+      }
+      throw new FailedPreconditionError(e.message);
     }
-
-    const session = await createBillingPortalSession(request.auth.uid);
-
-    return {url: session.url};
-
-  } catch (e: any) {
-    if (e instanceof HttpsError) {
-      throw e;
-    }
-    throw new FailedPreconditionError(e.message);
   }
-});
+);

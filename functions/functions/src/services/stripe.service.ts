@@ -4,8 +4,8 @@ import Stripe from "stripe";
 import {HttpsError} from "firebase-functions/v1/https";
 import {remoteConfig} from "../config/firebase.config";
 import {Product, ProductDto} from "../dto/product.dto";
-import { getProduct } from "./product.service";
-import { getUser, updateStripeId } from "./user.service";
+import {getProduct} from "./product.service";
+import {getUser, updateStripeId} from "./user.service";
 
 export async function updateProductsStripe(): Promise<void> {
   const template = await remoteConfig.getTemplate();

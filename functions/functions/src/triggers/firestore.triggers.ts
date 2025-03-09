@@ -6,7 +6,7 @@ import {
 import {deployServer, deleteServer} from "../services/server.service";
 import {InternalServerError} from "../utils/errors";
 import {logger} from "firebase-functions";
-import { createCustomer } from "../services/stripe.service";
+import {createCustomer} from "../services/stripe.service";
 
 export const onUserAddToUsersCollection = onDocumentCreated(
   "/users/{documentId}",
@@ -20,7 +20,11 @@ export const onUserAddToUsersCollection = onDocumentCreated(
 
       const customerId = await createCustomer(data.displayName, data.email, data.uid);
 
-      return event.data!.ref.set({stripeUid: customerId}, {merge: true});
+      if (!event.data) {
+        return null;
+      }
+
+      return event.data.ref.set({stripeUid: customerId}, {merge: true});
     } catch (e: any) {
       logger.error("onUserAddToUsersCollection Trigger ", e);
       throw new InternalServerError("Failed on user add to users collection " + e.message);

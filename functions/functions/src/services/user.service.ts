@@ -1,8 +1,8 @@
-import { db } from "../config/firebase.config";
-import { NotFoundError } from "../utils/errors";
+import {db} from "../config/firebase.config";
+import {NotFoundError} from "../utils/errors";
 
 export async function getUser(userId: string): Promise<any> {
- const userDoc = db.collection("users").doc(userId);
+  const userDoc = db.collection("users").doc(userId);
   const user = await userDoc.get();
 
   if (!user.exists) {

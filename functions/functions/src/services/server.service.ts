@@ -3,20 +3,28 @@ import {db} from "../config/firebase.config";
 import {ProductDto} from "../dto/product.dto";
 import {getRemoteConfigValue} from "../config/remote.config";
 import {generateName, getRandomInt} from "../utils/helpers";
-import {ServerCreateDto, ServerPrivateDto, ServerUpdateDto} from "../dto/server.dto";
+import {
+  ServerCreateDto,
+  ServerPrivateDto,
+  ServerUpdateDto,
+} from "../dto/server.dto";
 import * as crypto from "crypto";
 import {FieldValue} from "firebase-admin/firestore";
 import {runGithubAction} from "./github.service";
 import {sendCliqMessage} from "./cliq.service";
 
-export async function createServer(uid: string, priceId: string, subscription: string, serverName?: string): Promise<string> {
+export async function createServer(
+  uid: string,
+  priceId: string,
+  subscription: string,
+  serverName?: string
+): Promise<string> {
   const products = JSON.parse(
     await getRemoteConfigValue("Products")
   ) as ProductDto;
 
   const filteredProducts = products.products.filter(
-    (product) =>
-      product.stripePriceId === priceId
+    (product) => product.stripePriceId === priceId
   );
 
   if (filteredProducts.length === 0) {
@@ -25,17 +33,22 @@ export async function createServer(uid: string, priceId: string, subscription: s
 
   const product = filteredProducts[0];
 
-  let finalServerName = serverName || generateName() + "-" + getRandomInt(1, 1000);
+  let finalServerName = serverName;
 
-  finalServerName = finalServerName
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
+  if (!finalServerName) {
+    finalServerName = generateName() + "-" + getRandomInt(1, 1000);
+  } else {
+    finalServerName = finalServerName
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
 
   const firestore = db;
 
-  const querySnapshot = await firestore.collectionGroup("servers")
+  const querySnapshot = await firestore
+    .collectionGroup("servers")
     .where("name", "==", finalServerName)
     .where("status", "==", "active")
     .limit(10)
@@ -64,15 +77,19 @@ export async function createServer(uid: string, priceId: string, subscription: s
 
   const serverDoc = await serverCollection.add(serverData);
   const connectionCollection = serverDoc.collection("private");
-  const connectionData : ServerPrivateDto = {
+  const connectionData: ServerPrivateDto = {
     api_key: crypto.randomUUID(),
   };
   await connectionCollection.doc("connection").create(connectionData);
   return serverDoc.id;
 }
 
-export async function updateServerStatusBySubscription(subscriptionId: string, status: string) {
-  const querySnapshot = await db.collectionGroup("servers")
+export async function updateServerStatusBySubscription(
+  subscriptionId: string,
+  status: string
+) {
+  const querySnapshot = await db
+    .collectionGroup("servers")
     .where("subscription", "==", subscriptionId)
     .get();
 
@@ -88,8 +105,9 @@ export async function updateServerStatusBySubscription(subscriptionId: string, s
   await batch.commit();
 }
 
-export async function updateServerByGithub(name:string, status: string) {
-  const querySnapshot = await db.collectionGroup("servers")
+export async function updateServerByGithub(name: string, status: string) {
+  const querySnapshot = await db
+    .collectionGroup("servers")
     .where("name", "==", name.trim())
     .where("status", "!=", "deleted")
     .limit(10)
@@ -103,7 +121,6 @@ export async function updateServerByGithub(name:string, status: string) {
     throw new Error("Multiple servers found.");
   }
 
-
   const updatePromises = querySnapshot.docs.map((doc: any) => {
     const updateData: ServerUpdateDto = {status};
     return doc.ref.set(updateData, {merge: true});
@@ -112,7 +129,14 @@ export async function updateServerByGithub(name:string, status: string) {
 }
 
 export async function deployServer(userId: string, documentId: string) {
-  const data = (await db.collection("users").doc(userId).collection("servers").doc(documentId).get()).data();
+  const data = (
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("servers")
+      .doc(documentId)
+      .get()
+  ).data();
 
   if (!data || data.status !== "pending") {
     return;
@@ -129,21 +153,35 @@ export async function deployServer(userId: string, documentId: string) {
     .doc("connection")
     .get();
 
-  const runId = await runGithubAction("deploy_wireguard_server", {
-    environment: "Production",
-    domain_prefix: data.name,
-    admin_panel_username: data.username,
-    admin_panel_password: data.password,
-    server_type: data.server,
-    server_location: data.datacenter,
-    datacenter_provider: data.datacenterProvider,
-    api_key: connection.data()?.api_key,
-  }, data.name);
+  const runId = await runGithubAction(
+    "deploy_wireguard_server",
+    {
+      environment: "Production",
+      domain_prefix: data.name,
+      admin_panel_username: data.username,
+      admin_panel_password: data.password,
+      server_type: data.server,
+      server_location: data.datacenter,
+      datacenter_provider: data.datacenterProvider,
+      api_key: connection.data()?.api_key,
+    },
+    data.name
+  );
   if (!runId) {
-    await db.collection("users").doc(userId).collection("servers").doc(documentId).set({status: "failed"}, {merge: true});
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("servers")
+      .doc(documentId)
+      .set({status: "failed"}, {merge: true});
   }
 
-  await db.collection("users").doc(userId).collection("servers").doc(documentId).set({status: "creating"}, {merge: true});
+  await db
+    .collection("users")
+    .doc(userId)
+    .collection("servers")
+    .doc(documentId)
+    .set({status: "creating"}, {merge: true});
 }
 
 export async function deleteServer(data: FirebaseFirestore.DocumentData) {
@@ -153,11 +191,15 @@ export async function deleteServer(data: FirebaseFirestore.DocumentData) {
 
   await sendCliqMessage("😭 Someone deleted a server 💔");
 
-  await runGithubAction("destroy_wireguard_server", {
-    environment: "Production",
-    domain_prefix: data.name,
-    datacenter_provider: data.datacenterProvider,
-  }, data.name);
+  await runGithubAction(
+    "destroy_wireguard_server",
+    {
+      environment: "Production",
+      domain_prefix: data.name,
+      datacenter_provider: data.datacenterProvider,
+    },
+    data.name
+  );
 
   await db.doc(data.ref.path).set({status: "deleted"}, {merge: true});
 }

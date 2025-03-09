@@ -1,12 +1,12 @@
 // functions/src/endpoints/payment.endpoint.ts
-import { onCall } from "firebase-functions/https";
+import {onCall} from "firebase-functions/https";
 import {
   createBillingPortalSession,
   createCheckoutSession,
 } from "../services/stripe.service";
-import { FailedPreconditionError, UnauthenticatedError } from "../utils/errors";
-import { HttpsError } from "firebase-functions/v1/https";
-import { generateName, getRandomInt } from "../utils/helpers";
+import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
+import {HttpsError} from "firebase-functions/v1/https";
+import {generateName, getRandomInt} from "../utils/helpers";
 
 export const onCreatePaymentLink = onCall(
   {
@@ -39,7 +39,7 @@ export const onCreatePaymentLink = onCall(
         serverName
       );
 
-      return { url: session.url };
+      return {url: session.url};
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;
@@ -80,7 +80,7 @@ export const onCreatePaymentLinkApp = onCall(
         serverName
       );
 
-      return { clientSecret: session.client_secret };
+      return {clientSecret: session.client_secret};
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;
@@ -105,7 +105,7 @@ export const onCreateBillingPortal = onCall(
 
       const session = await createBillingPortalSession(request.auth.uid);
 
-      return { url: session.url };
+      return {url: session.url};
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;

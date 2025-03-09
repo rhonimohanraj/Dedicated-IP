@@ -54,7 +54,7 @@ export class PricingComponent {
   }
 
   async validateServerName(): Promise<void> {
-    if(this.isValidServerName(this.serverName)) {
+    if(!this.isValidServerName(this.serverName)) {
       this.error = 'Please enter valid name.';
       return;
     }

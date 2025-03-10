@@ -13,6 +13,7 @@ class StripeService extends GetxController {
     await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
       paymentIntentClientSecret: clientSecret,
+      merchantDisplayName: "Dedicated-IP",
       applePay: PaymentSheetApplePay(
           merchantCountryCode: "NL",
           cartItems: List.filled(

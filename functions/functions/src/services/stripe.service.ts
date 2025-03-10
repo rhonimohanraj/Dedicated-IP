@@ -177,6 +177,7 @@ export async function createCheckoutSession(
     },
     success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
     cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
+    expand: ["latest_invoice.payment_intent"],
   });
 
   if (!session) {

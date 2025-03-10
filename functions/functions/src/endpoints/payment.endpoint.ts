@@ -8,6 +8,7 @@ import {
 import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
 import {generateName, getRandomInt} from "../utils/helpers";
+import Stripe from "stripe";
 
 export const onCreatePaymentLink = onCall(
   {
@@ -81,7 +82,11 @@ export const onCreatePaymentLinkApp = onCall(
         serverName
       );
 
-      return {clientSecret: session.client_secret};
+      const subscription = session.subscription as Stripe.Subscription;
+      const latestInvoice = subscription.latest_invoice as Stripe.Invoice;
+      const paymentIntent = latestInvoice.payment_intent as Stripe.PaymentIntent;
+
+      return {clientSecret: paymentIntent.client_secret ?? ""};
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;

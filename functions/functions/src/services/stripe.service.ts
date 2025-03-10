@@ -187,11 +187,11 @@ export async function createCheckoutSession(
   return session;
 }
 
-export async function createCheckoutSessionApp(
+export async function createSubscription(
   productId: string,
   userId: string,
   serverName?: string,
-): Promise<Stripe.Checkout.Session> {
+): Promise<Stripe.Subscription> {
   const userData = await getUser(userId);
 
   const product = await getProduct(productId);
@@ -204,10 +204,9 @@ export async function createCheckoutSessionApp(
   }
 
   const stripe = await createStripeClient();
-  const session = await stripe.checkout.sessions.create({
-    mode: "subscription",
-    ui_mode: "embedded",
-    line_items: [
+
+  const subscription = await stripe.subscriptions.create({
+    items: [
       {
         price: product.stripePriceId,
         quantity: 1,
@@ -219,14 +218,21 @@ export async function createCheckoutSessionApp(
       priceId: product.stripePriceId,
       serverName: serverName ?? "",
     },
-    return_url: "https://d.dedicated-ip.net/d/servers?payment=success",
+    payment_settings: {
+      payment_method_types:
+        [
+          "card",
+        ],
+      save_default_payment_method: "on_subscription",
+    },
+    expand: ["latest_invoice.payment_intent"],
   });
 
-  if (!session) {
-    throw new HttpsError("internal", "Failed to create checkout session");
+  if (!subscription) {
+    throw new HttpsError("internal", "Failed to create subscription");
   }
 
-  return session;
+  return subscription;
 }
 
 export async function createBillingPortalSession(
@@ -261,6 +267,9 @@ export async function createCustomer(displayName: string, email: string, userId:
     email: email,
     metadata: {
       uid: userId,
+    },
+    invoice_settings: {
+      default_payment_method: "card",
     },
   });
   return customer.id;

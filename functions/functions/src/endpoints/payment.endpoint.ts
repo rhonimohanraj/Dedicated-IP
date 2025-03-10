@@ -2,8 +2,7 @@
 import {onCall} from "firebase-functions/https";
 import {
   createBillingPortalSession,
-  createCheckoutSession,
-  createCheckoutSessionApp,
+  createCheckoutSession, createSubscription,
 } from "../services/stripe.service";
 import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
@@ -76,15 +75,13 @@ export const onCreatePaymentLinkApp = onCall(
         .replace(/-+/g, "-")
         .replace(/^-|-$/g, "");
 
-      const session = await createCheckoutSessionApp(
+      const subscription = await createSubscription(
         request.data.productId,
         request.auth.uid,
         serverName
       );
-
-      const subscription = session.subscription as Stripe.Subscription;
-      const latestInvoice = subscription.latest_invoice as Stripe.Invoice;
-      const paymentIntent = latestInvoice.payment_intent as Stripe.PaymentIntent;
+      const invoice = subscription.latest_invoice as Stripe.Invoice;
+      const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
 
       return {clientSecret: paymentIntent.client_secret ?? ""};
     } catch (e: any) {

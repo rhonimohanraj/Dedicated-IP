@@ -3,6 +3,7 @@ import {onCall} from "firebase-functions/https";
 import {
   createBillingPortalSession,
   createCheckoutSession,
+  createCheckoutSessionApp,
 } from "../services/stripe.service";
 import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
@@ -74,7 +75,7 @@ export const onCreatePaymentLinkApp = onCall(
         .replace(/-+/g, "-")
         .replace(/^-|-$/g, "");
 
-      const session = await createCheckoutSession(
+      const session = await createCheckoutSessionApp(
         request.data.productId,
         request.auth.uid,
         serverName

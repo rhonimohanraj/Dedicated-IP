@@ -64,11 +64,9 @@ class FirebaseServices extends GetxController {
       final HttpsCallableResult result = await callable.call(<String, dynamic>{
         'productId': productId,
       });
-
-      if (result.data is String) {
-        return result.data;
-      }
-      else {
+      if (result.data is Map<String, dynamic>) {
+        return result.data!['clientSecret'];
+      } else {
         throw Exception('Cloud Function returned null data.');
       }
     } on FirebaseFunctionsException catch (e) {

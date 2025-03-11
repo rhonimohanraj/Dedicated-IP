@@ -203,7 +203,9 @@ export async function createSubscription(
     await updateStripeId(userId, customerId);
   }
 
-  const stripe = await createStripeClient();
+  const stripe = new Stripe("sk_test_51QzxZUIRL6vuzqQIEo9TWfIUdn7UAPHAjevNh6No07NeqDjsHFVNCQCN1aOG1GvBSzYO5iPDiplnb7vRmNNNMez700vovIjLhn", {
+    apiVersion: "2024-11-20.acacia",
+  });
 
   const subscription = await stripe.subscriptions.create({
     items: [

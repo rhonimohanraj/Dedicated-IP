@@ -25,11 +25,7 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  if (kDebugMode) {
-    Stripe.publishableKey = Constants.stripePublishableKeyTest;
-  } else {
-    Stripe.publishableKey = Constants.stripePublishableKey;
-  }
+  Stripe.publishableKey = Constants.stripePublishableKey;
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

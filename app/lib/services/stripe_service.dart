@@ -14,21 +14,21 @@ class StripeService extends GetxController {
         paymentSheetParameters: SetupPaymentSheetParameters(
       paymentIntentClientSecret: clientSecret,
       merchantDisplayName: "Dedicated-IP",
-      applePay: PaymentSheetApplePay(
-          merchantCountryCode: "NL",
-          cartItems: List.filled(
-              1,
-              ApplePayCartSummaryItem.recurring(
-                  label: label,
-                  amount: price,
-                  intervalUnit: ApplePayIntervalUnit.month,
-                  intervalCount: 1))),
-      googlePay: PaymentSheetGooglePay(
-          amount: price,
-          merchantCountryCode: "NL",
-          buttonType: PlatformButtonType.subscribe,
-          label: label,
-          currencyCode: "EUR"),
+      // applePay: PaymentSheetApplePay(
+      //     merchantCountryCode: "NL",
+      //     cartItems: List.filled(
+      //         1,
+      //         ApplePayCartSummaryItem.recurring(
+      //             label: label,
+      //             amount: price,
+      //             intervalUnit: ApplePayIntervalUnit.month,
+      //             intervalCount: 1))),
+      // googlePay: PaymentSheetGooglePay(
+      //     amount: price,
+      //     merchantCountryCode: "NL",
+      //     buttonType: PlatformButtonType.subscribe,
+      //     label: label,
+      //     currencyCode: "EUR"),
       style: ThemeMode.light,
     ));
     await Stripe.instance.presentPaymentSheet();

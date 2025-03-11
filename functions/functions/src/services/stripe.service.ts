@@ -222,7 +222,6 @@ export async function createSubscription(
         [
           "card",
         ],
-      save_default_payment_method: "on_subscription",
     },
     expand: ["latest_invoice.payment_intent"],
   });

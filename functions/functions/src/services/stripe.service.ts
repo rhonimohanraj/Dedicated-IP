@@ -266,9 +266,6 @@ export async function createCustomer(displayName: string, email: string, userId:
     metadata: {
       uid: userId,
     },
-    invoice_settings: {
-      default_payment_method: "card",
-    },
   });
   return customer.id;
 }

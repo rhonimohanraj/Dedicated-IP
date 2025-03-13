@@ -218,11 +218,9 @@ export async function createSubscription(
       serverName: serverName ?? "",
     },
     payment_settings: {
-      payment_method_types:
-        [
-          "card",
-        ],
+      save_default_payment_method: "on_subscription",
     },
+    payment_behavior: "default_incomplete",
     expand: ["latest_invoice.payment_intent"],
   });
 

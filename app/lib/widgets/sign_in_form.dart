@@ -34,12 +34,29 @@ class SignInForm extends StatelessWidget {
               decoration: Constants.inputDecorationOnWhiteScreen(Icons.email),
             ),
           ),
-          Text(
-            "Password",
-            style: TextStyle(color: Constants.primaryColor),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Password",
+                style: TextStyle(color: Constants.primaryColor),
+              ),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  minimumSize: Size.zero,
+                ),
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(color: Constants.primaryColor),
+                ),
+              )
+            ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 16),
+            padding: const EdgeInsets.only(top: 0, bottom: 16),
             child: TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -71,9 +88,8 @@ class SignInForm extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0, bottom: 24),
             child: Obx(
               () => ElevatedButton.icon(
-                onPressed: controller.isLoading.value
-                    ? null
-                    : controller.signIn,
+                onPressed:
+                    controller.isLoading.value ? null : controller.signIn,
                 icon: controller.isLoading.value
                     ? const SizedBox(
                         height: 20,

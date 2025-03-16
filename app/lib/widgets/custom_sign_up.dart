@@ -9,8 +9,7 @@ class SignUpDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authRepo = Get.find<AuthenticationRepository>();
-    Get.put(SignUpController(authRepo: authRepo));
+    var signUpController = Get.put(SignUpController());
 
     return Center(
       child: Container(
@@ -23,7 +22,7 @@ class SignUpDialog extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset:
-          false, // avoid overflow error when keyboard shows up
+          false,
           body: Stack(
             clipBehavior: Clip.none,
             children: [
@@ -44,7 +43,58 @@ class SignUpDialog extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),
-                const SignUpForm(), // Pass the repo
+                const SignUpForm(),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Divider(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        "Sign Up with",
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10),
+                      child: TextButton(
+                        onPressed: signUpController.signUpGithub,
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                              Color.fromRGBO(241, 113, 113, 1)),
+                          foregroundColor:
+                          WidgetStatePropertyAll(Colors.white),
+                        ),
+                        child: const Text("Google"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10),
+                      child: TextButton(
+                        onPressed: signUpController.signUpGithub,
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                              Color.fromRGBO(73, 80, 87, 1)),
+                          foregroundColor:
+                          WidgetStatePropertyAll(Colors.white),
+                        ),
+                        child: const Text("Github"),
+                      ),
+                    ),
+                  ],
+                ),
               ]),
               Positioned(
                 left: 0,

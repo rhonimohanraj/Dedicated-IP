@@ -72,7 +72,7 @@ class SignUpForm extends StatelessWidget {
                   () => ElevatedButton.icon(
                 onPressed: controller.isLoading.value
                     ? null
-                    : controller.signUp, // Disable button while loading
+                    : controller.signUp,
                 icon: controller.isLoading.value
                     ? const SizedBox(
                   height: 20,

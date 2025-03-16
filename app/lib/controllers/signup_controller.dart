@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
-  final AuthenticationRepository authRepo;
-  SignUpController({required this.authRepo});
+  var authRepo = Get.find<AuthenticationRepository>();
+  SignUpController();
 
   final formKey = GlobalKey<FormState>();
   final email = ''.obs;
@@ -32,6 +32,32 @@ class SignUpController extends GetxController {
       } finally {
         isLoading.value = false;
       }
+    }
+  }
+
+  void signUpGoogle() async {
+    try {
+      await authRepo.logInWithGoogle();
+      Get.offAll(() => const HomeScreen());
+    } on LogInWithGoogleFailure catch (e, _) {
+      Get.snackbar("Sign In Failed", e.message,
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Sign In Failed", e.toString(),
+          backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
+  void signUpGithub() async {
+    try {
+      await authRepo.logInWithGitHub();
+      Get.offAll(() => const HomeScreen());
+    } on LogInWithGitHubFailure catch (e, _) {
+      Get.snackbar("Sign In Failed", e.message,
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Sign In Failed", e.toString(),
+          backgroundColor: Colors.red, colorText: Colors.white);
     }
   }
 }

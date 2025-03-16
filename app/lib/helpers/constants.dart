@@ -45,6 +45,7 @@ class Constants {
         style: ElevatedButton.styleFrom(
           backgroundColor: Constants.primaryColor,
           foregroundColor: Colors.white,
+          disabledBackgroundColor: Constants.primaryColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(25)),
           ),

@@ -43,7 +43,7 @@ class SignInDialog extends StatelessWidget {
                     style: TextStyle(color: Colors.black54),
                   ),
                 ),
-                const SignInForm(), // Pass repo to form
+                const SignInForm(),
                 const Row(
                   children: [
                     Expanded(

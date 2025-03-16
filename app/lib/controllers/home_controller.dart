@@ -17,15 +17,15 @@ class HomeController extends GetxController {
   final vpnState = VpnEngine.vpnDisconnected.obs;
   final loadingVpnConfig = false.obs;
 
-  void connectToVpn() async {
-    await VpnEngine.wireGuardFlutter.initialize(
-      interfaceName: Constants.vpnInterfaceName,
-    );
-
-    if (server.value.countryCode.isBlank == true) {
+  Future<void> connectToVpn() async {
+    if (server.value.id.isBlank == true) {
       MyDialogs.info(msg: 'Select a Dedicated IP by clicking \'Select Dedicated-IP\'');
       return;
     }
+
+    await VpnEngine.wireGuardFlutter.initialize(
+      interfaceName: Constants.vpnInterfaceName,
+    );
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
       loadingVpnConfig.value = true;

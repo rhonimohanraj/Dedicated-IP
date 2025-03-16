@@ -151,8 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   _controller.vpnState.value == VpnEngine.vpnConnected)),
           //button
           InkWell(
-            onTap: () {
-              _controller.connectToVpn();
+            onTap: () async {
+              await _controller.connectToVpn();
             },
             borderRadius: BorderRadius.circular(10000),
             child: Container(

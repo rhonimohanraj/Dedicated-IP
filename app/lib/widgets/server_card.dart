@@ -18,25 +18,25 @@ class ServerCard extends StatelessWidget {
     final controller = Get.find<HomeController>();
     final ipService = Get.put(IpService());
 
-    void connect() {
+    Future<void> connect() async {
       controller.server.value = server;
       Pref.server = server;
       Get.back();
       if (controller.vpnState.value == VpnEngine.vpnConnected) {
         VpnEngine.wireGuardFlutter.stopVpn();
         Future.delayed(
-            const Duration(seconds: 2), () => controller.connectToVpn());
+            const Duration(seconds: 2), () async => await controller.connectToVpn());
       } else {
-        controller.connectToVpn();
+        await controller.connectToVpn();
       }
     }
 
     return InkWell(
-      onTap: () {
+      onTap: () async {
         if (server.status != 'active') {
           return;
         }
-        connect();
+        await connect();
       },
       child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10),

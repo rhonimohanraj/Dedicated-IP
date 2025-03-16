@@ -78,32 +78,39 @@ class _ServerScreenState extends State<ServerScreen> {
       );
 
   _noVPNFound() => Center(
-          child: Column(
-        children: [
-          const Text(
-            "You didn't purchase any servers yet.",
-            style: TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          ElevatedButton(
-            onPressed: () => Get.to(() => PurchaseScreen()),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Constants.primaryColor,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          // Ensure Column doesn't take full height if unnecessary
+          children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: 30),
+              child: Text(
+                "You didn't purchase any Dedicated-IP yet.",
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            child: Row(
-              // Use a Row to arrange icon and text
-              mainAxisSize: MainAxisSize.min,
-              // Important: Makes the Row take only the needed space
-              children: [
-                const Text("Buy now"),
-                const SizedBox(width: 8),
-                // Space between icon and text
-                Icon(Icons.arrow_forward, color: Constants.primaryColor),
-                // Arrow icon
-              ],
+            Padding(
+              padding: EdgeInsets.only(left: 50, right: 50),
+              child: ElevatedButton(
+                onPressed: () => Get.to(() => PurchaseScreen()),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Constants.primaryColor,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text("Buy now"),
+                    const SizedBox(width: 8),
+                    Icon(Icons.arrow_forward, color: Constants.primaryColor),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
-      ));
+          ],
+        ),
+      );
 }

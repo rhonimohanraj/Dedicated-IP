@@ -12,9 +12,6 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Put the controller using Get.put()
-    Get.put(OnboardingController());
-
     return Scaffold(
         body: Stack(
           children: [
@@ -67,16 +64,13 @@ class OnboardingScreen extends StatelessWidget {
                             foregroundColor: Constants.primaryColor,
                           ),
                           child: Row(
-                            // Use a Row to arrange icon and text
                             mainAxisSize: MainAxisSize.min,
-                            // Important: Makes the Row take only the needed space
                             children: [
                               const Text("Start now"),
                               const SizedBox(width: 8),
                               // Space between icon and text
                               Icon(Icons.arrow_forward,
                                   color: Constants.primaryColor),
-                              // Arrow icon
                             ],
                           ),
                         ),),

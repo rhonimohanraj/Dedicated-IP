@@ -1,5 +1,6 @@
 import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/screens/home_screen.dart';
+import 'package:dedicated_ip/widgets/custom_forgot_password.dart';
 import 'package:dedicated_ip/widgets/custom_sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +73,7 @@ class SignInController extends GetxController {
   void showForgotPasswordDialog() {
     Get.back();
     Get.dialog(
-      SignUpDialog(),
+      forgotPasswordDialog(),
       barrierDismissible: true,
     );
   }

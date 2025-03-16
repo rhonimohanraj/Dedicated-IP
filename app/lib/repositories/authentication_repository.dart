@@ -192,9 +192,36 @@ class LogInWithGitHubFailure implements Exception {
   }
 
   final String message;
-
 }
 
+/// {@template reset_password_failure}
+/// Thrown if during the reset password process a failure occurs.
+/// {@endtemplate}
+class ResetPasswordFailure implements Exception {
+  /// {@macro reset_password_failure}
+  const ResetPasswordFailure([
+    this.message = 'An unknown exception occurred.',
+  ]);
+
+  /// Create an authentication message
+  /// from a firebase authentication exception code.
+  factory ResetPasswordFailure.fromCode(String code) {
+    switch (code) {
+      case 'invalid-email':
+        return const ResetPasswordFailure(
+            'Email is not valid or badly formatted.');
+      case 'user-not-found':
+        return const ResetPasswordFailure(
+            'Email is not found, please create an account.');
+      //add more cases if you discover them in testing, firebase docs dont give the specific exception codes for this method
+      default:
+        return const ResetPasswordFailure();
+    }
+  }
+
+  /// The associated error message.
+  final String message;
+}
 
 /// Thrown during the logout process if a failure occurs.
 class LogOutFailure implements Exception {}
@@ -245,7 +272,7 @@ class AuthenticationRepository {
         email: email,
         password: password,
       );
-      if(user.user!= null){
+      if (user.user != null) {
         Pref.user = user.user!.toUser;
       }
     } on firebase_auth.FirebaseAuthException catch (e) {
@@ -278,7 +305,7 @@ class AuthenticationRepository {
 
       var user = await _firebaseAuth.signInWithCredential(credential);
 
-      if(user.user!= null){
+      if (user.user != null) {
         Pref.user = user.user!.toUser;
       }
     } on firebase_auth.FirebaseAuthException catch (e) {
@@ -292,7 +319,8 @@ class AuthenticationRepository {
   Future<void> logInWithGitHub() async {
     try {
       final githubProvider = firebase_auth.GithubAuthProvider();
-      final userCredential = await _firebaseAuth.signInWithPopup(githubProvider);
+      final userCredential =
+          await _firebaseAuth.signInWithPopup(githubProvider);
 
       final user = userCredential.user;
 
@@ -319,13 +347,26 @@ class AuthenticationRepository {
         password: password,
       );
 
-      if(user.user!= null){
+      if (user.user != null) {
         Pref.user = user.user!.toUser;
       }
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (e) {
       throw const LogInWithEmailAndPasswordFailure();
+    }
+  }
+
+  /// Sends a password reset email to the provided [email].
+  ///
+  /// Throws a [ResetPasswordFailure] if an exception occurs.
+  Future<void> sendPasswordResetEmail({required String email}) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw ResetPasswordFailure.fromCode(e.code);
+    } catch (_) {
+      throw const ResetPasswordFailure();
     }
   }
 

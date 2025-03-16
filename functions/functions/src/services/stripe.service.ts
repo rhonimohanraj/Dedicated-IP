@@ -278,3 +278,19 @@ export async function handleCheckoutCompleted(eventData: Stripe.Checkout.Session
   }
   return {uid: uid, priceId: eventData.metadata?.priceId, serverName: eventData.metadata?.serverName, subscription: eventData.subscription};
 }
+
+export async function handleInvoiceCompleted(eventData: Stripe.Invoice) {
+  if (!eventData.paid) {
+    throw new Error("Invoice is not paid.");
+  }
+  const uid = eventData.subscription_details?.metadata?.uid;
+  if (!uid) {
+    throw new Error("UID is undefined in event metadata.");
+  }
+  return {
+    uid: uid,
+    priceId: eventData.subscription_details?.metadata?.priceId,
+    serverName: eventData.subscription_details?.metadata?.serverName,
+    subscription: eventData.subscription,
+  };
+}

@@ -1,7 +1,7 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
 import Stripe from "stripe";
-import {handleCheckoutCompleted} from "../services/stripe.service";
+import {handleCheckoutCompleted, handleInvoiceCompleted} from "../services/stripe.service";
 import {createServer, updateServerStatusBySubscription} from "../services/server.service";
 import {createStripeClient} from "../config/stripe.config";
 import {getRemoteServerConfigValue} from "../config/remote.config";
@@ -53,6 +53,37 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
       await createServer(uid, priceId, subscription, serverName);
       await updateServerStatusBySubscription(subscription.toString(), "pending");
       break;
+    }
+    case "invoice.payment_succeeded": {
+      const eventData = event.data.object as Stripe.Invoice;
+      const checkoutCompletedResult = await handleInvoiceCompleted(eventData);
+      if (!handleCheckoutCompleted) {
+        break;
+      }
+
+        type CheckoutCompletedResult = {
+          uid: string;
+          serverName: string;
+          priceId?: string;
+          subscription: string;
+        };
+
+        const {uid, serverName, priceId, subscription} = checkoutCompletedResult as CheckoutCompletedResult;
+        if (!uid || !subscription || !priceId) {
+          break;
+        }
+
+        const querySnapshot = await db.collectionGroup("servers")
+          .where("subscription", "==", subscription)
+          .get();
+
+        if (!querySnapshot.empty) {
+          break;
+        }
+
+        await createServer(uid, priceId, subscription, serverName);
+        await updateServerStatusBySubscription(subscription.toString(), "pending");
+        break;
     }
     case "customer.subscription.deleted": {
       const eventData = event.data.object as Stripe.Subscription;

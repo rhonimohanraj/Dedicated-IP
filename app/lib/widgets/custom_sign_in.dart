@@ -23,127 +23,154 @@ class SignInDialog extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: false,
-          body: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Column(children: [
-                const Text(
-                  "Sign In",
-                  style: TextStyle(
-                    fontSize: 34,
-                    fontFamily: "Poppins",
-                    color: Colors.black87,
+          body: LayoutBuilder(
+            // Use LayoutBuilder to get the constraints
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                // Make it scrollable
+                child: ConstrainedBox(
+                  // Constrain height for scrolling
+                  constraints: BoxConstraints(
+                    minHeight: constraints
+                        .maxHeight, // Important: Minimum height of content
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Text(
-                    "Access your account and connect to your dedicated IP VPN service.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ),
-                const SignInForm(),
-                const Row(
-                  children: [
-                    Expanded(
-                      child: Divider(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        "Sign In with",
-                        style: TextStyle(color: Colors.black87),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextButton(
-                        onPressed: signInController.signInGoogle,
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(
-                              Color.fromRGBO(241, 113, 113, 1)),
-                          foregroundColor: WidgetStatePropertyAll(Colors.white),
-                        ),
-                        child: const Text("Google"),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: TextButton(
-                        onPressed: signInController.signInGithub,
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(
-                              Color.fromRGBO(73, 80, 87, 1)),
-                          foregroundColor: WidgetStatePropertyAll(Colors.white),
-                        ),
-                        child: const Text("Github"),
-                      ),
-                    ),
-                  ],
-                ),
-                const Row(
-                  children: [
-                    Expanded(
-                      child: Divider(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        "OR",
-                        style: TextStyle(color: Colors.black87),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: RichText(
-                    text: TextSpan(
+                  child: IntrinsicHeight(
+                    // Allow children to size themselves
+                    child: Stack(
+                      clipBehavior: Clip.none,
                       children: [
-                        const TextSpan(
-                            text: "Don't have an account? ",
-                            style: TextStyle(color: Colors.black54)),
-                        TextSpan(
-                            text: "Sign up",
-                            style: TextStyle(color: Constants.primaryColor),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                signInController.showSignUpDialog();
-                              }),
+                        Column(
+                          children: [
+                            const Text(
+                              "Sign In",
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontFamily: "Poppins",
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Text(
+                                "Access your account and connect to your dedicated IP VPN service.",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.black54),
+                              ),
+                            ),
+                            const SignInForm(),
+                            const Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: Text(
+                                    "Sign In with",
+                                    style: TextStyle(color: Colors.black87),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: TextButton(
+                                    onPressed: signInController.signInGoogle,
+                                    style: ButtonStyle(
+                                      backgroundColor: WidgetStatePropertyAll(
+                                          Color.fromRGBO(241, 113, 113, 1)),
+                                      foregroundColor:
+                                          WidgetStatePropertyAll(Colors.white),
+                                    ),
+                                    child: const Text("Google"),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: TextButton(
+                                    onPressed: signInController.signInGithub,
+                                    style: ButtonStyle(
+                                      backgroundColor: WidgetStatePropertyAll(
+                                          Color.fromRGBO(73, 80, 87, 1)),
+                                      foregroundColor:
+                                          WidgetStatePropertyAll(Colors.white),
+                                    ),
+                                    child: const Text("Github"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Row(
+                              children: [
+                                Expanded(
+                                  child: Divider(),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: Text(
+                                    "OR",
+                                    style: TextStyle(color: Colors.black87),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Divider(),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 20.0),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    const TextSpan(
+                                        text: "Don't have an account? ",
+                                        style:
+                                            TextStyle(color: Colors.black54)),
+                                    TextSpan(
+                                        text: "Sign up",
+                                        style: TextStyle(
+                                            color: Constants.primaryColor),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            signInController.showSignUpDialog();
+                                          }),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: -48,
+                          child: InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: const CircleAvatar(
+                              radius: 16,
+                              backgroundColor: Colors.white,
+                              child: Icon(Icons.close, color: Colors.black),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
                 ),
-              ]),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: -48,
-                child: InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: const CircleAvatar(
-                    radius: 16,
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.close, color: Colors.black),
-                  ),
-                ),
-              )
-            ],
+              );
+            },
           ),
         ),
       ),

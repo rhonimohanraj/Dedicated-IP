@@ -177,7 +177,6 @@ export async function createCheckoutSession(
     },
     success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
     cancel_url: "https://d.dedicated-ip.net/d/servers?payment=cancel",
-    automatic_tax: {enabled: true},
   });
 
   if (!session) {
@@ -223,7 +222,6 @@ export async function createSubscription(
     },
     payment_behavior: "default_incomplete",
     expand: ["latest_invoice.payment_intent"],
-    automatic_tax: {enabled: true},
   });
 
   if (!subscription) {

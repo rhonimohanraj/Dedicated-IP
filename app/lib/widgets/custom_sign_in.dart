@@ -1,20 +1,16 @@
 import 'package:dedicated_ip/controllers/signin_controller.dart';
 import 'package:dedicated_ip/helpers/constants.dart';
-import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:dedicated_ip/widgets/sign_in_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Import Get
+import 'package:get/get.dart';
 
 class SignInDialog extends StatelessWidget {
   const SignInDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Inject the controller and repository
-    final authRepo = Get.find<
-        AuthenticationRepository>(); // Get the existing instance
-    Get.put(SignInController(authRepo: authRepo));
+    var signInController = Get.put(SignInController());
 
     return Center(
       child: Container(
@@ -78,7 +74,7 @@ class SignInDialog extends StatelessWidget {
                             style: TextStyle(color: Constants.primaryColor),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Get.find<SignInController>().showSignUpDialog();
+                                signInController.showSignUpDialog();
                               }),
                       ],
                     ),

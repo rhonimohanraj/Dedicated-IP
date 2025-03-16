@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignInController extends GetxController {
-  final AuthenticationRepository authRepo;
-  SignInController({required this.authRepo});
+  var authRepo = Get.find<AuthenticationRepository>();
 
   final formKey = GlobalKey<FormState>();
   final email = ''.obs;
@@ -17,16 +16,14 @@ class SignInController extends GetxController {
   void setEmail(String? value) => email.value = value ?? '';
   void setPassword(String? value) => password.value = value ?? '';
 
-
-
   void signIn() async {
-    error.value = ''; // Clear previous errors
+    error.value = '';
     if (formKey.currentState!.validate()) {
       isLoading.value = true;
       try {
         await authRepo.logInWithEmailAndPassword(
             email: email.value, password: password.value);
-        Get.offAll(() => const HomeScreen()); // Use Get.offAll for navigation
+        Get.offAll(() => const HomeScreen());
       } on LogInWithEmailAndPasswordFailure catch (e) {
         error.value = e.message;
         Get.snackbar("Sign In Failed", error.value,
@@ -38,11 +35,10 @@ class SignInController extends GetxController {
   }
 
   void showSignUpDialog() {
-    Get.back();  //close sign in dialog
+    Get.back();
     Get.dialog(
-      SignUpDialog(), // Use Get.dialog for dialogs
+      SignUpDialog(),
       barrierDismissible: true,
     );
   }
 }
-

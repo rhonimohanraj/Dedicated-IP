@@ -11,6 +11,7 @@
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <rive_common/rive_plugin.h>
 #include <sentry_flutter/sentry_flutter_plugin.h>
+#include <url_launcher_windows/url_launcher_windows.h>
 #include <wireguard_flutter/wireguard_flutter_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
@@ -24,6 +25,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("RivePlugin"));
   SentryFlutterPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("SentryFlutterPlugin"));
+  UrlLauncherWindowsRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("UrlLauncherWindows"));
   WireguardFlutterPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("WireguardFlutterPluginCApi"));
 }

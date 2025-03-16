@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   rive_common
   sentry_flutter
+  url_launcher_windows
   wireguard_flutter
 )
 

@@ -5,6 +5,7 @@ import 'package:dedicated_ip/widgets/server_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ServerScreen extends StatefulWidget {
   ServerScreen({super.key});
@@ -60,7 +61,37 @@ class _ServerScreenState extends State<ServerScreen> {
                 right: Get.width * .04),
             itemBuilder: (ctx, i) {
               var data = snapshot.data![i];
-              return ServerCard(server: data);
+              return Dismissible(
+                  key: Key(data.id),
+                  background: Container(
+                    color: Colors.red,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(right: 25),
+                          child: Icon(
+                            Icons.delete,
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onDismissed: (_) async {
+                    await Get.defaultDialog(
+                        title: "Delete Subscription",
+                        middleText:
+                            "For deleting your subscription, Please login to the opened website and go to billing and cancel your subscription.",
+                        confirm: TextButton(
+                            onPressed: () async {
+                              await launchUrl(
+                                  Uri.parse("https://d.dedicated-ip.net"));
+                            },
+                            child: Text("Let's go to website")));
+                  },
+                  child: ServerCard(server: data));
             });
       });
 

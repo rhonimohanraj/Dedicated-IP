@@ -14,7 +14,7 @@ class SignInDialog extends StatelessWidget {
 
     return Center(
       child: Container(
-        height: 550,
+        height: 610,
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
         decoration: BoxDecoration(
@@ -44,6 +44,53 @@ class SignInDialog extends StatelessWidget {
                   ),
                 ),
                 const SignInForm(),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Divider(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        "Sign In with",
+                        style: TextStyle(color: Colors.black87),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(),
+                    ),
+                  ],
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: TextButton(
+                        onPressed: signInController.signInGoogle,
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                              Color.fromRGBO(241, 113, 113, 1)),
+                          foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        ),
+                        child: const Text("Google"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: TextButton(
+                        onPressed: signInController.signInGithub,
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(
+                              Color.fromRGBO(73, 80, 87, 1)),
+                          foregroundColor: WidgetStatePropertyAll(Colors.white),
+                        ),
+                        child: const Text("Github"),
+                      ),
+                    ),
+                  ],
+                ),
                 const Row(
                   children: [
                     Expanded(
@@ -86,7 +133,7 @@ class SignInDialog extends StatelessWidget {
                 right: 0,
                 bottom: -48,
                 child: InkWell(
-                  onTap: (){
+                  onTap: () {
                     Get.back();
                   },
                   child: const CircleAvatar(

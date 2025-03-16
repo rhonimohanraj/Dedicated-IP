@@ -146,6 +146,56 @@ class LogInWithGoogleFailure implements Exception {
   final String message;
 }
 
+// ADD THIS:  LogInWithGitHubFailure
+class LogInWithGitHubFailure implements Exception {
+  const LogInWithGitHubFailure([
+    this.message = 'An unknown exception occurred.',
+  ]);
+
+  factory LogInWithGitHubFailure.fromCode(String code) {
+    switch (code) {
+      case 'account-exists-with-different-credential':
+        return const LogInWithGitHubFailure(
+          'Account exists with different credentials.',
+        );
+      case 'invalid-credential':
+        return const LogInWithGitHubFailure(
+          'The credential received is malformed or has expired.',
+        );
+      case 'operation-not-allowed':
+        return const LogInWithGitHubFailure(
+          'Operation is not allowed.  Please contact support.',
+        );
+      case 'user-disabled':
+        return const LogInWithGitHubFailure(
+          'This user has been disabled. Please contact support for help.',
+        );
+      case 'user-not-found':
+        return const LogInWithGitHubFailure(
+          'Email is not found, please create an account.',
+        );
+      case 'wrong-password':
+        return const LogInWithGitHubFailure(
+          'Incorrect password, please try again.',
+        );
+      case 'invalid-verification-code':
+        return const LogInWithGitHubFailure(
+          'The credential verification code received is invalid.',
+        );
+      case 'invalid-verification-id':
+        return const LogInWithGitHubFailure(
+          'The credential verification ID received is invalid.',
+        );
+      default:
+        return const LogInWithGitHubFailure();
+    }
+  }
+
+  final String message;
+
+}
+
+
 /// Thrown during the logout process if a failure occurs.
 class LogOutFailure implements Exception {}
 
@@ -235,6 +285,24 @@ class AuthenticationRepository {
       throw LogInWithGoogleFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithGoogleFailure();
+    }
+  }
+
+  /// Signs in with GitHub.
+  Future<void> logInWithGitHub() async {
+    try {
+      final githubProvider = firebase_auth.GithubAuthProvider();
+      final userCredential = await _firebaseAuth.signInWithPopup(githubProvider);
+
+      final user = userCredential.user;
+
+      if (user != null) {
+        Pref.user = user.toUser;
+      }
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw LogInWithGitHubFailure.fromCode(e.code);
+    } catch (_) {
+      throw const LogInWithGitHubFailure();
     }
   }
 

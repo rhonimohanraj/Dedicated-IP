@@ -14,6 +14,7 @@ class SignInController extends GetxController {
   final isLoading = false.obs;
 
   void setEmail(String? value) => email.value = value ?? '';
+
   void setPassword(String? value) => password.value = value ?? '';
 
   void signIn() async {
@@ -31,6 +32,32 @@ class SignInController extends GetxController {
       } finally {
         isLoading.value = false;
       }
+    }
+  }
+
+  void signInGoogle() async {
+    try {
+      await authRepo.logInWithGoogle();
+      Get.offAll(() => const HomeScreen());
+    } on LogInWithGoogleFailure catch (e, _) {
+      Get.snackbar("Sign In Failed", e.message,
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Sign In Failed", e.toString(),
+          backgroundColor: Colors.red, colorText: Colors.white);
+    }
+  }
+
+  void signInGithub() async {
+    try {
+      await authRepo.logInWithGitHub();
+      Get.offAll(() => const HomeScreen());
+    } on LogInWithGitHubFailure catch (e, _) {
+      Get.snackbar("Sign In Failed", e.message,
+          backgroundColor: Colors.red, colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar("Sign In Failed", e.toString(),
+          backgroundColor: Colors.red, colorText: Colors.white);
     }
   }
 

@@ -4,7 +4,7 @@ import 'package:dedicated_ip/controllers/onboarding_controller.dart';
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/material.dart';
-import 'package:get/get.dart'; // Import GetX
+import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 
 class OnboardingScreen extends StatelessWidget {

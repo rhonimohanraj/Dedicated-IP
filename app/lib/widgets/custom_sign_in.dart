@@ -18,8 +18,11 @@ class SignInDialog extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16),
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
         decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.95),
-            borderRadius: const BorderRadius.all(Radius.circular(40))),
+          color: Colors.white.withOpacity(0.95),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(40),
+          ),
+        ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: false,

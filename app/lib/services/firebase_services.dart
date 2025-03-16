@@ -5,12 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dedicated_ip/models/product.dart';
 import 'package:dedicated_ip/models/server.dart';
+import 'package:dedicated_ip/repositories/authentication_repository.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get/get.dart';
 import 'package:dedicated_ip/helpers/pref.dart';
 
 class FirebaseServices extends GetxController {
+  final authRepo = Get.find<AuthenticationRepository>();
+
   FirebaseServices(){
     FirebaseRemoteConfig.instance.setConfigSettings(RemoteConfigSettings(
       fetchTimeout: const Duration(minutes: 1),

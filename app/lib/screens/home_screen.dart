@@ -1,4 +1,5 @@
 import 'package:country_flags/country_flags.dart';
+import 'package:dedicated_ip/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,9 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               padding: const EdgeInsets.only(right: 8),
+              onPressed: () async => {
+                await _controller.firebaseServices.authRepo.logOut(),
+                await Get.offAll(() => const OnboardingScreen()),
+              },
+              icon: const Icon(
+                Icons.logout,
+                size: 27,
+              )),
+          IconButton(
+              padding: const EdgeInsets.only(right: 8),
               onPressed: () => Get.to(() => const NetworkTestScreen()),
               icon: const Icon(
-                Icons.settings,
+                Icons.account_tree,
                 size: 27,
               )),
         ],
@@ -67,8 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                   decoration: BoxDecoration(
                       color: _controller.getButtonColor.withOpacity(.1),
-                      border: Border.all(
-                          color: Colors.greenAccent),
+                      border: Border.all(color: Colors.greenAccent),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(30))),
                   padding: EdgeInsets.symmetric(horizontal: Get.width * .04),

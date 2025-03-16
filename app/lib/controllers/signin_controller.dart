@@ -68,4 +68,12 @@ class SignInController extends GetxController {
       barrierDismissible: true,
     );
   }
+
+  void showForgotPasswordDialog() {
+    Get.back();
+    Get.dialog(
+      SignUpDialog(),
+      barrierDismissible: true,
+    );
+  }
 }

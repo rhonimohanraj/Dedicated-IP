@@ -9,7 +9,7 @@ class SignInForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SignInController>(); // Find the controller
+    final controller = Get.find<SignInController>();
 
     return Form(
       key: controller.formKey,
@@ -29,7 +29,7 @@ class SignInForm extends StatelessWidget {
                 }
                 return null;
               },
-              onChanged: controller.setEmail, // Use onChanged, not onSaved
+              onChanged: controller.setEmail,
               style: TextStyle(color: Constants.primaryColor),
               decoration: Constants.inputDecorationOnWhiteScreen(Icons.email),
             ),
@@ -42,7 +42,9 @@ class SignInForm extends StatelessWidget {
                 style: TextStyle(color: Constants.primaryColor),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.showForgotPasswordDialog();
+                },
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -67,7 +69,7 @@ class SignInForm extends StatelessWidget {
                 }
                 return null;
               },
-              onChanged: controller.setPassword, // Use onChanged
+              onChanged: controller.setPassword,
               obscureText: true,
               decoration:
                   Constants.inputDecorationOnWhiteScreen(Icons.password),

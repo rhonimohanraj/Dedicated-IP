@@ -14,6 +14,8 @@ class Constants {
 
   static String get stripePublishableKey => "pk_live_51QzxZUIRL6vuzqQIlLi8CXpGs0N4eX5MaTem3UNZhiqgvovzlLJyXMP1dQgoNsn2KZBGWwSeMK1blK0uWk0qssqK00Wjq5GXT6";
 
+  static String get sentryDsn => "https://1fc152a80765b9306b398ba2d7d17f66@o4508776880209920.ingest.de.sentry.io/4508777507979344";
+
   static InputDecoration inputDecorationOnWhiteScreen(IconData icon)  => InputDecoration(
         fillColor: Constants.primaryColor,
         border: UnderlineInputBorder(

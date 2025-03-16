@@ -15,6 +15,7 @@ class HomeController extends GetxController {
   final ipService = Get.put(IpService());
 
   final vpnState = VpnEngine.vpnDisconnected.obs;
+  final loadingVpnConfig = false.obs;
 
   void connectToVpn() async {
     await VpnEngine.wireGuardFlutter.initialize(
@@ -27,7 +28,9 @@ class HomeController extends GetxController {
     }
 
     if (vpnState.value == VpnEngine.vpnDisconnected) {
+      loadingVpnConfig.value = true;
       var config = await firebaseServices.getVPNConfig(server.value.name);
+      loadingVpnConfig.value = false;
 
       await VpnEngine.wireGuardFlutter.startVpn(
         serverAddress: server.value.hostname,
@@ -45,6 +48,8 @@ class HomeController extends GetxController {
 
   // vpn buttons color
   Color get getButtonColor {
+    if(loadingVpnConfig.value) return Colors.blueAccent;
+
     switch (vpnState.value) {
       case VpnEngine.vpnDisconnected:
         return CupertinoColors.activeGreen;
@@ -59,6 +64,8 @@ class HomeController extends GetxController {
 
   // vpn button text
   String get getButtonText {
+    if(loadingVpnConfig.value) return 'fetch config...';
+
     switch (vpnState.value) {
       case VpnEngine.vpnDisconnected:
         return 'Start';

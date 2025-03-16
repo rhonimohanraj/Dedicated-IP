@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Constants {
   static String get appName => "Dedicated IP";
 
-  static String get vpnInterfaceName => "Dedicated_IP";
+  static String get vpnInterfaceName => "DedicatedIP";
 
   static String get vpnBundleIdentifier => 'net.dedicated_ip.app';
 

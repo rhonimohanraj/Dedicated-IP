@@ -12,6 +12,9 @@ import * as crypto from "crypto";
 import {FieldValue} from "firebase-admin/firestore";
 import {runGithubAction} from "./github.service";
 import {sendCliqMessage} from "./cliq.service";
+import {firestore} from "firebase-admin";
+import QuerySnapshot = firestore.QuerySnapshot;
+import DocumentData = firestore.DocumentData;
 
 export async function createServer(
   uid: string,
@@ -225,11 +228,57 @@ export async function getEmailLinkToServer(name: string): Promise<string> {
     throw new Error("Parent not found.");
   }
 
-  const server = await parent.get();
+  const user = await parent.get();
 
-  if (!server.exists) {
+  if (!user.exists) {
+    throw new Error("User not found.");
+  }
+
+  return user.data()?.email;
+}
+
+export async function getFCMTokensToServer(name: string): Promise<string[]> {
+  const querySnapshot = await db
+    .collectionGroup("servers")
+    .where("name", "==", name)
+    .limit(10)
+    .get();
+
+  if (querySnapshot.empty) {
     throw new Error("Server not found.");
   }
 
-  return server.data()?.email;
+  if (querySnapshot.size > 1) {
+    throw new Error("Multiple servers found.");
+  }
+
+  const parent = querySnapshot.docs[0].ref.parent.parent;
+
+  if (!parent) {
+    throw new Error("Parent not found.");
+  }
+
+  const user = await parent.get();
+
+  if (!user.exists) {
+    throw new Error("Server not found.");
+  }
+
+  const uid = user.data()?.uid as string;
+
+  if (!uid) {
+    throw new Error("UID not found.");
+  }
+
+  const querySnapshotFCMTokens: QuerySnapshot<DocumentData, DocumentData> = await db
+    .collection("users")
+    .doc(uid)
+    .collection("fcmTokens")
+    .get();
+
+  if (querySnapshotFCMTokens.empty) {
+    return [];
+  }
+
+  return querySnapshotFCMTokens.docs.map((data: any) => data.data().token);
 }

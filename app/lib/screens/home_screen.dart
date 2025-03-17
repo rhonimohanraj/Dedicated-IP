@@ -254,8 +254,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Get.snackbar(message.notification!.title.toString(),
-          message.notification!.body.toString());
+      if (message.notification != null) {
+        Get.snackbar(message.notification!.title.toString(),
+            message.notification!.body.toString());
+      }
     });
   }
 }

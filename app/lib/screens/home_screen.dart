@@ -47,9 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
               padding: const EdgeInsets.only(right: 8),
               onPressed: () async => {
-                await _controller.firebaseServices.authRepo.logOut(),
-                await Get.offAll(() => const OnboardingScreen()),
-              },
+                    await _controller.firebaseServices.authRepo.logOut(),
+                    await Get.offAll(() => const OnboardingScreen()),
+                  },
               icon: const Icon(
                 Icons.logout,
                 size: 27,
@@ -248,12 +248,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       if (message.notification != null) {
-        Get.snackbar("Notification", message.notification!.toString());
+        Get.snackbar(message.notification!.title.toString(),
+            message.notification!.body.toString());
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Get.snackbar("Notification", message.notification!.toString());
+      Get.snackbar(message.notification!.title.toString(),
+          message.notification!.body.toString());
     });
   }
 }

@@ -1,6 +1,5 @@
 import 'package:country_flags/country_flags.dart';
 import 'package:dedicated_ip/screens/onboarding_screen.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,14 +18,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _controller = Get.put(HomeController());
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   @override
   void initState() {
-    _controller.getServers();
     super.initState();
-    _requestPermissions();
-    _configureFirebaseMessaging();
+    _controller.getServers();
+    _controller.requestPermissions();
+    _controller.configureFirebaseMessaging();
   }
 
   @override
@@ -227,37 +225,4 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: Get.height * 0.02),
         ],
       );
-
-  void _requestPermissions() async {
-    await _firebaseMessaging.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      carPlay: true,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
-  }
-
-  void _configureFirebaseMessaging() async {
-    String? token = await _firebaseMessaging.getToken();
-    if (token != null) {
-      await _controller.setFCMToken(token);
-    }
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (message.notification != null) {
-        Get.snackbar(message.notification!.title.toString(),
-            message.notification!.body.toString());
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      if (message.notification != null) {
-        Get.snackbar(message.notification!.title.toString(),
-            message.notification!.body.toString());
-      }
-    });
-  }
 }

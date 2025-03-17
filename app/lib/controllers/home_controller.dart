@@ -1,6 +1,7 @@
 import 'package:dedicated_ip/helpers/constants.dart';
 import 'package:dedicated_ip/models/server.dart';
 import 'package:dedicated_ip/services/ip_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,8 @@ class HomeController extends GetxController {
 
   final vpnState = VpnEngine.vpnDisconnected.obs;
   final loadingVpnConfig = false.obs;
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   Future<void> connectToVpn() async {
     if (server.value.id.isBlank == true) {
@@ -48,6 +51,39 @@ class HomeController extends GetxController {
 
   Future<void> setFCMToken(String token) async {
     await firebaseServices.addFCMToken(token);
+  }
+
+  void requestPermissions() async {
+    await _firebaseMessaging.requestPermission(
+      alert: true,
+      announcement: true,
+      badge: true,
+      carPlay: true,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+
+  void configureFirebaseMessaging() async {
+    String? token = await _firebaseMessaging.getToken();
+    if (token != null) {
+      await setFCMToken(token);
+    }
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        Get.snackbar(message.notification!.title.toString(),
+            message.notification!.body.toString());
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      if (message.notification != null) {
+        Get.snackbar(message.notification!.title.toString(),
+            message.notification!.body.toString());
+      }
+    });
   }
 
   // vpn buttons color

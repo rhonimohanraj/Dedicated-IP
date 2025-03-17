@@ -31,7 +31,7 @@ export const onHttpWebhook = onRequest(async (req, res) => {
         for (const token of tokens) {
           await messaging().send({
             token: token,
-            data: {
+            notification: {
               title: "Server Status Changed",
               body: `Server ${req.body.name} status changed to ${req.body.status}`,
             },

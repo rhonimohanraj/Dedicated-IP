@@ -55,6 +55,16 @@ class FirebaseServices extends GetxController {
     return servers;
   }
 
+  Future<void> addFCMToken(String token) async {
+    var user = Pref.user;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.id)
+        .collection("public")
+        .doc("fcmTokens")
+        .set({await getDeviceId(): token});
+  }
+
   Future<String> createPaymentLink({required String productId}) async {
     try {
       final HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(

@@ -46,6 +46,10 @@ class HomeController extends GetxController {
     await firebaseServices.getServers();
   }
 
+  Future<void> setFCMToken(String token) async {
+    await firebaseServices.addFCMToken(token);
+  }
+
   // vpn buttons color
   Color get getButtonColor {
     if(loadingVpnConfig.value) return Colors.blueAccent;

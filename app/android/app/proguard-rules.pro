@@ -1,0 +1,13 @@
+-dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivity$g
+-dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter$Args
+-dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter$Error
+-dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter
+-dontwarn com.stripe.android.pushProvisioning.PushProvisioningEphemeralKeyProvider
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Args$Builder
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Args
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Canceled
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Companion
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Failure
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Success
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter$Result
+-dontwarn com.stripe.android.view.AddPaymentMethodActivityStarter

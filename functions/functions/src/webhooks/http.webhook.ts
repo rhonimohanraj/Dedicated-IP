@@ -1,8 +1,9 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
 import {getRemoteServerConfigValue} from "../config/remote.config";
-import {getEmailLinkToServer, updateServerByGithub} from "../services/server.service";
+import {getEmailLinkToServer, getFCMTokensToServer, updateServerByGithub} from "../services/server.service";
 import {sendServerStatusChangedEmail} from "../services/sendgrid.services";
+import {messaging} from "firebase-admin";
 
 export const onHttpWebhook = onRequest(async (req, res) => {
   switch (req.body.requestType) {
@@ -15,9 +16,29 @@ export const onHttpWebhook = onRequest(async (req, res) => {
 
     await updateServerByGithub(req.body.name, req.body.status);
 
-    const email = await getEmailLinkToServer(req.body.name);
+    try {
+      const email = await getEmailLinkToServer(req.body.name);
 
-    await sendServerStatusChangedEmail(email, req.body.name, req.body.status);
+      await sendServerStatusChangedEmail(email, req.body.name, req.body.status);
+    } catch (e) {
+      console.error("send Server Status Changed Email Error", e);
+    }
+
+    try {
+      const tokens = await getFCMTokensToServer(req.body.name);
+
+      if (tokens.length > 0) {
+        await messaging().sendToDevice(tokens, {
+          data: {
+            title: "Server Status Changed",
+            body: `Server ${req.body.name} status changed to ${req.body.status}`,
+          },
+        });
+      }
+    } catch (e) {
+      console.error("send Push Notification Error", e);
+    }
+
 
     res.status(200).send("OK");
     return;

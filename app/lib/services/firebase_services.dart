@@ -60,9 +60,9 @@ class FirebaseServices extends GetxController {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(user.id)
-        .collection("public")
-        .doc("fcmTokens")
-        .set({await getDeviceId(): token});
+        .collection("fcmTokens")
+        .doc(await getDeviceId())
+        .set({"token": token});
   }
 
   Future<String> createPaymentLink({required String productId}) async {

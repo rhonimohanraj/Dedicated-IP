@@ -28,12 +28,15 @@ export const onHttpWebhook = onRequest(async (req, res) => {
       const tokens = await getFCMTokensToServer(req.body.name);
 
       if (tokens.length > 0) {
-        await messaging().sendToDevice(tokens, {
-          data: {
-            title: "Server Status Changed",
-            body: `Server ${req.body.name} status changed to ${req.body.status}`,
-          },
-        });
+        for (const token of tokens) {
+          await messaging().send({
+            token: token,
+            data: {
+              title: "Server Status Changed",
+              body: `Server ${req.body.name} status changed to ${req.body.status}`,
+            },
+          });
+        }
       }
     } catch (e) {
       console.error("send Push Notification Error", e);

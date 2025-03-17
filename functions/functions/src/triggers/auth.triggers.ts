@@ -16,10 +16,16 @@ export const onUserRegister = auth.user().onCreate(async (user) => {
       displayName: user.displayName,
       photoURL: user.photoURL,
     });
-    await sendCliqMessage("🎉 We have new customer: " + user.email + "🎉");
   } catch (e: any) {
     logger.error("onUserRegister Trigger ", e);
     throw new InternalServerError("Failed on user register " + e.message);
   }
+
+  try {
+    await sendCliqMessage("🎉 We have new customer: " + user.email + "🎉");
+  } catch (e) {
+    console.log(e);
+  }
+
   return null;
 });

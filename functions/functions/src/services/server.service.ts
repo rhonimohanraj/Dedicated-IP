@@ -145,8 +145,6 @@ export async function deployServer(userId: string, documentId: string) {
     return;
   }
 
-  await sendCliqMessage("🕺 Someone bought a new server 💃");
-
   const connection = await db
     .collection("users")
     .doc(userId)
@@ -185,14 +183,18 @@ export async function deployServer(userId: string, documentId: string) {
     .collection("servers")
     .doc(documentId)
     .set({status: "creating"}, {merge: true});
+
+  try {
+    await sendCliqMessage("🕺 Someone bought a new server 💃");
+  } catch (e: any) {
+    console.log(e);
+  }
 }
 
 export async function deleteServer(data: FirebaseFirestore.DocumentData) {
   if (!data || data.status !== "deleting") {
     return;
   }
-
-  await sendCliqMessage("😭 Someone deleted a server 💔");
 
   await runGithubAction(
     "destroy_wireguard_server",
@@ -205,6 +207,12 @@ export async function deleteServer(data: FirebaseFirestore.DocumentData) {
   );
 
   await db.doc(data.ref.path).set({status: "deleted"}, {merge: true});
+
+  try {
+    await sendCliqMessage("😭 Someone deleted a server 💔");
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 export async function getEmailLinkToServer(name: string): Promise<string> {

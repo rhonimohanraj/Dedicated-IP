@@ -12,7 +12,7 @@ import * as crypto from "crypto";
 import {FieldValue} from "firebase-admin/firestore";
 import {runGithubAction} from "./github.service";
 import {sendCliqMessage} from "./cliq.service";
-import {firestore} from "firebase-admin";
+import {firestore, messaging} from "firebase-admin";
 import QuerySnapshot = firestore.QuerySnapshot;
 import DocumentData = firestore.DocumentData;
 
@@ -183,6 +183,24 @@ export async function deployServer(userId: string, documentId: string) {
     .collection("servers")
     .doc(documentId)
     .set({status: "creating"}, {merge: true});
+
+  try {
+    const tokens = await getFCMTokensToServer(data.name);
+
+    if (tokens.length > 0) {
+      for (const token of tokens) {
+        await messaging().send({
+          token: token,
+          notification: {
+            title: "Server Status Changed",
+            body: `Server ${data.name} status changed to creating`,
+          },
+        });
+      }
+    }
+  } catch (e) {
+    console.error("send Push Notification Error", e);
+  }
 
   try {
     await sendCliqMessage("🕺 Someone bought a new server 💃");

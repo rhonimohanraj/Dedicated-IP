@@ -31,6 +31,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
+      - name: Prepare workspace
+        run: |
+          file="./app/pubspec.yaml"
+          old_string="1.0.0+1"
+          new_string="${{ inputs.tag }}-${{ github.run_number }}"
+          escaped_new_string=$(sed 's/v/\\v/g' <<< "$new_string")
+          sed -i 's/'"$old_string"'/'"$escaped_new_string"'/g' "$file"
+
       - name: Set Up Java
         uses: actions/setup-java@v3.12.0
         with:

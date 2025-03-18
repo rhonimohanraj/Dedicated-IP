@@ -2,6 +2,17 @@ name: "Dedicated-IP App build release"
 
 on:
     workflow_dispatch:
+        inputs:
+            tag:
+                description: "Tag to release"
+                required: true
+                default: "v1.0.0"
+                type: string
+            asset_upload_url:
+                description: "Upload URL for the release"
+                required: true
+                default: "https://uploads.github.com/repos/AshkanYarmoradi/releases/v1.0.0/assets{?name,label}"
+                type: string
     workflow_call:
         inputs:
             tag:

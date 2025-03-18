@@ -75,7 +75,7 @@ jobs:
         working-directory: app
 
       - name: Build appBundle
-        run: flutter build appbundle
+        run: flutter build appbundle --release
         working-directory: app
 
       - name: Upload Artifacts

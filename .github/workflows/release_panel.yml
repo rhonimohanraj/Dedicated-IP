@@ -1,8 +1,19 @@
 name: Dedicated-IP Panel build release
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+  workflow_call:
+      inputs:
+          tag:
+              description: "Tag to release"
+              required: true
+              default: "v1.0.0"
+              type: string
+          asset_upload_url:
+              description: "Upload URL for the release"
+              required: true
+              default: "https://uploads.github.com/repos/AshkanYarmoradi/releases/v1.0.0/assets{?name,label}"
+              type: string
 
 permissions:
   contents: write
@@ -30,9 +41,7 @@ jobs:
     # get the source code
     - uses: actions/checkout@v4
 
-    # set environment
-    - name: Set APP_VERSION env
-      run: echo "APP_VERSION=$(echo ${GITHUB_REF} | rev | cut -d'/' -f 1 | rev )" >> $GITHUB_ENV
+    # set environment variables
     - name: Set BUILD_TIME env
       run: echo "BUILD_TIME=$(date)" >> $GITHUB_ENV
 
@@ -60,7 +69,7 @@ jobs:
         pre_command: export CGO_ENABLED=0
         binary_name: "wireguard-ui"
         build_flags: -v
-        ldflags: -X "main.appVersion=${{ env.APP_VERSION }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
+        ldflags: -X "main.appVersion=${{ inputs.tag }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
         project_path: './panel/'
 
   upload-R2:
@@ -69,14 +78,11 @@ jobs:
     needs: [releases-matrix]
     environment: 'Production'
     steps:
-      - name: Set APP_VERSION env
-        run: echo "APP_VERSION=$(echo ${GITHUB_REF} | rev | cut -d'/' -f 1 | rev )" >> $GITHUB_ENV
-
       - name: Download releases
         uses: robinraju/release-downloader@v1
         with:
           fileName: '*'
-          tag: '${{ env.APP_VERSION }}'
+          tag: '${{ inputs.tag }}'
 
       - name: Upload to R2
         uses: ryand56/r2-upload-action@latest
@@ -86,4 +92,4 @@ jobs:
           r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           r2-bucket: ${{ secrets.R2_BUCKET }}
           source-dir: ./
-          destination-dir: ./panel/${{ env.APP_VERSION }}/
+          destination-dir: ./panel/${{ inputs.tag }}/

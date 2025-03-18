@@ -1,4 +1,5 @@
 name: Dedicated-IP Panel build release
+run-name: Dedicated-IP Panel ${{ inputs.tag }}
 
 on:
   workflow_dispatch:

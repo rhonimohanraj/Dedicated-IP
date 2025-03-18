@@ -1,4 +1,5 @@
 name: "Dedicated-IP release"
+run-name: "Dedicated-IP ${{ inputs.tag }}"
 
 on:
     workflow_dispatch:

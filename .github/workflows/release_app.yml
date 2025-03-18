@@ -36,8 +36,8 @@ jobs:
           draft: false
           prerelease: false
 
-  build_macos:
-    name: Build & Release on MacOS
+  build_linux:
+    name: Build & Release on Linux
     needs: release
     runs-on: macos-latest
     environment: production
@@ -81,15 +81,6 @@ jobs:
         run: flutter build appbundle
         working-directory: app
 
-      - name: Build IPA
-        run: flutter build ipa --no-codesign
-        working-directory: app
-
-      - name: Compress Archives and IPAs
-        run: |
-          cd app/build
-          tar -czf ios_build.tar.gz ios
-
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -97,7 +88,6 @@ jobs:
           path: |
             app/build/app/outputs/flutter-apk/app-release.apk
             app/build/app/outputs/bundle/release/app-release.aab
-            app/build/ios_build.tar.gz
 
       - name: Upload Release Asset APK
         uses: actions/upload-release-asset@v1
@@ -118,6 +108,59 @@ jobs:
           asset_path: ./app/build/app/outputs/bundle/release/app-release.aab
           asset_name: app-release-${{ needs.release.outputs.tag_name }}-${{ github.run_number }}.aab
           asset_content_type: application/vnd.android.package-archive
+
+  build_macos:
+    name: Build & Release on MacOS
+    needs: release
+    runs-on: macos-latest
+    environment: production
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Java
+        uses: actions/setup-java@v3.12.0
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+
+      - name: Set Up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.2'
+          channel: 'stable'
+
+      - name: Install Dependencies
+        run: flutter pub get
+        working-directory: app
+
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > app/android/app/keystore.jks
+
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > app/android/key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/key.properties
+          echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/key.properties
+          echo "storeFile=keystore.jks" >> app/android/key.properties
+
+      - name: Build IPA
+        run: flutter build ipa --no-codesign
+        working-directory: app
+
+      - name: Compress Archives and IPAs
+        run: |
+          cd app/build
+          tar -czf ios_build.tar.gz ios
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Releases
+          path: |
+            app/build/ios_build.tar.gz
 
       - name: Upload Release Asset IPA
         uses: actions/upload-release-asset@v1

@@ -49,27 +49,22 @@ jobs:
         goarm:
           - 7
     steps:
-    # get the source code
     - uses: actions/checkout@v4
 
-    # set environment variables
     - name: Set BUILD_TIME env
       run: echo "BUILD_TIME=$(date)" >> $GITHUB_ENV
 
-    # setup node
     - uses: actions/setup-node@v4
       with:
         node-version: '20'
         registry-url: 'https://registry.npmjs.org'
 
-    # prepare assets
     - name: Prepare assets
       run: |
         cd ./panel
         chmod +x ./prepare_assets.sh
         ./prepare_assets.sh
 
-    # build and make the releases
     - name: Build and make the releases
       uses: wangyoucao577/go-release-action@master
       with:
@@ -83,6 +78,8 @@ jobs:
         ldflags: -X "main.appVersion=${{ inputs.tag }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
         project_path: './panel/'
         release_tag: ${{ inputs.tag }}
+        overwrite: true
+
 
   upload-R2:
     name: Upload assets to R2

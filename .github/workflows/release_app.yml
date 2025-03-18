@@ -9,6 +9,9 @@ permissions:
 
 jobs:
   release:
+    strategy:
+      matrix:
+        steps: [1]
     runs-on: ubuntu-latest
     permissions:
       contents: write

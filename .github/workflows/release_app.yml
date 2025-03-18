@@ -1,7 +1,8 @@
 name: "Dedicated-IP App build release"
 
 on:
-    workflow_dispatch:
+    release:
+        types: [created]
 
 permissions:
     contents: write

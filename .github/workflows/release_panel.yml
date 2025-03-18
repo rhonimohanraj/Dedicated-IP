@@ -1,7 +1,8 @@
 name: Dedicated-IP Panel build release
 
 on:
-  workflow_dispatch:
+  release:
+    types: [created]
 
 permissions:
   contents: write
@@ -63,8 +64,6 @@ jobs:
         build_flags: -v
         ldflags: -X "main.appVersion=${{ env.APP_VERSION }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
         project_path: './panel/'
-
-
 
   upload-R2:
     name: Upload assets to R2

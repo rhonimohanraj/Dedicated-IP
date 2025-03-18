@@ -108,7 +108,7 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           fileName: '*'
-          tag: '${{ inputs.tag }}'
+          tag: '${{ inputs.tag }}-${{ github.run_number }}'
 
       - name: Upload to R2
         uses: ryand56/r2-upload-action@latest

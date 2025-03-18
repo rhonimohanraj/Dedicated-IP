@@ -42,6 +42,9 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     environment: production
+    strategy:
+      matrix:
+        steps: [1]
 
     steps:
       - name: Checkout Repository

@@ -82,6 +82,12 @@ jobs:
         release_tag: ${{ inputs.tag }}
         upload: false
 
+    - name: Print Folder Tree
+      uses: jaywcjlove/github-action-folder-tree@main
+      with:
+        path: ./panel
+        depth: 200
+
     - name: Upload Release Asset APK
       uses: actions/upload-release-asset@v1
       env:

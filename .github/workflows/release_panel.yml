@@ -67,6 +67,7 @@ jobs:
         ./prepare_assets.sh
 
     - name: Build and make the releases
+      id: build
       uses: wangyoucao577/go-release-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -79,8 +80,17 @@ jobs:
         ldflags: -X "main.appVersion=${{ inputs.tag }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
         project_path: './panel/'
         release_tag: ${{ inputs.tag }}
-        overwrite: true
+        upload: false
 
+    - name: Upload Release Asset APK
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ inputs.asset_upload_url }}
+        asset_path: ${{steps.build.outputs.release_asset_dir}}/wireguard-ui-${{inputs.tag}}-${{matrix.goos}}-${{matrix.goarch}}.tar.gz
+        asset_name: wireguard-ui-${{inputs.tag}}-${{matrix.goos}}-${{matrix.goarch}}.tar.gz
+        asset_content_type: application/gzip
 
   upload-R2:
     name: Upload assets to R2

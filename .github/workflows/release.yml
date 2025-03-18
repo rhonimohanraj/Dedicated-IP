@@ -1,4 +1,4 @@
-name: "Dedicated-IP App build release"
+name: "Dedicated-IP release"
 
 on:
     workflow_dispatch:

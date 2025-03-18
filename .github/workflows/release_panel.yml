@@ -78,7 +78,7 @@ jobs:
         binary_name: "wireguard-ui"
         build_flags: -v
         ldflags: -X "main.appVersion=${{ inputs.tag }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
-        project_path: './panel/'
+        project_path: './panel'
         release_tag: ${{ inputs.tag }}
         upload: false
 

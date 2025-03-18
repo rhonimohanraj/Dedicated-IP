@@ -71,6 +71,7 @@ jobs:
         build_flags: -v
         ldflags: -X "main.appVersion=${{ inputs.tag }}" -X "main.buildTime=${{ env.BUILD_TIME }}" -X main.gitCommit=${{ github.sha }} -X main.gitRef=${{ github.ref }}
         project_path: './panel/'
+        release_tag: ${{ inputs.tag }}
 
   upload-R2:
     name: Upload assets to R2

@@ -49,6 +49,7 @@ jobs:
               prerelease: false
     
     release_app:
+        secrets: inherit
         needs: release
         strategy:
           matrix:
@@ -59,6 +60,7 @@ jobs:
             asset_upload_url: ${{ needs.release.outputs.upload_url }}
 
     release_panel:
+        secrets: inherit
         needs: release
         strategy:
           matrix:

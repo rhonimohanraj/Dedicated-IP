@@ -39,7 +39,7 @@ jobs:
   build_linux:
     name: Build & Release on Linux
     needs: release
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     environment: production
 
     steps:

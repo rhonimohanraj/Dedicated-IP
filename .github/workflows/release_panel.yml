@@ -94,7 +94,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ inputs.asset_upload_url }}
-        asset_path: ${{steps.build.outputs.release_asset_dir}}/wireguard-ui-${{inputs.tag}}-${{matrix.goos}}-${{matrix.goarch}}.tar.gz
+        asset_path: ./panel/wireguard-ui-${{inputs.tag}}-${{matrix.goos}}-${{matrix.goarch}}.tar.gz
         asset_name: wireguard-ui-${{inputs.tag}}-${{matrix.goos}}-${{matrix.goarch}}.tar.gz
         asset_content_type: application/gzip
 

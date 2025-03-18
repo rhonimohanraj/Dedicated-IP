@@ -61,14 +61,14 @@ jobs:
 
       - name: Decode Keystore
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > app/android/app/keystore.jks
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > app/android/app/keystore.keystore
 
       - name: Create key.properties
         run: |
           echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > app/android/key.properties
           echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> app/android/key.properties
           echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> app/android/key.properties
-          echo "storeFile=keystore.jks" >> app/android/key.properties
+          echo "storeFile=keystore.keystore" >> app/android/key.properties
 
       - name: Build APK
         run: flutter build apk --release

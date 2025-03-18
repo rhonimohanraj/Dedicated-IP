@@ -1,0 +1,68 @@
+name: "Dedicated-IP App build release"
+
+on:
+    workflow_dispatch:
+        inputs:
+            tag:
+                description: "Tag to release"
+                required: true
+                default: "v1.0.0"
+                type: string
+    workflow_call:
+        inputs:
+            tag:
+                description: "Tag to release"
+                required: true
+                default: "v1.0.0"
+                type: string
+
+permissions:
+    contents: write
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        permissions:
+          contents: write
+        outputs:
+          tag_name: ${{ steps.calculate_tag_name.outputs.tag }}
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+            with:
+              fetch-depth: 0
+          - name: Calculate Tag Name
+            id: calculate_tag_name
+            run: |
+              echo "tag=$(git describe --tags --abbrev=0  | cut -d "-" -f 1)" >> "$GITHUB_OUTPUT"
+          - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              tag_name: ${{ inputs.tag }}-${{ github.run_number }}
+              release_name: Release ${{ inputs.tag }}-${{ github.run_number }}
+              draft: false
+              prerelease: false
+    
+    release_app:
+        needs: release
+        strategy:
+          matrix:
+            steps: [1]
+        uses: ./.github/workflows/release_app.yml
+        with:
+            tag: ${{ needs.release.outputs.tag_name }}
+            asset_upload_url: ${{ needs.release.outputs.upload_url }}
+
+    release_panel:
+        needs: release
+        strategy:
+          matrix:
+            steps: [1]
+        uses: ./.github/workflows/release_panel.yml
+        with:
+            tag: ${{ needs.release.outputs.tag_name }}
+            asset_upload_url: ${{ needs.release.outputs.upload_url }}

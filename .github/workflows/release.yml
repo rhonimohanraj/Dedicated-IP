@@ -1,5 +1,5 @@
 name: "Dedicated-IP release"
-run-name: "Dedicated-IP ${{ inputs.tag }}"
+run-name: "Dedicated-IP ${{ inputs.tag }}-${{ github.run_number }}"
 
 on:
     workflow_dispatch:

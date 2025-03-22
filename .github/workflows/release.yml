@@ -18,7 +18,8 @@ on:
                 type: string
 
 permissions:
-    contents: write
+  actions: read
+  contents: write
 
 jobs:
     release:

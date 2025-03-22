@@ -3,3 +3,12 @@
 -dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter$Error
 -dontwarn com.stripe.android.pushProvisioning.PushProvisioningActivityStarter
 -dontwarn com.stripe.android.pushProvisioning.PushProvisioningEphemeralKeyProvider
+
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Args { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Args$Builder { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Result { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Canceled { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Companion { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Failure { *; }
+-keep class com.stripe.android.view.AddPaymentMethodActivityStarter$Result$Success { *; }

@@ -46,7 +46,7 @@ dependencies:
   device_info_plus: ^11.3.0
 
   #Stripe For Subscription
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^2.4.4
   webview_flutter: ^4.4.4
 
   country_flags: ^3.2.0

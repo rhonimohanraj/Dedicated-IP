@@ -28,6 +28,9 @@ jobs:
         steps: [1]
 
     steps:
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v2
+
       - name: Checkout Repository
         uses: actions/checkout@v3
 

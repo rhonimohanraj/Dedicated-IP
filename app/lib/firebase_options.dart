@@ -87,7 +87,6 @@ class DefaultFirebaseOptions {
     projectId: 'dedicated-ip-production',
     authDomain: 'dedicated-ip-production.firebaseapp.com',
     storageBucket: 'dedicated-ip-production.firebasestorage.app',
-    measurementId: 'G-5PPBV9ZKMM',
   );
 
 }

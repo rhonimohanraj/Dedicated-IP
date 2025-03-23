@@ -39,7 +39,7 @@ jobs:
         run: |
           file="./app/pubspec.yaml"
           old_string="1.0.0+1"
-          new_string="${{ inputs.tag }}"
+          new_string="${{ inputs.tag }}+${{ github.run_number }}"
           escaped_new_string="${new_string/v/ }"
           sed -i 's/'"$old_string"'/'"$escaped_new_string"'/g' "$file"
 

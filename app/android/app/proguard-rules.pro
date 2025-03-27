@@ -1,3 +1,4 @@
 -keep class com.stripe.** { *; }
 -keep class com.stripe.android.** { *; }
+-keep class io.flutter.embedding.** { *; }
 -dontwarn com.stripe.android.**

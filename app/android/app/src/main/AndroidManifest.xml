@@ -25,12 +25,9 @@
 
     <activity
       android:name=".StripeCheckoutActivity"
-      android:exported="false"
+      android:exported="true"
       android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
-    <meta-data
-      android:name="com.stripe.android.publishableKey"
-      android:value="YOUR_STRIPE_PUBLISHABLE_KEY" />
     <meta-data
       android:name="flutterEmbedding"
       android:value="2" />

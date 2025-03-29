@@ -2,6 +2,8 @@ package net.dedicated_ip.app
 
 import android.os.Bundle
 import android.util.Log
+import android.app.Application
+import com.stripe.android.PaymentConfiguration
 import com.stripe.android.paymentsheet.PaymentSheet
 import com.stripe.android.paymentsheet.PaymentSheetResult
 import io.flutter.embedding.android.FlutterFragmentActivity
@@ -24,6 +26,12 @@ class StripeCheckoutActivity : FlutterFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val stripePublishableKey = "pk_live_51QzxZUIRL6vuzqQIlLi8CXpGs0N4eX5MaTem3UNZhiqgvovzlLJyXMP1dQgoNsn2KZBGWwSeMK1blK0uWk0qssqK00Wjq5GXT6"
+
+        PaymentConfiguration.init(
+          applicationContext,
+          stripePublishableKey
+        )
         paymentSheet = PaymentSheet(this, ::onPaymentSheetResult)
 
         clientSecret = intent.getStringExtra(EXTRA_CLIENT_SECRET)

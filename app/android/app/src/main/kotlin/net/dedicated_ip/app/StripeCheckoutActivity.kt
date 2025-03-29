@@ -79,6 +79,5 @@ class StripeCheckoutActivity : FlutterFragmentActivity() {
 
             }
         }
-        finish()
     }
 }

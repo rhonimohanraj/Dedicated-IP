@@ -1,3 +1,3 @@
 -keep class com.stripe.** { *; }
--keep class com.stripe.android.** { *; }
--dontwarn com.stripe.android.**
+-keep interface com.stripe.** { *; }
+-dontwarn com.stripe.**

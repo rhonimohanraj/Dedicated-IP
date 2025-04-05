@@ -19,6 +19,11 @@ export async function updateStripeId(userId: string, customerId: string): Promis
   await userDoc.set({stripeUid: customerId}, {merge: true});
 }
 
+export async function updateMollieId(userId: string, customerId: string): Promise<void> {
+  const userDoc = db.collection("users").doc(userId);
+  await userDoc.set({mollieUid: customerId}, {merge: true});
+}
+
 export async function getrivateKeyForServer(userId: string, domainName: string): Promise<string> {
   const userDoc = db.collection("users").doc(userId);
   const serverDoc = userDoc.collection("servers");

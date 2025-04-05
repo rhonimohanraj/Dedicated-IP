@@ -25,10 +25,10 @@ export async function updateProductsStripe(): Promise<void> {
   for (const product of products.products) {
     let price: any;
     try {
-      price = await stripe.prices.retrieve(product.stripePriceId);
+      price = await stripe.prices.retrieve(product.id);
     } catch (e) {
-      product.stripePriceId = await createPrice(product);
-      price = await stripe.prices.retrieve(product.stripePriceId);
+      product.id = await createPrice(product);
+      price = await stripe.prices.retrieve(product.id);
     }
 
     if (!price) {
@@ -39,7 +39,7 @@ export async function updateProductsStripe(): Promise<void> {
     if (price.unit_amount !== product.discountPrice * 100) {
       console.error(`Price for product ${product.id} is outdated.`);
       price.unit_amount = product.discountPrice * 100;
-      await stripe.prices.update(product.stripePriceId, {
+      await stripe.prices.update(product.id, {
         active: false,
       });
       price = await stripe.prices.create({
@@ -57,7 +57,7 @@ export async function updateProductsStripe(): Promise<void> {
       });
     }
 
-    product.stripePriceId = price.id;
+    product.id = price.id;
   }
 
   productsParam = JSON.stringify(products);
@@ -76,7 +76,7 @@ export async function updateProductsStripe(): Promise<void> {
   });
 
   for (const price of priceList.data) {
-    if (!products.products.find((product) => product.stripePriceId === price.id)) {
+    if (!products.products.find((product) => product.id === price.id)) {
       await stripe.prices.update(price.id, {
         active: false,
       });
@@ -165,14 +165,14 @@ export async function createCheckoutSession(
     mode: "subscription",
     line_items: [
       {
-        price: product.stripePriceId,
+        price: product.id,
         quantity: 1,
       },
     ],
     customer: customerId,
     metadata: {
       uid: userId,
-      priceId: product.stripePriceId,
+      priceId: product.id,
       serverName: serverName ?? "",
     },
     success_url: "https://d.dedicated-ip.net/d/servers?payment=success",
@@ -207,14 +207,14 @@ export async function createSubscription(
   const subscription = await stripe.subscriptions.create({
     items: [
       {
-        price: product.stripePriceId,
+        price: product.id,
         quantity: 1,
       },
     ],
     customer: customerId,
     metadata: {
       uid: userId,
-      priceId: product.stripePriceId,
+      priceId: product.id,
       serverName: serverName ?? "",
     },
     payment_settings: {

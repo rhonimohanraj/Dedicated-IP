@@ -1,97 +1,31 @@
 // functions/src/webhooks/stripe.webhook.ts
 import {onRequest} from "firebase-functions/https";
-import Stripe from "stripe";
-import {handleCheckoutCompleted, handleInvoiceCompleted} from "../services/stripe.service";
 import {createServer, updateServerStatusBySubscription} from "../services/server.service";
-import {createStripeClient} from "../config/stripe.config";
-import {getRemoteServerConfigValue} from "../config/remote.config";
-import {db} from "../config/firebase.config";
+import {EnumPaymentDecision, validatePaymentAndCreateSubscription} from "../services/mollie.service";
 
 export const onPaymentWebhook = onRequest(async (req, res) => {
   try {
-    const sig = req.headers["stripe-signature"] as string;
+    const requestId = req.body.id;
 
-    let event: Stripe.Event;
+    const result = await validatePaymentAndCreateSubscription(
+      requestId);
 
-    try {
-      const stripe = await createStripeClient();
-      const stripeEndpointSecret = await getRemoteServerConfigValue("Stripe_Endpoint_Secret");
-      event = stripe.webhooks.constructEvent(req.rawBody, sig, stripeEndpointSecret);
-    } catch (err: any) {
-      res.status(400).send(`Webhook Error: ${err.message}`);
-      return;
-    }
-
-    switch (event.type) {
-    case "checkout.session.completed": {
-      const eventData = event.data.object as Stripe.Checkout.Session;
-      const checkoutCompletedResult = await handleCheckoutCompleted(eventData);
-      if (!handleCheckoutCompleted) {
-        break;
-      }
-
-      type CheckoutCompletedResult = {
-          uid: string;
-          serverName: string;
-          priceId?: string;
-          subscription: string;
-      };
-
-      const {uid, serverName, priceId, subscription} = checkoutCompletedResult as CheckoutCompletedResult;
-      if (!uid || !subscription || !priceId) {
-        break;
-      }
-
-      const querySnapshot = await db.collectionGroup("servers")
-        .where("subscription", "==", subscription)
-        .get();
-
-      if (!querySnapshot.empty) {
-        break;
-      }
-
-      await createServer(uid, priceId, subscription, serverName);
-      await updateServerStatusBySubscription(subscription.toString(), "pending");
+    switch (result.decision) {
+    case EnumPaymentDecision.CreateServer: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      await createServer(result.userId!, result.productId!, result.subscriptionId!, result.serverName!);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      await updateServerStatusBySubscription(result.subscriptionId!, "active");
       break;
     }
-    case "invoice.payment_succeeded": {
-      const eventData = event.data.object as Stripe.Invoice;
-      const checkoutCompletedResult = await handleInvoiceCompleted(eventData);
-      if (!handleCheckoutCompleted) {
-        break;
-      }
-
-        type CheckoutCompletedResult = {
-          uid: string;
-          serverName: string;
-          priceId?: string;
-          subscription: string;
-        };
-
-        const {uid, serverName, priceId, subscription} = checkoutCompletedResult as CheckoutCompletedResult;
-        if (!uid || !subscription || !priceId) {
-          break;
-        }
-
-        const querySnapshot = await db.collectionGroup("servers")
-          .where("subscription", "==", subscription)
-          .get();
-
-        if (!querySnapshot.empty) {
-          break;
-        }
-
-        await createServer(uid, priceId, subscription, serverName);
-        await updateServerStatusBySubscription(subscription.toString(), "pending");
-        break;
-    }
-    case "customer.subscription.deleted": {
-      const eventData = event.data.object as Stripe.Subscription;
-      await updateServerStatusBySubscription(eventData.id, "deleting");
+    case EnumPaymentDecision.DeleteServer: {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      await updateServerStatusBySubscription(result.subscriptionId!, "deleting");
       break;
     }
-    default:
-      console.log(`Unhandled event type ${event.type}`);
+    case EnumPaymentDecision.NothingImportant: {
+      break;
+    }
     }
 
     res.status(200).send("OK");

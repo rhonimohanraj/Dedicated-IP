@@ -18,7 +18,7 @@ import DocumentData = firestore.DocumentData;
 
 export async function createServer(
   uid: string,
-  priceId: string,
+  productId: string,
   subscription: string,
   serverName?: string
 ): Promise<string> {
@@ -27,7 +27,7 @@ export async function createServer(
   ) as ProductDto;
 
   const filteredProducts = products.products.filter(
-    (product) => product.stripePriceId === priceId
+    (product) => product.id === productId
   );
 
   if (filteredProducts.length === 0) {

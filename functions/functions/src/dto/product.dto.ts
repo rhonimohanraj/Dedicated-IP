@@ -17,6 +17,5 @@ export interface Product {
     datacenter: string
     datacenterProvider: string
   },
-  stripePriceId: string
   features: string[]
 }

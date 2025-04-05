@@ -27,7 +27,7 @@ class Product {
   String description;
   String server;
   Location location;
-  String stripePriceId;
+  String id;
   List<String> features;
 
   Product({
@@ -39,7 +39,7 @@ class Product {
     required this.description,
     required this.server,
     required this.location,
-    required this.stripePriceId,
+    required this.id,
     required this.features,
   });
 
@@ -53,7 +53,7 @@ class Product {
       description: json['description'],
       server: json['server'],
       location: Location.fromJson(json['location']),
-      stripePriceId: json['stripePriceId'],
+      id: json['id'],
       features: List<String>.from(json['features']),
     );
   }
@@ -68,7 +68,7 @@ class Product {
       'description': description,
       'server': server,
       'location': location.toJson(),
-      'stripePriceId': stripePriceId,
+      'id': id,
       'features': features,
     };
   }

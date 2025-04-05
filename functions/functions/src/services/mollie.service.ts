@@ -1,4 +1,4 @@
-// functions/src/services/stripe.service.ts
+// functions/src/services/mollie.service.ts
 import {HttpsError} from "firebase-functions/v1/https";
 import {getProduct} from "./product.service";
 import {getUser, updateMollieId} from "./user.service";
@@ -16,7 +16,7 @@ export async function createFirstPaymentSession(
 
   const product = await getProduct(productId);
 
-  let customerId = userData.stripeUid as string;
+  let customerId = userData.mollieUid as string;
 
   if (!customerId) {
     customerId = await createCustomer(userData.displayName, userData.email, userId);

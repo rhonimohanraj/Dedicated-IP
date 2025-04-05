@@ -79,7 +79,7 @@ export async function validatePaymentAndCreateSubscription(
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const customerId = payment.customerId!;
 
-  if (userData.mollieUid != payment.id) {
+  if (userData.mollieUid != customerId) {
     throw new HttpsError("internal", "Customer not found");
   }
 

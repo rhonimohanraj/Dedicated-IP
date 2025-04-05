@@ -30,7 +30,7 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
 
     res.status(200).send("OK");
   } catch (error: any) {
-    console.error("Error in onStripeWebhook:", error);
+    console.error("Error in onMollieWebhook:", error);
     res.status(500).send(error.message || "Internal Server Error"); // Send error message to client
   }
 });

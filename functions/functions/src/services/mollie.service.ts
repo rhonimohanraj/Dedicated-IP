@@ -182,6 +182,18 @@ export async function cancelSubscription(
     throw new HttpsError("internal", "Server not found");
   }
 
+  const parent = querySnapshot.docs[0].ref.parent.parent;
+
+  const user = await parent.get();
+
+  if (!user.exists) {
+    throw new Error("User not found.");
+  }
+
+  if (user.data()?.uid !== userId) {
+    throw new Error("User not found.");
+  }
+
   const mollie = await createMollieClient();
 
   await mollie.customerSubscriptions.cancel(server.subscription, {

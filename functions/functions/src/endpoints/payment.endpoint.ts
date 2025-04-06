@@ -3,7 +3,7 @@ import {onCall} from "firebase-functions/https";
 import {FailedPreconditionError, UnauthenticatedError} from "../utils/errors";
 import {HttpsError} from "firebase-functions/v1/https";
 import {generateName, getRandomInt} from "../utils/helpers";
-import {createFirstPaymentSession} from "../services/mollie.service";
+import {cancelSubscription, createFirstPaymentSession} from "../services/mollie.service";
 
 export const onCreatePaymentLink = onCall(
   {
@@ -37,6 +37,38 @@ export const onCreatePaymentLink = onCall(
       );
 
       return {url: session._links?.checkout?.href};
+    } catch (e: any) {
+      if (e instanceof HttpsError) {
+        throw e;
+      }
+      throw new FailedPreconditionError(e.message);
+    }
+  }
+);
+
+export const onDeleteSubscription = onCall(
+  {
+    enforceAppCheck: true,
+    consumeAppCheckToken: true,
+  },
+  async (request) => {
+    try {
+      if (!request.auth) {
+        throw new UnauthenticatedError(
+          "The function must be called while authenticated."
+        );
+      }
+
+      const serverName = request.data.serverName;
+
+      if (!serverName) {
+        throw new Error("Server name is required");
+      }
+
+      await cancelSubscription(
+        request.auth.uid,
+        serverName,
+      );
     } catch (e: any) {
       if (e instanceof HttpsError) {
         throw e;

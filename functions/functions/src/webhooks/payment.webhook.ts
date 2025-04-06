@@ -15,7 +15,7 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       await createServer(result.userId!, result.productId!, result.subscriptionId!, result.serverName!);
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      await updateServerStatusBySubscription(result.subscriptionId!, "active");
+      await updateServerStatusBySubscription(result.subscriptionId!, "pending");
       break;
     }
     case EnumPaymentDecision.DeleteServer: {

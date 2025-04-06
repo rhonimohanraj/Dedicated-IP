@@ -10,8 +10,6 @@ export const onPaymentWebhook = onRequest(async (req, res) => {
     const result = await validatePaymentAndCreateSubscription(
       requestId);
 
-    console.log("Payment result", result);
-
     switch (result.decision) {
     case EnumPaymentDecision.CreateServer: {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

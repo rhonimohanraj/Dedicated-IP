@@ -115,7 +115,7 @@ export async function validatePaymentAndCreateSubscription(
         serverName: serverName ?? "",
       },
       amount: {
-        value: product.price.toFixed(2),
+        value: product.discountPrice.toFixed(2),
         currency: "EUR",
       },
       webhookUrl: "https://pf.dedicated-ip.net/",

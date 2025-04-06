@@ -87,7 +87,7 @@ export async function validatePaymentAndCreateSubscription(
     throw new HttpsError("internal", "Customer not found");
   }
 
-  if (payment.status === PaymentStatus.paid && payment.subscriptionId === null) {
+  if (payment.status === PaymentStatus.paid && !payment.subscriptionId) {
     const querySnapshot = await db.collectionGroup("servers")
       .where("name", "==", serverName)
       .get();
@@ -115,12 +115,12 @@ export async function validatePaymentAndCreateSubscription(
         serverName: serverName ?? "",
       },
       amount: {
-        value: product.price.toFixed(),
+        value: product.price.toFixed(2),
         currency: "EUR",
       },
       webhookUrl: "https://pf.dedicated-ip.net/",
       description: product.description,
-      interval: `${product.duration}`,
+      interval: `1 ${product.duration}`,
     });
 
     if (!subscription) {

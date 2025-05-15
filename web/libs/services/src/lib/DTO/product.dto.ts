@@ -5,7 +5,7 @@ export interface ProductDto {
 export interface Product {
   id: string
   title: string
-  duration: string;
+  duration: string
   price: number
   discountPrice: number
   description: string
@@ -16,6 +16,5 @@ export interface Product {
     city: string
     datacenter: string
   },
-  id: string
   features: string[]
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, signal } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef, signal, inject } from '@angular/core';
 import {NavigationEnd, Router, RouterLink} from '@angular/router';
 
 import { MENU } from './menu';
@@ -6,8 +6,9 @@ import { MenuItem } from './menu.model';
 import {SimplebarAngularModule} from "simplebar-angular";
 import {NgClass} from "@angular/common";
 import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
-import {FirestoreService} from "@dedicated-ip/service";
+import { FirestoreService, FunctionService } from '@dedicated-ip/service';
 import {injectQueryClient, QueryObserver} from "@tanstack/angular-query-experimental";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,7 +28,7 @@ export class SidebarComponent implements OnInit {
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(private router: Router, private fireStore: FirestoreService) {}
+  constructor(private router: Router, private fireStore: FirestoreService, private functionService: FunctionService) {}
 
   ngOnInit(): void {
     const unsubscribe = new QueryObserver(this.queryClient, this.fireStore.GetServerQuery()).subscribe(result => {
@@ -45,6 +46,30 @@ export class SidebarComponent implements OnInit {
                   label: 'Control Panel',
                   click: () => {
                     this.openControlPanel(server.domain, server.username, server.password);
+                  }
+                },
+                {
+                  label: 'Cancel Subscription',
+                  click: () => {
+                    Swal.fire({
+                      title: `Cancel dedicated ip ${server.name}`,
+                      text: 'You want to cancel this dedicated ip, Are you sure? You will not be able to recover this!',
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#364574',
+                      cancelButtonColor: 'rgb(243, 78, 78)',
+                      confirmButtonText: 'Yes, Cancel it!'
+                    }).then(async result => {
+                      if (result.value) {
+                        try{
+
+                          await this.functionService.onDeleteSubscription(server.name);
+                          Swal.fire({title: 'Deleted!', text:'Your Dedicated-IP has been Canceled.', confirmButtonColor: '#364574',icon: 'success',});
+                        } catch (e: any) {
+                          Swal.fire({title: 'Warning!', text:e.message, confirmButtonColor: 'rgb(243, 78, 78)',icon: 'warning',});
+                        }
+                      }
+                    });
                   }
                 }
               ]
@@ -83,6 +108,10 @@ export class SidebarComponent implements OnInit {
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
+  }
+
+  removeSubscription(domain: string, createdAt: Date): void {
+    Swal.fire({text:'Any fool can use a computer',confirmButtonColor: '#364574',});
   }
 
   /***

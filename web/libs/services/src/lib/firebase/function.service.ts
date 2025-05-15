@@ -39,6 +39,12 @@ export class FunctionService {
     }>;
   }
 
+  onDeleteSubscription = async (serverName: string): Promise<HttpsCallableResult> => {
+    const onDeleteSubscription = httpsCallable(this.function, 'onDeleteSubscription',
+      { limitedUseAppCheckTokens: true });
+    return await onDeleteSubscription({serverName}) as HttpsCallableResult;
+  }
+
   reverseProxy = async (domainName: string, functionName:string, body: any): Promise<HttpsCallableResult<string>> => {
     const reverseProxy = httpsCallable(this.function, 'onReverseProxy',
       { limitedUseAppCheckTokens: true });

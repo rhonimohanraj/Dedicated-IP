@@ -169,7 +169,6 @@ export async function cancelSubscription(
 
   const querySnapshot = await db.collectionGroup("servers")
     .where("name", "==", serverName)
-    .where("status", "==", "active")
     .get();
 
   if (querySnapshot.empty) {

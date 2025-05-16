@@ -36,7 +36,7 @@ export async function createFirstPaymentSession(
     webhookUrl: "https://pf.dedicated-ip.net/",
     description: product.description,
     amount: {
-      value: "0.01",
+      value: product.discountPrice.toFixed(2),
       currency: "EUR",
     },
     sequenceType: SequenceType.first,

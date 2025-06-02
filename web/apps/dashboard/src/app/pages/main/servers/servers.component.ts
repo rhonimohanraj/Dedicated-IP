@@ -11,6 +11,7 @@ import {NgbPagination} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastService} from "../../../services/toast/toast.service";
+import { AgentService } from '../../../services/agent.service';
 
 @Component({
   selector: 'app-servers',
@@ -21,6 +22,7 @@ import {ToastService} from "../../../services/toast/toast.service";
 export class ServersComponent implements OnInit {
   private readonly firestore = inject(FirestoreService);
   private readonly functionService = inject(FunctionService);
+  public readonly agentService = inject(AgentService);
   public readonly servers = injectQuery(() => this.firestore.GetServerQuery());
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
@@ -62,27 +64,6 @@ export class ServersComponent implements OnInit {
           }
         }
       )).subscribe();
-  }
-
-  openControlPanel(domain: string, username: string, password: string): void {
-    // create hidden form and submit then delete it
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = domain + '/login';
-    form.target = '_blank';
-    const usernameField = document.createElement('input');
-    usernameField.type = 'text';
-    usernameField.name = 'username';
-    usernameField.value = username;
-    form.appendChild(usernameField);
-    const passwordField = document.createElement('input');
-    passwordField.type = 'password';
-    passwordField.name = 'password';
-    passwordField.value = password;
-    form.appendChild(passwordField);
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
   }
 
   statData = signal<Array<{

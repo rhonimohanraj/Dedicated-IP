@@ -71,12 +71,6 @@ export class TopbarComponent {
     this.toastService.show("Email sent, Check your email for instructions.", { classname: 'bg-success text-white', delay: 15000 });
   }
 
-  async onBillingPortal(): Promise<void> {
-    this.toastService.show("Creating billing portal for you, Please wait.", { classname: 'bg-info text-white', delay: 15000 });
-    const result = await this.functionService.createBillingPortal();
-    window.open(result.data.url, '_self');
-  }
-
   async onLogout(): Promise<void> {
     await this.firebaseService.signOut();
     await this.router.navigate(['/auth/login']);

@@ -83,7 +83,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @for (data of filteredServer().slice((page - 1) * pageSize, page * pageSize); track $index) {
+                  @for (data of filteredServers().slice((page() - 1) * pageSize, page() * pageSize); track $index) {
                     <tr>
                       <td class="flex-shrink-0 me-3">
                         <img class="country-flag img rounded" src="/images/flags/{{data.countryCode}}.svg"
@@ -129,7 +129,7 @@
           </div>
           <div class="d-flex justify-content-center">
             <div class="text-sm-right float-sm-end listjs-pagination gap-2">
-              <ngb-pagination [collectionSize]="filteredServer().length" [(page)]="page" [pageSize]="pageSize">
+              <ngb-pagination [collectionSize]="filteredServers().length" [(page)]="page" [pageSize]="pageSize">
               </ngb-pagination>
             </div>
           </div>

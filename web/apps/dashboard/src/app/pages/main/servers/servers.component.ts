@@ -82,14 +82,6 @@ export class ServersComponent implements OnInit {
     return this.filteredServers().slice((p - 1) * ps, p * ps);
   });
 
-  config = {
-    infinite: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    arrows: false
-  };
-
   statData = signal([
     {
       title: 'TOTAL SERVERS',
@@ -117,7 +109,6 @@ export class ServersComponent implements OnInit {
     },
   ]);
 
-  // Slick Carousel configuration
   slickConfig = {
     infinite: true,
     slidesToShow: 5,

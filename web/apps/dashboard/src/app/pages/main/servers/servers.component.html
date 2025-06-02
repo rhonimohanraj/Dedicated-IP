@@ -31,7 +31,7 @@
         <h5>Your Timeline</h5>
         <div class="horizontal-timeline my-3">
           <div class="swiper timelineSlider" dir="ltr">
-            <ngx-slick-carousel class="carousel space" [config]="config">
+            <ngx-slick-carousel class="carousel space" [config]="slickConfig">
               @for (server of servers.data(); track $index) {
                 <div class="swiper-slide" ngxSlickItem>
                   <div class="card pt-2 border-0 item-box text-center">

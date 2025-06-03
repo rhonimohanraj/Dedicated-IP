@@ -90,6 +90,7 @@ export async function validatePaymentAndCreateSubscription(
   if (payment.status === PaymentStatus.paid && !payment.subscriptionId) {
     const querySnapshot = await db.collectionGroup("servers")
       .where("name", "==", serverName)
+      .where("status", "!=", "deleted")
       .get();
 
     if (!querySnapshot.empty) {

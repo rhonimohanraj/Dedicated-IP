@@ -73,6 +73,51 @@ vpn2.example.com
 
 Edit the files in the `vars` directories to customize the deployment according to your needs.
 
+#### Securing Sensitive Information with Ansible Vault
+
+The variable files contain references to sensitive information like passwords and API tokens. These sensitive values should be stored securely using Ansible Vault.
+
+1. **Create a vault password file** (optional but recommended):
+   ```bash
+   echo "your-secure-vault-password" > ~/.vault_pass.txt
+   chmod 600 ~/.vault_pass.txt
+   ```
+
+2. **Create an encrypted vault file** for each playbook:
+   ```bash
+   # For update-panel
+   cd ansible/update-panel
+   ansible-vault create vault.yml --vault-password-file=~/.vault_pass.txt
+
+   # For wireguard
+   cd ansible/wireguard
+   ansible-vault create vault.yml --vault-password-file=~/.vault_pass.txt
+   ```
+
+3. **Add your sensitive variables** to the vault files:
+   ```yaml
+   # Example vault.yml content
+   vault_admin_panel_password: "your-actual-secure-password"
+   vault_telegram_token: "your-actual-telegram-token"
+   vault_sendgrid_api: "your-actual-sendgrid-api-key"
+   vault_api_key: "your-actual-api-key"
+   ```
+
+4. **Include the vault file** in your playbook:
+   ```yaml
+   # Add to playbook.yml
+   vars_files:
+     - vars/main.yml
+     - vault.yml
+   ```
+
+5. **Run playbooks with the vault password**:
+   ```bash
+   ansible-playbook -i inventory.ini playbook.yml --vault-password-file=~/.vault_pass.txt
+   ```
+
+Never commit actual credentials or vault password files to version control.
+
 ## Roles
 
 ### Panel Update Roles

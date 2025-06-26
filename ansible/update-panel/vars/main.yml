@@ -1,13 +1,17 @@
 ---
-domain_name: "yourdomain.com" 
-ssl_email: "your_email@example.com"
-admin_panel_username: "admin"
-admin_panel_password: "your_secure_password"
+# NOTE: This is a template file. Replace these values with your actual configuration.
+# For security reasons, do not commit actual credentials to version control.
+# Consider using Ansible Vault or environment variables for sensitive information.
+
+domain_name: "example.com" # Replace with your actual domain
+ssl_email: "admin@example.com" # Replace with your actual email
+admin_panel_username: "admin_username" # Replace with your actual username
+admin_panel_password: "{{ vault_admin_panel_password }}" # Use Ansible Vault for passwords
 wireguard_ui_version: "v0.5.6"
 internal_login: "false"
-telegram_token: ""
+telegram_token: "{{ vault_telegram_token }}" # Use Ansible Vault for tokens
 telegram_allow_conf_request: 0
-sendgrid_api: ""
-email_from_address: ""
-email_from_name: ""
-api_key: ""
+sendgrid_api: "{{ vault_sendgrid_api }}" # Use Ansible Vault for API keys
+email_from_address: "noreply@example.com" # Replace with your actual email
+email_from_name: "VPN Service" # Replace with your actual name
+api_key: "{{ vault_api_key }}" # Use Ansible Vault for API keys

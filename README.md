@@ -2,7 +2,7 @@
 
 ## About Dedicated-IP
 
-Dedicated-IP is a comprehensive VPN service that provides users with their own dedicated IP addresses, offering enhanced security, privacy, and reliability compared to traditional shared-IP VPN solutions. Our service is built on WireGuard® technology, delivering faster speeds and stronger encryption while maintaining simplicity and ease of use.
+Dedicated-IP is a comprehensive VPN service that provides users with their own dedicated IP addresses, offering enhanced security, privacy, and reliability compared to traditional shared-IP VPN solutions. Our service is built on WireGuard® technology, delivering faster speeds and stronger encryption while maintaining simplicity and ease of use. As a two-way VPN solution, Dedicated-IP allows you to not only access the internet securely but also remotely access your devices on the VPN from outside networks.
 
 Visit our website at [dedicated-ip.net](https://dedicated-ip.net) to learn more and sign up for our services.
 
@@ -31,6 +31,12 @@ Our applications work seamlessly across all major platforms:
 - Intuitive interfaces designed for both beginners and advanced users
 - One-click connection to your dedicated IP
 - Detailed connection statistics and monitoring
+
+### Two-Way VPN Access
+- Remote access to your devices from anywhere in the world
+- Securely connect to your home or office network while traveling
+- Access files, applications, and services on your private network
+- Perfect for remote work, accessing home media servers, or managing IoT devices
 
 ## Repository Components
 

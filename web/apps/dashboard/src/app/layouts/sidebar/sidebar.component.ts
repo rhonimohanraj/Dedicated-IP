@@ -9,6 +9,7 @@ import {NgbCollapse} from "@ng-bootstrap/ng-bootstrap";
 import { FirestoreService, FunctionService } from '@dedicated-ip/service';
 import {injectQueryClient, QueryObserver} from "@tanstack/angular-query-experimental";
 import Swal from 'sweetalert2';
+import { AgentService } from '../../services/agent.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,6 +23,8 @@ import Swal from 'sweetalert2';
 })
 export class SidebarComponent implements OnInit {
   private readonly queryClient = injectQueryClient();
+
+  public readonly agentService = inject(AgentService);
 
   menuItems = signal<Array<MenuItem>>([]);
   toggle: any = true;
@@ -45,7 +48,7 @@ export class SidebarComponent implements OnInit {
                 {
                   label: 'Control Panel',
                   click: () => {
-                    this.openControlPanel(server.domain, server.username, server.password);
+                    this.agentService.openControlPanel(server.domain, server.username, server.password);
                   }
                 },
                 {
@@ -87,27 +90,6 @@ export class SidebarComponent implements OnInit {
         }
       }
     });
-  }
-
-  openControlPanel(domain: string, username: string, password: string): void {
-    // create hidden form and submit then delete it
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = domain + '/login';
-    form.target = '_blank';
-    const usernameField = document.createElement('input');
-    usernameField.type = 'text';
-    usernameField.name = 'username';
-    usernameField.value = username;
-    form.appendChild(usernameField);
-    const passwordField = document.createElement('input');
-    passwordField.type = 'password';
-    passwordField.name = 'password';
-    passwordField.value = password;
-    form.appendChild(passwordField);
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
   }
 
   removeSubscription(domain: string, createdAt: Date): void {

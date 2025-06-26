@@ -31,8 +31,8 @@
         <h5>Your Timeline</h5>
         <div class="horizontal-timeline my-3">
           <div class="swiper timelineSlider" dir="ltr">
-            <ngx-slick-carousel class="carousel space" [config]="config">
-              @for (server of servers.data().reverse()!; track $index) {
+            <ngx-slick-carousel class="carousel space" [config]="slickConfig">
+              @for (server of servers.data(); track $index) {
                 <div class="swiper-slide" ngxSlickItem>
                   <div class="card pt-2 border-0 item-box text-center">
                     <div class="timeline-content p-3 rounded">
@@ -58,87 +58,99 @@
 
   <div class="col-12">
     <div class="card">
-      <div class="row">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title mb-0">Your servers</h4>
-          </div><!-- end card header -->
+      <div class="card-header">
+        <h4 class="card-title mb-0">Your servers</h4>
+      </div><!-- end card header -->
 
-          <div class="card-body">
+      <div class="card-body">
 
-            <div class="listjs-table" id="pagination-list">
-              <div class="mb-5">
-                <input type="text" class="search form-control" placeholder="Search" [(ngModel)]="term"/>
-              </div>
+        <div class="listjs-table" id="pagination-list">
+          <div class="mb-5">
+            <input type="text" class="search form-control" placeholder="Search" [(ngModel)]="term"/>
+          </div>
 
-              <div class="mx-n3">
-                <div class="table-responsive table-card">
-                  <table class="table">
-                  <thead>
-                  <tr class="bg-light text-muted">
-                    <th>Country</th>
-                    <th>Name</th>
-                    <th>Ip Address</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    @for (data of filteredServer().slice((page - 1) * pageSize, page * pageSize); track $index) {
-                      <tr>
-                          <td class="flex-shrink-0 me-3">
-                              <img class="country-flag img rounded" src="/images/flags/{{data.countryCode}}.svg"
-                                   style="width: 30px;">
-                          </td>
+          <div>
+            <div class="table-responsive table-card">
+              <table class="table">
+                <thead>
+                <tr class="bg-light text-muted">
+                  <th>Country</th>
+                  <th>Name</th>
+                  <th>Ip Address</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  @for (data of filteredServers().slice((page() - 1) * pageSize, page() * pageSize); track $index) {
+                    <tr>
+                      <td class="flex-shrink-0 me-3">
+                        <img class="country-flag img rounded" src="/images/flags/{{data.countryCode}}.svg"
+                             style="width: 30px;"/>
+                      </td>
 
-                          <td class="flex-grow-1 overflow-hidden">
-                            <h5 class="fs-13 mb-1">{{ data.name }}</h5>
-                            <p class="born timestamp text-muted mb-0">{{ data.location }}</p>
-                          </td>
+                      <td class="flex-grow-1 overflow-hidden">
+                        <h5 class="fs-13 mb-1">{{ data.name }}</h5>
+                        <p class="born timestamp text-muted mb-0">{{ data.location }}</p>
+                      </td>
 
-                        <td class="flex-grow-1 overflow-hidden">
-                          @if(data.status === 'active') {
-                            <ip-component [domain]="data.domain"></ip-component>
+                      <td class="flex-grow-1 overflow-hidden">
+                        @if (data.status === 'active') {
+                          <ip-component [domain]="data.domain"></ip-component>
+                        }
+                      </td>
+
+                      <td class="flex-grow-1 overflow-hidden">
+                        {{ data.createdAt | date: 'MMMM dd, yyyy' }}
+                      </td>
+
+                      <td>
+                        <span
+                          [className]="data.status === 'active' ? 'badge bg-success-subtle text-success text-uppercase' : data.status === 'deleted' ? 'badge bg-danger-subtle text-danger text-uppercase' : 'badge bg-info-subtle text-info text-uppercase'">{{ data.status }}</span>
+                      </td>
+
+                      <td class="flex-shrink-0 ms-2">
+                        <div>
+                          @if (data.status === 'active') {
+                            <button type="button" class="btn btn-sm btn-light"
+                                    (click)="agentService.openControlPanel(data.domain, data.username, data.password)">
+                              <i class="ri-tools-line align-bottom"></i>
+                              Control Panel
+                            </button>
                           }
-                        </td>
-
-                        <td class="flex-grow-1 overflow-hidden">
-                          {{ data.createdAt | date: 'MMMM dd, yyyy' }}
-                        </td>
-
-                        <td>
-                          <span [className]="data.status === 'active' ? 'badge bg-success-subtle text-success text-uppercase' : data.status === 'deleted' ? 'badge bg-danger-subtle text-danger text-uppercase' : 'badge bg-info-subtle text-info text-uppercase'">{{ data.status }}</span>
-                        </td>
-
-                          <td class="flex-shrink-0 ms-2">
-                            <div>
-                              @if (data.status === 'active') {
-                                <button type="button" class="btn btn-sm btn-light" (click)="openControlPanel(data.domain, data.username, data.password)"><i class="ri-tools-line align-bottom"></i>
-                                  Control Panel
-                                </button>
-                              }
-                            </div>
-                          </td>
-                      </tr>
-                    }
-                  </tbody>
-                </table>
-                </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                  <div class="text-sm-right float-sm-end listjs-pagination gap-2">
-                    <ngb-pagination [collectionSize]="filteredServer().length" [(page)]="page" [pageSize]="pageSize">
-                    </ngb-pagination>
-                  </div>
-                </div>
-
-              </div>
+                        </div>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
             </div>
-          </div><!-- end card -->
-        </div>
-        <!-- end col -->
+          </div>
+          <div class="d-flex justify-content-center">
+            <div class="text-sm-right float-sm-end listjs-pagination gap-2">
+              <ngb-pagination [collectionSize]="filteredServers().length" [(page)]="page" [pageSize]="pageSize">
+              </ngb-pagination>
+            </div>
+          </div>
+
+        </div><!-- end card -->
       </div>
-      <!-- end row -->
+      <!-- end col -->
     </div>
+    <!-- end row -->
+  </div>
+} @else if (servers.isError()) {
+  <div class="alert alert-danger alert-dismissible alert-label-icon rounded-label fade show" role="alert">
+    <i class="ri-error-warning-line label-icon"></i><strong>Failed</strong> - To fetching the data.
+  </div>
+} @else {
+  <div class="position-relative" style="height: 70vh;">
+    <div class="position-absolute top-50 start-50 translate-middle">
+      <!-- Growing spinner -->
+      <div class="spinner-grow text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
 }

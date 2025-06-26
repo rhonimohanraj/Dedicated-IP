@@ -29,16 +29,6 @@ export class FunctionService {
     }>;
   }
 
-  createBillingPortal = async (): Promise<HttpsCallableResult<{
-    url: string
-  }>> => {
-    const createBillingPortal = httpsCallable(this.function, 'onCreateBillingPortal',
-      { limitedUseAppCheckTokens: true });
-    return await createBillingPortal() as HttpsCallableResult<{
-      url: string
-    }>;
-  }
-
   onDeleteSubscription = async (serverName: string): Promise<HttpsCallableResult> => {
     const onDeleteSubscription = httpsCallable(this.function, 'onDeleteSubscription',
       { limitedUseAppCheckTokens: true });

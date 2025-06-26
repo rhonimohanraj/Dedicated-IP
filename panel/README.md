@@ -1,3 +1,107 @@
+# Admin Panel
+
+The Admin Panel is a web-based interface for managing WireGuard VPN servers and clients. It provides a user-friendly way to configure WireGuard, manage users, and monitor connections.
+
+## Overview
+
+The Admin Panel offers the following features:
+- WireGuard server configuration management
+- Client configuration generation and management
+- User authentication and authorization
+- Email notifications
+- API endpoints for integration with other systems
+- QR code generation for easy client setup
+
+## Directory Structure
+
+```
+panel/
+├── assets/              # Static assets (CSS, JS, images)
+├── custom/              # Custom UI components
+│   ├── img/             # Custom images
+│   └── js/              # Custom JavaScript
+├── db/                  # Database related code
+├── emailer/             # Email sending functionality
+├── handler/             # HTTP request handlers
+├── model/               # Data models
+├── router/              # HTTP routing
+├── store/               # Data storage
+│   └── jsondb/          # JSON database implementation
+├── templates/           # HTML templates
+├── util/                # Utility functions
+├── Dockerfile           # Docker container definition
+├── docker-compose.yaml  # Docker Compose configuration
+├── go.mod               # Go module definition
+├── go.sum               # Go module checksums
+├── init.sh              # Initialization script
+├── main.go              # Application entry point
+├── package.json         # Node.js dependencies
+├── prepare_assets.sh    # Asset preparation script
+└── yarn.lock            # Yarn dependency lock file
+```
+
+## Prerequisites
+
+- Go 1.16 or later (for building from source)
+- Docker and Docker Compose (for containerized deployment)
+- WireGuard installed on the host system
+- Node.js and Yarn (for frontend development)
+
+## Setup Instructions
+
+### Using Docker (Recommended)
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd panel
+```
+
+2. **Configure environment variables**
+
+Create a `.env` file with the necessary environment variables (see Environment Variables section below).
+
+3. **Start the container**
+
+```bash
+docker compose up -d
+```
+
+### Building from Source
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd panel
+```
+
+2. **Prepare assets**
+
+```bash
+./prepare_assets.sh
+```
+
+3. **Build the application**
+
+```bash
+go build -o dedicated-ip-panel
+```
+
+4. **Run the application**
+
+```bash
+./dedicated-ip-panel
+```
+
+## Usage
+
+1. Access the web interface at `http://localhost:80` (or the configured port)
+2. Log in with the configured credentials
+3. Configure your WireGuard server settings
+4. Create and manage client configurations
+
 ## Environment Variables
 
 | Variable                    | Description                                                                                                                                                                                                                                                                         | Default                            |

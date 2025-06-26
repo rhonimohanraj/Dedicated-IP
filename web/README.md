@@ -1,82 +1,162 @@
-# Client
+# Web Dashboard
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This directory contains a web-based dashboard application built with Nx monorepo architecture for managing the WireGuard VPN service.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Overview
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+The Web Dashboard provides a user-friendly interface for:
+- Managing WireGuard VPN servers and clients
+- Monitoring connection status and statistics
+- User account management
+- Service configuration
 
-## Finish your CI setup
+## Directory Structure
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/S2JVMKsyCY)
+```
+web/
+├── apps/                  # Applications
+│   └── dashboard/         # Main dashboard application
+├── libs/                  # Shared libraries
+│   └── services/          # Shared services
+├── firebase.json          # Firebase configuration
+├── jest.config.ts         # Jest testing configuration
+├── nx.json                # Nx workspace configuration
+├── package.json           # Node.js dependencies
+├── package-lock.json      # Dependency lock file
+├── tsconfig.base.json     # Base TypeScript configuration
+└── eslint.config.js       # ESLint configuration
+```
 
+## Technology Stack
 
-## Run tasks
+- **Framework**: Angular
+- **Build System**: Nx
+- **State Management**: NgRx
+- **UI Components**: Angular Material
+- **Testing**: Jest
+- **Deployment**: Firebase Hosting
 
-To run the dev server for your app, use:
+## Prerequisites
 
-```sh
+- Node.js (v16 or later)
+- npm (v7 or later)
+- Angular CLI (optional, but recommended)
+
+## Setup Instructions
+
+1. **Clone the repository**
+
+```bash
+git clone <repository-url>
+cd web
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+
+Create environment files for development and production:
+
+```bash
+# For development
+cp apps/dashboard/src/environments/environment.example.ts apps/dashboard/src/environments/environment.ts
+
+# For production
+cp apps/dashboard/src/environments/environment.example.ts apps/dashboard/src/environments/environment.prod.ts
+```
+
+Edit the environment files to include your API endpoints and other configuration.
+
+## Development
+
+### Start the development server
+
+```bash
 npx nx serve dashboard
 ```
 
-To create a production bundle:
+This will start a development server at http://localhost:4200.
 
-```sh
-npx nx build dashboard
+### Generate new components
+
+```bash
+# Generate a new component
+npx nx g @nx/angular:component my-component --project=dashboard
+
+# Generate a new service in the shared services library
+npx nx g @nx/angular:service my-service --project=services
 ```
 
-To see all available targets to run for a project, run:
+### Run tests
 
-```sh
-npx nx show project dashboard
+```bash
+# Run tests for the dashboard
+npx nx test dashboard
+
+# Run tests for the services library
+npx nx test services
+
+# Run e2e tests
+npx nx e2e dashboard-e2e
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Building for Production
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
+```bash
+npx nx build dashboard --configuration=production
 ```
 
-To generate a new library, use:
+The build artifacts will be stored in the `dist/apps/dashboard` directory.
 
-```sh
-npx nx g @nx/angular:lib mylib
+## Deployment
+
+### Deploy to Firebase Hosting
+
+```bash
+# Install Firebase CLI if not already installed
+npm install -g firebase-tools
+
+# Login to Firebase
+firebase login
+
+# Initialize Firebase (if not already done)
+firebase init hosting
+
+# Deploy to Firebase
+npx nx build dashboard --configuration=production
+firebase deploy --only hosting
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Project Structure Best Practices
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+1. **Feature-based organization**: Group related components, services, and models into feature modules
+2. **Smart/Dumb component pattern**: Separate container (smart) components from presentational (dumb) components
+3. **Lazy loading**: Use lazy loading for feature modules to improve initial load time
+4. **State management**: Use NgRx for complex state management needs
 
+## Troubleshooting
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Common Issues
 
-## Install Nx Console
+1. **Build failures**
+   - Ensure all dependencies are installed: `npm install`
+   - Clear Nx cache: `npx nx reset`
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+2. **Testing issues**
+   - Make sure Jest is properly configured
+   - Check for environment-specific code that might fail in tests
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+3. **Deployment issues**
+   - Verify Firebase configuration
+   - Check build output for errors
 
-## Useful links
+## Contributing
 
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+1. Follow the Angular style guide
+2. Write tests for new features
+3. Use the Nx generators to create new components and services
+4. Run linting before committing: `npx nx lint`

@@ -1,3 +1,12 @@
+> ## ⚠️ **Project Archived**
+>
+> **This repository is no longer actively maintained.**
+>
+> The code is being made public for archival and educational purposes. While it was functional, I have since shifted my focus to a new venture and will no longer be providing support, merging pull requests, or addressing issues.
+>
+> Please feel free to fork this repository and adapt it for your own use in accordance with the license.
+>
+
 # Dedicated-IP: Secure, Private, and Reliable VPN Service
 
 ## About Dedicated-IP
